@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APGI — When Consciousness Turns On</title>
+    <meta name="description" content="APGI — When Consciousness Turns On. A computational framework unifying predictive processing, global workspace theory, and allostatic regulation." />
+    <link rel="canonical" href="https://apgiframework.com/apgi-landing.html" />
+    <meta property="og:title" content="APGI — When Consciousness Turns On" />
+    <meta property="og:description" content="APGI — When Consciousness Turns On. A computational framework unifying predictive processing, global workspace theory, and allostatic regulation." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://apgiframework.com/apgi-landing.html" />
+    <meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Framework-Diagram.png" />
+    <meta property="og:site_name" content="APGI Framework" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-base: #0a0a0a;
+      --bg-surface: #141414;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --border-color: rgba(255,255,255,0.1);
+      --accent: #5e6ad2;
+      --max-width: 1000px;
+    }
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --border-color: rgba(0,0,0,0.1);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg-base); color: var(--text-primary); font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+
+    /* ===== THEME TOGGLE ===== */
+    .theme-toggle {
+      background: none; border: none; cursor: pointer;
+      padding: 0.4rem; border-radius: 6px;
+      color: var(--text-secondary); font-size: 1.2rem;
+      transition: all 200ms; display: flex; align-items: center; justify-content: center;
+    }
+    .theme-toggle:hover { background: var(--bg-surface); color: var(--text-primary); }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    /* ===== NAV ===== */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 2rem; height: 55px;
+    }
+    .site-nav__links { display: flex; gap: 2rem; }
+    .site-nav__links a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.9rem; transition: color 150ms;
+    }
+    .site-nav__links a:hover { color: var(--text-primary); }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700; color: var(--text-primary);
+      line-height: 1.15; margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem; color: var(--text-secondary);
+      max-width: 700px; margin: 0 auto 1.5rem;
+      line-height: 1.7;
+    }
+    .hero-eq {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .hero-eq .pr { color: #FF3366; }
+    .hero-eq .er { color: #FFCC00; }
+    .hero-eq .th { color: #00B4FF; }
+    .hero-eq .op { color: rgba(255,255,255,0.3); }
+    .hero-label {
+      display: flex; justify-content: center; gap: 2rem;
+      font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 2rem;
+    }
+    .hero-label span { display: flex; align-items: center; gap: 0.4rem; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .dot--pr { background: #FF3366; }
+    .dot--er { background: #FFCC00; }
+    .dot--th { background: #00B4FF; }
+    .hero-author {
+      font-size: 0.9rem; color: var(--text-muted);
+      margin: 1rem 0 1.5rem;
+    }
+    .hero-tags { margin-bottom: 2rem; }
+    .tag {
+      display: inline-block; padding: 0.3rem 0.75rem; border-radius: 4px;
+      font-size: 0.75rem; margin: 0.2rem; background: var(--bg-surface);
+      border: 1px solid var(--border-color); color: var(--text-secondary);
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .btn {
+      display: inline-block; padding: 0.65rem 1.5rem; border-radius: 6px;
+      font-size: 0.875rem; font-weight: 500; text-decoration: none;
+      transition: all 200ms; font-family: 'Inter', system-ui, sans-serif;
+    }
+    .btn--primary  { background: var(--text-primary); color: var(--bg-base); }
+    .btn--primary:hover { opacity: 0.9; }
+    .btn--secondary { border: 1px solid var(--border-color); color: var(--text-primary); }
+    .btn--secondary:hover { border-color: var(--text-secondary); }
+    .btn--ghost { border: 1px solid rgba(0,204,153,0.3); color: #00CC99; }
+    .btn--ghost:hover { background: rgba(0,204,153,0.1); }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 0;
+    }
+
+    /* ===== SHARED SECTION STYLES ===== */
+    section { padding: 4rem 2rem; }
+    .inner { max-width: var(--max-width); margin: 0 auto; }
+    .inner--wide { max-width: var(--max-width); margin: 0 auto; }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 600;
+    }
+    h3 { font-size: 1rem; color: var(--text-primary); margin-bottom: 0.4rem; font-weight: 600; }
+    .section-lead {
+      color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;
+      font-size: 1rem; max-width: 700px;
+    }
+
+    /* ===== INTRO / WHAT IS APGI ===== */
+    .intro-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .intro-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1.5rem;
+    }
+    .intro-block__icon {
+      font-size: 1.25rem; margin-bottom: 0.5rem; display: block;
+    }
+    .intro-block p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ===== THREE-PART MECHANISM ===== */
+    .param-triad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .param-card {
+      background: var(--bg-surface); border-radius: 8px; padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+    .param-symbol {
+      font-size: 2rem;
+      font-weight: 700; margin-bottom: 0.5rem; font-family: 'Inter', system-ui, sans-serif;
+    }
+    .param-card--pr .param-symbol { color: #FF3366; }
+    .param-card--er .param-symbol { color: #FFCC00; }
+    .param-card--th .param-symbol { color: #00B4FF; }
+    .param-card h3 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .param-card p  { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+    .param-plain { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* ===== PAPER SERIES ===== */
+    .paper-series { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .paper-card {
+      display: grid; grid-template-columns: 3rem 1fr auto;
+      gap: 1rem; align-items: start;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1.25rem;
+    }
+    .paper-num {
+      font-size: 1.5rem;
+      font-weight: 700; color: var(--text-muted); line-height: 1;
+    }
+    .paper-card[data-series="1"] .paper-num { color: rgba(255,51,102,0.4); }
+    .paper-card[data-series="2"] .paper-num { color: rgba(255,204,0,0.4); }
+    .paper-card[data-series="3"] .paper-num { color: rgba(0,180,255,0.4); }
+    .paper-card[data-series="4"] .paper-num { color: rgba(153,102,255,0.4); }
+    .paper-card[data-series="supp"] .paper-num { color: rgba(0,204,153,0.4); }
+    .paper-body h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .paper-body p  { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+    .paper-tags { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .paper-tag {
+      font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 3px;
+      background: var(--bg-base); border: 1px solid var(--border-color); color: var(--text-muted);
+    }
+    .paper-actions { display: flex; flex-direction: column; gap: 0.3rem; align-items: flex-end; min-width: 80px; }
+    .paper-link {
+      font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 4px;
+      text-decoration: none; white-space: nowrap; font-weight: 500;
+      transition: all 180ms; border: 1px solid var(--border-color); color: var(--text-secondary);
+    }
+    .paper-link:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+    .paper-link--coming { color: var(--text-muted); font-style: italic; cursor: default; }
+
+    /* ===== EVIDENCE STATS ===== */
+    .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 2rem; }
+    .stat-card {
+      background: var(--bg-surface); border-radius: 8px;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem 1rem; text-align: center;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 700; margin-bottom: 0.25rem;
+    }
+    .stat-num--th { color: #00B4FF; }
+    .stat-num--pr { color: #FF3366; }
+    .stat-num--ws { color: #9966FF; }
+    .stat-num--er { color: #FFCC00; }
+    .stat-num--nm { color: #00CC99; }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* ===== RESOURCES / CTAs ===== */
+    .resource-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .resource-card {
+      background: var(--bg-surface); border-radius: 8px;
+      border: 1px solid var(--border-color); padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .resource-icon { font-size: 1.5rem; line-height: 1; }
+    .resource-label {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .resource-title {
+      font-size: 1rem;
+      color: var(--text-primary); font-weight: 600;
+    }
+    .resource-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+    .resource-link {
+      font-size: 0.8rem; font-weight: 500; text-decoration: none; color: var(--text-primary);
+      margin-top: 0.25rem;
+    }
+    .resource-link:hover { text-decoration: underline; }
+
+    /* ===== SOCIAL ROW ===== */
+    .social-strip { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+    .social-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: 6px; padding: 0.4rem 0.75rem;
+      text-decoration: none; font-size: 0.8rem; color: var(--text-secondary);
+      transition: all 180ms;
+    }
+    .social-pill:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+    .social-pill__icon { font-size: 0.9rem; }
+    .social-pill__handle { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ===== CALLOUT BLOCK ===== */
+    .callout {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .callout p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; font-style: italic; }
+    .callout-attr { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; font-style: normal; }
+
+    /* ===== BIBTEX ===== */
+    .bibtex-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .bibtex-item h3 { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .bibtex-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 6px; padding: 1rem;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+      font-size: 0.7rem; color: var(--text-secondary);
+      overflow-x: auto; white-space: pre;
+      line-height: 1.5;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 2rem; text-align: center;
+      font-size: 0.8rem; color: var(--text-muted);
+    }
+    footer a { color: var(--text-secondary); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-eq { margin-bottom: 0.5rem; font-size: 1rem; letter-spacing: 0.05em; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .site-nav__links { gap: 1.25rem; }
+      .intro-grid { grid-template-columns: 1fr; }
+      .param-triad { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .resource-grid { grid-template-columns: 1fr; }
+      .paper-card { grid-template-columns: 1fr; }
+      .paper-num { display: none; }
+      .paper-actions { flex-direction: row; align-items: flex-start; flex-wrap: wrap; }
+      .hero-label { gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+      .bibtex-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="site-nav">
+  <div class="site-nav__links">
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon-moon">🌙</span>
+      <span class="icon-sun">☀️</span>
+    </button>
+    <a href="#what">What is APGI</a>
+    <a href="#papers">Papers</a>
+    <a href="#resources">Resources</a>
+    <a href="#cite">Cite</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="top" style="padding-top:0; padding-bottom:0;">
+<div class="hero">
+  <h1 class="hero-title">When Does Consciousness<br>Turn On?</h1>
+  <p class="hero-subtitle">
+    APGI is a neuroscience framework with a simple answer: awareness ignites when 
+    your body's confidence in a surprise signal is strong enough to cross a threshold. 
+    Three factors. One equation. Decades of research, unified.
+  </p>
+  <div class="hero-eq">
+    <span class="pr">Π</span>
+    <span class="op"> × </span>
+    <span class="er">|ε|</span>
+    <span class="op"> &gt; </span>
+    <span class="th">B<sub style="font-size:0.6em">t</sub></span>
+  </div>
+  <div class="hero-label">
+    <span><span class="dot dot--pr"></span> Body's confidence</span>
+    <span><span class="dot dot--er"></span> Surprise signal</span>
+    <span><span class="dot dot--th"></span> Awareness threshold</span>
+  </div>
+  <div class="hero-author">Dimitry Pesochin &nbsp;·&nbsp; APGI Research Series &nbsp;·&nbsp; 2024–2025</div>
+  <div class="hero-tags">
+    <span class="tag tag--pr">Predictive Processing</span>
+    <span class="tag tag--th">Allostatic Regulation</span>
+    <span class="tag tag--ws">Global Workspace Theory</span>
+    <span class="tag tag--er">Precision Weighting</span>
+    <span class="tag tag--nm">Consciousness Science</span>
+  </div>
+  <div class="hero-ctas">
+    <a class="btn btn--primary" href="#resources">Read the Book</a>
+    <a class="btn btn--secondary" href="#resources">Take the Quiz</a>
+    <a class="btn btn--ghost" href="#papers">Browse Papers →</a>
+  </div>
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== WHAT IS APGI ===== -->
+<section id="what">
+  <div class="inner">
+    <h2>What is APGI?</h2>
+    <p class="section-lead">
+      Allostatic Precision-Gated Ignition is a model of consciousness that treats awareness 
+      not as a mysterious property of the brain, but as a threshold event — like a circuit 
+      breaker flipping. Your nervous system is always predicting. When something unexpected 
+      happens and the body is confident about that surprise, the signal crosses a gate 
+      and floods the brain's global workspace. That flood <em>is</em> conscious experience.
+    </p>
+
+    <div class="param-triad">
+      <div class="param-card param-card--pr">
+        <div class="param-symbol">Π</div>
+        <h3>Body Confidence</h3>
+        <p>How strongly your nervous system trusts the surprise signal it just detected. 
+        This is shaped by arousal, stress hormones, and your internal physiological state 
+        at that moment — what researchers call "allostatic precision."</p>
+        <div class="param-plain">In plain terms: how alert and tuned-in your body is right now</div>
+      </div>
+      <div class="param-card param-card--er">
+        <div class="param-symbol">|ε|</div>
+        <h3>Surprise Magnitude</h3>
+        <p>The size of the gap between what your brain predicted would happen and what 
+        actually happened. A small discrepancy passes unnoticed. A large one demands 
+        attention — this is the raw signal that might become conscious.</p>
+        <div class="param-plain">In plain terms: how unexpected was that event?</div>
+      </div>
+      <div class="param-card param-card--th">
+        <div class="param-symbol">B<sub style="font-size:0.6em">t</sub></div>
+        <h3>Awareness Threshold</h3>
+        <p>The gating barrier set by your thalamus — a deep brain structure that acts as 
+        a filter. Only signals whose confidence-weighted surprise exceeds this threshold 
+        break through to conscious broadcast. Sleep, drugs, and attention all shift it.</p>
+        <div class="param-plain">In plain terms: how high is the bar for something to reach awareness?</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:2.5rem;">
+      <p>"Consciousness is not a lamp that's always on or always off. It's a gate that 
+      opens when the right signal arrives at the right moment — and APGI describes 
+      precisely what 'right' means."</p>
+      <div class="callout-attr">— Framework summary, Paper I (Pesochin, 2024)</div>
+    </div>
+
+    <div class="intro-grid" style="margin-top:2rem;">
+      <div class="intro-block">
+        <span class="intro-block__icon">🧬</span>
+        <h3>Grounded in established science</h3>
+        <p>APGI synthesizes three well-supported frameworks — predictive processing 
+        (Friston), global workspace theory (Dehaene), and allostatic regulation (Sterling, 
+        Barrett) — into a single coherent model.</p>
+      </div>
+      <div class="intro-block">
+        <span class="intro-block__icon">📐</span>
+        <h3>A testable prediction</h3>
+        <p>APGI generates concrete, measurable predictions about when awareness should occur,
+        built on established findings from predictive processing, global workspace theory, and
+        allostatic regulation research. Empirical validation of APGI's own predictions is ongoing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== STATS ===== -->
+<section style="padding-top:3.5rem; padding-bottom:3.5rem;">
+  <div class="inner--wide">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num stat-num--th">4</div>
+        <div class="stat-label">Papers in the series</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num stat-num--ws">3</div>
+        <div class="stat-label">Major frameworks unified</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num stat-num--er">1</div>
+        <div class="stat-label">Predictive equation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num stat-num--nm">∞</div>
+        <div class="stat-label">Everyday moments it explains</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== PAPER SERIES ===== -->
+<section id="papers">
+  <div class="inner--wide">
+    <h2>The Research Series</h2>
+    <p class="section-lead">
+      Four papers trace APGI from first principles to clinical implications, 
+      each building on the last. Supplemental materials provide raw data, 
+      experimental stimuli, and extended literature reviews for researchers who 
+      want to go deeper.
+    </p>
+
+    <div class="paper-series">
+
+      <!-- Paper I -->
+      <div class="paper-card" data-series="1">
+        <div class="paper-num">I</div>
+        <div class="paper-body">
+          <h3>The APGI Framework: A Unified Account of Conscious Ignition</h3>
+          <p>Introduces the core equation and its three components. Reviews the 
+          predictive processing and global workspace literatures that motivate the 
+          framework. Establishes how allostatic state modulates precision weighting 
+          and why this changes the threshold for conscious broadcast. Foundational 
+          paper — start here.</p>
+          <div class="paper-tags">
+            <span class="tag">Theoretical</span>
+            <span class="tag">Framework</span>
+            <span class="tag">Literature Review</span>
+          </div>
+        </div>
+        <div class="paper-actions">
+          <a href="#" class="paper-link paper-link--pdf">PDF →</a>
+          <a href="#" class="paper-link paper-link--supp">Supp →</a>
+        </div>
+      </div>
+
+      <!-- Paper II -->
+      <div class="paper-card" data-series="2">
+        <div class="paper-num">II</div>
+        <div class="paper-body">
+          <h3>Allostatic Modulation of Precision: Empirical Evidence and Model Validation</h3>
+          <p>Tests whether allostatic state (indexed by interoceptive measures) predicts 
+          precision-weighted prediction error magnitudes in behavioral tasks. Presents 
+          correlation data across multiple paradigms. Validates the model's predictions 
+          against neuroimaging and psychophysical data from existing studies.</p>
+          <div class="paper-tags">
+            <span class="tag">Empirical</span>
+            <span class="tag">Validation</span>
+            <span class="tag">Neuroimaging</span>
+          </div>
+        </div>
+        <div class="paper-actions">
+          <a href="#" class="paper-link paper-link--pdf">PDF →</a>
+          <a href="#" class="paper-link paper-link--data">Data →</a>
+          <a href="#" class="paper-link paper-link--supp">Supp →</a>
+        </div>
+      </div>
+
+      <!-- Paper III -->
+      <div class="paper-card" data-series="3">
+        <div class="paper-num">III</div>
+        <div class="paper-body">
+          <h3>Threshold Dynamics: Sleep, Arousal, and the Gating of Conscious Access</h3>
+          <p>Examines how the threshold parameter B<sub>t</sub> varies across states of 
+          consciousness — wakefulness, sleep stages, anesthesia, and altered states. 
+          Proposes a neurobiological substrate for the threshold gate and reviews the 
+          thalamo-cortical mechanisms that implement it. Includes clinical implications 
+          for disorders of consciousness.</p>
+          <div class="paper-tags">
+            <span class="tag">Threshold</span>
+            <span class="tag">Sleep Science</span>
+            <span class="tag">Clinical</span>
+          </div>
+        </div>
+        <div class="paper-actions">
+          <a href="#" class="paper-link paper-link--pdf">PDF →</a>
+          <a href="#" class="paper-link paper-link--supp">Supp →</a>
+        </div>
+      </div>
+
+      <!-- Paper IV -->
+      <div class="paper-card" data-series="4">
+        <div class="paper-num">IV</div>
+        <div class="paper-body">
+          <h3>From Mechanism to Mind: Implications of APGI for Consciousness Studies, 
+          Psychiatry, and AI</h3>
+          <p>The culminating paper. Addresses what APGI implies for longstanding 
+          debates — the hard problem, phenomenal vs. access consciousness, artificial 
+          consciousness. Proposes experimental designs that could falsify the framework. 
+          Discusses applications to psychiatric conditions where allostatic dysregulation 
+          disrupts conscious experience.</p>
+          <div class="paper-tags">
+            <span class="tag">Philosophy of Mind</span>
+            <span class="tag">Psychiatry</span>
+            <span class="tag">AI Implications</span>
+          </div>
+        </div>
+        <div class="paper-actions">
+          <a href="#" class="paper-link paper-link--pdf">PDF →</a>
+          <a href="#" class="paper-link paper-link--supp">Supp →</a>
+        </div>
+      </div>
+
+      <!-- Supplemental -->
+      <div class="paper-card" data-series="supp">
+        <div class="paper-num">S</div>
+        <div class="paper-body">
+          <h3>Supplemental Materials — Full Series</h3>
+          <p>Extended literature review (147 additional references), raw experimental 
+          stimuli, all analysis code, parameter estimation protocols, the full 
+          consciousness signature assessment instrument with scoring rubric, and 
+          extended discussion sections cut from each paper for length. Researchers: 
+          everything you need to replicate or extend the work is here.</p>
+          <div class="paper-tags">
+            <span class="tag">Open Data</span>
+            <span class="tag">Reproducibility</span>
+            <span class="tag">Assessment Instrument</span>
+          </div>
+        </div>
+        <div class="paper-actions">
+          <a href="#" class="paper-link paper-link--supp">Download →</a>
+          <a href="#" class="paper-link paper-link--data">GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== RESOURCES ===== -->
+<section id="resources">
+  <div class="inner--wide">
+    <h2>Explore the Framework</h2>
+    <p class="section-lead">
+      Whether you are a neuroscientist, a curious reader, or a developer, 
+      there is a way into APGI that fits how you think.
+    </p>
+
+    <div class="resource-grid">
+
+      <div class="resource-card resource-card--book">
+        <div class="resource-icon">📗</div>
+        <div class="resource-label">Book</div>
+        <div class="resource-title">When Consciousness Turns On</div>
+        <div class="resource-desc">The complete APGI story in accessible language. 
+        Covers all four papers, the history of consciousness research, what the 
+        framework means for everyday experience, and what it implies about sleep, 
+        stress, attention, and mental health. No equations required.</div>
+        <a class="resource-link" href="#">Read on Draft2Digital →</a>
+      </div>
+
+      <div class="resource-card resource-card--quiz">
+        <div class="resource-icon">🧭</div>
+        <div class="resource-label">Interactive Assessment</div>
+        <div class="resource-title">Your Consciousness Signature</div>
+        <div class="resource-desc">A 12-question web assessment that estimates your 
+        current Π, |ε|, and B<sub>t</sub> profile — how alert your body is, how 
+        sensitive to surprise, and how high your awareness threshold sits. 
+        Evidence-based. Takes under 5 minutes.</div>
+        <a class="resource-link" href="#">Take the Quiz →</a>
+      </div>
+
+      <div class="resource-card resource-card--code">
+        <div class="resource-icon">⚙️</div>
+        <div class="resource-label">Open Code</div>
+        <div class="resource-title">APGI Model Implementation</div>
+        <div class="resource-desc">Python package for simulating APGI dynamics, 
+        fitting model parameters to behavioral or neural data, and running the 
+        experimental paradigms described in Papers II and III. Full documentation 
+        and worked examples on GitHub.</div>
+        <a class="resource-link" href="#">View on GitHub →</a>
+      </div>
+
+      <div class="resource-card resource-card--supp">
+        <div class="resource-icon">🗂️</div>
+        <div class="resource-label">Supplemental Materials</div>
+        <div class="resource-title">Full Research Package</div>
+        <div class="resource-desc">All data, stimuli, analysis scripts, and 
+        extended literature reviews from the four-paper series. Designed for 
+        researchers who want to replicate, critique, or build on the APGI framework. 
+        Openly licensed.</div>
+        <a class="resource-link" href="#">Download Package →</a>
+      </div>
+
+      <div class="resource-card resource-card--social">
+        <div class="resource-icon">📡</div>
+        <div class="resource-label">Social Media</div>
+        <div class="resource-title">Follow the Research</div>
+        <div class="resource-desc">Paper summaries, data visualizations, and 
+        discussion threads on X, Telegram, and LinkedIn. New findings, reader 
+        questions, and the occasional thought experiment — all through the APGI lens.</div>
+        <a class="resource-link" href="#social">See channels →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== SOCIAL ===== -->
+<section id="social" style="padding-top:4rem; padding-bottom:4rem;">
+  <div class="inner">
+    <h2>Follow the Work</h2>
+    <p class="section-lead">
+      Each platform carries a different depth of engagement — from quick 
+      daily observations on X to detailed methodology threads on Telegram.
+    </p>
+    <div class="social-strip">
+      <a class="social-pill" href="#">
+        <span class="social-pill__icon">𝕏</span>
+        <span>X / Twitter</span>
+        <span class="social-pill__handle">@apgi_framework</span>
+      </a>
+      <a class="social-pill" href="#">
+        <span class="social-pill__icon">✈️</span>
+        <span>Telegram</span>
+        <span class="social-pill__handle">APGI Research Channel</span>
+      </a>
+      <a class="social-pill" href="#">
+        <span class="social-pill__icon">💼</span>
+        <span>LinkedIn</span>
+        <span class="social-pill__handle">Dimitry Pesochin</span>
+      </a>
+      <a class="social-pill" href="#">
+        <span class="social-pill__icon">📷</span>
+        <span>Instagram</span>
+        <span class="social-pill__handle">@apgi.science</span>
+      </a>
+      <a class="social-pill" href="#">
+        <span class="social-pill__icon">▶️</span>
+        <span>YouTube</span>
+        <span class="social-pill__handle">APGI Explained</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== CITATION ===== -->
+<section id="cite">
+  <div class="inner">
+    <h2>Cite This Work</h2>
+    <p class="section-lead">
+      If you use the APGI framework in your research, please cite the relevant paper 
+      from the series. Use the book citation for general reference to the framework.
+    </p>
+    <div class="bibtex-grid">
+      <div class="bibtex-item">
+        <h3>Book</h3>
+        <pre class="bibtex-block">@book{pesochin2024apgi_book,
+  title     = {When Consciousness Turns On},
+  author    = {Pesochin, Dimitry},
+  year      = {2024},
+  publisher = {Draft2Digital},
+  note      = {Allostatic Precision-Gated
+               Ignition Framework}
+}</pre>
+      </div>
+      <div class="bibtex-item">
+        <h3>Paper I — Framework</h3>
+        <pre class="bibtex-block">@article{pesochin2024apgi_I,
+  title   = {The APGI Framework: A Unified
+             Account of Conscious Ignition},
+  author  = {Pesochin, Dimitry},
+  journal = {[Journal]},
+  year    = {2024},
+  note    = {APGI Series, Paper I}
+}</pre>
+      </div>
+      <div class="bibtex-item">
+        <h3>Paper II — Validation</h3>
+        <pre class="bibtex-block">@article{pesochin2024apgi_II,
+  title   = {Allostatic Modulation of
+             Precision: Empirical Evidence},
+  author  = {Pesochin, Dimitry},
+  journal = {[Journal]},
+  year    = {2024},
+  note    = {APGI Series, Paper II}
+}</pre>
+      </div>
+      <div class="bibtex-item">
+        <h3>Software</h3>
+        <pre class="bibtex-block">@software{pesochin2024apgi_code,
+  title   = {apgi-model: Python
+             Implementation},
+  author  = {Pesochin, Dimitry},
+  year    = {2024},
+  url     = {https://github.com/...},
+  note    = {Open-source simulation
+             package}
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-eq">
+    <span style="color:#FF3366">Π</span>
+    <span style="color:rgba(255,255,255,0.3)"> × </span>
+    <span style="color:#FFCC00">|ε|</span>
+    <span style="color:rgba(255,255,255,0.3)"> > </span>
+    <span style="color:#00B4FF">B<sub style="font-size:0.6em">t</sub></span>
+  </div>
+  <p>© 2024–2025 Dimitry Pesochin &nbsp;·&nbsp; APGI Framework &nbsp;·&nbsp;
+    <a href=\"mailto:contact@apgi.science\">contact@apgi.science</a>
+  </p>
+  <p style=\"margin-top:0.5rem; font-size:0.75rem; color:var(--text-muted);\">
+    Allostatic Precision-Gated Ignition &nbsp;·&nbsp; 
+    Consciousness Science &nbsp;·&nbsp; Open Research
+  </p>
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next === 'dark' ? '' : 'light');
+    localStorage.setItem('theme', next);
+    updateNavBackground(next);
+  }
+  function updateNavBackground(theme) {
+    const nav = document.querySelector('.site-nav');
+    nav.style.background = theme === 'light' ? 'rgba(248,250,252,0.95)' : 'rgba(10,10,10,0.95)';
+  }
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = saved || (prefersDark ? 'dark' : 'light');
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      updateNavBackground('light');
+    }
+  })();
+</script>
+
+</body>
+</html>

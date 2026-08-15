@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /funnels/_internal/
+Allow: /
+
+Sitemap: https://apgiframework.com/sitemap.xml

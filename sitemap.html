@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sitemap | APGI Framework</title>
+    <meta name="description" content="Every page on the APGI Framework site, grouped by category." />
+    <link rel="canonical" href="https://apgiframework.com/sitemap.html" />
+    <meta property="og:title" content="Sitemap | APGI Framework" />
+    <meta property="og:description" content="Every page on the APGI Framework site, grouped by category." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://apgiframework.com/sitemap.html" />
+    <meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Framework-Diagram.png" />
+    <meta property="og:site_name" content="APGI Framework" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="assets/css/navigation.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg-base: #0a0a0a;
+        --bg-surface: #141414;
+        --text-primary: #ffffff;
+        --text-secondary: #a0a0a0;
+        --text-muted: #666666;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --accent: #5e6ad2;
+        --max-width: 1100px;
+      }
+      body {
+        background: var(--bg-base);
+        color: var(--text-primary);
+        font-family: "Inter", system-ui, sans-serif;
+        line-height: 1.6;
+      }
+      main {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 3.5rem 2rem 4rem;
+      }
+      .page-title {
+        font-size: clamp(2rem, 4vw, 2.75rem);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+      .page-subtitle {
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        max-width: 640px;
+      }
+      .group {
+        margin-bottom: 2.75rem;
+      }
+      .group-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .link-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 0.25rem 2rem;
+      }
+      .link-row {
+        display: block;
+        padding: 0.55rem 0;
+        text-decoration: none;
+        color: var(--text-primary);
+        border-bottom: 1px solid transparent;
+        transition: color 150ms;
+      }
+      .link-row:hover {
+        color: var(--accent);
+      }
+      .link-row .desc {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 0.1rem;
+      }
+      footer {
+        border-top: 1px solid var(--border-color);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+      @media (max-width: 640px) {
+        .main-nav .nav-links {
+          flex-wrap: wrap;
+          row-gap: 4px;
+        }
+        .main-nav .nav-container {
+          height: auto;
+          padding: 8px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="main-nav" aria-label="Primary">
+      <div class="nav-container">
+        <div class="nav-links">
+          <a href="/index.html" class="nav-link nav-brand">APGI Framework</a>
+          <a href="/papers-index.html" class="nav-link">Papers</a>
+          <a href="/apgi-assessment.html" class="nav-link">Assessment</a>
+          <a href="/book-outline.html" class="nav-link">Book</a>
+          <a href="/apgi-software-system.html" class="nav-link">Software</a>
+          <a href="/apgi-experiments.html" class="nav-link">Experiments</a>
+          <a href="/funnels.html" class="nav-link">Solutions</a>
+          <a href="/sitemap.html" class="nav-link active">Sitemap</a>
+          <a href="/contact.html" class="nav-link">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <h1 class="page-title">Sitemap</h1>
+      <p class="page-subtitle">
+        Every page on the APGI Framework site, grouped by category.
+      </p>
+
+      <section class="group">
+        <h2 class="group-title">Home</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/index.html"
+            >Home<span class="desc">Site homepage</span></a
+          >
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group-title">Research Papers</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/papers-index.html"
+            >Papers Index<span class="desc">The full research series</span></a
+          >
+          <a class="link-row" href="/framework-paper.html"
+            >Allostatic Precision-Gating of Conscious Access<span class="desc"
+              >Core framework paper</span
+            ></a
+          >
+          <a class="link-row" href="/liquid-networks-paper.html"
+            >Liquid Networks<span class="desc"
+              >The bistable consciousness paradox</span
+            ></a
+          >
+          <a class="link-row" href="/multi-scale-consciousness-paper.html"
+            >Multi-Scale Consciousness<span class="desc"
+              >Five levels of conscious time</span
+            ></a
+          >
+          <a class="link-row" href="/epistemic-architecture-paper.html"
+            >Epistemic Architecture<span class="desc"
+              >Evaluating theories of conscious access</span
+            ></a
+          >
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group-title">Assessments</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/apgi-assessment.html"
+            >APGI Assessment<span class="desc"
+              >Full cognitive processing assessment</span
+            ></a
+          >
+          <a class="link-row" href="/assessment-onepage.html"
+            >One-Page Assessment<span class="desc"
+              >Condensed parameter assessment</span
+            ></a
+          >
+          <a class="link-row" href="/quiz-signature.html"
+            >Signature Quiz<span class="desc">Short quiz</span></a
+          >
+          <a class="link-row" href="/state-assessment.html"
+            >State Assessment<span class="desc"
+              >Psychological state assessment</span
+            ></a
+          >
+          <a class="link-row" href="/apgi-signature.html"
+            >APGI Signature<span class="desc"
+              >The coordinate system of consciousness</span
+            ></a
+          >
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group-title">Software & Experiments</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/apgi-software-system.html"
+            >APGI System<span class="desc">Interactive software suite</span></a
+          >
+          <a class="link-row" href="/apgi-experiments.html"
+            >Experiments<span class="desc"
+              >Interactive computational models</span
+            ></a
+          >
+          <a class="link-row" href="/app-explorer.html"
+            >APGI Explorer<span class="desc"
+              >Explore your cognitive architecture</span
+            ></a
+          >
+          <a class="link-row" href="/app-appendix.html"
+            >APGI Appendix<span class="desc">Reference material</span></a
+          >
+          <a class="link-row" href="/consciousness-visualization.html"
+            >Consciousness Visualization<span class="desc"
+              >Phases of consciousness ignition</span
+            ></a
+          >
+          <a class="link-row" href="/neuromodulatory-cascade.html"
+            >Neuromodulatory Cascade<span class="desc"
+              >Interactive cascade visualization</span
+            ></a
+          >
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group-title">Book</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/book-outline.html"
+            >Book Outline<span class="desc"
+              >"When Consciousness Turns On"</span
+            ></a
+          >
+          <a class="link-row" href="/book-available-now.html"
+            >Get the Book<span class="desc">Ebook & audiobook formats</span></a
+          >
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group-title">Solutions by Role</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/funnels.html"
+            >All Solutions<span class="desc">Browse by role</span></a
+          >
+          <a class="link-row" href="/funnels/1_individual_self_explorers.html"
+            >Individual Self-Explorers</a
+          >
+          <a class="link-row" href="/funnels/2_therapists_coaches.html"
+            >Therapists & Coaches</a
+          >
+          <a class="link-row" href="/funnels/3_academic_researchers.html"
+            >Academic Researchers</a
+          >
+          <a class="link-row" href="/funnels/4_organizational_development.html"
+            >Organizational Development</a
+          >
+          <a class="link-row" href="/funnels/5_educational_institutions.html"
+            >Educational Institutions</a
+          >
+          <a class="link-row" href="/funnels/6_healthcare_professionals.html"
+            >Healthcare Professionals</a
+          >
+          <a class="link-row" href="/funnels/7_tech_industry_professionals.html"
+            >Tech Industry Professionals</a
+          >
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group-title">More</h2>
+        <div class="link-grid">
+          <a class="link-row" href="/apgi-landing.html"
+            >APGI Landing Page<span class="desc"
+              >Academic-style overview page</span
+            ></a
+          >
+          <a class="link-row" href="/contact.html">Contact</a>
+          <a class="link-row" href="/privacy-policy.html">Privacy Policy</a>
+          <a class="link-row" href="/terms-of-service.html">Terms of Service</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 APGI Framework</p>
+    </footer>
+  </body>
+</html>
