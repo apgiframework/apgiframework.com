@@ -1,0 +1,5 @@
+/* APGI Design System — Web fonts
+   Crimson Pro (serif, display/headline), Inter (sans, body/UI), Fira Code (mono, code).
+   Loaded from Google Fonts CDN — see readme.md "Fonts" note for local-file substitution. */
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;700&family=Fira+Code:wght@400;500;600&display=swap');

@@ -1,0 +1,70 @@
+/* APGI Design System — Interaction & accessibility base rules
+   Shadows are banned, so focus/hover/press states rely entirely on the
+   quantified color overlays and the focus ring defined in colors.css. */
+
+/* Keyboard focus — 2px solid Workspace Purple, 2px offset, all interactive
+   elements. Never rely on browser default outline (inconsistent, often
+   suppressed by resets) or on color/hue changes alone. */
+:where(button, a, input, select, textarea, [role="button"], [tabindex]):focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+/* Hover / active — quantified neutral overlays, light mode default.
+   Apply via .apgi-interactive or scope your own component the same way;
+   semantic parameter colors must never hue-shift on hover/press. */
+.apgi-interactive { position: relative; }
+.apgi-interactive:hover::after,
+.apgi-interactive:active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.apgi-interactive:hover::after { background: var(--state-hover-overlay-light); }
+.apgi-interactive:active::after { background: var(--state-active-overlay-light); }
+[data-mode="dark"] .apgi-interactive:hover::after { background: var(--state-hover-overlay-dark); }
+[data-mode="dark"] .apgi-interactive:active::after { background: var(--state-active-overlay-dark); }
+.apgi-interactive:disabled,
+.apgi-interactive[aria-disabled="true"] {
+  opacity: var(--state-disabled-opacity);
+  pointer-events: none;
+}
+
+/* Dropdowns/popovers/menus — no shadows, so separation from the page comes
+   from a hairline border + a solid (not translucent) raised surface. */
+.apgi-raised-surface {
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+}
+[data-mode="dark"] .apgi-raised-surface {
+  background: var(--dark-bg-card-raised);
+}
+
+/* Reduced motion — respect user preference; APGI motion is already subtle
+   (150–200ms, ease-out, no bounce) so this simply removes it entirely. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Skeleton / loading state — neutral shimmer, no parameter-color usage
+   (a loading skeleton is not a measured value). */
+@keyframes apgi-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.apgi-skeleton {
+  background: var(--neutral-200);
+  border-radius: var(--radius-sm);
+  animation: apgi-skeleton-pulse 1.2s ease-in-out infinite;
+}
+[data-mode="dark"] .apgi-skeleton { background: var(--dark-bg-card-raised); }
+@media (prefers-reduced-motion: reduce) {
+  .apgi-skeleton { animation: none; opacity: 0.8; }
+}

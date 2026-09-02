@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/tokens/interaction.css">
+  <link rel="stylesheet" href="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/styles.css">
+  <script src="_ds/apgi-design-system-febe17b4-37d2-4145-b5e4-86659aedf063/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;background:var(--color-white);}
+    a{color:var(--color-workspace-purple-text);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    ::selection{background:var(--color-workspace-purple);color:#fff;}
+  </style>
+</helmet>
+
+<div style="font-family:var(--font-sans);background:var(--color-white);color:var(--text-body);">
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:20;background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border-subtle);backdrop-filter:blur(4px);">
+    <div style="max-width:1440px;margin:0 auto;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:32px;">
+      <div style="display:flex;align-items:baseline;gap:12px;">
+        <span style="font-family:var(--font-serif-display);font-weight:700;font-size:22px;letter-spacing:var(--tracking-h2);color:var(--text-body);">APGI</span>
+        <span style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);white-space:nowrap;">Π × |ε| &gt; B<sub>t</sub></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+        <a href="#framework" style="font-size:14px;font-weight:500;color:var(--text-secondary);">The Framework</a>
+        <a href="#papers" style="font-size:14px;font-weight:500;color:var(--text-secondary);">Papers</a>
+        <a href="#applied" style="font-size:14px;font-weight:500;color:var(--text-secondary);">Applied</a>
+        <a href="#pricing" style="font-size:14px;font-weight:500;color:var(--text-secondary);">Pricing</a>
+        <a href="#resources" style="font-size:14px;font-weight:500;color:var(--text-secondary);">Resources</a>
+        <a href="#cite" style="font-size:14px;font-weight:500;color:var(--text-secondary);">Cite</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="max-width:1440px;margin:0 auto;padding:96px 48px 80px;">
+    <div style="max-width:880px;">
+      <h1 style="font-family:var(--font-serif-display);font-size:var(--text-display);line-height:var(--leading-display);letter-spacing:var(--tracking-display);font-weight:600;color:var(--text-body);margin:0 0 28px;">Conscious access is not continuous. It is a threshold event.</h1>
+      <p style="font-family:var(--font-sans);font-size:20px;line-height:1.5;color:var(--text-secondary);margin:0 0 20px;max-width:760px;">The Allostatic Precision-Gated Ignition (APGI) framework explains when, why, and how neural representations become globally available for report, reasoning, and flexible action.</p>
+      <p style="font-family:var(--font-sans);font-size:20px;line-height:1.5;color:var(--text-secondary);margin:0 0 40px;max-width:760px;">It models conscious access as a phase transition. Precision-weighted prediction errors accumulate and cross a dynamic, metabolically regulated threshold inside cortical networks that function as liquid computers:</p>
+      <div style="font-family:var(--font-mono);font-size:28px;color:var(--text-body);background:var(--color-light-surface);border:1px solid var(--border-subtle);border-radius:var(--card-radius);display:inline-block;padding:16px 28px;margin:0 0 40px;">
+        <span style="color:var(--color-precision-red-text);">Π</span> × <span style="color:var(--color-error-yellow-text);">|ε|</span> &gt; <span style="color:var(--color-threshold-slate-text);">B<sub>t</sub></span>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="primary" size="lg">Read the Papers</x-import>
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="secondary" size="lg">Take the Assessment</x-import>
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="ghost" size="lg">Browse the Framework →</x-import>
+      </div>
+    </div>
+  </header>
+
+  <!-- PARADOX -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:80px 48px;">
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--color-threshold-slate-text);margin:0 0 16px;">The Paradox</p>
+      <p style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);letter-spacing:var(--tracking-h2);font-weight:400;color:var(--text-body);margin:0;max-width:920px;">Physically identical stimuli sometimes reach awareness and sometimes stay unconscious. Existing theories describe broadcasting or integration, but none predict the trial-to-trial boundary. Without a precise account of threshold dynamics, the field cannot say when a signal crosses into consciousness.</p>
+    </div>
+  </section>
+
+  <!-- FRAMEWORK -->
+  <section id="framework" style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+    <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--color-workspace-purple-text);margin:0 0 16px;">The Framework</p>
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);letter-spacing:var(--tracking-h1);font-weight:600;color:var(--text-body);margin:0 0 20px;max-width:820px;">APGI resolves the paradox with three interacting mechanisms.</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:40px 0 32px;">
+      <sc-for list="{{ mechanisms }}" as="m" hint-placeholder-count="3">
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,220px">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Badge" hint-size="auto,24px" tone="{{ m.tone }}">{{ m.tag }}</x-import>
+          <h3 style="font-family:var(--font-sans);font-size:var(--text-h3);font-weight:700;color:var(--text-body);margin:16px 0 8px;">{{ m.title }}</h3>
+          <p style="font-family:var(--font-sans);font-size:var(--text-body-size);line-height:var(--leading-body);color:var(--text-secondary);margin:0;">{{ m.desc }}</p>
+        </x-import>
+      </sc-for>
+    </div>
+    <p style="font-family:var(--font-sans);font-size:18px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;max-width:820px;">Conscious access is therefore neither automatic nor purely computational. It is an embodied, energy-aware decision.</p>
+  </section>
+
+  <!-- WHAT MAKES APGI DISTINCT -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 40px;max-width:820px;">What makes APGI distinct</h2>
+      <div style="display:flex;flex-direction:column;">
+        <sc-for list="{{ distinctPoints }}" as="d" hint-placeholder-count="5">
+          <div style="display:flex;gap:24px;padding:24px 0;border-top:1px solid var(--border-subtle);align-items:baseline;">
+            <span style="font-family:var(--font-mono);font-size:14px;color:var(--text-muted);min-width:32px;">{{ d.num }}</span>
+            <p style="font-family:var(--font-sans);font-size:17px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;max-width:880px;">{{ d.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO THIS IS FOR -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+    <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--color-threshold-slate-text);margin:0 0 16px;">Who This Is For — Core Science</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <sc-for list="{{ audiences }}" as="a" hint-placeholder-count="5">
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,160px">
+          <h3 style="font-family:var(--font-sans);font-size:var(--text-h3);font-weight:700;color:var(--text-body);margin:0 0 8px;">{{ a.title }}</h3>
+          <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">{{ a.desc }}</p>
+        </x-import>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- SCIENTIFIC FOUNDATIONS -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 16px;max-width:820px;">Scientific foundations</h2>
+      <p style="font-family:var(--font-sans);font-size:18px;color:var(--text-secondary);margin:0 0 40px;max-width:820px;">APGI synthesizes three established pillars and adds the missing selection rule.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 32px;">
+        <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="3">
+          <div style="border-left:2px solid var(--color-threshold-slate);padding-left:20px;">
+            <span style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);">{{ p.num }}</span>
+            <h3 style="font-family:var(--font-sans);font-size:17px;font-weight:700;color:var(--text-body);margin:8px 0 8px;">{{ p.title }}</h3>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">{{ p.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;max-width:820px;">The framework grounds the whole process in liquid-state / reservoir computing principles compatible with cortical biophysics.</p>
+    </div>
+  </section>
+
+  <!-- CURRENT STATUS -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+      <div>
+        <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 20px;">Current status</h2>
+        <p style="font-family:var(--font-sans);font-size:17px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 16px;">Core theoretical papers are available. Formalisms, predictions, and biological mappings are published. Open simulation tools and prediction registries are under active development. Empirical tests and adversarial collaborations are invited.</p>
+        <p style="font-family:var(--font-sans);font-size:17px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">APGI exists to make the threshold of conscious access measurable, testable, and useful. The science stays open. What's built on top of it doesn't have to be.</p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;color:var(--text-body);margin:0 0 16px;text-transform:uppercase;letter-spacing:0.03em;">To engage</h3>
+        <ol style="margin:0;padding:0 0 0 20px;display:flex;flex-direction:column;gap:12px;">
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);">Read the framework papers and formal statements.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);">Examine the listed predictions and disconfirmation criteria.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);">Run or extend the open simulations.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);">Propose or join empirical tests.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);">Explore educational materials and applied tools as they release.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH SERIES -->
+  <section id="papers" style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--color-workspace-purple-text);margin:0 0 16px;">The Research Series</p>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 40px;max-width:820px;">Four papers trace APGI from first principles to clinical implications, each building on the last.</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <sc-for list="{{ papers }}" as="paper" hint-placeholder-count="5">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;">
+              <div style="max-width:760px;">
+                <h3 style="font-family:var(--font-sans);font-size:18px;font-weight:700;color:var(--text-body);margin:0 0 8px;">{{ paper.title }}</h3>
+                <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">{{ paper.desc }}</p>
+              </div>
+              <sc-if value="{{ paper.badge }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="APGIDesignSystem_febe17.Badge" hint-size="auto,24px" tone="workspace">{{ paper.badge }}</x-import>
+              </sc-if>
+            </div>
+          </x-import>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+    <div style="max-width:820px;">
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 20px;">The ecosystem</h2>
+      <p style="font-family:var(--font-sans);font-size:17px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 16px;">APGI ships as an open scientific core. Higher layers — tooling, training, simulation environments, and application interfaces — sit on top of that core.</p>
+      <p style="font-family:var(--font-sans);font-size:17px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 16px;">The goal isn't a single product. It's a shared reference framework that researchers can test, clinicians can translate, educators can teach, and builders can implement, while the foundational claims stay open, versioned, and accountable to evidence.</p>
+      <p style="font-family:var(--font-sans);font-size:17px;line-height:var(--leading-body);color:var(--text-body);font-weight:600;margin:0;">Everything past this point in the page is one of those higher layers: applied products built on the core science above, not the science itself.</p>
+    </div>
+  </section>
+
+  <!-- APPLIED CHOOSER -->
+  <section id="applied" style="background:var(--color-near-black);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--neutral-400);margin:0 0 16px;">APGI Applied</p>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:#fff;margin:0 0 12px;">Choose your path</h2>
+      <p style="font-family:var(--font-sans);font-size:17px;color:var(--neutral-400);margin:0 0 40px;">One framework, several ways in, each aimed at a different use.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 40px;">
+        <sc-for list="{{ appliedPaths }}" as="path" hint-placeholder-count="7">
+          <a href="{{ path.href }}" style="display:block;background:var(--color-dark-navy);border:1px solid var(--dark-border-subtle);border-radius:var(--card-radius);padding:24px;text-decoration:none;">
+            <h3 style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:#fff;margin:0 0 8px;">{{ path.title }}</h3>
+            <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--neutral-400);margin:0;">{{ path.desc }}</p>
+          </a>
+        </sc-for>
+      </div>
+      <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="primary" size="lg">Explore Your Path</x-import>
+    </div>
+  </section>
+
+  <!-- SELF-DISCOVERY -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Self-Discovery</p>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0;">Most tools tell you what you are. APGI Applied shows you how your system works.</h2>
+    </div>
+    <div>
+      <ul style="margin:0 0 24px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">An interactive dashboard visualizing your assessment results in real time.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Plain-language explanations of what each result means.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A growth timeline tracking shifts across weeks, months, and years.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Journal integration connecting daily entries to measured changes.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A mobile companion.</li>
+      </ul>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;">
+        <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+        <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">User testimonial — add once real user feedback exists. Do not fabricate a name or quote.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL TOOLS -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+      <div>
+        <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Professional Tools</p>
+        <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0;">Traditional assessments show symptoms. APGI Applied shows the system underneath them.</h2>
+      </div>
+      <div>
+        <ul style="margin:0 0 24px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A client management platform built with clinical data-handling practices in mind <em>(confirm actual compliance status before claiming HIPAA compliance)</em>.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Visual progress tracking across sessions.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">APGI-integrated session note templates.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Population-level comparisons for context.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Exportable professional reports.</li>
+        </ul>
+        <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;">
+          <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+          <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">Practitioner testimonial — add once a real practitioner has used the tool and agreed to be quoted.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH SUITE -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Research Suite</p>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0;">A software layer for studying cognitive-affective processing, built on top of the published APGI measures.</h2>
+    </div>
+    <div>
+      <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 12px;">Planned capabilities</p>
+      <ul style="margin:0 0 24px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Standardized measurement instruments with psychometric properties reported once validation studies are complete <em>(no α or test-retest figures published until real data exists)</em>.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A normative database — scope and size to be defined by the actual study population once collected.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Publication-formatted figure export.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Statistical pipeline integration (R, Python, SPSS).</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">API access scaled from small pilots to large studies.</li>
+      </ul>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;">
+        <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+        <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">Research citation or case study — add once a real study using the suite is published.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTERPRISE -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+      <div>
+        <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Enterprise Solutions</p>
+        <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0 0 24px;">Most teams lose to cognitive friction, not to a lack of skill.</h2>
+        <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;margin:0 0 16px;">
+          <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+          <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">Case study with real, named results — add once a real enterprise deployment exists. Do not publish a percentage improvement without a source.</p>
+        </div>
+        <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;"><strong>Privacy commitment:</strong> individual results are never shared with executives; team-level patterns aggregate at the team level only. Data-residency and regulatory compliance commitments (GDPR, CCPA, etc.) are stated only once actually implemented and verified.</p>
+      </div>
+      <div>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Aggregate, anonymized team cognitive mapping.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Compatibility analysis aimed at surfacing dynamics before they become conflicts.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Predictive team design tools for assembling complementary profiles.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Leadership development paths.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">DEI-oriented cognitive-diversity measurement.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">HR system integration (planned: Workday, BambooHR, SAP SuccessFactors).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATIONAL TOOLS -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Educational Tools</p>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0 0 24px;">Supporting each student's cognitive patterns with tools built on the same underlying framework.</h2>
+      <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 12px;">Age-appropriate adaptation</p>
+      <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 8px;"><strong>High school</strong> — simplified language, parent dashboards, counselor oversight.</p>
+      <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 8px;"><strong>Undergraduate</strong> — peer comparison, academic-advisor integration.</p>
+      <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;"><strong>Graduate &amp; professional</strong> — research-productivity metrics.</p>
+    </div>
+    <div>
+      <ul style="margin:0 0 24px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Early-identification tools for learning centers.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Data-informed advisor dashboards.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Curriculum design support matching teaching methods to cognitive patterns.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Wellness-integration touchpoints connecting cognitive patterns to support services.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">LMS integration (planned: Canvas, Blackboard, Moodle).</li>
+      </ul>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;">
+        <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+        <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">Institutional outcome data — add once a real implementation reports real numbers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLINICAL INTEGRATION -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+      <div>
+        <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Clinical Integration</p>
+        <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0;">Connecting cognitive patterns with physiological outcomes, for teams who need a shared vocabulary across specialties.</h2>
+      </div>
+      <div>
+        <ul style="margin:0 0 24px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">EHR integration (planned: Epic, Cerner, Athenahealth).</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Visual treatment-progress tracking.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Plain-language patient education materials.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A shared vocabulary across disciplines.</li>
+          <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Clinical decision support built from the published evidence base.</li>
+        </ul>
+        <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;">
+          <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+          <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">Clinical validation study — add once a real study exists. No regulatory classification (FDA, device status, or otherwise) is asserted until legal and regulatory review confirms it — that determination belongs to counsel, not marketing copy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEVELOPER TOOLS -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;">APGI Applied · Developer Tools</p>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0 0 24px;">Neuroscience-informed personalization for products you're building.</h2>
+      <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 12px;">Developer sandbox</p>
+      <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 24px;">Generous free tier, full feature access, no credit card required. <em>(Exact call limits to be confirmed before publishing a specific number.)</em></p>
+      <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="primary" size="lg">Start Building for Free</x-import>
+    </div>
+    <div>
+      <ul style="margin:0 0 24px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A RESTful API and SDKs (Python, JavaScript, Swift, Java).</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">White-label options.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">Real-time analytics on incoming cognitive-pattern data.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">A published ethical-use framework for handling this category of data responsibly.</li>
+        <li style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);padding-left:20px;border-left:2px solid var(--border-strong);">An interactive API playground.</li>
+      </ul>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:16px 20px;">
+        <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 6px;">Placeholder — not yet real</p>
+        <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">Integration partner quote — add once a real partner has integrated and agreed to be quoted.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 48px;">Pricing</h2>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Self-Discovery</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Free Starter</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">One assessment, refreshed every 90 days; a limited-time interactive dashboard trial; a shareable results graphic.</p>
+          </x-import>
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Premium Individual</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly, annual, or lifetime one-time pricing. Unlimited re-assessments, live trend tracking, the mobile app, journal integration, community access, an annual growth report, and parameter time-lapse visualization.</p>
+          </x-import>
+        </div>
+      </div>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Professional Practice</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Solo Practitioner</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly or annual pricing for up to 30 active client profiles, progress tracking with session notes, and practitioner community access.</p>
+          </x-import>
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Group Practice</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly or annual pricing for a shared dashboard across a larger client roster, team case-consultation tools, and white-label client reports.</p>
+          </x-import>
+        </div>
+      </div>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Academic &amp; Research</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Academic Research</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Free for verified academic email addresses. Unlimited research-purpose assessments, data export, and normative-dataset access once that dataset exists.</p>
+          </x-import>
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Institutional Research Lab</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Per-project or annual pricing with API access, multiple researcher seats, publication support, and compliance documentation support for IRB submissions.</p>
+          </x-import>
+        </div>
+      </div>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Enterprise</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Team Starter <span style="font-weight:400;color:var(--text-muted);">(~10–50 employees)</span></p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly or annual pricing for team cognitive mapping, basic compatibility analysis, and quarterly reporting.</p>
+          </x-import>
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Enterprise <span style="font-weight:400;color:var(--text-muted);">(50+ employees)</span></p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly or annual pricing for advanced compatibility algorithms, predictive team design, and a dedicated success manager. Volume discounts available on request.</p>
+          </x-import>
+        </div>
+      </div>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Education</h3>
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+          <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Per-Student Annual</p>
+          <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Per-student annual pricing with a defined minimum and cap, including LMS integration, age-appropriate assessments, advisor training, and parent communication tools.</p>
+        </x-import>
+      </div>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Technology Partners</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Free Sandbox</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Full feature access at a defined monthly call limit, SDKs across major languages, community support.</p>
+          </x-import>
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Commercial Tier</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly or annual pricing for a higher call limit, a standard analytics dashboard, and email support.</p>
+          </x-import>
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+            <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Platform Partnership</p>
+            <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Revenue share plus a base fee, unlimited API access, white-label capability, and co-development opportunities, with an attribution methodology agreed in writing before launch.</p>
+          </x-import>
+        </div>
+      </div>
+
+      <div style="margin:0 0 32px;">
+        <h3 style="font-family:var(--font-sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-body);margin:0 0 20px;">Healthcare</h3>
+        <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,auto">
+          <p style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 8px;">Clinical Practice</p>
+          <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Monthly or annual pricing including a defined number of clinician seats, a defined patient-record cap, EHR integration support, and a patient portal with educational content. Regulatory compliance claims apply here only once verified — see the note under Clinical Integration.</p>
+        </x-import>
+      </div>
+
+      <p style="font-family:var(--font-sans);font-size:13px;font-style:italic;color:var(--text-muted);margin:0;">All specific prices above are placeholders carried from the source draft. Confirm final numbers before publishing.</p>
+    </div>
+  </section>
+
+  <!-- BUNDLE AND GUARANTEE -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+    <div>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0 0 16px;">Mastery Bundle <span style="font-size:14px;font-weight:500;color:var(--text-muted);font-family:var(--font-sans);">(limited time)</span></h2>
+      <p style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">Adds cross-disciplinary training at a discount, a period of free community membership, and early access to framework certification, on top of any paid package.</p>
+    </div>
+    <div>
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h2);line-height:var(--leading-h2);font-weight:600;color:var(--text-body);margin:0 0 16px;">Money-back guarantee</h2>
+      <p style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">The actual refund window and terms will be stated here once finance and legal confirm them, rather than a number carried over from a draft.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 24px;">Testimonials</h2>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:24px 28px;max-width:820px;">
+        <p style="font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-muted);margin:0 0 8px;">Placeholder — not yet real</p>
+        <p style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--text-muted);margin:0;font-style:italic;">This section is empty until real quotes exist from real, consenting users, practitioners, researchers, or partners. It is not populated with invented names or attributions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 40px;">Frequently asked questions</h2>
+    <div style="display:flex;flex-direction:column;max-width:900px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="9">
+        <details style="border-top:1px solid var(--border-subtle);padding:20px 0;">
+          <summary style="font-family:var(--font-sans);font-size:17px;font-weight:700;color:var(--text-body);cursor:pointer;">{{ f.q }}</summary>
+          <p style="font-family:var(--font-sans);font-size:15px;line-height:var(--leading-body);color:var(--text-secondary);margin:12px 0 0;">{{ f.a }}</p>
+        </details>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources" style="background:var(--color-light-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;text-transform:uppercase;color:var(--color-workspace-purple-text);margin:0 0 16px;">Resources — Core Science</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <sc-for list="{{ resources }}" as="r" hint-placeholder-count="4">
+          <x-import component-from-global-scope="APGIDesignSystem_febe17.Card" hint-size="100%,220px">
+            <h3 style="font-family:var(--font-sans);font-size:16px;font-weight:700;color:var(--text-body);margin:0 0 10px;">{{ r.title }}</h3>
+            <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">{{ r.desc }}</p>
+          </x-import>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOLLOW THE WORK -->
+  <section style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:var(--text-body);margin:0 0 32px;">Follow the work</h2>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;">
+      <sc-for list="{{ channels }}" as="c" hint-placeholder-count="5">
+        <div style="border-top:2px solid var(--color-threshold-slate);padding-top:16px;">
+          <p style="font-family:var(--font-sans);font-size:15px;font-weight:700;color:var(--text-body);margin:0 0 6px;">{{ c.name }}</p>
+          <p style="font-family:var(--font-sans);font-size:14px;line-height:var(--leading-body);color:var(--text-secondary);margin:0;">{{ c.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CITE THIS WORK -->
+  <section id="cite" style="background:var(--color-near-black);">
+    <div style="max-width:1440px;margin:0 auto;padding:96px 48px;">
+      <h2 style="font-family:var(--font-serif-display);font-size:var(--text-h1);line-height:var(--leading-h1);font-weight:600;color:#fff;margin:0 0 16px;">Cite this work</h2>
+      <p style="font-family:var(--font-sans);font-size:16px;line-height:var(--leading-body);color:var(--neutral-400);margin:0 0 32px;max-width:760px;">Cite the relevant paper from the series for specific claims; cite the book for a general reference to the framework.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+        <div style="background:var(--color-dark-navy);border:1px solid var(--dark-border-subtle);border-radius:var(--card-radius);padding:20px;">
+          <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;color:#fff;margin:0 0 10px;">Book</p>
+          <p style="font-family:var(--font-mono);font-size:13px;line-height:1.6;color:var(--neutral-400);margin:0;white-space:pre-wrap;">@book{apgi_book,
+  title = {When Consciousness Turns On},
+  author = {[Author name]},
+  year = {[Year]}
+}</p>
+        </div>
+        <div style="background:var(--color-dark-navy);border:1px solid var(--dark-border-subtle);border-radius:var(--card-radius);padding:20px;">
+          <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;color:#fff;margin:0 0 10px;">Paper I</p>
+          <p style="font-family:var(--font-mono);font-size:13px;line-height:1.6;color:var(--neutral-400);margin:0;white-space:pre-wrap;">@article{apgi_paper1,
+  title = {The APGI Framework: A Unified Account of Conscious Ignition},
+  author = {[Author name]},
+  year = {[Year]}
+}</p>
+        </div>
+        <div style="background:var(--color-dark-navy);border:1px solid var(--dark-border-subtle);border-radius:var(--card-radius);padding:20px;">
+          <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;color:#fff;margin:0 0 10px;">Paper II</p>
+          <p style="font-family:var(--font-mono);font-size:13px;line-height:1.6;color:var(--neutral-400);margin:0;white-space:pre-wrap;">@article{apgi_paper2,
+  title = {Allostatic Modulation of Precision: Empirical Evidence and Model Validation},
+  author = {[Author name]},
+  year = {[Year]}
+}</p>
+        </div>
+        <div style="background:var(--color-dark-navy);border:1px solid var(--dark-border-subtle);border-radius:var(--card-radius);padding:20px;">
+          <p style="font-family:var(--font-sans);font-size:13px;font-weight:700;color:#fff;margin:0 0 10px;">Software</p>
+          <p style="font-family:var(--font-mono);font-size:13px;line-height:1.6;color:var(--neutral-400);margin:0;white-space:pre-wrap;">@software{apgi_code,
+  title = {APGI Model Implementation},
+  author = {[Author name]},
+  year = {[Year]}
+}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="max-width:1440px;margin:0 auto;padding:120px 48px;text-align:center;">
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--text-display);line-height:var(--leading-display);font-weight:600;color:var(--text-body);margin:0 0 24px;">Ready to understand the threshold of conscious access?</h2>
+    <p style="font-family:var(--font-sans);font-size:18px;line-height:var(--leading-body);color:var(--text-secondary);margin:0 0 32px;max-width:640px;margin-left:auto;margin-right:auto;">Start with the papers if you're here for the science. Start with the free assessment if you're here for yourself.</p>
+    <div style="display:flex;gap:16px;justify-content:center;margin:0 0 16px;">
+      <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="primary" size="lg">Read the Papers</x-import>
+      <x-import component-from-global-scope="APGIDesignSystem_febe17.Button" hint-size="auto,48px" variant="secondary" size="lg">Take the Assessment</x-import>
+    </div>
+    <p style="font-family:var(--font-sans);font-size:14px;color:var(--text-muted);margin:0;">No credit card required for the free tier.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-near-black);">
+    <div style="max-width:1440px;margin:0 auto;padding:64px 48px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;margin:0 0 40px;">
+        <div>
+          <p style="font-family:var(--font-mono);font-size:20px;color:#fff;margin:0 0 8px;">Π × |ε| &gt; B<sub>t</sub></p>
+          <p style="font-family:var(--font-sans);font-size:14px;color:var(--neutral-400);margin:0;">APGI Framework — Neuroscience of Conscious Access</p>
+        </div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <a href="#" style="font-size:14px;color:var(--neutral-400);">X / Twitter</a>
+          <a href="#" style="font-size:14px;color:var(--neutral-400);">Telegram</a>
+          <a href="#" style="font-size:14px;color:var(--neutral-400);">LinkedIn</a>
+          <a href="#" style="font-size:14px;color:var(--neutral-400);">Instagram</a>
+          <a href="#" style="font-size:14px;color:var(--neutral-400);">YouTube</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--dark-border-subtle);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <a href="#" style="font-size:13px;color:var(--neutral-400);">Privacy Policy</a>
+          <a href="#" style="font-size:13px;color:var(--neutral-400);">Terms of Service</a>
+          <a href="#" style="font-size:13px;color:var(--neutral-400);">Contact</a>
+        </div>
+        <p style="font-family:var(--font-sans);font-size:13px;color:var(--neutral-500);margin:0;font-style:italic;">A HIPAA or other compliance link is added only once that compliance is real and verified.</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      mechanisms: [
+        { tone: 'error', tag: '|ε|', title: 'Precision-weighted prediction errors', desc: 'Exteroceptive and interoceptive prediction errors supply the candidate signals for ignition.' },
+        { tone: 'threshold', tag: 'Bₜ', title: 'Allostatic threshold regulation', desc: 'Allostatic regulation sets the ignition threshold according to metabolic state and bodily relevance.' },
+        { tone: 'precision', tag: 'Π', title: 'Liquid network dynamics', desc: 'Liquid network dynamics implement accumulation, nonlinear thresholding, and sparse global ignition under biological constraints.' }
+      ],
+      distinctPoints: [
+        { num: '01', text: 'APGI states what triggers global broadcasting: precision-weighted signals exceeding threshold.' },
+        { num: '02', text: 'It explains trial-to-trial variability through fluctuations in precision, interoceptive state, and threshold setting.' },
+        { num: '03', text: 'Every computational construct maps to an identifiable biological mechanism.' },
+        { num: '04', text: 'Predictions span molecular, circuit, systems, and behavioral levels, each carrying explicit disconfirmation criteria.' },
+        { num: '05', text: 'The architecture keeps thermodynamic, information-theoretic, and computational claims in three separate, non-conflated levels.' }
+      ],
+      audiences: [
+        { title: 'Researchers', desc: 'A falsifiable, biologically grounded account of the access threshold, ready for experimental test and adversarial collaboration.' },
+        { title: 'Clinicians & translational scientists', desc: 'A mechanistic map of how precision dysregulation and threshold shifts show up in psychiatric conditions and disorders of consciousness.' },
+        { title: 'Educators & students', desc: 'A coherent synthesis of predictive processing, interoceptive inference, and global workspace theory that can be taught, simulated, and extended.' },
+        { title: 'Builders & enterprises', desc: 'A computational substrate — liquid networks plus precision gating — implementable in simulation, neurotechnology, and selective-awareness systems.' },
+        { title: 'Curious readers', desc: "A clear account of why only some of the brain's activity ever becomes reportable, and why the body is not a spectator in that process." }
+      ],
+      pillars: [
+        { num: '01', title: 'Predictive Processing & the Free Energy Principle', desc: 'Hierarchical inference, precision-weighted prediction error.' },
+        { num: '02', title: 'Allostasis & Interoceptive Inference', desc: 'Embodied valuation, metabolic regulation of precision.' },
+        { num: '03', title: 'Global Neuronal Workspace Theory', desc: 'Large-scale broadcasting and ignition dynamics.' }
+      ],
+      papers: [
+        { title: 'Paper I — The APGI Framework: A Unified Account of Conscious Ignition', desc: 'Introduces the core equation and its three components; reviews the predictive-processing and global-workspace literatures that motivate the framework; establishes how allostatic state modulates precision weighting.', badge: 'Start here' },
+        { title: 'Paper II — Allostatic Modulation of Precision: Empirical Evidence and Model Validation', desc: 'Tests whether allostatic state, indexed by interoceptive measures, predicts precision-weighted prediction-error magnitude in behavioral tasks; validates model predictions against existing neuroimaging and psychophysical data.', badge: null },
+        { title: 'Paper III — Threshold Dynamics: Sleep, Arousal, and the Gating of Conscious Access', desc: 'Examines how Bₜ varies across wakefulness, sleep stages, anesthesia, and altered states; proposes a neurobiological substrate for the threshold gate; reviews the thalamocortical mechanisms that implement it.', badge: null },
+        { title: 'Paper IV — From Mechanism to Mind: Implications of APGI for Consciousness Studies, Psychiatry, and AI', desc: 'Addresses the hard problem, phenomenal versus access consciousness, and artificial consciousness; proposes falsification designs; discusses psychiatric conditions where allostatic dysregulation disrupts conscious experience.', badge: null },
+        { title: 'Supplemental Materials', desc: 'Extended literature review, raw experimental stimuli, analysis code, parameter-estimation protocols, and the full assessment instrument with scoring rubric.', badge: null }
+      ],
+      appliedPaths: [
+        { title: 'Self-Discovery', desc: 'For curious individuals who want to understand their own cognitive-affective patterns.', href: '#' },
+        { title: 'Professional Tools', desc: 'For therapists, coaches, and counselors who want to track client progress in session.', href: '#' },
+        { title: 'Research Suite', desc: 'For academics and scientists who need instrumentation and pipelines built on the published measures.', href: '#' },
+        { title: 'Enterprise Solutions', desc: 'For HR and leadership teams optimizing team composition and reducing friction.', href: '#' },
+        { title: 'Educational Tools', desc: 'For schools and universities supporting students through their own cognitive patterns.', href: '#' },
+        { title: 'Clinical Integration', desc: 'For healthcare providers who want a shared language across specialties.', href: '#' },
+        { title: 'Developer Tools', desc: 'For teams building neuroscience-informed products on the APGI substrate.', href: '#' }
+      ],
+      resources: [
+        { title: 'Book — When Consciousness Turns On', desc: 'The complete APGI story in accessible language: all four papers, the history of consciousness research, and what the framework implies for sleep, stress, attention, and mental health. No equations required.' },
+        { title: 'Interactive Assessment — Your Consciousness Signature', desc: 'A short assessment estimating a Π, |ε|, Bₜ profile: body confidence, surprise sensitivity, and threshold height.' },
+        { title: 'Open Code — APGI Model Implementation', desc: 'A Python package for simulating APGI dynamics, fitting model parameters to behavioral or neural data, and running the experimental paradigms from Papers II and III.' },
+        { title: 'Supplemental Materials — Full Research Package', desc: 'All data, stimuli, analysis scripts, and extended literature reviews from the four-paper series, openly licensed for replication and critique.' }
+      ],
+      faqs: [
+        { q: 'What does APGI stand for?', a: 'Allostatic Precision-Gated Ignition — a framework for when precision-weighted prediction errors cross a dynamic, metabolically regulated threshold and become globally available for report and action.' },
+        { q: 'Is APGI a personality test?', a: "No. Personality tests assign static types. APGI's applied tools measure dynamic mechanisms — patterns that shift with sleep, stress, and life changes — grounded in the underlying threshold model, not a typology." },
+        { q: 'How is APGI validated?', a: 'The core theoretical framework is published in the paper series with explicit disconfirmation criteria. Applied-tool psychometrics (reliability, normative samples) will be reported here once real validation studies are complete — no numbers are published in advance of the data.' },
+        { q: 'Is my data private?', a: 'The actual data-handling architecture will be stated here once implemented. On-device-only storage or "never sold" policies are not claimed unless engineering and legal have confirmed both are true and enforced.' },
+        { q: 'Can I use APGI with clients?', a: 'The Professional Tools track is built for exactly that. Any compliance claim (HIPAA or otherwise) is added here only once verified — see the note under Professional Tools.' },
+        { q: 'How much does it cost?', a: 'Pricing runs from a free tier through enterprise licensing; see the Pricing section above. Final numbers will be confirmed before publishing them as live prices.' },
+        { q: 'Do you offer academic discounts?', a: 'Yes — see Academic & Research under Pricing.' },
+        { q: 'Can I integrate APGI into my product?', a: 'Yes, through the developer API and SDKs described under Developer Tools.' },
+        { q: "What's the difference between annual and lifetime plans?", a: 'Annual plans include ongoing updates and access to an expanding dataset as it grows. Lifetime plans are a one-time payment for permanent dashboard access without recurring fees.' },
+        { q: 'How do I know which path is right for me?', a: 'Start with the free assessment; the result points toward the track — personal, professional, research, or enterprise — that fits.' }
+      ],
+      channels: [
+        { name: 'X / Twitter', desc: 'Quick observations.' },
+        { name: 'Telegram', desc: 'Methodology threads.' },
+        { name: 'LinkedIn', desc: 'Professional updates.' },
+        { name: 'Instagram', desc: 'Visual explainers.' },
+        { name: 'YouTube', desc: 'Longer-form video.' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

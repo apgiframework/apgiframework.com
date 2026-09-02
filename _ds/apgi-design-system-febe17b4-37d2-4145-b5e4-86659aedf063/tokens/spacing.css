@@ -1,0 +1,78 @@
+/* APGI Design System — Spacing, grid, radius, elevation, breakpoint & z-index tokens
+   Base unit: 8px. All spacing is a multiple of 8. */
+
+:root {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+
+  /* Section rhythm */
+  --space-section: var(--space-12);   /* 96px between major sections */
+  --space-component: var(--space-6);  /* 48px between components */
+  --space-element: var(--space-3);    /* 24px between elements within a component */
+
+  /* ---- Compact density mode — data tables & dense readouts.
+     Toggle with [data-density="compact"] on a table/panel ancestor. ---- */
+  --space-1-compact: 4px;
+  --space-2-compact: 8px;
+  --space-3-compact: 12px;
+  --cell-padding: 8px 10px;           /* default table/list cell padding */
+  --cell-padding-compact: 4px 8px;    /* compact table/list cell padding */
+
+  /* ---- Explicit breakpoints ---- */
+  --bp-mobile-max: 767px;    /* < 768px: 4-col mobile grid */
+  --bp-tablet-min: 768px;    /* 768–1024px: transitional, 8-col */
+  --bp-tablet-max: 1024px;
+  --bp-desktop-min: 1025px;  /* > 1024px: full 12-col desktop grid */
+
+  /* Grid */
+  --grid-desktop-cols: 12; /* @kind other */
+  --grid-desktop-max-width: 1440px; /* was 1200 — widened for dense scientific data tables/dashboards */
+  --grid-desktop-gutter: 24px;
+  --grid-desktop-margin: 48px;
+
+  --grid-tablet-cols: 8; /* @kind other */
+  --grid-tablet-gutter: 20px;
+  --grid-tablet-margin: 32px;
+
+  --grid-mobile-cols: 4; /* @kind other */
+  --grid-mobile-gutter: 16px;
+  --grid-mobile-margin: 16px;
+
+  /* Card anatomy */
+  --card-padding: var(--space-3);
+  --card-padding-compact: var(--space-2);
+  --card-radius: 12px;
+  --card-radius-mobile: 8px;  /* < 768px — 12px reads oversized on small components */
+  --card-border-width: 1px;
+
+  /* Gauge component */
+  --gauge-track-height: 4px;
+  --gauge-fill-height: 8px;
+
+  /* Radii (used sparingly outside cards) */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  /* ---- Z-index scale — required because shadows/elevation are banned;
+     stacking order must be explicit, not implied by drop-shadow depth. ---- */
+  --z-base: 0; /* @kind other */
+  --z-dropdown: 10; /* @kind other */
+  --z-sticky: 20; /* @kind other */
+  --z-overlay: 30; /* @kind other */
+  --z-modal: 50; /* @kind other */
+  --z-popover: 60; /* @kind other */
+  --z-toast: 70; /* @kind other */
+  --z-tooltip: 100; /* @kind other */
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-desktop-max-width: 100%;
+  }
+}

@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOOK / Appointment Scheduling</title>
+  <style>
+    :root {
+      --primary: #000000;
+      --accent: #FF006E;
+      --success: #06B6D4;
+      --bg: #FFFFFF;
+      --surface: #F5F5F5;
+      --border: #000000;
+      --text: #000000;
+      --text-muted: #666666;
+      --space: 8px;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 60px 32px;
+      border-left: 2px solid var(--border);
+      border-right: 2px solid var(--border);
+      min-height: 100vh;
+    }
+
+    header {
+      margin-bottom: 60px;
+      border-bottom: 3px solid var(--border);
+      padding-bottom: 24px;
+    }
+
+    .header-logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin: 0 0 16px;
+      color: var(--text);
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      gap: 8px;
+    }
+
+    .step {
+      flex: 1;
+      height: 3px;
+      background: var(--surface);
+      border: none;
+      transition: background 200ms ease-out;
+    }
+
+    .step.active,
+    .step.completed {
+      background: var(--border);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+      animation: fadeIn 200ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-header {
+      border: 2px solid var(--border);
+      padding: 24px;
+      margin-bottom: 32px;
+      background: var(--bg);
+    }
+
+    .service-name {
+      font-size: 16px;
+      font-weight: 900;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .service-time {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .calendar-section {
+      border: 2px solid var(--border);
+      padding: 24px;
+      margin-bottom: 32px;
+      background: var(--bg);
+    }
+
+    .calendar-section h2 {
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0 0 20px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .calendar-month {
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .calendar-btn {
+      background: none;
+      border: 2px solid var(--border);
+      color: var(--text);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-weight: 900;
+      transition: all 150ms ease-out;
+    }
+
+    .calendar-btn:hover {
+      background: var(--border);
+      color: var(--bg);
+    }
+
+    .day-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+      margin-bottom: 8px;
+    }
+
+    .day-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 900;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 8px 0;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+      margin-bottom: 24px;
+      border: 2px solid var(--border);
+    }
+
+    .day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      transition: all 100ms ease-out;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .day:nth-child(7n) {
+      border-right: none;
+    }
+
+    .day:nth-last-child(-n+7) {
+      border-bottom: none;
+    }
+
+    .day:hover:not(.empty):not(.disabled) {
+      background: var(--surface);
+    }
+
+    .day.empty {
+      cursor: default;
+      opacity: 0.3;
+    }
+
+    .day.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .day.selected {
+      background: var(--border);
+      color: var(--bg);
+      font-weight: 900;
+    }
+
+    .times-section {
+      margin-bottom: 32px;
+    }
+
+    .times-section h3 {
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0 0 16px;
+    }
+
+    .times-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .time-slot {
+      padding: 16px;
+      border: 2px solid var(--border);
+      text-align: center;
+      cursor: pointer;
+      background: var(--bg);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      transition: all 100ms ease-out;
+      font-family: inherit;
+    }
+
+    .time-slot:hover {
+      background: var(--surface);
+    }
+
+    .time-slot.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      font-weight: 900;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      background: var(--bg);
+      color: var(--text);
+      transition: all 100ms ease-out;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
+      background: var(--bg);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .summary-box {
+      border: 2px solid var(--border);
+      padding: 20px;
+      margin-bottom: 24px;
+      background: var(--surface);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .summary-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .summary-label {
+      color: var(--text-muted);
+    }
+
+    .summary-value {
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 20px;
+      border: 2px solid var(--border);
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 100ms ease-out;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--border);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .confirmation-box {
+      padding: 0;
+    }
+
+    .confirmation-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      background: var(--success);
+      margin-bottom: 24px;
+      font-size: 28px;
+      color: var(--bg);
+      font-weight: 900;
+    }
+
+    .confirmation-box h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .confirmation-box p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0 0 32px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .confirmation-details {
+      border: 2px solid var(--border);
+      padding: 24px;
+      margin-bottom: 32px;
+      background: var(--bg);
+    }
+
+    .confirmation-detail {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .confirmation-detail:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-icon {
+      color: var(--text);
+      flex-shrink: 0;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .detail-content {
+      flex: 1;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .detail-value {
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .payment-summary {
+      border: 2px solid var(--border);
+      padding: 20px;
+      margin-bottom: 24px;
+      background: var(--surface);
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .payment-row.total {
+      border-top: 2px solid var(--border);
+      padding-top: 12px;
+      margin-top: 12px;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 32px 16px;
+        border: none;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .times-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-logo">∎ BOOK</div>
+      <h1>Schedule</h1>
+      <p class="header-subtitle">3 Steps / Done</p>
+    </header>
+
+    <div class="steps">
+      <div class="step active" id="step1"></div>
+      <div class="step" id="step2"></div>
+      <div class="step" id="step3"></div>
+    </div>
+
+    <!-- Page 1: Select Date & Time -->
+    <div class="page active" id="page-select-time">
+      <div class="service-header">
+        <p class="service-name">Design Session</p>
+        <p class="service-time">$250 • 2 Hours</p>
+      </div>
+
+      <div class="calendar-section">
+        <h2>Date</h2>
+        <div class="calendar-nav">
+          <button class="calendar-btn" onclick="prevMonth()">◄</button>
+          <div class="calendar-month" id="current-month">AUGUST 2024</div>
+          <button class="calendar-btn" onclick="nextMonth()">►</button>
+        </div>
+        <div class="day-labels">
+          <div class="day-label">S</div>
+          <div class="day-label">M</div>
+          <div class="day-label">T</div>
+          <div class="day-label">W</div>
+          <div class="day-label">T</div>
+          <div class="day-label">F</div>
+          <div class="day-label">S</div>
+        </div>
+        <div class="calendar-grid" id="calendar-grid">
+          <div class="day empty"></div>
+          <div class="day" onclick="selectDate(this)">1</div>
+          <div class="day" onclick="selectDate(this)">2</div>
+          <div class="day" onclick="selectDate(this)">3</div>
+          <div class="day" onclick="selectDate(this)">4</div>
+          <div class="day" onclick="selectDate(this)">5</div>
+          <div class="day" onclick="selectDate(this)">6</div>
+          <div class="day" onclick="selectDate(this)">7</div>
+          <div class="day" onclick="selectDate(this)">8</div>
+          <div class="day" onclick="selectDate(this)">9</div>
+          <div class="day" onclick="selectDate(this)">10</div>
+          <div class="day" onclick="selectDate(this)">11</div>
+          <div class="day" onclick="selectDate(this)">12</div>
+          <div class="day" onclick="selectDate(this)">13</div>
+          <div class="day" onclick="selectDate(this)">14</div>
+          <div class="day" onclick="selectDate(this)">15</div>
+          <div class="day" onclick="selectDate(this)">16</div>
+          <div class="day" onclick="selectDate(this)">17</div>
+          <div class="day" onclick="selectDate(this)">18</div>
+          <div class="day" onclick="selectDate(this)">19</div>
+          <div class="day" onclick="selectDate(this)">20</div>
+          <div class="day" onclick="selectDate(this)">21</div>
+          <div class="day" onclick="selectDate(this)">22</div>
+          <div class="day" onclick="selectDate(this)">23</div>
+          <div class="day" onclick="selectDate(this)">24</div>
+          <div class="day" onclick="selectDate(this)">25</div>
+          <div class="day" onclick="selectDate(this)">26</div>
+          <div class="day" onclick="selectDate(this)">27</div>
+          <div class="day" onclick="selectDate(this)">28</div>
+          <div class="day" onclick="selectDate(this)">29</div>
+          <div class="day" onclick="selectDate(this)">30</div>
+          <div class="day" onclick="selectDate(this)">31</div>
+        </div>
+      </div>
+
+      <div class="times-section">
+        <h3>Time</h3>
+        <div class="times-grid">
+          <div class="time-slot" onclick="selectTime(this)">10:00 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">11:00 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">1:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">2:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">3:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">4:00 PM</div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-secondary">CANCEL</button>
+        <button class="btn-primary" onclick="nextPage()">NEXT</button>
+      </div>
+    </div>
+
+    <!-- Page 2: Details -->
+    <div class="page" id="page-details">
+      <form onsubmit="handleDetailsSubmit(event)">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="FULL NAME" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="EMAIL@DOMAIN.COM" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Message</label>
+          <textarea id="notes" placeholder="TELL US ABOUT YOUR PROJECT..."></textarea>
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-label">Service</span>
+            <span class="summary-value">Design Session</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Date / Time</span>
+            <span class="summary-value" id="summary-datetime">SELECT DATE & TIME</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Price</span>
+            <span class="summary-value">$250.00</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevPage()">BACK</button>
+          <button type="submit" class="btn-primary">PAYMENT</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Page 3: Payment -->
+    <div class="page" id="page-payment">
+      <form onsubmit="handlePaymentSubmit(event)">
+        <div class="form-group">
+          <label for="card-name">Cardholder Name</label>
+          <input type="text" id="card-name" placeholder="FULL NAME" required>
+        </div>
+
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" placeholder="4242 4242 4242 4242" maxlength="19" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div class="form-group">
+            <label for="card-expiry">Exp.</label>
+            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+          </div>
+          <div class="form-group">
+            <label for="card-cvc">CVC</label>
+            <input type="text" id="card-cvc" placeholder="123" maxlength="3" required>
+          </div>
+        </div>
+
+        <div class="payment-summary">
+          <div class="payment-row">
+            <span>Design Session 2HR</span>
+            <span>$250.00</span>
+          </div>
+          <div class="payment-row total">
+            <span>TOTAL DUE</span>
+            <span>$250.00</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevPage()">BACK</button>
+          <button type="submit" class="btn-primary">CONFIRM</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Page 4: Confirmation -->
+    <div class="page" id="page-confirmation">
+      <div class="confirmation-box">
+        <div class="confirmation-icon">✓</div>
+        <h2>Confirmed</h2>
+        <p>Check your email for details</p>
+
+        <div class="confirmation-details">
+          <div class="confirmation-detail">
+            <div class="detail-icon">●</div>
+            <div class="detail-content">
+              <div class="detail-label">Session</div>
+              <div class="detail-value" id="confirm-datetime">AUGUST 15 AT 2:00 PM</div>
+            </div>
+          </div>
+          <div class="confirmation-detail">
+            <div class="detail-icon">●</div>
+            <div class="detail-content">
+              <div class="detail-label">Name</div>
+              <div class="detail-value" id="confirm-name">NAME HERE</div>
+            </div>
+          </div>
+          <div class="confirmation-detail">
+            <div class="detail-icon">●</div>
+            <div class="detail-content">
+              <div class="detail-label">Email</div>
+              <div class="detail-value" id="confirm-email">EMAIL HERE</div>
+            </div>
+          </div>
+          <div class="confirmation-detail">
+            <div class="detail-icon">●</div>
+            <div class="detail-content">
+              <div class="detail-label">Paid</div>
+              <div class="detail-value">$250.00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="newBooking()">NEW BOOKING</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+
+    function nextPage() {
+      if (currentPage < 4) {
+        currentPage++;
+        updatePages();
+        updateSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePages();
+        updateSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updatePages() {
+      document.querySelectorAll('.page').forEach((page, index) => {
+        page.classList.toggle('active', index + 1 === currentPage);
+      });
+    }
+
+    function updateSteps() {
+      document.querySelectorAll('.step').forEach((step, index) => {
+        if (index + 1 < currentPage) {
+          step.classList.add('completed');
+          step.classList.remove('active');
+        } else if (index + 1 === currentPage) {
+          step.classList.add('active');
+          step.classList.remove('completed');
+        } else {
+          step.classList.remove('active', 'completed');
+        }
+      });
+    }
+
+    function selectDate(element) {
+      document.querySelectorAll('.day:not(.empty):not(.disabled)').forEach(d => d.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    function selectTime(element) {
+      document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+      element.classList.add('selected');
+      const time = element.textContent;
+      document.getElementById('summary-datetime').textContent = `AUGUST 15 AT ${time}`;
+      document.getElementById('confirm-datetime').textContent = `AUGUST 15 AT ${time}`;
+    }
+
+    function handleDetailsSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      document.getElementById('confirm-name').textContent = name;
+      document.getElementById('confirm-email').textContent = email;
+      nextPage();
+    }
+
+    function handlePaymentSubmit(event) {
+      event.preventDefault();
+      nextPage();
+    }
+
+    function newBooking() {
+      location.reload();
+    }
+
+    updatePages();
+    updateSteps();
+  </script>
+</body>
+</html>

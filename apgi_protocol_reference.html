@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APGI Empirical Protocols — Plain-English Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --apgi-threshold: #00B4FF;
+    --apgi-precision: #FF3366;
+    --apgi-neuromod: #00CC99;
+    --apgi-error: #FFCC00;
+    --apgi-workspace: #9966FF;
+    --apgi-inactive: #2C3E50;
+    --bg-base: #0A0F1A;
+    --bg-surface: #1a1f2e;
+    --bg-elevated: #242938;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E2E8F0;
+    --text-muted: #94A3B8;
+    --text-subtle: #64748B;
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-default: rgba(255,255,255,0.12);
+    --font-display: 'Crimson Pro', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+    --glow-threshold: 0 0 20px rgba(0,180,255,0.3), 0 0 60px rgba(0,180,255,0.1);
+    --glow-precision: 0 0 20px rgba(255,51,102,0.3);
+    --glow-workspace: 0 0 20px rgba(153,102,255,0.3);
+    --glow-error: 0 0 20px rgba(255,204,0,0.3);
+    --glow-neuromod: 0 0 20px rgba(0,204,153,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Subtle neural grid background ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,180,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  /* ── Header ── */
+  .site-header {
+    text-align: center;
+    padding: 3rem 1rem 2.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 2.5rem;
+  }
+  .site-header .eq-display {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+  .site-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .site-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── Protocol nav pills ── */
+  .protocol-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+  .nav-pill {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 250ms ease;
+    text-decoration: none;
+  }
+  .nav-pill:hover { border-color: var(--apgi-threshold); color: var(--apgi-threshold); box-shadow: var(--glow-threshold); }
+
+  /* ── Protocol Section ── */
+  .protocol-section {
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: reveal 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  @keyframes reveal { to { opacity:1; transform:translateY(0); } }
+  .protocol-section:nth-child(1) { animation-delay: 0ms; }
+  .protocol-section:nth-child(2) { animation-delay: 80ms; }
+  .protocol-section:nth-child(3) { animation-delay: 160ms; }
+  .protocol-section:nth-child(4) { animation-delay: 240ms; }
+  .protocol-section:nth-child(5) { animation-delay: 320ms; }
+  .protocol-section:nth-child(6) { animation-delay: 400ms; }
+  .protocol-section:nth-child(7) { animation-delay: 480ms; }
+
+  /* ── Protocol Card header ── */
+  .protocol-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .protocol-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+    position: relative;
+  }
+  .protocol-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+  .protocol-title-block { flex: 1; }
+  .protocol-title {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+  .protocol-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-subtle);
+    font-family: var(--font-mono);
+  }
+  .protocol-stripe {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 0;
+  }
+
+  /* ── Plain English Box ── */
+  .plain-english {
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .plain-english-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .plain-english-text {
+    flex: 1;
+  }
+  .plain-english-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 0.35rem;
+  }
+  .plain-english-body {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ── Claims Table ── */
+  .claims-block { padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--border-subtle); }
+  .claims-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 0.9rem;
+  }
+  .claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .claims-table th {
+    text-align: left;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 0.4rem 0.75rem 0.4rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .claims-table td {
+    padding: 0.55rem 0.75rem 0.55rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .claims-table tr:last-child td { border-bottom: none; }
+  .claim-code {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--apgi-threshold);
+    white-space: nowrap;
+    padding-right: 0.5rem;
+  }
+  .claim-text { color: var(--text-secondary); font-weight: 500; }
+  .evidence-confirm { color: #4ade80; font-size: 0.78rem; }
+  .evidence-falsify { color: #f87171; font-size: 0.78rem; }
+
+  /* ── Image Prompt Box ── */
+  .image-prompt-block {
+    padding: 1.25rem 1.75rem;
+  }
+  .image-prompt-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .image-prompt-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+  .prompt-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    position: relative;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 0.6rem; right: 0.75rem;
+    background: none;
+    border: 1px solid var(--border-default);
+    color: var(--text-subtle);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 200ms;
+  }
+  .copy-btn:hover { border-color: var(--apgi-threshold); color: var(--apgi-threshold); }
+  .prompt-text { padding-right: 3.5rem; }
+
+  /* ── Color theming per protocol ── */
+  .ep0 { --accent: #00CC99; --glow: var(--glow-neuromod); }
+  .ep1 { --accent: #FF3366; --glow: var(--glow-precision); }
+  .ep2 { --accent: #00B4FF; --glow: var(--glow-threshold); }
+  .ep3 { --accent: #9966FF; --glow: var(--glow-workspace); }
+  .ep4 { --accent: #FFCC00; --glow: var(--glow-error); }
+  .ep5 { --accent: #FF3366; --glow: var(--glow-precision); }
+  .ep6 { --accent: #00B4FF; --glow: var(--glow-threshold); }
+
+  .protocol-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--glow);
+    transition: all 400ms ease;
+  }
+
+  /* Scrollspy anchor */
+  .anchor-target { scroll-margin-top: 1rem; }
+
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-subtle);
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+  }
+  .page-footer span { color: var(--apgi-threshold); }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="eq-display">
+      <span style="color:#FF3366">Π</span>
+      <span style="color:#94A3B8"> × </span>
+      <span style="color:#FFCC00">|ε|</span>
+      <span style="color:#94A3B8"> > </span>
+      <span style="color:#00B4FF">θₜ</span>
+    </div>
+    <h1>APGI Empirical Protocols</h1>
+    <p>Plain-English summaries, evidence criteria, and text-to-image prompts for all seven validation protocols</p>
+  </header>
+
+  <!-- Nav -->
+  <nav class="protocol-nav" aria-label="Jump to protocol">
+    <a class="nav-pill" href="#ep0">EP-0 · HEP Proxy</a>
+    <a class="nav-pill" href="#ep1">EP-1 · EEG Gating</a>
+    <a class="nav-pill" href="#ep2">EP-2 · Causal TMS</a>
+    <a class="nav-pill" href="#ep3">EP-3 · Agent Sim</a>
+    <a class="nav-pill" href="#ep4">EP-4 · DoC Biomarker</a>
+    <a class="nav-pill" href="#ep5">EP-5 · fMRI Anticipation</a>
+    <a class="nav-pill" href="#ep6">EP-6 · iEEG Dynamics</a>
+  </nav>
+
+  <!-- ═══════════ EP-0 ═══════════ -->
+  <section class="protocol-section anchor-target ep0" id="ep0">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#00CC99"></div>
+        <span class="protocol-badge" style="background:rgba(0,204,153,0.12);color:#00CC99;border:1px solid rgba(0,204,153,0.3)">EP-0</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">HEP Proxy Validation</div>
+          <div class="protocol-subtitle">Does the heartbeat-evoked potential measure interoceptive precision?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">🫀</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            Every time your heart beats, your brain produces a tiny electrical response called the <strong>heartbeat-evoked potential (HEP)</strong>. APGI proposes that the size of this response is a proxy for how much <em>trust</em> your brain is placing in body signals — its "interoceptive precision" (Πⁱ). This protocol checks whether that idea holds up. Experiment P0b is particularly elegant: give participants the drug physostigmine (which boosts acetylcholine, the precision neuromodulator) and measure whether HEP amplitude rises by at least 15%. If it does, you've demonstrated a direct pharmacological handle on interoceptive precision. P0c adds an fMRI link: does the anterior insula — the region encoding Πⁱ — light up in proportion to the HEP on every single trial?
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Claim</th>
+              <th>Confirms</th>
+              <th>Falsifies</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P0a</td>
+              <td class="claim-text">HEP amplitude correlates with an independent interoceptive precision index</td>
+              <td class="evidence-confirm">r(HEP, interoceptive d′) &gt; 0.35, p &lt; 0.01</td>
+              <td class="evidence-falsify">r &lt; 0.20 across two independent samples</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P0b</td>
+              <td class="evidence-confirm">Physostigmine (ACh↑) raises HEP amplitude ≥15% vs. placebo (d ≥ 0.50, BF₁₀ ≥ 10)</td>
+              <td class="evidence-confirm">HEP ↑ ≥15% vs. placebo (d ≥ 0.50, BF₁₀ ≥ 10)</td>
+              <td class="evidence-falsify">No HEP change despite verified ACh elevation (confirmed by pupil constriction)</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P0c</td>
+              <td class="claim-text">Anterior insula BOLD tracks HEP trial-by-trial</td>
+              <td class="evidence-confirm">r(HEP amplitude, aINS BOLD) &gt; 0.30 within participants</td>
+              <td class="evidence-falsify">aINS BOLD and HEP statistically independent after arousal covariate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Scientific medical illustration, dark background (#0A0F1A), cross-section of human torso and brain with glowing neural pathway connecting the heart to the anterior insula cortex, heartbeat waveform (ECG trace) rendered in vibrant emerald green (#00CC99) pulsing upward into the brain, EEG amplitude readout in amber yellow (#FFCC00), pharmacology vial labeled "physostigmine" with small molecule diagram floating nearby in teal glow, ultra-detailed anatomical style, Neural Glow aesthetic, cinematic lighting, no text labels</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EP-1 ═══════════ -->
+  <section class="protocol-section anchor-target ep1" id="ep1">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#FF3366"></div>
+        <span class="protocol-badge" style="background:rgba(255,51,102,0.12);color:#FF3366;border:1px solid rgba(255,51,102,0.3)">EP-1</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">EEG Gating</div>
+          <div class="protocol-subtitle">Does interoceptive focus amplify the P3b ignition signal?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">🧠</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            The <strong>P3b</strong> is a brainwave spike (~300–500 ms after a stimulus) that marks conscious access — the moment a signal "ignites" into awareness. APGI says interoceptive precision (Πⁱ) gates this event: when you're tuned into your body, faint stimuli are more likely to reach awareness. EP-1 tests this by comparing P3b amplitude across three attention conditions — focusing on body sensations, on external stimuli, or splitting attention. APGI predicts the body-focus condition produces the biggest P3b for near-threshold stimuli. P1b adds a cardiac-phase test: stimuli presented during diastole (the quiet phase between heartbeats, when interoceptive prediction errors peak) should be detected more often. P1c checks whether people who are naturally good at sensing their own heartbeat (high interoceptive accuracy, IA) show stronger versions of all these effects.
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr><th>Code</th><th>Claim</th><th>Confirms</th><th>Falsifies</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P1a</td>
+              <td class="claim-text">Interoceptive focus condition produces largest P3b for near-threshold stimuli; HEP predicts P3b trial-by-trial</td>
+              <td class="evidence-confirm">Interoceptive P3b &gt; exteroceptive &gt; dual-task (p &lt; 0.05, ηₚ² ≥ 0.06); HEP–P3b r &gt; 0.4</td>
+              <td class="evidence-falsify">No P3b difference across conditions (all p &gt; 0.10); HEP–P3b r &lt; 0.20</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P1a-trait</td>
+              <td class="claim-text">High interoceptive accuracy (IA) individuals show greater perceptual sensitivity in interoceptive condition</td>
+              <td class="evidence-confirm">High-IA d-prime &gt; Low-IA (d ≥ 0.5), specific to interoceptive condition</td>
+              <td class="evidence-falsify">High/Low-IA do not differ on interoceptive d-prime (d &lt; 0.3)</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P1b</td>
+              <td class="claim-text">Stimuli presented during cardiac diastole are detected more often than during systole</td>
+              <td class="evidence-confirm">Diastole vs. systole hit-rate advantage ≥ 5%</td>
+              <td class="evidence-falsify">Uniform detection rates across cardiac phases (interaction p &gt; 0.15)</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P1c</td>
+              <td class="claim-text">High-IA participants show strongest P1a and P1b effects</td>
+              <td class="evidence-confirm">Accuracy × condition interaction on P3b (p &lt; 0.05, ηₚ² ≥ 0.08)</td>
+              <td class="evidence-falsify">Accuracy × condition interaction p &gt; 0.10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Scientific visualization, dark space-black background, EEG cap on human silhouette emitting layered brainwave traces, P3b waveform spike rendered in vibrant red (#FF3366) with neural glow radiating outward, cardiac rhythm trace in emerald green synchronized below, diastolic phase highlighted as a luminous pulse window, two overlapping conditions shown as translucent waveforms (interoceptive = red glow, exteroceptive = blue glow), bifurcation point where one trace rises dramatically above the other, ultra-clean neuroscience illustration, cinematic dark aesthetic, no text</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EP-2 ═══════════ -->
+  <section class="protocol-section anchor-target ep2" id="ep2">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#00B4FF"></div>
+        <span class="protocol-badge" style="background:rgba(0,180,255,0.12);color:#00B4FF;border:1px solid rgba(0,180,255,0.3)">EP-2</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">Causal TMS</div>
+          <div class="protocol-subtitle">Can we break interoceptive gating by disrupting the insula?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">⚡</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            Correlations show that brain regions are <em>associated</em> with a process. TMS (transcranial magnetic stimulation) proves causation by <em>temporarily disrupting</em> a region and measuring what breaks. EP-2 uses TMS on two targets: the <strong>anterior insula</strong> (encodes Πⁱ) and the <strong>dlPFC/posterior parietal cortex</strong> (the frontoparietal ignition network). APGI predicts these are <em>dissociable</em> — insula TMS should specifically knock out the HEP–P3b coupling (the interoceptive gating mechanism) while leaving externally-driven ignition intact. dlPFC TMS should reduce overall ignition capacity (measured by PCI — a TMS-based complexity index) without touching the HEP. If both sites produce identical disruption patterns, the dissociation claim fails.
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr><th>Code</th><th>Claim</th><th>Confirms</th><th>Falsifies</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P2a</td>
+              <td class="claim-text">Insula TMS reduces PCI ~20%; dlPFC/PPC TMS reduces PCI 15–25%; HEP–PCI correlation abolished by insula TMS only</td>
+              <td class="evidence-confirm">Dissociable PCI reductions; HEP–PCI coupling disappears under insula TMS, survives dlPFC TMS</td>
+              <td class="evidence-falsify">No PCI change vs. vertex; or equivalent PCI reduction at vertex control site</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P2b</td>
+              <td class="claim-text">Insula TMS selectively disrupts interoceptive gating without suppressing exteroceptive P3b</td>
+              <td class="evidence-confirm">Insula TMS: HEP–P3b coupling &lt; 0.15; exteroceptive P3b spared. dlPFC TMS: HEP unaffected</td>
+              <td class="evidence-falsify">Uniform suppression of both P3b streams; or HEP equally reduced by dlPFC TMS</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P2c</td>
+              <td class="claim-text">High-IA individuals show strongest insula TMS disruption</td>
+              <td class="evidence-confirm">Accuracy × TMS site interaction on PCI (p &lt; 0.05, η² &gt; 0.10)</td>
+              <td class="evidence-falsify">No interaction between baseline IA accuracy and TMS site</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Scientific illustration, dark background, translucent human head in profile showing brain anatomy, TMS magnetic coil positioned above the anterior insula glowing electric blue (#00B4FF), magnetic field lines rendered as curved glowing arcs, the insula region lit up bright then shown dimming/disrupted as a flickering red node, separate diagram showing dlPFC target on the same skull in purple (#9966FF), PCI complexity waveform shown on right panel with notch where TMS fires, medical precision aesthetic, Neural Glow dark interface style, no text overlays</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EP-3 ═══════════ -->
+  <section class="protocol-section anchor-target ep3" id="ep3">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#9966FF"></div>
+        <span class="protocol-badge" style="background:rgba(153,102,255,0.12);color:#9966FF;border:1px solid rgba(153,102,255,0.3)">EP-3</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">Agent Simulation</div>
+          <div class="protocol-subtitle">Does an APGI computational agent outperform simpler models on the Iowa Gambling Task?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">🤖</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            Before running expensive human experiments, build a computer agent that uses the APGI equations and test it on the <strong>Iowa Gambling Task (IGT)</strong> — a classic decision-making paradigm where optimal play requires learning from gut-level signals about risky decks. The APGI agent has a somatic marker module (β_SM) that learns to weight interoceptive signals. EP-3 asks: does it converge to good performance within the same ~50–80 trials humans need? And do its internal dynamics match APGI's theory — does the somatic marker readout (M̂) <em>precede</em> threshold crossing (θₜ), as the causal model predicts? P3e delivers the toughest test: does the full APGI model fit held-out human IGT data <em>better</em> than simpler predictive processing or Global Workspace models (by Bayesian BIC ≥ 10)?
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr><th>Code</th><th>Claim</th><th>Confirms</th><th>Falsifies</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P3a</td>
+              <td class="claim-text">Full APGI agent converges in 50–80 IGT trials, matching human learning rate; outperforms β_SM-lesion agent</td>
+              <td class="evidence-confirm">Convergence 50–80 trials; reward ratio APGI/β_SM &gt; 1.15</td>
+              <td class="evidence-falsify">No significant performance advantage across volatility conditions</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P3b</td>
+              <td class="claim-text">Post-ignition action selection entropy increases; ignitions dominated by interoceptive component</td>
+              <td class="evidence-confirm">Post-ignition entropy &gt; pre-ignition (p &lt; 0.05); ≥70% of ignitions have high interoceptive component</td>
+              <td class="evidence-falsify">Ignition uncorrelated with adaptation</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P3c</td>
+              <td class="claim-text">Somatic marker (M̂) temporally precedes threshold crossing (θₜ)</td>
+              <td class="evidence-confirm">Cross-correlation peak at negative lag; M̂ leads by ≥ 1 trial in ≥ 75% of ignition events</td>
+              <td class="evidence-falsify">M̂ simultaneous with or lagging θₜ crossing</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P3d</td>
+              <td class="claim-text">Removing β_SM produces greater performance degradation than removing Πⁱ or α</td>
+              <td class="evidence-confirm">β_SM lesion reward significantly lower than Πⁱ and α-lesion agents under matched volatility</td>
+              <td class="evidence-falsify">β_SM lesion produces equivalent or lesser deficit than Πⁱ lesion</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P3e</td>
+              <td class="claim-text">Full APGI BIC lower than standard PP and GNW-only models on human IGT data</td>
+              <td class="evidence-confirm">ΔBIC ≥ 10 vs. each alternative; cross-validation log-likelihood improvement p &lt; 0.01</td>
+              <td class="evidence-falsify">APGI BIC ≥ any alternative model on pre-registered dataset</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Digital art, dark background, abstract computational agent depicted as a glowing neural circuit hovering above a card table with four face-down decks (Iowa Gambling Task), purple (#9966FF) light emanating from the agent's decision node, somatic marker signal shown as a pulsing red wave preceding a threshold ignition flash in electric blue, BIC model comparison chart rendered as a luminous bar graph floating in the background, cinematic science visualization, no text, Neural Glow aesthetic</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EP-4 ═══════════ -->
+  <section class="protocol-section anchor-target ep4" id="ep4">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#FFCC00"></div>
+        <span class="protocol-badge" style="background:rgba(255,204,0,0.12);color:#FFCC00;border:1px solid rgba(255,204,0,0.3)">EP-4</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">DoC Biomarker</div>
+          <div class="protocol-subtitle">Can HEP + PCI predict consciousness recovery in disorders of consciousness?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">🏥</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            This is APGI's most clinically urgent protocol. Patients in <strong>vegetative state (VS)</strong>, <strong>minimally conscious state (MCS)</strong>, or emerging from disorders of consciousness are often misclassified — VS patients may be covertly aware. EP-4 tests whether two APGI parameters — <strong>HEP amplitude</strong> (interoceptive precision Πⁱ) and <strong>PCI</strong> (perturbational complexity index, a TMS-EEG measure of ignition capacity) — can predict whether a patient will recover consciousness at 3- and 6-month follow-up, and do so <em>better together</em> than either alone. P4c uses a cold-pressor test (CPT) as an interoceptive perturbation: MCS patients should show a PCI increase in response to the somatic stimulus; VS/UWS patients should not, providing a bedside dissociation test.
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr><th>Code</th><th>Claim</th><th>Confirms</th><th>Falsifies</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P4a</td>
+              <td class="claim-text">Joint HEP + PCI model explains more variance in 3-month GCS-S outcome than either alone</td>
+              <td class="evidence-confirm">Joint model AUC &gt; 0.80; ΔR² ≥ 0.05 vs. best univariate; LRT p &lt; 0.05</td>
+              <td class="evidence-falsify">Joint model R² ≤ max(univariate HEP R², univariate PCI R²)</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P4b</td>
+              <td class="claim-text">HEP amplitude distinguishes MCS from VS/UWS at group level; four-group gradient confirmed</td>
+              <td class="evidence-confirm">HEP MCS &gt; VS/UWS (p &lt; 0.05, d &gt; 0.5)</td>
+              <td class="evidence-falsify">No significant HEP difference between MCS and VS/UWS</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P4c</td>
+              <td class="claim-text">Interoceptive perturbation (CPT) increases PCI in MCS but not VS/UWS; PCI change correlates with HEP change</td>
+              <td class="evidence-confirm">PCI ↑ ≥ 10% in MCS post-CPT; VS/UWS no change; r(ΔPCI, ΔHEP) &gt; 0.4</td>
+              <td class="evidence-falsify">No PCI change in MCS post-CPT; or equivalent change in VS/UWS</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P4d</td>
+              <td class="claim-text">HEP amplitude correlates with GCS-S at 3-month and 6-month follow-up within participants</td>
+              <td class="evidence-confirm">Within-participant Spearman r(HEP, GCS-S) &gt; 0.4 at both timepoints</td>
+              <td class="evidence-falsify">HEP shows no longitudinal correlation with GCS-S (r &lt; 0.2)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Medical visualization, dark background, hospital ICU setting abstracted as glowing data streams, unconscious patient silhouette connected to EEG electrodes emitting heartbeat-evoked potential traces in amber yellow (#FFCC00), PCI complexity score displayed as branching fractal pattern in electric blue (#00B4FF), two overlapping diagnostic readouts — one dim (vegetative state) one pulsing with moderate glow (minimally conscious) — showing divergence, timeline arrow projecting forward 3 and 6 months, clinical precision aesthetic, Neural Glow style, no text</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EP-5 ═══════════ -->
+  <section class="protocol-section anchor-target ep5" id="ep5">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#FF3366"></div>
+        <span class="protocol-badge" style="background:rgba(255,51,102,0.12);color:#FF3366;border:1px solid rgba(255,51,102,0.3)">EP-5</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">fMRI Anticipation</div>
+          <div class="protocol-subtitle">Does vmPFC encode anticipated somatic value — not sensory outcome?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">🔮</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            APGI predicts that the <strong>ventromedial prefrontal cortex (vmPFC)</strong> acts as a somatic marker <em>predictor</em> — it activates during the <em>anticipation</em> of a body-relevant outcome based on expected value (EV), not in response to the physical sensation itself. This is a sharp mechanistic claim: vmPFC is computing Πⁱ × EV before the event, not reacting to a skin conductance response (SCR) after it. EP-5 uses an fMRI gambling task with variable foreperiods (anticipation windows) to test this. The critical double-dissociation: vmPFC BOLD should correlate with EV during anticipation but <em>not</em> with SCR at outcome; vmPFC–posterior insula connectivity should peak during anticipation and drop at outcome. P5d is the cleanest control: remove the anticipation window entirely (0 ms foreperiod) and vmPFC–insula coupling should collapse.
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr><th>Code</th><th>Claim</th><th>Confirms</th><th>Falsifies</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P5a</td>
+              <td class="claim-text">vmPFC BOLD modulated by expected value during anticipation; does NOT correlate with outcome SCR</td>
+              <td class="evidence-confirm">vmPFC anticipation BOLD modulated by EV (p &lt; 0.05 FWE); vmPFC–SCR outcome correlation r &lt; 0.2</td>
+              <td class="evidence-falsify">vmPFC BOLD correlates significantly with outcome-locked SCR (r &gt; 0.35)</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P5b</td>
+              <td class="claim-text">vmPFC–posterior insula functional connectivity peaks during anticipation, not outcome</td>
+              <td class="evidence-confirm">PPI coefficient vmPFC–pIC: anticipation &gt; outcome (p &lt; 0.05 FWE)</td>
+              <td class="evidence-falsify">No anticipatory vmPFC–pIC coupling; connectivity limited to outcome period</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P5c</td>
+              <td class="claim-text">vmPFC anticipation effect driven by valence (EV), not sensory contrast</td>
+              <td class="evidence-confirm">vmPFC activation modulated by EV (p &lt; 0.05 FWE); no sensory contrast effect</td>
+              <td class="evidence-falsify">vmPFC activation correlates with sensory contrast regardless of valence</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P5d</td>
+              <td class="claim-text">Eliminating anticipation window (0 ms foreperiod) collapses vmPFC–posterior insula coupling</td>
+              <td class="evidence-confirm">vmPFC–pIC PPI: long foreperiod &gt; no foreperiod (p &lt; 0.05)</td>
+              <td class="evidence-falsify">vmPFC–insula coupling persists at equivalent magnitude in no-anticipation condition</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Scientific brain imaging visualization, dark background, transparent human head showing medial sagittal brain section, vmPFC (ventromedial prefrontal cortex) glowing with a warm red-to-amber gradient (#FF3366 to #FFCC00) during an anticipation phase depicted as a countdown clock floating in foreground, glowing fiber tract connecting vmPFC to posterior insula in the temporal lobe, the insula remaining dim until anticipation activates it, BOLD signal time-series plotted as a glowing curve — peaking during anticipation window, dropping at outcome — Neural Glow dark medical aesthetic, no text</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EP-6 ═══════════ -->
+  <section class="protocol-section anchor-target ep6" id="ep6">
+    <div class="protocol-card">
+      <div class="protocol-header">
+        <div class="protocol-stripe" style="background:#00B4FF"></div>
+        <span class="protocol-badge" style="background:rgba(0,180,255,0.12);color:#00B4FF;border:1px solid rgba(0,180,255,0.3)">EP-6</span>
+        <div class="protocol-title-block">
+          <div class="protocol-title">iEEG Dynamics</div>
+          <div class="protocol-subtitle">Does frontoparietal cortex show bistable, phase-transition ignition dynamics?</div>
+        </div>
+      </div>
+
+      <div class="plain-english">
+        <span class="plain-english-icon">📡</span>
+        <div class="plain-english-text">
+          <div class="plain-english-label">Plain English</div>
+          <p class="plain-english-body">
+            Intracranial EEG (iEEG) — recorded from electrodes placed directly on the cortex during neurosurgical procedures — gives access to high-gamma power (70–150 Hz), the best human proxy for local neural firing. APGI's bifurcation theory makes a specific prediction: near-threshold stimuli should push frontoparietal high-gamma into a <strong>bimodal</strong> distribution — clustering into either "high" or "low" states, not a smooth continuum. This is the empirical signature of a phase transition (bistability). P6c tests a subtler prediction: in the 500 ms <em>before</em> a detected stimulus, autocorrelation (AC1) of high-gamma should <em>increase</em> monotonically — a phenomenon called "critical slowing" that occurs when a dynamical system approaches a tipping point. P6d checks the transit time: near-threshold trials should linger in intermediate states for &gt;100 ms before committing, rather than snapping immediately into high or low.
+          </p>
+        </div>
+      </div>
+
+      <div class="claims-block">
+        <div class="claims-label">Predictions &amp; Evidence Criteria</div>
+        <table class="claims-table">
+          <thead>
+            <tr><th>Code</th><th>Claim</th><th>Confirms</th><th>Falsifies</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="claim-code">P6a</td>
+              <td class="claim-text">Frontoparietal high-gamma power shows bimodal (not graded) distribution at near-threshold</td>
+              <td class="evidence-confirm">Hartigan dip test p &lt; 0.05; 2-component Gaussian ΔBIC &gt; 10 vs. 1-component</td>
+              <td class="evidence-falsify">Unimodal continuous distribution; dip test p &gt; 0.20</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P6b</td>
+              <td class="claim-text">Bimodality is specific to frontoparietal ignition network, not occipital regions</td>
+              <td class="evidence-confirm">Region × bimodality-index interaction significant (p &lt; 0.05); frontoparietal dip statistic &gt; occipital</td>
+              <td class="evidence-falsify">Uniform bimodality across all regions; or uniform graded responses</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P6c</td>
+              <td class="claim-text">AC1 of pre-ignition high-gamma increases monotonically in 500 ms before detected stimuli</td>
+              <td class="evidence-confirm">AC1 Kendall τ &gt; 0.3 in detected trials; absent or reversed in non-detected trials</td>
+              <td class="evidence-falsify">AC1 flat or decreasing before detected stimuli</td>
+            </tr>
+            <tr>
+              <td class="claim-code">P6d</td>
+              <td class="claim-text">Near-threshold stimuli produce intermediate high-gamma states lasting &gt;100 ms before committing</td>
+              <td class="evidence-confirm">Proportion of near-threshold trials with intermediate state &gt;100 ms duration &gt; 15%</td>
+              <td class="evidence-falsify">Rapid commitment to high/low state within 50 ms in ≥ 85% of near-threshold trials</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="image-prompt-block">
+        <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
+        <div class="prompt-card">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          <div class="prompt-text">Scientific visualization, dark background, intracranial EEG electrode array overlaid on translucent cortical surface of frontal and parietal lobes glowing in electric blue (#00B4FF), high-gamma power distribution shown as a bimodal histogram with two distinct glowing peaks (not one continuous curve), critical slowing depicted as a widening autocorrelation cone in amber yellow converging toward a threshold crossing event, bifurcation point marked by a bright white flash of ignition, occipital region shown dim and unimodal for contrast, Neural Glow dark aesthetic, medical precision, no text</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    APGI Framework · Empirical Protocols EP-0 through EP-6 · <span>Π × |ε| > θₜ</span>
+  </footer>
+
+</div>
+
+<script>
+  function copyPrompt(btn) {
+    const text = btn.parentElement.querySelector('.prompt-text').textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.style.color = '#00CC99';
+      btn.style.borderColor = '#00CC99';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

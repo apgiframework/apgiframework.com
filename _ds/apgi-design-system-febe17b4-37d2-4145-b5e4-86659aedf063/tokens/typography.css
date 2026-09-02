@@ -1,0 +1,56 @@
+/* APGI Design System — Typography tokens */
+
+:root {
+  /* Fallback stacks kept explicit per family so a CDN failure degrades
+     gracefully without silently swapping the brand's register (serif stays
+     serif, mono stays mono). */
+  --font-serif-display: "Crimson Pro", "Iowan Old Style", "Georgia", "Times New Roman", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Fira Code", "SF Mono", "Consolas", "Liberation Mono", monospace;
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---- Fluid/responsive type scale (clamp: min, viewport-driven, max) ----
+     Applies to Display/H1/H2 only — Crimson Pro needs tighter tracking and
+     looser leading than Inter at large sizes, so tracking/leading are
+     specified per level, not inherited. H3/Body/Caption/Micro are fixed
+     Inter sizes; they don't need fluid scaling at this range. */
+  --text-display: clamp(2.75rem, 2rem + 3vw, 4.5rem); /* @kind other */
+  --text-h1: clamp(2rem, 1.55rem + 1.8vw, 3rem); /* @kind other */
+  --text-h2: clamp(1.375rem, 1.2rem + 0.7vw, 1.875rem); /* @kind other */
+
+  --tracking-display: -0.015em;
+  --tracking-h1: -0.01em;
+  --tracking-h2: -0.005em;
+  --leading-display: 1.05;
+  --leading-h1: 1.12;
+  --leading-h2: 1.2;
+
+  /* Body / label sizes (Inter) — fixed */
+  --text-h3: 20px;
+  --text-body-size: 16px;
+  --text-caption: 14px;
+  --text-micro: 12px;
+
+  --leading-h3: 1.3;
+  --leading-body: 1.5;      /* tightened from 1.625 — improves scanning of dense/parameter-heavy paragraphs */
+  --leading-caption: 1.4;
+  --leading-micro: 1.35;
+  --tracking-h3: 0;
+  --tracking-body: 0;
+  --tracking-caption: 0.01em;
+  --tracking-micro: 0.03em; /* micro labels are usually uppercase — needs the extra room */
+
+  /* ---- Math & code integration ----
+     KaTeX/Computer Modern and Fira Code inherit the surrounding Inter
+     paragraph's font-size, scaled and baseline-corrected so symbols don't
+     break vertical rhythm. */
+  --math-inline-scale: 1em;      /* KaTeX inline: same size as surrounding text, never shrink symbols */
+  --math-block-line-height: 1.2; /* KaTeX display blocks: tighter than body leading, prevents excess gap around equations */
+  --code-inline-scale: 0.9em;    /* inline `code`/Fira Code sits at 0.9× the paragraph size... */
+  --code-inline-baseline-shift: -0.05em; /* ...with a slight downward nudge so its taller x-height still sits on the text baseline */
+}

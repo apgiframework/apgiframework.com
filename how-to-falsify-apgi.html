@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Falsify APGI — Allostatic Precision-Gated Ignition</title>
+<meta name="description" content="Fifteen pre-registered, numerically thresholded predictions that could disconfirm the APGI framework — claim, APGI prediction, competitor prediction, experiment, measurement, and falsification criterion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --apgi-threshold:  #00B4FF;
+    --apgi-precision:  #FF3366;
+    --apgi-error:      #FFCC00;
+    --apgi-neuromod:   #00CC99;
+    --apgi-workspace:  #9966FF;
+    --apgi-inactive:   #2C3E50;
+
+    --bg-base:     #0A0F1A;
+    --bg-surface:  #1a1f2e;
+    --bg-elevated: #242938;
+
+    --text-primary:   #FFFFFF;
+    --text-secondary: #E2E8F0;
+    --text-muted:     #94A3B8;
+    --text-subtle:    #64748B;
+
+    --font-display: 'Crimson Pro', Georgia, serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+    --font-math:    'Cambria Math', 'Computer Modern', serif;
+    --font-mono:    'Fira Code', monospace;
+
+    --polaris-max-content: 860px;
+    --polaris-max-wide:    1200px;
+    --polaris-section-gap: 4.5rem;
+    --polaris-nav-height:  60px;
+
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg-base);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--apgi-threshold); }
+
+  /* ---------- Sticky Nav ---------- */
+  .polaris-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,15,26,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.5rem; height: var(--polaris-nav-height);
+    font-size: 0.875rem;
+  }
+  .polaris-nav__brand {
+    font-family: var(--font-display); font-size: 1.15rem;
+    color: var(--apgi-threshold); font-weight: 700; letter-spacing: 0.06em;
+    text-decoration: none; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .eq-badge {
+    display: inline-block; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 4px;
+    padding: 0.15rem 0.5rem; font-family: var(--font-mono); font-size: 0.7rem;
+    color: var(--apgi-error); letter-spacing: 0.02em;
+  }
+  .polaris-nav__links { display: none; }
+  .polaris-nav__links a {
+    color: var(--text-muted); text-decoration: none; margin-left: 1.5rem;
+    transition: color 150ms ease;
+  }
+  .polaris-nav__links a:hover { color: #fff; }
+  @media (min-width: 720px) { .polaris-nav__links { display: flex; align-items: center; } }
+
+  /* ---------- Hero ---------- */
+  .polaris-hero {
+    text-align: center;
+    padding: 4rem 1.5rem 3rem;
+    max-width: var(--polaris-max-content);
+    margin: 0 auto;
+  }
+  .polaris-hero__eq {
+    font-family: var(--font-math);
+    font-size: 2rem; letter-spacing: 0.06em;
+    margin-bottom: 1.25rem;
+  }
+  .polaris-hero__eq span.eq-op { color: rgba(255,255,255,0.4); }
+  .polaris-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    font-weight: 700; color: #fff;
+    line-height: 1.15; margin: 0 0 1rem;
+  }
+  .polaris-hero__subtitle {
+    font-size: 1.05rem; color: var(--text-muted);
+    max-width: 640px; margin: 0 auto 1.5rem;
+  }
+  .polaris-hero__authors {
+    font-size: 0.85rem; color: var(--text-subtle);
+    margin-bottom: 1.5rem; letter-spacing: 0.02em;
+  }
+  .polaris-hero__authors a { color: var(--text-subtle); text-decoration: underline; }
+  .polaris-hero__ctas .btn { margin: 0.3rem; }
+  .btn {
+    display: inline-block; padding: 0.65rem 1.5rem; border-radius: var(--radius-md);
+    font-size: 0.875rem; font-weight: 600; text-decoration: none;
+    transition: all 200ms ease; border: 1px solid transparent;
+  }
+  .btn--primary { background: var(--apgi-workspace); color: #fff; }
+  .btn--primary:hover { background: #b08aff; box-shadow: 0 0 20px rgba(153,102,255,0.4); }
+  .btn--secondary { border-color: rgba(255,255,255,0.2); color: var(--text-secondary); }
+  .btn--secondary:hover { border-color: var(--apgi-threshold); color: var(--apgi-threshold); }
+
+  /* ---------- Abstract / framing block ---------- */
+  .abstract-block {
+    max-width: var(--polaris-max-content); margin: 0 auto 3rem;
+    background: var(--bg-surface); border-radius: var(--radius-lg);
+    padding: 1.75rem 2rem; border-left: 4px solid var(--apgi-workspace);
+  }
+  .abstract-label {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--apgi-workspace); font-weight: 600; margin-bottom: 0.65rem;
+  }
+  .abstract-block p { font-size: 0.925rem; color: var(--text-muted); margin: 0 0 0.85rem; }
+  .abstract-block p:last-child { margin-bottom: 0; }
+
+  /* ---------- Section shell ---------- */
+  section.page-section {
+    max-width: var(--polaris-max-wide); margin: 0 auto;
+    padding: var(--polaris-section-gap) 1.5rem 0;
+  }
+  section.page-section h2 {
+    font-family: var(--font-display); font-size: 1.9rem; color: #fff;
+    max-width: var(--polaris-max-content); margin: 0 auto 0.5rem;
+  }
+  .section-lead {
+    color: var(--text-muted); font-size: 0.95rem;
+    max-width: var(--polaris-max-content); margin: 0 auto 2rem;
+  }
+
+  /* ---------- Tier legend / filter ---------- */
+  .tier-filter {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+    max-width: var(--polaris-max-wide); margin: 0 auto 2.5rem;
+  }
+  .tier-btn {
+    font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+    padding: 0.45rem 1.1rem; border-radius: 999px; cursor: pointer;
+    background: transparent; color: var(--text-muted);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 180ms ease;
+  }
+  .tier-btn[data-tier="1"] { border-color: rgba(0,204,153,0.35); }
+  .tier-btn[data-tier="2"] { border-color: rgba(255,204,0,0.35); }
+  .tier-btn[data-tier="3"] { border-color: rgba(0,180,255,0.35); }
+  .tier-btn[data-tier="f"] { border-color: rgba(153,102,255,0.35); }
+  .tier-btn.active, .tier-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .tier-btn.active[data-tier="1"] { background: rgba(0,204,153,0.15); color: var(--apgi-neuromod); }
+  .tier-btn.active[data-tier="2"] { background: rgba(255,204,0,0.15); color: var(--apgi-error); }
+  .tier-btn.active[data-tier="3"] { background: rgba(0,180,255,0.15); color: var(--apgi-threshold); }
+  .tier-btn.active[data-tier="f"] { background: rgba(153,102,255,0.15); color: var(--apgi-workspace); }
+  .tier-btn.active[data-tier="all"] { background: rgba(255,255,255,0.12); color: #fff; }
+
+  /* ---------- Prediction cards ---------- */
+  .pred-grid { display: flex; flex-direction: column; gap: 1rem; max-width: var(--polaris-max-content); margin: 0 auto; }
+
+  .pred-card {
+    background: var(--bg-surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius-lg);
+    border-left: 3px solid var(--apgi-inactive);
+    overflow: hidden;
+    transition: border-color 250ms ease;
+  }
+  .pred-card[data-tier="1"] { border-left-color: var(--apgi-neuromod); }
+  .pred-card[data-tier="2"] { border-left-color: var(--apgi-error); }
+  .pred-card[data-tier="3"] { border-left-color: var(--apgi-threshold); }
+  .pred-card[data-tier="f"] { border-left-color: var(--apgi-workspace); }
+
+  .pred-card summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.15rem 1.35rem;
+  }
+  .pred-card summary::-webkit-details-marker { display: none; }
+  .pred-num {
+    font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
+    color: rgba(255,255,255,0.18); flex-shrink: 0; width: 2rem;
+  }
+  .pred-card[data-tier="1"] .pred-num { color: rgba(0,204,153,0.35); }
+  .pred-card[data-tier="2"] .pred-num { color: rgba(255,204,0,0.35); }
+  .pred-card[data-tier="3"] .pred-num { color: rgba(0,180,255,0.35); }
+  .pred-card[data-tier="f"] .pred-num { color: rgba(153,102,255,0.35); }
+
+  .pred-summary-text { flex: 1; min-width: 0; }
+  .pred-summary-text h3 {
+    margin: 0 0 0.3rem; font-size: 1rem; color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .pred-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .pred-tag {
+    font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem; border-radius: 999px;
+  }
+  .pred-tag--1 { background: rgba(0,204,153,0.15); color: var(--apgi-neuromod); }
+  .pred-tag--2 { background: rgba(255,204,0,0.15); color: var(--apgi-error); }
+  .pred-tag--3 { background: rgba(0,180,255,0.15); color: var(--apgi-threshold); }
+  .pred-tag--f { background: rgba(153,102,255,0.15); color: var(--apgi-workspace); }
+  .pred-tag--protocol { background: rgba(255,255,255,0.06); color: var(--text-subtle); }
+
+  .pred-chevron {
+    flex-shrink: 0; width: 20px; height: 20px; color: var(--text-subtle);
+    transition: transform 220ms ease;
+  }
+  .pred-card[open] .pred-chevron { transform: rotate(180deg); }
+
+  .pred-body { padding: 0 1.35rem 1.5rem; }
+  .pred-row { display: grid; grid-template-columns: 130px 1fr; gap: 0.75rem 1rem; padding: 0.65rem 0; border-top: 1px solid rgba(255,255,255,0.06); }
+  .pred-row:first-child { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0.35rem; }
+  .pred-row-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-subtle); padding-top: 0.1rem;
+  }
+  .pred-row-value { font-size: 0.9rem; color: var(--text-secondary); }
+  .pred-row--apgi .pred-row-label { color: var(--apgi-threshold); }
+  .pred-row--competitor .pred-row-label { color: var(--apgi-precision); }
+  .pred-row--criterion .pred-row-value { color: var(--text-muted); font-style: italic; }
+  .pred-row--criterion { border-top-color: rgba(255,204,0,0.15); background: rgba(255,204,0,0.03); border-radius: 6px; }
+
+  @media (max-width: 560px) {
+    .pred-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .pred-row-label { padding-top: 0; }
+  }
+
+  /* ---------- Reading note ---------- */
+  .apgi-callout {
+    display: flex; gap: 1rem; align-items: flex-start;
+    max-width: var(--polaris-max-content); margin: 3rem auto 0;
+    padding: 1.25rem 1.5rem; border-radius: var(--radius-lg);
+    background: rgba(0,180,255,0.06); border: 1px solid rgba(0,180,255,0.2);
+  }
+  .callout-icon { font-family: var(--font-math); font-size: 1.4rem; font-weight: 700; color: var(--apgi-threshold); flex-shrink: 0; }
+  .apgi-callout p { margin: 0; font-size: 0.875rem; color: var(--text-muted); }
+  .apgi-callout strong { color: var(--text-secondary); }
+
+  /* ---------- Resources / footer ---------- */
+  .polaris-results { padding: var(--polaris-section-gap) 1.5rem; max-width: var(--polaris-max-wide); margin: 0 auto; }
+  .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-top: 2rem; max-width: var(--polaris-max-content); margin-left: auto; margin-right: auto; }
+  .result-card { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 1.75rem 1.25rem; text-align: center; border: 1px solid rgba(255,255,255,0.07); }
+  .result-stat { font-family: var(--font-display); font-size: 2.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .result-card--a .result-stat { color: var(--apgi-threshold); }
+  .result-card--b .result-stat { color: var(--apgi-precision); }
+  .result-card--c .result-stat { color: var(--apgi-workspace); }
+  .result-card--d .result-stat { color: var(--apgi-error); }
+  .result-label { font-size: 0.8rem; color: var(--text-subtle); }
+
+  .polaris-bibtex { max-width: var(--polaris-max-content); margin: 0 auto; padding: var(--polaris-section-gap) 1.5rem 3rem; }
+  .bibtex-block {
+    background: #0d111c; border: 1px solid rgba(0,180,255,0.2); border-radius: var(--radius-md);
+    padding: 1.5rem; font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--text-muted); overflow-x: auto; white-space: pre;
+  }
+
+  .author-byline {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    padding: 2.5rem 1.5rem 3.5rem; text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;
+  }
+  .author-byline__name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--text-secondary); }
+  .author-byline__role { font-size: 0.82rem; color: var(--text-subtle); }
+  .author-byline__links { display: flex; gap: 1.25rem; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center; }
+  .author-byline__links a { font-size: 0.8rem; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="polaris-nav">
+  <a href="#top" class="polaris-nav__brand">APGI <span class="eq-badge">Π × |ε| > Bₜ</span></a>
+  <div class="polaris-nav__links">
+    <a href="#predictions">Predictions</a>
+    <a href="#reading-note">How to Read</a>
+    <a href="#resources">Resources</a>
+    <a href="#cite">Cite</a>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<section class="polaris-hero">
+  <div class="polaris-hero__eq">
+    <span style="color:#FF3366">Π</span><span class="eq-op"> × </span><span style="color:#FFCC00">|ε|</span><span class="eq-op"> > </span><span style="color:#00B4FF">Bₜ</span>
+  </div>
+  <h1 class="polaris-hero__title">How to Falsify APGI</h1>
+  <p class="polaris-hero__subtitle">
+    Fifteen pre-registered predictions, each with a numeric threshold at which the corresponding
+    component of the framework — or the framework as a whole — is disconfirmed. No hedging, no
+    moving goalposts: this is the list of ways APGI is allowed to be wrong.
+  </p>
+  <div class="polaris-hero__authors">
+    Dimitry Pesochin · APGI Framework · <a href="https://doi.org/10.17605/OSF.IO/T5HCQ" target="_blank" rel="noopener">OSF Pre-registration</a> · <a href="https://github.com/apgiframework/apgi-implementation" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="polaris-hero__ctas">
+    <a class="btn btn--primary" href="#predictions">View the 15 predictions</a>
+    <a class="btn btn--secondary" href="https://doi.org/10.5281/zenodo.21632264" target="_blank" rel="noopener">Read the papers</a>
+  </div>
+</section>
+
+<div class="abstract-block">
+  <div class="abstract-label">Why this page exists</div>
+  <p>A theory that cannot lose an argument isn't doing science. Every prediction below states what APGI
+  says should happen, what the leading competing framework (GNWT, IIT, or predictive processing) says
+  should happen instead, the experiment that tells them apart, what gets measured, and the pre-registered
+  number at which APGI's claim is rejected.</p>
+  <p>Full statistical models and power analyses live in the APGI Protocols document and the OSF
+  pre-registration linked above — this page is the index, not the primary source.</p>
+</div>
+
+<section class="page-section" id="predictions">
+  <h2>The 15 Predictions</h2>
+  <p class="section-lead">Filter by epistemic tier. Tier 1 = thermodynamic (metabolic cost). Tier 2 = information-theoretic (precision, ignition probability). Tier 3 = computational (architecture, causal priority). Framework-level = all-or-nothing tests of APGI as a whole.</p>
+
+  <div class="tier-filter">
+    <button class="tier-btn active" data-tier="all">All 15</button>
+    <button class="tier-btn" data-tier="1">Tier 1 · Thermodynamic</button>
+    <button class="tier-btn" data-tier="2">Tier 2 · Information</button>
+    <button class="tier-btn" data-tier="3">Tier 3 · Computational</button>
+    <button class="tier-btn" data-tier="f">Framework-level</button>
+  </div>
+
+  <div class="pred-grid" id="predGrid"></div>
+</section>
+
+<div class="apgi-callout" id="reading-note">
+  <div class="callout-icon">Bₜ</div>
+  <p><strong>A note on how to read this:</strong> most rows carry a three-way outcome, not a binary one —
+  a clear pass, a clear fail, and an indeterminate zone that triggers replication rather than a verdict.
+  That's deliberate: it's what keeps this page honest rather than a highlight reel. Predictions 1–5 and 7
+  are testable now with existing TMS-EEG, fMRI, and pharmacological methods; Predictions 8–11 require
+  intracranial access; Predictions 6, 14, and 15 (Tier 1, metabolic) are the framework's acknowledged
+  weakest evidential tier, unmeasured by direct calorimetry as of this writing.</p>
+</div>
+
+<section class="polaris-results" id="resources">
+  <h2 style="max-width:var(--polaris-max-content);margin:0 auto 0.5rem;font-family:var(--font-display);font-size:1.9rem;color:#fff;">Source Material</h2>
+  <p class="section-lead">All predictions are drawn directly from the APGI papers and protocols — nothing here is extrapolated beyond what is pre-registered.</p>
+  <div class="results-grid">
+    <div class="result-card result-card--a"><div class="result-stat">4</div><div class="result-label">APGI Papers</div></div>
+    <div class="result-card result-card--b"><div class="result-stat">8</div><div class="result-label">Empirical Protocols</div></div>
+    <div class="result-card result-card--c"><div class="result-stat">15</div><div class="result-label">Falsifiable Predictions Indexed Here</div></div>
+    <div class="result-card result-card--d"><div class="result-stat">3</div><div class="result-label">Competing Frameworks Adjudicated (GNWT · IIT · PP/FEP)</div></div>
+  </div>
+</section>
+
+<section class="polaris-bibtex" id="cite">
+  <h2 style="font-family:var(--font-display);font-size:1.6rem;color:#fff;margin-bottom:1rem;">Cite This Framework</h2>
+<pre class="bibtex-block"><code>@misc{pesochin2026apgi,
+  author       = {Pesochin, Dimitry},
+  title        = {APGI: Allostatic Precision-Gated Ignition},
+  year         = {2026},
+  doi          = {10.5281/zenodo.21632264},
+  note         = {OSF Preregistration: https://doi.org/10.17605/OSF.IO/T5HCQ},
+  url          = {https://github.com/apgiframework/apgi-implementation}
+}</code></pre>
+</section>
+
+<div class="author-byline">
+  <div class="author-byline__name">Dimitry Pesochin</div>
+  <div class="author-byline__role">Independent Researcher · APGI Framework</div>
+  <div class="author-byline__links">
+    <a href="mailto:dimitry@apgiframework.com">Contact</a>
+    <a href="https://orcid.org/0009-0005-0328-2896" target="_blank" rel="noopener">ORCID</a>
+    <a href="https://github.com/apgiframework/apgi-implementation" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://doi.org/10.17605/OSF.IO/T5HCQ" target="_blank" rel="noopener">OSF</a>
+  </div>
+</div>
+
+<script>
+const predictions = [
+  {
+    n: 1, tier: "2", protocol: "Protocol 1 · Pred 1.C",
+    title: "Cardiac-phase valence reversal",
+    claim: "Interoceptive precision (Πⁱ) does not just gate detection — it reverses direction depending on stimulus valence.",
+    apgi: "Near-threshold detection shows a diastole advantage for neutral stimuli, but this reverses to a systole advantage for threat-relevant stimuli, with crossover magnitude proportional to the somatic-marker weight β_SM.",
+    competitor: "A generic interoceptive-precision account predicts a diastole advantage regardless of valence — it has no mechanism that predicts a reversal.",
+    experiment: "Protocol 1 — cardiac-phase-locked EEG, within-subject near-threshold Gabor detection, neutral vs. threat-relevant stimuli, N = 62 target (minimum 48).",
+    measurement: "Detection accuracy/d′ split by cardiac phase (systole vs. diastole) and stimulus valence.",
+    criterion: "Fails if no valence × cardiac-phase interaction emerges, or if the interaction does not scale with β_SM."
+  },
+  {
+    n: 2, tier: "2", protocol: "Protocol 1 · Pred 1.E",
+    title: "Psychometric steepness as a phase-transition signature",
+    claim: "Conscious access is a discrete threshold-crossing event, not gradual accumulation.",
+    apgi: "Near-threshold psychometric functions show a Hill coefficient α_psy ≥ 10 (working point 12–18).",
+    competitor: "Drift-diffusion and other graded-integration accounts predict a shallower curve, α_psy ≈ 2–6.",
+    experiment: "Logistic/Weibull fits to the same near-threshold detection data collected in Protocol 1 — no additional participants required.",
+    measurement: "Hill coefficient extracted from the psychometric curve.",
+    criterion: "A measured α_psy in the 2–6 range would favor graded-integration models over APGI's discrete-threshold claim."
+  },
+  {
+    n: 3, tier: "3", protocol: "Protocol 2 · Pred 2.A",
+    title: "Somatic markers confer measurable adaptive advantage",
+    claim: "The somatic-marker term isn't decorative — it should make agents learn faster and earn more reward.",
+    apgi: "Full APGI agents converge within 50–80 trials on a volatile three-armed bandit; β_SM-lesioned agents need 150+ trials; GNWT-only agents need 100–120 trials. Expected reward advantage: 15–25% cumulative over 500 trials.",
+    competitor: "GNWT-only and Pure-PP agent variants predict no benefit from a dedicated somatic-marker term — convergence and reward should track workspace or prediction-error dynamics alone.",
+    experiment: "Protocol 2 — active-inference agent simulations across three volatility conditions, five agent variants, N = 1,000 seeds per condition (minimum 500).",
+    measurement: "Trials-to-convergence and cumulative reward per agent type.",
+    criterion: "Fails if no statistically significant performance advantage appears across all volatility conditions (all agent types converge within 5% of each other)."
+  },
+  {
+    n: 4, tier: "3", protocol: "Protocol 2 · Pred 2.B",
+    title: "Interoceptive dominance at the moment of ignition",
+    claim: "Under volatility, interoceptive signals — not exteroceptive ones — should be doing most of the work at threshold crossing.",
+    apgi: "≥ 70–85% of ignition events satisfy Πⁱ·|zⁱ| > Πᵉ·|zᵉ| under high volatility.",
+    competitor: "A pure exteroceptive-precision (workspace-only) account predicts no systematic interoceptive dominance — the proportion should sit near chance.",
+    experiment: "Same Protocol 2 simulation battery, high-volatility condition (σ_env = 0.6).",
+    measurement: "Proportion of ignition events in which interoceptive precision-weighted error exceeds exteroceptive.",
+    criterion: "Fails if fewer than 60% of ignition events are interoceptively dominant."
+  },
+  {
+    n: 5, tier: "3", protocol: "Protocol 3",
+    title: "Somatic-marker retrieval precedes threshold crossing",
+    claim: "Somatic markers cause ignition rather than being a downstream readout of it.",
+    apgi: "Anticipatory vmPFC → posterior-insula coupling, parametrically modulated by option value, dissociates somatic-marker retrieval from outcome-locked exteroceptive prediction-error encoding.",
+    competitor: "A pure prediction-error account predicts vmPFC activity should correlate with exteroceptive prediction error itself, not track anticipatory value independent of sensory contrast.",
+    experiment: "Protocol 3 — foreperiod-manipulated risky-choice task, 3T fMRI, N = 40 enrolled (36 analyzable minimum).",
+    measurement: "vmPFC–posterior-insula psychophysiological interaction (PPI), value-parametric vmPFC BOLD.",
+    criterion: "Fails if vmPFC correlates with exteroceptive prediction error rather than the anticipatory somatic-marker signal."
+  },
+  {
+    n: 6, tier: "1", protocol: "Protocol 4",
+    title: "Metabolic depletion selectively raises the threshold for interoceptive load",
+    claim: "The ignition threshold is allostatically regulated — it should move with metabolic state, and specifically for interoceptive processing.",
+    apgi: "16-hour fasting and sustained-vigilance load elevate the ignition threshold for interoceptive load specifically; interoceptive d′ reduction is >15% greater than exteroceptive d′ reduction.",
+    competitor: "A generic fatigue/arousal account predicts uniform, non-specific suppression across interoceptive and exteroceptive detection alike.",
+    experiment: "Protocol 4 — 16h fast vs. fed, vigilance vs. rested, EEG plus near-threshold detection, N ≥ 60 (d = 0.45, power = 0.80).",
+    measurement: "Metabolic-state × interoceptive-load interaction on d′/P3b amplitude.",
+    criterion: "Fails if no interaction emerges, or if it is absorbed entirely by general arousal covariates."
+  },
+  {
+    n: 7, tier: "3", protocol: "Protocol 5",
+    title: "Insula and frontoparietal cortex regulate the threshold through dissociable mechanisms",
+    claim: "The insula and the frontoparietal workspace don't just both matter for access — they do different jobs.",
+    apgi: "Frontoparietal TMS raises the ignition threshold θₜ directly; insular tFUS reduces effective interoceptive precision (Πⁱ_eff) without an equivalent θₜ shift — a dissociation.",
+    competitor: "Standard GNWT predicts frontoparietal and insular perturbation should produce equivalent threshold effects, since both are held to perturb workspace access through the same channel.",
+    experiment: "Protocol 5 — fMRI-guided low-intensity focused ultrasound / deep TMS to right anterior insula, single-pulse TMS to left dlPFC and bilateral posterior parietal cortex, vertex sham control; N = 44 target (36 minimum), concurrent EEG.",
+    measurement: "Perturbational Complexity Index (PCI) change; HEP–PCI dissociation from dlPFC stimulation.",
+    criterion: "Fails if no threshold change occurs, or if all stimulation sites produce uniform effects."
+  },
+  {
+    n: 8, tier: "3", protocol: "Protocol 6 · Pred 6.A",
+    title: "Ignition is bimodal, not graded",
+    claim: "Conscious access is an all-or-none event at the population level.",
+    apgi: "Frontoparietal iEEG firing-rate distributions at detection threshold are bimodal.",
+    competitor: "Graded-integration and continuous-accumulation accounts predict a unimodal, continuous firing-rate distribution.",
+    experiment: "Protocol 6 — intracranial EEG in a near-threshold detection paradigm, N = 20 target (12 minimum).",
+    measurement: "Hartigan's dip test on single-trial high-gamma amplitude distributions per electrode cluster.",
+    criterion: "Fails on a unimodal, continuous distribution."
+  },
+  {
+    n: 9, tier: "3", protocol: "Protocol 6 · Pred 6.C",
+    title: "Critical slowing precedes ignition — the bifurcation signature",
+    claim: "Ignition behaves like a dynamical bifurcation, with measurable precursor dynamics, not a step function.",
+    apgi: "Autocorrelation (AC1) in pre-stimulus high-gamma (70–150 Hz) increases in the 500 ms pre-ignition window, specifically on detected trials.",
+    competitor: "Standard Global Workspace Theory predicts threshold-crossing as a deterministic event with no precursor dynamics.",
+    experiment: "Same Protocol 6 iEEG dataset.",
+    measurement: "Kendall τ trend in AC1 across consecutive 50 ms windows, detected vs. non-detected trials (permutation test, 10,000 permutations).",
+    criterion: "Fails if the AC1 increase is absent, or indistinguishable between detected and non-detected trials (Kendall τ ≤ 0.40 or p ≥ 0.05). This is the paper's explicit bifurcation-vs-standard-GWT falsifier."
+  },
+  {
+    n: 10, tier: "3", protocol: "Protocol 6 · Pred 6.E",
+    title: "Interoceptive precision drives multi-timescale clustering of ignition events",
+    claim: "Ignition events cluster in time across several distinct timescales, driven by interoceptive precision modulation.",
+    apgi: "≥ 3 dissociable clustering timescales are recoverable, beating a single-timescale model by BF ≥ 100.",
+    competitor: "Standard GNWT predicts a single ignition timescale, with no interoceptive-precision-driven multi-timescale structure.",
+    experiment: "Same Protocol 6 iEEG dataset, temporal-clustering analysis of ignition event timestamps.",
+    measurement: "Number of dissociable clustering timescales; Bayes factor for multi- vs. single-timescale models.",
+    criterion: "Fails if only a single timescale is identifiable, or if the single-timescale model is favored (BF₁₀ ≥ 6)."
+  },
+  {
+    n: 11, tier: "3", protocol: "LNN Paper · Pred 1",
+    title: "Cortex transiently enters a criticality regime at ignition",
+    claim: "Near threshold crossing, cortical population dynamics should transiently approach a critical (spectral radius ≈ 1) regime, distinct from the model reservoir's steady-state sub-critical operating point.",
+    apgi: "The empirically estimated spectral radius ρ̂(t) approaches 1 within ~50 ms of threshold crossing, producing critical slowing measurable as increased trial-to-trial variability and slowed LFP-perturbation recovery.",
+    competitor: "IIT generates no prediction about spectral radius or fading-memory timescale — it has no mechanism that speaks to this measure at all.",
+    experiment: "Near-threshold iEEG paradigm, N ≥ 20 patients.",
+    measurement: "Instantaneous spectral radius ρ̂(t) estimated from recorded population activity; LFP trajectory divergence for distinct stimuli (echo-state property).",
+    criterion: "Fails if ρ̂(t) does not approach 1 in the 50 ms pre-ignition window across N ≥ 20 patients, or if distinct stimuli fail to produce reliably distinct population trajectories."
+  },
+  {
+    n: 12, tier: "3", protocol: "LNN Paper · Pred 2",
+    title: "Cholinergic and noradrenergic blockade dissociate precision channels",
+    claim: "Exteroceptive and interoceptive precision run through separable neuromodulatory channels.",
+    apgi: "Cholinergic blockade (scopolamine/mecamylamine) selectively reduces exteroceptive precision (delayed alpha suppression, reduced 30–80 Hz inter-areal phase coherence) and raises the ignition threshold; noradrenergic blockade (propranolol) instead lowers interoceptive precision and raises the threshold for affective stimuli specifically — the two dissociate.",
+    competitor: "The workspace account predicts equivalent reductions in workspace capacity from either blockade — no channel-specific dissociation.",
+    experiment: "Within-subject pharmacological crossover during near-threshold detection, N ≥ 60 (required for crossover interactions).",
+    measurement: "Alpha suppression latency, 30–80 Hz phase coherence, d′-based threshold shift, separately for ACh and NE blockade conditions.",
+    criterion: "Fails if ACh and NE blockade produce identical effects on ignition probability."
+  },
+  {
+    n: 13, tier: "2", protocol: "Table 3 · Paradigm 1",
+    title: "Cardiac-phase gating — paradigm-level three-way test",
+    claim: "Interoceptive gating of near-threshold detection is a genuine access-timing effect, not an artifact any of the three leading frameworks would predict equally.",
+    apgi: "Detection is 12–20% higher during high-HEP cardiac phase, amplified by interoceptive training.",
+    competitor: "GNWT: no cardiac-phase modulation from workspace architecture alone. IIT: no prediction — access timing is outside Φ-structure's scope.",
+    experiment: "Cardiac-phase-locked near-threshold detection (shared substrate with Protocol 1).",
+    measurement: "Detection-rate difference between high- and low-HEP cardiac phases.",
+    criterion: "Effect ≥ 12% supports APGI; effect < 5% with BF₀₁ ≥ 6 supports GNWT/IIT; 5–12% is indeterminate and triggers replication."
+  },
+  {
+    n: 14, tier: "1", protocol: "Table 3 · Paradigm 2",
+    title: "Metabolic state × content-specificity",
+    claim: "Metabolic depletion doesn't just raise thresholds globally — it should specifically lower thresholds for metabolically relevant (food) content.",
+    apgi: "16-hour fasting lowers detection thresholds specifically for food-relevant stimuli, crossing over with neutral-stimulus thresholds.",
+    competitor: "GNWT: uniform threshold facilitation with no content-specificity. IIT: no prediction from Φ-structure.",
+    experiment: "16h fast vs. fed, near-threshold detection with food-relevant and neutral stimulus sets.",
+    measurement: "Threshold shift by stimulus category (food-relevant vs. neutral).",
+    criterion: "A content-specific crossover supports APGI; uniform facilitation across categories supports GNWT."
+  },
+  {
+    n: 15, tier: "f", protocol: "All Protocols",
+    title: "Global framework-level falsification",
+    claim: "APGI can fail as a whole, not just component by component.",
+    apgi: "The framework survives unless all three hold simultaneously: (a) metabolic state does not modulate the threshold (β_M < 0.1 across three allostatic manipulations); (b) precision does not predict access beyond raw signal (partial R² < 0.02 for Π); (c) Sₜ > θₜ predicts access no better than chance (d′ < 0.3).",
+    competitor: "The same all-or-nothing structure is applied symmetrically: GNWT falls if non-frontoparietal mechanisms explain the same pattern as parsimoniously; IIT falls if a simpler information measure matches its consciousness distinctions; the FEP falls if variational free-energy minimization is neither necessary nor sufficient across operationalizations.",
+    experiment: "The full battery — Protocols 0–7 plus the paradigm-level adjudication experiments.",
+    measurement: "β_M (metabolic-threshold coupling), partial R² for precision, d′ for the ignition-threshold predictor.",
+    criterion: "Single-criterion failure at (a) falsifies only the Tier 1 metabolic claim; simultaneous failure at (b) and (c) falsifies the core mechanism; failure of all three falsifies APGI globally. APGI separately loses theoretical distinctiveness if a competing framework without precision-weighted interoceptive gating explains the same twelve confirmed predictions with equal parsimony."
+  }
+];
+
+const tierLabel = { "1": "Tier 1 · Thermodynamic", "2": "Tier 2 · Information", "3": "Tier 3 · Computational", "f": "Framework-level" };
+
+const grid = document.getElementById('predGrid');
+
+function render(filter) {
+  grid.innerHTML = '';
+  predictions
+    .filter(p => filter === 'all' || p.tier === filter)
+    .forEach(p => {
+      const details = document.createElement('details');
+      details.className = 'pred-card';
+      details.setAttribute('data-tier', p.tier);
+      details.innerHTML = `
+        <summary>
+          <span class="pred-num">${String(p.n).padStart(2,'0')}</span>
+          <span class="pred-summary-text">
+            <h3>${p.title}</h3>
+            <span class="pred-tags">
+              <span class="pred-tag pred-tag--${p.tier}">${tierLabel[p.tier]}</span>
+              <span class="pred-tag pred-tag--protocol">${p.protocol}</span>
+            </span>
+          </span>
+          <svg class="pred-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="pred-body">
+          <div class="pred-row"><div class="pred-row-label">Claim</div><div class="pred-row-value">${p.claim}</div></div>
+          <div class="pred-row pred-row--apgi"><div class="pred-row-label">APGI predicts</div><div class="pred-row-value">${p.apgi}</div></div>
+          <div class="pred-row pred-row--competitor"><div class="pred-row-label">Competitor predicts</div><div class="pred-row-value">${p.competitor}</div></div>
+          <div class="pred-row"><div class="pred-row-label">Experiment</div><div class="pred-row-value">${p.experiment}</div></div>
+          <div class="pred-row"><div class="pred-row-label">Measurement</div><div class="pred-row-value">${p.measurement}</div></div>
+          <div class="pred-row pred-row--criterion"><div class="pred-row-label">Falsification criterion</div><div class="pred-row-value">${p.criterion}</div></div>
+        </div>
+      `;
+      grid.appendChild(details);
+    });
+}
+
+render('all');
+
+document.querySelectorAll('.tier-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.getAttribute('data-tier'));
+  });
+});
+</script>
+
+</body>
+</html>

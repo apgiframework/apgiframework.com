@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APGI Software System | Allostatic Precision-Gated Ignition Framework</title>
+    <meta name="description" content="A mechanistic, computationally explicit tool for modeling conscious access, predictive processing, and interoceptive precision. Open-source and empirically testable." />
+    <link rel="canonical" href="https://apgiframework.com/software.html" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="APGI Software System | Modeling Conscious Access" />
+    <meta property="og:description" content="Quantify the threshold of conscious access. A computational framework for active inference and allostatic regulation." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://apgiframework.com/software.html" />
+    <meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Software-System.png" />
+    <meta property="og:site_name" content="APGI Framework" />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+      /* ==========================================================================
+         1. DESIGN TOKENS & VARIABLES
+         ========================================================================== */
+      :root {
+        /* Typography */
+        --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+        /* APGI Semantic Palette (Light Mode Base) */
+        --color-threshold: #00b4ff;
+        --color-precision: #ff3366;
+        --color-modulator: #00cc99;
+        --color-error: #ffcc00;
+        --color-workspace: #9966ff;
+        
+        /* Neutrals (Light) */
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-tertiary: #f1f5f9;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        
+        /* Effects */
+        --gradient-accent: linear-gradient(135deg, #00b4ff 0%, #9966ff 100%);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-glow: 0 0 20px rgba(0, 180, 255, 0.15);
+        
+        /* Transitions & Radii */
+        --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 24px;
+      }
+
+      [data-theme="dark"] {
+        /* Neutrals (Dark) */
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-tertiary: #334155;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border-color: #334155;
+        
+        /* Effects (Dark) */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        --shadow-glow: 0 0 30px rgba(0, 180, 255, 0.2);
+      }
+
+      /* ==========================================================================
+         2. RESET & BASE STYLES
+         ========================================================================== */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        overflow-x: hidden;
+      }
+
+      /* Subtle grain overlay for texture */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      /* Accessibility */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--color-threshold);
+        color: white;
+        padding: 8px;
+        z-index: 10000;
+        transition: top 0.2s;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* ==========================================================================
+         3. TYPOGRAPHY (Rhythmic Rupture)
+         ========================================================================== */
+      h1, h2, h3, h4 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+      }
+
+      h2 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        font-size: clamp(1rem, 1.5vw, 1.125rem);
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        max-width: 65ch; /* Optimal reading length */
+      }
+
+      .text-gradient {
+        background: var(--gradient-accent);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .text-center { text-align: center; }
+      .mx-auto { margin-left: auto; margin-right: auto; }
+
+      /* ==========================================================================
+         4. LAYOUT & COMPONENTS
+         ========================================================================== */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      section {
+        padding: 6rem 0;
+        position: relative;
+      }
+
+      /* Navigation */
+      .main-nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-color);
+      }
+      [data-theme="light"] .main-nav {
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 64px;
+      }
+
+      .nav-brand {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: var(--transition-base);
+      }
+
+      .nav-link:hover, .nav-link.active {
+        color: var(--color-threshold);
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        border-radius: var(--radius-md);
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: var(--transition-base);
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--gradient-accent);
+        color: white;
+        box-shadow: var(--shadow-glow);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 40px rgba(0, 180, 255, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border-color: var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--color-threshold);
+        color: var(--color-threshold);
+        background: rgba(0, 180, 255, 0.05);
+      }
+
+      /* Cards & Glassmorphism */
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        transition: var(--transition-base);
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--color-threshold);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        background: rgba(0, 180, 255, 0.1);
+        color: var(--color-threshold);
+      }
+
+      /* Badges */
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .badge-blue { background: rgba(0, 180, 255, 0.15); color: var(--color-threshold); }
+      .badge-purple { background: rgba(153, 102, 255, 0.15); color: var(--color-workspace); }
+      .badge-green { background: rgba(0, 204, 153, 0.15); color: var(--color-modulator); }
+
+      /* Code Block */
+      .code-block {
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        color: #e6edf3;
+        overflow-x: auto;
+        position: relative;
+      }
+      .code-block::before {
+        content: "Python";
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #30363d;
+        color: #8b949e;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        border-bottom-left-radius: var(--radius-sm);
+      }
+
+      /* Interactive Demo Placeholder */
+      .demo-container {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        margin-top: 3rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+      .demo-placeholder {
+        aspect-ratio: 16/9;
+        background: linear-gradient(135deg, rgba(0,180,255,0.05) 0%, rgba(153,102,255,0.05) 100%);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed var(--border-color);
+      }
+
+      /* Animations */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        .fade-in { opacity: 1; transform: none; }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links { display: none; } /* Simplified for this example */
+        h1 { font-size: 2.5rem; }
+        section { padding: 4rem 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="main-nav" aria-label="Primary">
+      <div class="container nav-container">
+        <a href="/" class="nav-brand">
+          <i data-lucide="brain-circuit" style="width: 24px; height: 24px; color: var(--color-threshold);"></i>
+          APGI System
+        </a>
+        <ul class="nav-links">
+          <li><a href="/papers.html" class="nav-link">Papers</a></li>
+          <li><a href="/assessment.html" class="nav-link">Assessment</a></li>
+          <li><a href="/software.html" class="nav-link active">Software</a></li>
+          <li><a href="/docs.html" class="nav-link">Documentation</a></li>
+          <li><a href="https://github.com/lesoto/apgi-framework" class="nav-link" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+        <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;" id="theme-toggle">
+          <i data-lucide="moon" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main id="main-content">
+      <!-- Hero Section -->
+      <section style="padding-top: 8rem; padding-bottom: 4rem;">
+        <div class="container text-center">
+          <div class="fade-in">
+            <span class="badge badge-blue">Open Source Computational Framework</span>
+            <h1>
+              Quantify the Threshold of <br />
+              <span class="text-gradient">Conscious Access</span>
+            </h1>
+            <p class="mx-auto">
+              Consciousness is not a magic trick. It is a computational process. 
+              The APGI Software System models this process mechanistically. 
+              It tracks interoceptive precision in real time. It simulates the exact millisecond a somatic marker triggers global workspace ignition.
+            </p>
+            <p class="mx-auto" style="margin-top: -1rem;">
+              This is not a black box. It is an empirically testable architecture built for researchers, developers, and cognitive scientists.
+            </p>
+            
+            <div style="margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+              <a href="https://github.com/lesoto/apgi-framework/releases" class="btn btn-primary">
+                <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                Download v1.0
+              </a>
+              <a href="/docs.html" class="btn btn-secondary">
+                <i data-lucide="book-open" style="width: 18px; height: 18px;"></i>
+                Read the Documentation
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Demo Placeholder -->
+          <div class="demo-container fade-in">
+            <div class="demo-placeholder">
+              <div class="text-center">
+                <i data-lucide="activity" style="width: 48px; height: 48px; color: var(--color-threshold); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 0.5rem;">Interactive Precision-Weighting Simulator</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                  [ WebGL / Canvas Visualization Placeholder ]<br>
+                  Adjust the noradrenergic activation slider to observe real-time shifts in perceptual thresholds.
+                </p>
+              </div>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+              <span class="badge badge-purple">Active Inference</span>
+              <span class="badge badge-green">Allostatic Regulation</span>
+              <span class="badge badge-blue">Global Workspace</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Architecture -->
+      <section style="background: var(--bg-secondary);">
+        <div class="container">
+          <div class="text-center fade-in" style="margin-bottom: 3rem;">
+            <h2>Mechanistic Architecture</h2>
+            <p class="mx-auto">
+              The framework decomposes conscious access into six quantifiable, interacting subsystems. 
+              Each module is designed for falsifiable prediction.
+            </p>
+          </div>
+          
+          <div class="grid grid-3 fade-in">
+            <div class="card">
+              <div class="card-icon"><i data-lucide="cpu"></i></div>
+              <h3>Active Inference Engine</h3>
+              <p>Implements variational free energy minimization through hierarchical predictive coding across 4 distinct temporal scales (10ms to 500ms).</p>
+            </div>
+            <div class="card">
+              <div class="card-icon" style="background: rgba(255, 51, 102, 0.1); color: var(--color-precision);"><i data-lucide="sliders-vertical"></i></div>
+              <h3>Precision Weighting</h3>
+              <p>Dynamically allocates attentional resources by modulating the gain on prediction errors, balancing sensory input against prior beliefs.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon" style="background: rgba(0, 204, 153, 0.1); color: var(--color-modulator);"><i data-lucide="heart-pulse"></i></div>
+              <h3>Allostatic Regulation</h3>
+              <p>Models physiological states (heart rate, cortisol, glucose) to maintain homeostatic balance via interoceptive predictive processing.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon" style="background: rgba(153, 102, 255, 0.1); color: var(--color-workspace);"><i data-lucide="zap"></i></div>
+              <h3>Ignition Dynamics</h3>
+              <p>Simulates global workspace broadcasting with threshold-based ignition events, precisely matching the 300-500ms timeline of conscious access.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i data-lucide="user-circle"></i></div>
+              <h3>Self-Model System</h3>
+              <p>Maintains minimal and narrative self-representations, continuously tracking coherence and monitoring autobiographical integrity.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon" style="background: rgba(255, 204, 0, 0.1); color: var(--color-error);"><i data-lucide="thermometer"></i></div>
+              <h3>Thermodynamic Constraints</h3>
+              <p>Enforces biologically plausible metabolic budgets, tracking energy constraints and entropy costs of high-precision neural computation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experimental Validation -->
+      <section>
+        <div class="container">
+          <div class="grid grid-2" style="align-items: center;">
+            <div class="fade-in">
+              <span class="badge badge-green">Empirical Validation</span>
+              <h2 style="text-align: left; margin-top: 1rem;">Built for Experimental Paradigms</h2>
+              <p>
+                A model is only as good as its predictions. The APGI System includes pre-configured experimental tasks to validate its outputs against established cognitive phenomena.
+              </p>
+              <ul style="list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                  <i data-lucide="check-circle" style="color: var(--color-modulator); margin-top: 4px;"></i>
+                  <div>
+                    <strong style="color: var(--text-primary);">Attentional Blink & Masking</strong>
+                    <p style="margin-bottom: 0; font-size: 0.95rem;">Tests temporal attention limitations and subliminal threshold detection.</p>
+                  </div>
+                </li>
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                  <i data-lucide="check-circle" style="color: var(--color-modulator); margin-top: 4px;"></i>
+                  <div>
+                    <strong style="color: var(--text-primary);">Binocular Rivalry</strong>
+                    <p style="margin-bottom: 0; font-size: 0.95rem;">Models competitive neural dynamics when conflicting stimuli are presented.</p>
+                  </div>
+                </li>
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                  <i data-lucide="check-circle" style="color: var(--color-modulator); margin-top: 4px;"></i>
+                  <div>
+                    <strong style="color: var(--text-primary);">Iowa Gambling Task</strong>
+                    <p style="margin-bottom: 0; font-size: 0.95rem;">Assesses decision-making under uncertainty and somatic marker hypothesis validation.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="fade-in">
+              <div class="code-block">
+<pre><span style="color: #ff7b72;">import</span> apgi
+
+<span style="color: #8b949e;"># Initialize the hierarchical predictive coding model</span>
+model = apgi.CognitiveArchitecture(
+    layers=[<span style="color: #79c0ff;">256</span>, <span style="color: #79c0ff;">128</span>, <span style="color: #79c0ff;">64</span>, <span style="color: #79c0ff;">32</span>],
+    timestep_ms=<span style="color: #79c0ff;">1</span>,
+    allostasis_enabled=<span style="color: #ff7b72;">True</span>
+)
+
+<span style="color: #8b949e;"># Simulate a somatic marker triggering ignition</span>
+stimulus = apgi.Stimulus(type=<span style="color: #a5d6ff;">"threat"</span>, intensity=<span style="color: #79c0ff;">0.8</span>)
+state = model.step(stimulus)
+
+<span style="color: #ff7b72;">if</span> state.ignition_threshold_crossed:
+    <span style="color: #ff7b72;">print</span>(<span style="color: #a5d6ff;">f"Conscious access achieved at {state.timestamp}ms"</span>)
+    model.export_metrics(format=<span style="color: #a5d6ff;">"csv"</span>)</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Performance & GUI -->
+      <section style="background: var(--bg-secondary);">
+        <div class="container">
+          <div class="text-center fade-in" style="margin-bottom: 3rem;">
+            <h2>Engineered for Performance</h2>
+            <p class="mx-auto">
+              Real-time simulation requires rigorous optimization. The APGI GUI provides granular control without sacrificing computational throughput.
+            </p>
+          </div>
+
+          <div class="grid grid-4 fade-in" style="margin-bottom: 3rem;">
+            <div class="card text-center" style="padding: 1.5rem;">
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-threshold); font-family: var(--font-display);">1ms</div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">Timestep Resolution</div>
+            </div>
+            <div class="card text-center" style="padding: 1.5rem;">
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-precision); font-family: var(--font-display);">~1000 Hz</div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">System Update Rate</div>
+            </div>
+            <div class="card text-center" style="padding: 1.5rem;">
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-modulator); font-family: var(--font-display);">10 Hz</div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">GUI Refresh Rate</div>
+            </div>
+            <div class="card text-center" style="padding: 1.5rem;">
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-workspace); font-family: var(--font-display);">6</div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">Real-time Visualization Tabs</div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 fade-in">
+            <div class="card">
+              <h3><i data-lucide="layout-dashboard" style="vertical-align: middle; margin-right: 0.5rem;"></i> Comprehensive GUI</h3>
+              <p style="font-size: 0.95rem;">
+                Features a dedicated control panel with speed regulation (0.1x - 10x), real-time event logging, and six distinct visualization tabs ranging from microscale neural oscillations to 3D state-space topologies.
+              </p>
+            </div>
+            <div class="card">
+              <h3><i data-lucide="database" style="vertical-align: middle; margin-right: 0.5rem;"></i> Frictionless Data Export</h3>
+              <p style="font-size: 0.95rem;">
+                Export tabular metrics to CSV, structured system states to JSON, or generate publication-ready PNG/SVG visualizations. Automated analysis reports track Phi integration (Φ) and PCI complexity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applied Assessment (Explorer) -->
+      <section>
+        <div class="container">
+          <div class="card fade-in" style="background: linear-gradient(135deg, rgba(0,180,255,0.05) 0%, rgba(153,102,255,0.05) 100%); border: 1px solid var(--border-color); padding: 3rem; text-align: center;">
+            <span class="badge badge-purple">Applied Tool</span>
+            <h2 style="margin-top: 1rem;">Discover Your Cognitive Architecture</h2>
+            <p class="mx-auto">
+              The framework is not just for simulation. The <strong>APGI Explorer</strong> application translates these computational principles into a scientifically validated psychological assessment. 
+              Map your unique processing patterns across four core parameters: Prediction Error Sensitivity (ε), Precision Allocation (π), Ignition Threshold (θₜ), and Somatic Bias (β).
+            </p>
+            <div style="margin-top: 2rem;">
+              <a href="/app-explorer.html" class="btn btn-primary">
+                Explore the Assessment App
+                <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Privacy & Open Science -->
+      <section style="background: var(--bg-secondary);">
+        <div class="container">
+          <div class="grid grid-2 fade-in" style="align-items: center;">
+            <div>
+              <h2 style="text-align: left;">Privacy by Design. Open by Default.</h2>
+              <p>
+                Cognitive data is deeply personal. The APGI Software System operates on a local-first architecture. 
+                All assessment data and simulation states are stored locally on your device using encrypted databases. 
+                Nothing leaves your machine without explicit, granular consent.
+              </p>
+              <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                  <i data-lucide="shield-check" style="color: var(--color-modulator);"></i> End-to-End Encryption
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                  <i data-lucide="hard-drive" style="color: var(--color-modulator);"></i> Local-First Storage
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                  <i data-lucide="scale" style="color: var(--color-modulator);"></i> GDPR Compliant
+                </div>
+              </div>
+            </div>
+            <div class="code-block" style="background: var(--bg-primary);">
+              <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Open Source License</h4>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                The APGI Framework is released under the MIT License. We believe mechanistic models of consciousness must be transparent, auditable, and open to community scrutiny.
+              </p>
+              <a href="https://github.com/lesoto/apgi-framework" style="color: var(--color-threshold); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;">
+                View Repository on GitHub <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="border-top: 1px solid var(--border-color); padding: 4rem 0; background: var(--bg-primary);">
+      <div class="container">
+        <div class="grid grid-4" style="margin-bottom: 3rem;">
+          <div>
+            <a href="/" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
+              <i data-lucide="brain-circuit" style="width: 24px; height: 24px; color: var(--color-threshold);"></i>
+              APGI System
+            </a>
+            <p style="font-size: 0.9rem; margin-top: 1rem;">
+              Modeling the threshold of conscious access through active inference and allostatic regulation.
+            </p>
+          </div>
+          <div>
+            <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 1rem;">Framework</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li><a href="/papers.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Research Papers</a></li>
+              <li><a href="/software.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Software System</a></li>
+              <li><a href="/assessment.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Cognitive Assessment</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 1rem;">Resources</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li><a href="/docs.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Documentation</a></li>
+              <li><a href="https://github.com/lesoto/apgi-framework" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">GitHub Repository</a></li>
+              <li><a href="/sitemap.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Sitemap</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 1rem;">Connect</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li><a href="/contact.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Contact</a></li>
+              <li><a href="https://twitter.com" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Twitter / X</a></li>
+            </ul>
+          </div>
+        </div>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0;">
+            &copy; 2026 APGI Framework. Built with scientific rigor and open-source principles.
+          </p>
+          <div style="display: flex; gap: 1rem;">
+            <span class="badge badge-blue">macOS 12+</span>
+            <span class="badge badge-purple">Python 3.9+</span>
+            <span class="badge badge-green">WebAssembly</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize Lucide Icons
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof lucide !== "undefined") {
+          lucide.createIcons();
+        }
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+        );
+
+        document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById("theme-toggle");
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener("click", () => {
+          const currentTheme = html.getAttribute("data-theme");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          html.setAttribute("data-theme", newTheme);
+          
+          // Update icon
+          const icon = themeToggle.querySelector("i");
+          icon.setAttribute("data-lucide", newTheme === "dark" ? "moon" : "sun");
+          lucide.createIcons();
+        });
+      });
+    </script>
+  </body>
+</html>

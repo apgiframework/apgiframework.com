@@ -1,0 +1,158 @@
+/* APGI Design System — Color tokens
+   Colors encode scientific parameters. Never repurpose a semantic-parameter
+   color for decoration, alerts, or unrelated UI state. See readme.md
+   "Visual Foundations > Color" for the full precision rules.
+
+   Contrast methodology: ratios below are WCAG 2.1 relative-luminance
+   contrast, rounded to 1 decimal, checked against both light backgrounds
+   (#FFFFFF / #F8FAFC) and the dark app background (#0F172A). AA text = 4.5:1,
+   AA large text/UI components = 3:1. */
+
+:root {
+  /* ---- Semantic parameter colors — FILL use only (charts, gauge fill,
+     icon glyphs, chips/badge backgrounds). Do NOT set these as text color
+     on a light surface — 4 of 5 fail AA. See *-text tokens below. ---- */
+  --color-precision-red: #FF3366;     /* Π — interoceptive precision weighting · 3.1:1 on white */
+  --color-error-yellow: #FFCC00;      /* |ε| — prediction error magnitude · 1.6:1 on white */
+  --color-workspace-purple: #9966FF;  /* Global Workspace — broadcast/ignition · 3.3:1 on white */
+  --color-neuromod-green: #00CC99;    /* Neuromodulator — brainstem arousal tone · 2.0:1 on white */
+  --color-threshold-slate: #3B4F6B;   /* Bₜ — thalamic gate / suppression state · 8.1:1 on white */
+
+  /* ---- Text-safe variants — darkened, same hue, for use as TEXT or icon
+     glyphs on light surfaces. Meaning is identical to the fill color; only
+     lightness changes to clear 4.5:1 on #FFFFFF and #F8FAFC. ---- */
+  --color-precision-red-text: #C4183F;     /* 4.6:1 on white */
+  --color-error-yellow-text: #8A6800;      /* 4.7:1 on white — "Error Amber" when rendered as text */
+  --color-workspace-purple-text: #6B3FD1;  /* 4.5:1 on white */
+  --color-neuromod-green-text: #00754F;    /* 4.9:1 on white */
+  --color-threshold-slate-text: #3B4F6B;   /* already passes — same as fill */
+
+  /* ---- Dark-mode fill variants — luminance-adjusted so each parameter
+     color stays legible AND still reads at correct relative brightness
+     against #0F172A. Precision/Error/Purple/Green were already light
+     enough; Threshold Slate is not — it needs a lightened dark-mode fill
+     or it disappears into the background (1.5:1). ---- */
+  --color-precision-red-dark: #FF5C80;     /* +lightness · 5.1:1 on #0F172A */
+  --color-error-yellow-dark: #FFD84D;      /* +lightness · 11.6:1 on #0F172A */
+  --color-workspace-purple-dark: #B18CFF;  /* +lightness · 6.7:1 on #0F172A */
+  --color-neuromod-green-dark: #33E0B3;    /* +lightness · 10.2:1 on #0F172A */
+  --color-threshold-slate-dark: #8FA6C2;   /* inverted-lightness · 6.0:1 on #0F172A (fill #3B4F6B reads as 1.5:1 — never use raw fill as dark-mode text/icon) */
+
+  /* ---- Text-on-parameter — foreground color when a parameter color IS
+     the background (badge fill, gauge cap label chip, alert bar). ---- */
+  --text-on-precision-red: #FFFFFF;      /* 4.8:1 */
+  --text-on-error-yellow: #0F172A;       /* 13.1:1 */
+  --text-on-workspace-purple: #FFFFFF;   /* 4.3:1 — use bold weight to compensate */
+  --text-on-neuromod-green: #0F172A;     /* 9.8:1 */
+  --text-on-threshold-slate: #FFFFFF;    /* 8.1:1 */
+
+  /* ---- Base neutrals (brand-named aliases) ---- */
+  --color-white: #FFFFFF;
+  --color-light-surface: #F8FAFC;
+  --color-near-black: #0F172A;
+  --color-dark-navy: #1A1F2E;
+
+  /* ---- Full 10-step neutral scale — secondary text, borders, disabled
+     states, chart axes/gridlines. Same family as the three brand surfaces
+     above (slate-50 = light surface, slate-900 = near-black). ---- */
+  --neutral-50: #F8FAFC;
+  --neutral-100: #F1F5F9;
+  --neutral-200: #E2E8F0;
+  --neutral-300: #CBD5E1;
+  --neutral-400: #94A3B8;
+  --neutral-500: #64748B;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1E293B;
+  --neutral-900: #0F172A;
+
+  /* ---- Light mode type/surface values ---- */
+  --light-text-body: #0F172A;
+  --light-text-secondary: #334155;
+  --light-text-muted: #64748B;
+  --light-bg-page: #FFFFFF;
+  --light-bg-card: #F8FAFC;
+  --light-border-subtle: rgba(0, 0, 0, 0.08);
+  --light-border-strong: rgba(0, 0, 0, 0.16);
+
+  /* ---- Dark mode type/surface values (app interfaces only) ---- */
+  --dark-text-body: #94A3B8;
+  --dark-text-heading: #E2E8F0;
+  --dark-text-muted: #64748B;
+  --dark-bg-page: #0F172A;
+  --dark-bg-card: #1A1F2E;
+  --dark-bg-card-raised: #232B3D;   /* dropdowns/popovers — see "Borders vs elevation" */
+  --dark-border-subtle: rgba(255, 255, 255, 0.06);
+  --dark-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* ---- Gauge component ---- */
+  --gauge-track-light: #E2E8F0;
+  --gauge-track-dark: #2C3E50;
+  --gauge-track-empty: var(--neutral-300); /* explicit null/empty-data state, both modes use border to separate from track-light */
+
+  /* ---- Focus ring (accessibility) ---- */
+  --focus-ring-color: var(--color-workspace-purple);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* ---- Interaction state overlays — quantified, not vague ---- */
+  --state-hover-overlay-light: rgba(0, 0, 0, 0.04);
+  --state-active-overlay-light: rgba(0, 0, 0, 0.08);
+  --state-hover-overlay-dark: rgba(255, 255, 255, 0.04);
+  --state-active-overlay-dark: rgba(255, 255, 255, 0.08);
+  --state-disabled-opacity: 0.4; /* @kind other */
+
+  /* ---- Data visualization — sequential (magnitude, e.g. |ε| heatmaps) ----
+     5-step, single-hue ramp off Error Yellow's hue family: low → high. */
+  --viz-seq-1: #FFF6D6;
+  --viz-seq-2: #FFE68A;
+  --viz-seq-3: #FFCC00;
+  --viz-seq-4: #C79A00;
+  --viz-seq-5: #8A6800;
+
+  /* ---- Data visualization — diverging (signed values, e.g. prediction
+     error direction, Δ from baseline). Negative → neutral → positive. ---- */
+  --viz-div-neg-3: #1F3349;
+  --viz-div-neg-2: #3B4F6B;
+  --viz-div-neg-1: #7C93B3;
+  --viz-div-mid:   #E2E8F0;
+  --viz-div-pos-1: #FF8FA8;
+  --viz-div-pos-2: #FF3366;
+  --viz-div-pos-3: #C4183F;
+
+  /* ---- Data visualization — categorical (distinguishing the 5 parameters
+     in one chart, e.g. a legend or stacked series). Reuses the semantic set
+     in fixed order — never reassign a slot to an unrelated series. ---- */
+  --viz-cat-1: var(--color-precision-red);
+  --viz-cat-2: var(--color-error-yellow);
+  --viz-cat-3: var(--color-workspace-purple);
+  --viz-cat-4: var(--color-neuromod-green);
+  --viz-cat-5: var(--color-threshold-slate);
+
+  /* ---- Semantic aliases — default to light mode ---- */
+  --text-body: var(--light-text-body);
+  --text-secondary: var(--light-text-secondary);
+  --text-muted: var(--light-text-muted);
+  --surface-page: var(--light-bg-page);
+  --surface-card: var(--light-bg-card);
+  --border-subtle: var(--light-border-subtle);
+  --border-strong: var(--light-border-strong);
+}
+
+/* Dark mode — scope to app-interface surfaces via [data-mode="dark"] */
+[data-mode="dark"] {
+  --text-body: var(--dark-text-body);
+  --text-secondary: var(--dark-text-heading);
+  --text-muted: var(--dark-text-muted);
+  --surface-page: var(--dark-bg-page);
+  --surface-card: var(--dark-bg-card);
+  --border-subtle: var(--dark-border-subtle);
+  --border-strong: var(--dark-border-strong);
+
+  /* swap to dark-luminance parameter variants for TEXT/ICON use */
+  --color-precision-red-text: var(--color-precision-red-dark);
+  --color-error-yellow-text: var(--color-error-yellow-dark);
+  --color-workspace-purple-text: var(--color-workspace-purple-dark);
+  --color-neuromod-green-text: var(--color-neuromod-green-dark);
+  --color-threshold-slate-text: var(--color-threshold-slate-dark);
+}

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Book — Appointment Scheduling App</title>
+  <style>
+    :root {
+      --primary: #0F63D8;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #ECEEF4 100%);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.625;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    h1 {
+      font-size: 52px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin: 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+      margin-top: 40px;
+    }
+
+    .highlight-card {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .highlight-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .highlight-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .highlight-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .design-card {
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 300ms ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .design-card:hover {
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .design-preview {
+      height: 200px;
+      background: linear-gradient(135deg, #F0F4F8 0%, #E8ECF2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .design-content {
+      padding: 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .design-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .design-description {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0 0 24px;
+      flex: 1;
+      line-height: 1.6;
+    }
+
+    .color-palette {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .color-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    .design-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 200ms ease-out;
+      text-align: center;
+    }
+
+    .design-link:hover {
+      background: #0952C1;
+    }
+
+    .features {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 80px;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 28px;
+      margin: 0 0 40px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+    }
+
+    .feature-check {
+      color: #10b981;
+      font-weight: 700;
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: -2px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .pages-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 80px;
+    }
+
+    .pages-section h2 {
+      text-align: center;
+      font-size: 28px;
+      margin: 0 0 40px;
+    }
+
+    .pages-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .page-item {
+      padding: 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+    }
+
+    .tech-stack {
+      background: linear-gradient(135deg, #F0F4F8 0%, #E8ECF2 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 80px;
+    }
+
+    .tech-stack h2 {
+      text-align: center;
+      font-size: 28px;
+      margin: 0 0 40px;
+    }
+
+    .tech-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+
+    .tech-column h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: var(--primary);
+    }
+
+    .tech-column ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .tech-column li {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 60px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 16px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin: 0 0 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 200ms ease-out;
+    }
+
+    .cta-button:hover {
+      background: #0952C1;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(15, 99, 216, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 16px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .section-title {
+        font-size: 24px;
+      }
+
+      .designs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Quick Book</h1>
+      <p class="subtitle">A fast, beautiful appointment booking system with Stripe payments. Choose from 4 distinct design directions.</p>
+
+      <div class="highlights">
+        <div class="highlight-card">
+          <div class="highlight-icon">⚡</div>
+          <h3 class="highlight-title">3-Step Flow</h3>
+          <p class="highlight-text">Speed-optimized booking experience</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🎨</div>
+          <h3 class="highlight-title">4 Designs</h3>
+          <p class="highlight-text">Multiple aesthetics to choose from</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">💳</div>
+          <h3 class="highlight-title">Stripe Ready</h3>
+          <p class="highlight-text">Payment integration included</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">📱</div>
+          <h3 class="highlight-title">Responsive</h3>
+          <p class="highlight-text">Works on all devices</p>
+        </div>
+      </div>
+    </header>
+
+    <h2 class="section-title">Design Directions</h2>
+    <div class="designs-grid">
+      <!-- Modern SaaS -->
+      <div class="design-card">
+        <div class="design-preview">◇</div>
+        <div class="design-content">
+          <h3 class="design-name">Modern SaaS</h3>
+          <p class="design-description">Light, clean, and minimal. Bright whites with bold brand blue. The most popular aesthetic for B2B tools.</p>
+          <div class="color-palette">
+            <div class="color-dot" style="background: #FFFFFF; border: 2px solid #e5e7eb;"></div>
+            <div class="color-dot" style="background: #0F63D8;"></div>
+            <div class="color-dot" style="background: #7C3AED;"></div>
+            <div class="color-dot" style="background: #059669;"></div>
+          </div>
+          <a href="booking-modern-saas.html" class="design-link">View Design →</a>
+        </div>
+      </div>
+
+      <!-- Dark & Scientific -->
+      <div class="design-card">
+        <div class="design-preview">⚡</div>
+        <div class="design-content">
+          <h3 class="design-name">Dark & Scientific</h3>
+          <p class="design-description">Sophisticated, tech-forward. Deep navy backgrounds and vibrant accent colors. Perfect for premium technical services.</p>
+          <div class="color-palette">
+            <div class="color-dot" style="background: #0A0F1A;"></div>
+            <div class="color-dot" style="background: #00B4FF;"></div>
+            <div class="color-dot" style="background: #9966FF;"></div>
+            <div class="color-dot" style="background: #00CC99;"></div>
+          </div>
+          <a href="booking-dark-scientific.html" class="design-link">View Design →</a>
+        </div>
+      </div>
+
+      <!-- Warm & Approachable -->
+      <div class="design-card">
+        <div class="design-preview">🌿</div>
+        <div class="design-content">
+          <h3 class="design-name">Warm & Approachable</h3>
+          <p class="design-description">Inviting and friendly. Warm cream backgrounds with amber and rose accents. Ideal for wellness and coaching.</p>
+          <div class="color-palette">
+            <div class="color-dot" style="background: #FEF5ED;"></div>
+            <div class="color-dot" style="background: #D97706;"></div>
+            <div class="color-dot" style="background: #DC2626;"></div>
+            <div class="color-dot" style="background: #7C3AED;"></div>
+          </div>
+          <a href="booking-warm-approachable.html" class="design-link">View Design →</a>
+        </div>
+      </div>
+
+      <!-- Bold & Minimalist -->
+      <div class="design-card">
+        <div class="design-preview">∎</div>
+        <div class="design-content">
+          <h3 class="design-name">Bold & Minimalist</h3>
+          <p class="design-description">Striking and contemporary. Pure black and white with hot pink and cyan accents. High contrast and graphic.</p>
+          <div class="color-palette">
+            <div class="color-dot" style="background: #FFFFFF; border: 2px solid #000;"></div>
+            <div class="color-dot" style="background: #000000;"></div>
+            <div class="color-dot" style="background: #FF006E;"></div>
+            <div class="color-dot" style="background: #06B6D4;"></div>
+          </div>
+          <a href="booking-bold-minimalist.html" class="design-link">View Design →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <h2>Features (All Designs)</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Fast 3-step booking flow</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Interactive calendar widget</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Time slot selection</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Customer details form</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Stripe payment integration</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Order confirmation page</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Responsive mobile design</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Full keyboard navigation</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">WCAG AA compliant</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Reduced motion support</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Color-blind safe palettes</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <div class="feature-text">Production-ready code</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pages-section">
+      <h2>Pages Included</h2>
+      <div class="pages-list">
+        <div class="page-item">Landing / Welcome</div>
+        <div class="page-item">Service Selection</div>
+        <div class="page-item">Calendar View</div>
+        <div class="page-item">Time Selection</div>
+        <div class="page-item">Customer Details</div>
+        <div class="page-item">Payment Form</div>
+        <div class="page-item">Confirmation</div>
+        <div class="page-item">Thank You</div>
+      </div>
+    </div>
+
+    <div class="tech-stack">
+      <h2>Technology & Architecture</h2>
+      <div class="tech-columns">
+        <div class="tech-column">
+          <h3>Frontend</h3>
+          <ul>
+            <li>Vanilla HTML5</li>
+            <li>CSS3 (Grid, Flexbox)</li>
+            <li>JavaScript ES6+</li>
+            <li>Responsive Design</li>
+            <li>CSS Variables</li>
+          </ul>
+        </div>
+        <div class="tech-column">
+          <h3>Features</h3>
+          <ul>
+            <li>Multi-step forms</li>
+            <li>Calendar widget</li>
+            <li>State management</li>
+            <li>Form validation</li>
+            <li>Animation & motion</li>
+          </ul>
+        </div>
+        <div class="tech-column">
+          <h3>Integration</h3>
+          <ul>
+            <li>Stripe Checkout</li>
+            <li>Payment forms</li>
+            <li>Email hooks</li>
+            <li>API ready</li>
+            <li>Webhook support</li>
+          </ul>
+        </div>
+        <div class="tech-column">
+          <h3>Accessibility</h3>
+          <ul>
+            <li>WCAG AA</li>
+            <li>Keyboard nav</li>
+            <li>Color contrast</li>
+            <li>Reduced motion</li>
+            <li>Screen readers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Ready to Get Started?</h2>
+      <p>Explore any of the four design directions above, then customize with your branding, services, and payment details.</p>
+      <a href="booking-design-showcase.html" class="cta-button">View All Designs →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Quick Book — A production-ready appointment scheduling system. Built with care for speed, beauty, and accessibility.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellness Booking — Warm & Approachable</title>
+  <style>
+    :root {
+      --primary: #D97706;
+      --primary-light: #F59E0B;
+      --accent: #DC2626;
+      --success: #7C3AED;
+      --bg: #FEF5ED;
+      --surface: #FBF3EA;
+      --border: #F3E8D9;
+      --text: #3B2E2A;
+      --text-muted: #8B7355;
+      --space: 8px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Trebuchet MS', sans-serif;
+      background: var(--bg);
+      background-image: radial-gradient(circle at 20% 80%, rgba(217, 119, 6, 0.04) 0%, transparent 50%);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.625;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #D97706 0%, #DC2626 100%);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+      color: #3B2E2A;
+    }
+
+    .header-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 8px;
+    }
+
+    .step {
+      flex: 1;
+      height: 4px;
+      background: #E8D5C4;
+      border-radius: 2px;
+      transition: background 200ms ease-out;
+    }
+
+    .step.active,
+    .step.completed {
+      background: var(--primary);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+      animation: fadeIn 200ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-header {
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(255, 255, 255, 0.5) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .service-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: var(--primary);
+    }
+
+    .service-time {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .calendar-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .calendar-section h2 {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin: 0 0 16px;
+      opacity: 0.8;
+    }
+
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-month {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .calendar-btn {
+      background: none;
+      border: 2px solid var(--border);
+      color: var(--primary);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 150ms ease-out;
+      font-weight: 600;
+    }
+
+    .calendar-btn:hover {
+      background: var(--bg);
+      border-color: var(--primary);
+    }
+
+    .day-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .day-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 150ms ease-out;
+      background: white;
+      color: var(--text);
+    }
+
+    .day:hover:not(.empty):not(.disabled) {
+      background: #FFF8F1;
+      border-color: var(--primary-light);
+    }
+
+    .day.empty {
+      cursor: default;
+      opacity: 0.3;
+    }
+
+    .day.disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+      color: var(--text-muted);
+    }
+
+    .day.selected {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border: 2px solid var(--primary);
+      color: white;
+      font-weight: 700;
+    }
+
+    .times-section {
+      margin-bottom: 24px;
+    }
+
+    .times-section h3 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0 0 12px;
+      opacity: 0.8;
+    }
+
+    .times-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .time-slot {
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      background: white;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 150ms ease-out;
+    }
+
+    .time-slot:hover {
+      border-color: var(--primary-light);
+      background: #FFF8F1;
+    }
+
+    .time-slot.selected {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border: 2px solid var(--primary);
+      color: white;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      background: white;
+      color: var(--text);
+      transition: all 150ms ease-out;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+      background: #FFF8F1;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .summary-box {
+      background: rgba(217, 119, 6, 0.05);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .summary-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .summary-label {
+      color: var(--text-muted);
+    }
+
+    .summary-value {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 150ms ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #FFF8F1;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .confirmation-box {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .confirmation-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid var(--success);
+      border-radius: 50%;
+      margin-bottom: 24px;
+      font-size: 32px;
+      color: var(--success);
+    }
+
+    .confirmation-box h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    .confirmation-box p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin: 0 0 32px;
+    }
+
+    .confirmation-details {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .confirmation-detail {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .confirmation-detail:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-icon {
+      color: var(--primary);
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+
+    .detail-content {
+      flex: 1;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    .detail-value {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .payment-summary {
+      background: rgba(217, 119, 6, 0.05);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .payment-row.total {
+      border-top: 2px solid var(--border);
+      padding-top: 12px;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .times-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-logo">🌿</div>
+      <h1>Book Your Session</h1>
+      <p class="header-subtitle">Three simple steps to wellness</p>
+    </header>
+
+    <div class="steps">
+      <div class="step active" id="step1"></div>
+      <div class="step" id="step2"></div>
+      <div class="step" id="step3"></div>
+    </div>
+
+    <!-- Page 1: Select Date & Time -->
+    <div class="page active" id="page-select-time">
+      <div class="service-header">
+        <p class="service-name">Wellness Coaching Session</p>
+        <p class="service-time">$125 • 60 minutes</p>
+      </div>
+
+      <div class="calendar-section">
+        <h2>Choose Your Date</h2>
+        <div class="calendar-nav">
+          <button class="calendar-btn" onclick="prevMonth()">←</button>
+          <div class="calendar-month" id="current-month">August 2024</div>
+          <button class="calendar-btn" onclick="nextMonth()">→</button>
+        </div>
+        <div class="day-labels">
+          <div class="day-label">Sun</div>
+          <div class="day-label">Mon</div>
+          <div class="day-label">Tue</div>
+          <div class="day-label">Wed</div>
+          <div class="day-label">Thu</div>
+          <div class="day-label">Fri</div>
+          <div class="day-label">Sat</div>
+        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+      </div>
+
+      <div class="times-section">
+        <h3>Choose a Time</h3>
+        <div class="times-grid">
+          <div class="time-slot" onclick="selectTime(this)">9:00 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">10:30 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">12:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">2:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">3:30 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">5:00 PM</div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-secondary">Skip</button>
+        <button class="btn-primary" onclick="nextPage()">Next</button>
+      </div>
+    </div>
+
+    <!-- Page 2: Details -->
+    <div class="page" id="page-details">
+      <form onsubmit="handleDetailsSubmit(event)">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Jane Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="jane@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Tell Us About Your Goals</label>
+          <textarea id="notes" placeholder="What would you like to work on during your session?"></textarea>
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-label">Service</span>
+            <span class="summary-value">Wellness Coaching Session</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Date & Time</span>
+            <span class="summary-value" id="summary-datetime">Select date and time</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Investment</span>
+            <span class="summary-value">$125.00</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevPage()">Back</button>
+          <button type="submit" class="btn-primary">Proceed to Payment</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Page 3: Payment -->
+    <div class="page" id="page-payment">
+      <form onsubmit="handlePaymentSubmit(event)">
+        <div class="form-group">
+          <label for="card-name">Name on Card</label>
+          <input type="text" id="card-name" placeholder="Jane Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" placeholder="4242 4242 4242 4242" maxlength="19" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label for="card-expiry">Expiry Date</label>
+            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+          </div>
+          <div class="form-group">
+            <label for="card-cvc">CVC</label>
+            <input type="text" id="card-cvc" placeholder="123" maxlength="3" required>
+          </div>
+        </div>
+
+        <div class="payment-summary">
+          <div class="payment-row">
+            <span>Wellness Coaching Session</span>
+            <span>$125.00</span>
+          </div>
+          <div class="payment-row total">
+            <span>Total</span>
+            <span>$125.00</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevPage()">Back</button>
+          <button type="submit" class="btn-primary">Complete Booking</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Page 4: Confirmation -->
+    <div class="page" id="page-confirmation">
+      <div class="confirmation-box">
+        <div class="confirmation-icon">✓</div>
+        <h2>You're All Set!</h2>
+        <p>We're excited to see you soon. Check your email for details.</p>
+
+        <div class="confirmation-details">
+          <div class="confirmation-detail">
+            <div class="detail-icon">📅</div>
+            <div class="detail-content">
+              <div class="detail-label">Your Session</div>
+              <div class="detail-value" id="confirm-datetime">August 15, 2024 at 2:00 PM</div>
+            </div>
+          </div>
+          <div class="confirmation-detail">
+            <div class="detail-icon">👤</div>
+            <div class="detail-content">
+              <div class="detail-label">Name</div>
+              <div class="detail-value" id="confirm-name">Jane Doe</div>
+            </div>
+          </div>
+          <div class="confirmation-detail">
+            <div class="detail-icon">📧</div>
+            <div class="detail-content">
+              <div class="detail-label">Email</div>
+              <div class="detail-value" id="confirm-email">jane@example.com</div>
+            </div>
+          </div>
+          <div class="confirmation-detail">
+            <div class="detail-icon">💰</div>
+            <div class="detail-content">
+              <div class="detail-label">Payment</div>
+              <div class="detail-value">$125.00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="newBooking()">Schedule Another</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+
+    function nextPage() {
+      if (currentPage < 4) {
+        currentPage++;
+        updatePages();
+        updateSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePages();
+        updateSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updatePages() {
+      document.querySelectorAll('.page').forEach((page, index) => {
+        page.classList.toggle('active', index + 1 === currentPage);
+      });
+    }
+
+    function updateSteps() {
+      document.querySelectorAll('.step').forEach((step, index) => {
+        if (index + 1 < currentPage) {
+          step.classList.add('completed');
+          step.classList.remove('active');
+        } else if (index + 1 === currentPage) {
+          step.classList.add('active');
+          step.classList.remove('completed');
+        } else {
+          step.classList.remove('active', 'completed');
+        }
+      });
+    }
+
+    function selectTime(element) {
+      document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+      element.classList.add('selected');
+      const time = element.textContent;
+      document.getElementById('summary-datetime').textContent = `August 15, 2024 at ${time}`;
+      document.getElementById('confirm-datetime').textContent = `August 15, 2024 at ${time}`;
+    }
+
+    function handleDetailsSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      document.getElementById('confirm-name').textContent = name;
+      document.getElementById('confirm-email').textContent = email;
+      nextPage();
+    }
+
+    function handlePaymentSubmit(event) {
+      event.preventDefault();
+      nextPage();
+    }
+
+    function newBooking() {
+      location.reload();
+    }
+
+    updatePages();
+    updateSteps();
+  </script>
+</body>
+</html>
