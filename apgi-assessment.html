@@ -19,7 +19,7 @@
       content="Take the APGI Cognitive Processing Assessment to discover your unique consciousness signature. Learn about prediction error sensitivity, precision allocation, ignition threshold, and somatic bias patterns."
     />
     <link rel="stylesheet" href="assets/css/tailwind-built.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono&display=swap");
@@ -722,8 +722,9 @@
       </div>
 
       <p class="text-xs text-zinc-600 mt-4">
-        Results contribute to anonymous normative database (N =
-        <span id="norm-n">1,247</span>)
+        This assessment is in a pre-registered pilot phase. No public normative or
+        reference dataset exists yet, and your results are not currently compared
+        against a real population sample.
       </p>
     </div>
 
@@ -1147,13 +1148,19 @@
 
     <script>
       // ===================================
-      // NORMATIVE DATABASE (Simulated)
+      // PLACEHOLDER BASELINE — NOT A REAL NORMATIVE DATASET.
+      // No reference sample has been collected. These are provisional,
+      // hand-set values used only for internal development, not a real
+      // population comparison. Do not present this to users as normative
+      // data (see CLAIM_AUDIT.md E-1). Replace with a real, versioned
+      // reference dataset (governing doc §5) before re-enabling any
+      // percentile/comparison display.
       // ===================================
       const NORMATIVE_DATA = {
-        epsilon: { mean: 55.2, sd: 14.8, n: 1247, reliability: 0.82 },
-        pi: { mean: 61.7, sd: 17.3, n: 1247, reliability: 0.78 },
-        beta: { mean: 57.9, sd: 19.2, n: 1247, reliability: 0.71 },
-        theta: { mean: 52.3, sd: 16.5, n: 1247, reliability: 0.84 },
+        epsilon: { mean: 55.2, sd: 14.8, n: 0, reliability: null },
+        pi: { mean: 61.7, sd: 17.3, n: 0, reliability: null },
+        beta: { mean: 57.9, sd: 19.2, n: 0, reliability: null },
+        theta: { mean: 52.3, sd: 16.5, n: 0, reliability: null },
       };
 
       // ===================================
@@ -1581,8 +1588,6 @@
       function startTest() {
         state.startTime = Date.now();
         document.getElementById("test-nav").classList.remove("hidden");
-        document.getElementById("norm-n").innerText =
-          NORMATIVE_DATA.epsilon.n.toLocaleString();
         saveProgress();
         nextStep();
       }

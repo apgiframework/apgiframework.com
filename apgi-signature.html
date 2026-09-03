@@ -15,8 +15,12 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
+    <!-- Tailwind Play CDN cannot be pinned to a version (Tailwind's own docs: dev-only,
+         always serves latest). This page is currently blocked from public release anyway
+         (see CLAIM_AUDIT.md A-3/D-5) — migrate to assets/css/tailwind-built.css with visual
+         QA before this page ships, rather than pinning a CDN URL that doesn't support it. -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@1.40.0"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
       rel="stylesheet"

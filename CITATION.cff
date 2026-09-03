@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: >-
+  If you use or reference the APGI Framework, please cite it using the
+  metadata below. The project is currently in a pre-registered/pilot phase —
+  see IDENTIFIERS.md for release-state details before citing any result as
+  validated.
+title: APGI Framework
+type: software
+authors:
+  - orcid: "https://orcid.org/0009-0005-0328-2896"
+    # TODO(operator): fill in given-names / family-names — not available to
+    # this audit. CITATION.cff conventionally requires a name field even
+    # when ORCID is the primary identifier.
+repository-code: "https://github.com/apgiframework"
+url: "https://apgiframework.com"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21632264"
+    description: "Archived release (Zenodo). Confirm whether this is the concept DOI or a version DOI before citing — see IDENTIFIERS.md."
+  - type: other
+    value: "https://osf.io/t5hcq"
+    description: "OSF working project"
+  - type: other
+    value: "https://osf.io/yk29g"
+    description: "OSF pre-registration"
+license: NOASSERTION
