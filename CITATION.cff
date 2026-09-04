@@ -7,16 +7,17 @@ message: >-
 title: APGI Framework
 type: software
 authors:
-  - orcid: "https://orcid.org/0009-0005-0328-2896"
-    # TODO(operator): fill in given-names / family-names — not available to
-    # this audit. CITATION.cff conventionally requires a name field even
-    # when ORCID is the primary identifier.
-repository-code: "https://github.com/apgiframework"
+  - given-names: Dimitry
+    family-names: Pesochin
+    orcid: "https://orcid.org/0009-0005-0328-2896"
+repository-code: "https://github.com/apgiframework/apgi-framework"
 url: "https://apgiframework.com"
+version: "1.0"
+date-released: "2026-08-23"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21632264"
-    description: "Archived release (Zenodo). Confirm whether this is the concept DOI or a version DOI before citing — see IDENTIFIERS.md."
+    description: "Confirmed version DOI (v1.0, published 2026-08-23) — verified this session. No concept DOI currently exists for this record (appears to be a single-version deposit); one will be minted the first time a new version is published through Zenodo's 'new version' workflow. Cite this version DOI directly until then."
   - type: other
     value: "https://osf.io/t5hcq"
     description: "OSF working project"

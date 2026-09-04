@@ -7,3 +7,16 @@ node_modules
 Dockerfile
 .dockerignore
 _ds
+_archive
+funnels/_internal
+
+# Still-open CRITICAL claim-discipline findings (CLAIM_AUDIT.md) not yet
+# remediated — excluded from the deployed image, not deleted from source,
+# until fixed. Remove each line here once its findings are resolved.
+apgi-signature.html
+state-assessment.html
+quiz-signature.html
+assessment-onepage.html
+apgi-assessment.html
+funnels/2_therapists_coaches.html
+funnels/6_healthcare_professionals.html

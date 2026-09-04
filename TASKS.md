@@ -1,6 +1,21 @@
 # APGI Implementation Tasks
 
-## 0. Completed this session
+## 0. Completed — round 2 (deployment + remaining Phase 0/1 items)
+
+- [x] Deployed both services live: GCP project `apgiframework-web` created, Cloud SQL + Memorystore Redis + Secret Manager + Cloud Run (both services) provisioned, DNS mapped for `www.apgiframework.com` and `api.apgiframework.com`. Full detail in [INFRASTRUCTURE.md](INFRASTRUCTURE.md).
+- [x] Archived confirmed-duplicate/broken files into `_archive/` (not deleted — recoverable): `index-apgi.html`, `index-polaris.html`, `Landing-Page.html`, `APGI-Landing-Page.html`, `apgi-software.html`, `support.js`, `_ds/`.
+- [x] Excluded `funnels/_internal/` and the remaining CRITICAL-blocked pages (`apgi-signature.html`, `state-assessment.html`, `quiz-signature.html`, `assessment-onepage.html`, `apgi-assessment.html`, `funnels/2_therapists_coaches.html`, `funnels/6_healthcare_professionals.html`) from the deployed Docker image — they stay in source, just aren't publicly reachable until their CLAIM_AUDIT.md findings are resolved.
+- [x] Fixed the sitewide OG-image bug (renamed `2-APGI-Framework-Diagram.png` → `APGI-Framework-Diagram.png`, fixing all 36 references in one change instead of 36 edits).
+- [x] Verified (re-grepped, confirmed absent): UC Berkeley/R21 grant quote, Johns Hopkins/FDA claim, TechForward Inc./HBR citation, MindfulTech CEO testimonial, `alert('coming soon')` CTAs on funnels 2–4, dead `#contact` CTAs on funnels 5–7, ~130 broken PDF links on `apgi-series.html` (it's a 16-line redirect shim, not a content page), legacy filename links (`Home.html` etc.) anywhere live.
+- [x] Verified `book-available-now.html`'s buy links already point to real Gumroad product pages, not marketplace homepages.
+- [x] Verified the Stripe key in `funnels/1_individual_self_explorers.html` is a literal placeholder string (`pk_test_placeholder_publishable_key`), not a real key of any kind — no rotation needed.
+- [x] Verified the Zenodo DOI (`10.5281/zenodo.21632264`) is a confirmed version DOI (v1.0), not a concept DOI — no concept DOI exists yet for this single-version deposit. Filled in the real creator name (Pesochin, Dimitry) in `CITATION.cff`, previously a placeholder.
+- [x] Set up uptime checks + alert policies + an email notification channel for both services.
+- [x] Created a Cloud Build ↔ GitHub connection object — **one browser step left for the operator** (GitHub App authorization) before the auto-deploy trigger itself can be wired up.
+- [x] Wrote [INFRASTRUCTURE.md](INFRASTRUCTURE.md): every resource actually provisioned, the IAM grants made and why, and secret rotation guidance.
+- [x] Re-ran the sitewide broken-link crawl (424 refs checked) — down to 15 remaining hits, all on already-tracked non-live surfaces (`_archive/`, `funnels/_internal/`, the still-pending booking-cluster decision).
+
+## 1. Completed — round 1
 
 Implemented, committed, and pushed — cross-checked against the docx-sourced phased task list ("Tasks and Current Status" in the updated governing doc), filtered to items doable without further operator input:
 
