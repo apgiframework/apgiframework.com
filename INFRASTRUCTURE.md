@@ -28,6 +28,10 @@ Ground-truth record of what exists in GCP, replacing guesswork in DEPLOY_PLAN.md
 | Alert policy | `apgiframework-com down` | fires on uptime check failure |
 | Alert policy | `apgi-api down` | fires on uptime check failure |
 | Notification channel | "APGI ops email" | `info@apgiframework.com` |
+| Cloud Build connection | `apgi-github` | 2nd-gen GitHub App connection, authorized by the operator |
+| Cloud Build repository | `apgiframework-com`, `apgi-api` | linked under the `apgi-github` connection |
+| Cloud Build trigger | `deploy-apgiframework-com` | push to `main` on `apgiframework.com` → builds `cloudbuild.yaml`, deploys to `apgiframework-com` |
+| Cloud Build trigger | `deploy-apgi-api` | push to `main` on `apgi-api` → builds `cloudbuild.yaml`, deploys to `apgi-api` |
 | Org policy override | `iam.allowedPolicyMemberDomains` on this project only | `allowAll: true` — required to let the two Cloud Run services be publicly reachable, since the `apgiframework.com` Google Workspace org has Domain Restricted Sharing on by default. **Scoped to this project — does not affect your other GCP projects.** |
 
 ## Why `apgi-api` runs in `staging`, not `production`
@@ -45,6 +49,7 @@ Ground-truth record of what exists in GCP, replacing guesswork in DEPLOY_PLAN.md
 | same | `roles/secretmanager.secretAccessor` | project | lets Cloud Run read the 4 secrets at runtime |
 | same | `roles/cloudsql.client` | project | lets Cloud Run connect to Cloud SQL via the built-in connector |
 | `info@apgiframework.com` | `roles/orgpolicy.policyAdmin` | **organization** (936901169175) | needed to override Domain Restricted Sharing at the project level — Organization Admin (which this account already had) doesn't include this by default |
+| `1037852707756@cloudbuild.gserviceaccount.com` (Cloud Build's own service agent, distinct from the compute default SA above) | `roles/run.admin`, `roles/iam.serviceAccountUser`, `roles/artifactregistry.writer`, `roles/logging.logWriter`, `roles/secretmanager.admin` | project | runs the two CI/CD triggers — builds the image, pushes it, deploys to Cloud Run. `secretmanager.admin` was specifically required just to create the GitHub connection itself (Cloud Build stores the GitHub OAuth token as a secret it manages) |
 
 No `Owner`-level role was granted to any service account. The compute default SA's grants are scoped to exactly what Cloud Build and Cloud Run need — not a blanket Editor/Owner grant.
 
