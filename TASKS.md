@@ -179,7 +179,7 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [ ] Implement the tested cascading-deletion job across Cloud SQL, Cloud Storage, and BigQuery (governing doc §7.4/§9.2.1) — run against a seeded test participant on every deploy in staging before trusting it in production.
 - [ ] Migrate Celery workers from self-hosted to Cloud Run Jobs (`apgi-jobs`).
 - [ ] Stand up Cloud Scheduler jobs for monthly re-scoring, retest reminders, norm refreshes.
-- [ ] Create the staging GCP project (e.g. `apgi-web-staging`) — **human action**, see §9.
+- [x] **Decided, not doing:** no separate staging GCP project — operator explicitly declined the added infrastructure cost. `apgi-api` runs in `ENVIRONMENT=staging` *mode* within the single `apgiframework-web` project instead (see INFRASTRUCTURE.md) — good enough to skip requiring real Stripe/SMTP credentials, but there's no isolated environment to test destructive changes (like the cascading-deletion job below) against before they hit the only project that exists.
 - [ ] Add a GCP deploy job to `apgi-api/.github/workflows/ci.yml` — currently lint/typecheck/security/test/build/docs only, no deploy step.
 
 ---
@@ -188,7 +188,7 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 
 - [ ] Legal/regulatory review of `funnels/6_healthcare_professionals.html` and `funnels/2_therapists_coaches.html` before either is republished in any form (medical-device reclassification risk).
 - [ ] Confirm domain registrar and current DNS provider for `apgiframework.com`.
-- [ ] Confirm billing is enabled on the `apgi-web` GCP project; create and bill the new staging project.
+- [x] Billing confirmed enabled on `apgiframework-web` (linked at project creation). No separate staging project — operator's explicit call, see §8.
 - [ ] Grant IAM roles to the deploying identity on both GCP projects.
 - [ ] OSF pre-registration (governing doc §0.1) — required before any pilot recruitment.
 - [ ] Privacy lawyer review of the item bank (governing doc §7.2) — required given Article 9 special-category-data exposure (interoceptive/mood items).
