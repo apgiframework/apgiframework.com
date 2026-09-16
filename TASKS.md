@@ -189,7 +189,7 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [ ] Legal/regulatory review of `funnels/6_healthcare_professionals.html` and `funnels/2_therapists_coaches.html` before either is republished in any form (medical-device reclassification risk).
 - [ ] Confirm domain registrar and current DNS provider for `apgiframework.com`.
 - [x] Billing confirmed enabled on `apgiframework-web` (linked at project creation). No separate staging project — operator's explicit call, see §8.
-- [ ] Grant IAM roles to the deploying identity on both GCP projects.
+- [ ] Grant IAM roles to the deploying identity on both GCP projects. For `apgiframework.com`, run the Workload Identity Federation setup in `.github/workflows/deploy.yml`'s header comment and add the two resulting values as `GCP_WORKLOAD_IDENTITY_PROVIDER`/`GCP_SERVICE_ACCOUNT` repo secrets — the workflow itself is wired up and waiting on this.
 - [ ] OSF pre-registration (governing doc §0.1) — required before any pilot recruitment.
 - [ ] Privacy lawyer review of the item bank (governing doc §7.2) — required given Article 9 special-category-data exposure (interoceptive/mood items).
 - [ ] IRB approval — commercial IRB, university affiliation, or professional-association ethics committee (governing doc §7.3); attach the approval number to the OSF registration during the pilot phase, not later.

@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+
+jobs:
+  docker-build:
+    name: Build container image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t apgiframework-com:ci .

@@ -49,6 +49,14 @@
   color: #3b82f6;
   background: rgba(59, 130, 246, 0.1);
   margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link.nav-brand img {
+  height: 22px;
+  width: auto;
+  display: block;
 }
 
 .nav-link:hover {
@@ -278,6 +286,10 @@
     margin-right: 6px;
   }
 
+  .nav-link.nav-brand img {
+    height: 18px;
+  }
+
   .nav-dropdown-btn {
     font-size: 0.8rem;
     padding: 5px 8px;
@@ -316,6 +328,10 @@
   .nav-link.nav-brand {
     font-size: 0.8rem;
     margin-right: 4px;
+  }
+
+  .nav-link.nav-brand img {
+    height: 16px;
   }
 
   .nav-dropdown-btn {
