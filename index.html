@@ -60,8 +60,8 @@
     }
 
     .logo {
-      width: 84px;
-      height: 84px;
+      width: 220px;
+      height: auto;
       margin: 0 auto 40px;
       display: block;
       filter: drop-shadow(0 0 24px rgba(0, 180, 255, 0.35));
@@ -99,25 +99,6 @@
       max-width: 480px;
       margin: 0 auto 40px;
     }
-
-    .equation {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Crimson Pro', serif;
-      font-size: 1.5rem;
-      font-style: italic;
-      padding: 14px 28px;
-      border: 1px solid var(--border-subtle);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.02);
-      margin-bottom: 48px;
-    }
-
-    .equation .precision { color: var(--precision-red); }
-    .equation .error { color: var(--error-yellow); }
-    .equation .threshold { color: var(--threshold-blue); }
-    .equation .op { color: var(--text-micro); font-style: normal; }
 
     .status-row {
       display: flex;
@@ -180,13 +161,7 @@
 </head>
 <body>
   <main>
-    <svg class="logo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="APGI Framework logo">
-      <rect width="32" height="32" rx="7" fill="#0a0a0a"/>
-      <circle cx="16" cy="9.5" r="3.4" fill="#FF3366"/>
-      <circle cx="9" cy="21" r="3.4" fill="#FFCC00"/>
-      <circle cx="23" cy="21" r="3.4" fill="#00B4FF"/>
-      <path d="M16 9.5 L9 21 M16 9.5 L23 21 M9 21 L23 21" stroke="#5e6ad2" stroke-width="1.4" stroke-linecap="round" opacity="0.85"/>
-    </svg>
+    <img class="logo" src="/assets/images/apgi-logo.svg" alt="APGI Framework logo">
 
     <p class="eyebrow">APGI Framework</p>
     <h1>Something is coming into focus.</h1>
@@ -194,14 +169,6 @@
       A computational model of consciousness ignition, precision-gated attention, and allostatic regulation.
       We're finishing the site before it goes live.
     </p>
-
-    <div class="equation" aria-label="Core APGI equation">
-      <span class="precision">Π</span>
-      <span class="op">×</span>
-      <span class="error">|ε|</span>
-      <span class="op">&gt;</span>
-      <span class="threshold">B</span><sub class="threshold" style="font-size:0.7em;">t</sub>
-    </div>
 
     <div class="status-row">
       <span class="status-dot"></span>
