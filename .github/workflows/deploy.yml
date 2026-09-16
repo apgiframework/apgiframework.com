@@ -1,0 +1,89 @@
+# One-time setup (run locally with `gcloud`, as a project owner/editor on
+# apgiframework-web — this workflow has no credentials until this is done):
+#
+#   PROJECT_ID=apgiframework-web
+#   PROJECT_NUMBER=$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')
+#   REPO="apgiframework/apgiframework.com"
+#
+#   # 1. Workload Identity Federation pool + provider, scoped to this GitHub org.
+#   gcloud iam workload-identity-pools create github-pool \
+#     --project="$PROJECT_ID" --location=global --display-name="GitHub Actions"
+#
+#   gcloud iam workload-identity-pools providers create-oidc github-provider \
+#     --project="$PROJECT_ID" --location=global --workload-identity-pool=github-pool \
+#     --display-name="GitHub Actions" \
+#     --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner" \
+#     --attribute-condition="assertion.repository_owner == 'apgiframework'" \
+#     --issuer-uri="https://token.actions.githubusercontent.com"
+#
+#   # 2. Deploy service account + roles (Artifact Registry repo `apgi-images`
+#   #    in us-central1 must already exist — create it first if it doesn't:
+#   #    gcloud artifacts repositories create apgi-images --project="$PROJECT_ID" \
+#   #      --repository-format=docker --location=us-central1).
+#   gcloud iam service-accounts create github-deployer \
+#     --project="$PROJECT_ID" --display-name="GitHub Actions Cloud Run deployer"
+#
+#   for role in roles/run.admin roles/artifactregistry.writer roles/iam.serviceAccountUser; do
+#     gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+#       --member="serviceAccount:github-deployer@${PROJECT_ID}.iam.gserviceaccount.com" \
+#       --role="$role"
+#   done
+#
+#   # 3. Let ONLY this repo impersonate that service account.
+#   gcloud iam service-accounts add-iam-policy-binding \
+#     "github-deployer@${PROJECT_ID}.iam.gserviceaccount.com" \
+#     --project="$PROJECT_ID" --role=roles/iam.workloadIdentityUser \
+#     --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/attribute.repository/${REPO}"
+#
+#   # 4. Add these as repo secrets (Settings > Secrets and variables > Actions):
+#   #    GCP_WORKLOAD_IDENTITY_PROVIDER = projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+#   #    GCP_SERVICE_ACCOUNT            = github-deployer@${PROJECT_ID}.iam.gserviceaccount.com
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: apgiframework-web
+  REGION: us-central1
+  SERVICE: apgiframework-com
+  IMAGE: us-central1-docker.pkg.dev/apgiframework-web/apgi-images/frontend
+
+jobs:
+  deploy:
+    name: Build, push, and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+
+      - name: Build image
+        run: docker build -t "${IMAGE}:${{ github.sha }}" .
+
+      - name: Push image
+        run: docker push "${IMAGE}:${{ github.sha }}"
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          image: ${{ env.IMAGE }}:${{ github.sha }}
