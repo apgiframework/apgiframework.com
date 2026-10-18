@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.apgiframework.com; base-uri 'self'; form-action 'none'" />
+<title>APGI Cognitive Processing Assessment</title>
+<link rel="canonical" href="https://apgiframework.com/apgi-assessment-v2.html" />
+<meta name="description" content="Take the APGI Cognitive Processing Assessment: four short behavioural tasks and a brief questionnaire that produce a personal session signature. Research tool, not a clinical instrument." />
+<meta property="og:title" content="APGI Cognitive Processing Assessment" />
+<meta property="og:description" content="Four short behavioural tasks and a brief questionnaire that produce a personal session signature. Research tool, not a clinical instrument." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://apgiframework.com/apgi-assessment-v2.html" />
+<meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Framework-Diagram.png" />
+<meta property="og:site_name" content="APGI Framework" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono&display=swap" />
+<!-- jsPDF is optional: if it fails to load the PDF button falls back to a PNG download. Pin and add an SRI hash before launch. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<style>
+:root{--bg:linear-gradient(135deg,#0a0a0c 0%,#1a1a2e 100%);--tx:#e4e4e7;--tx2:#c4c4cc;--mut:#9a9aa6;--glass:rgba(23,23,27,.92);--bd:rgba(255,255,255,.12);--card:rgba(0,0,0,.3);--blue:#60a5fa;--purple:#a855f7;--pink:#ec4899;--green:#34d399;--amber:#fbbf24;--red:#f87171;--stage:#808080}
+[data-theme="light"]{--bg:linear-gradient(135deg,#ffffff 0%,#f1f5f9 100%);--tx:#0f172a;--tx2:#1e293b;--mut:#475569;--glass:rgba(255,255,255,.98);--bd:rgba(0,0,0,.2);--card:rgba(15,23,42,.05);--blue:#1d4ed8;--purple:#7c3aed;--pink:#be185d;--green:#047857;--amber:#b45309;--red:#b91c1c}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:72px 16px 24px;transition:background .3s,color .3s;overflow-x:hidden}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.small{font-size:.78rem}.muted{color:var(--mut)}.center{text-align:center}
+.hidden{display:none!important}
+.wrap{width:100%;max-width:860px;outline:none}
+.wrap.wide{max-width:1180px}
+.glass{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:24px;padding:32px;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.gradient-text{background:linear-gradient(135deg,#60a5fa,#a855f7 50%,#ec4899);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gs 4s ease infinite}
+@keyframes gs{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+@media (prefers-reduced-motion:reduce){.gradient-text{animation:none}*{transition:none!important}}
+h1{font-size:clamp(1.9rem,5vw,3rem);font-weight:900;margin:0 0 12px}
+h2{font-size:1.4rem;margin:0}h3{margin:0 0 8px}
+p{line-height:1.6}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:12px 20px;background:var(--glass);border-bottom:1px solid var(--bd);backdrop-filter:blur(16px);display:flex;gap:16px;align-items:center;justify-content:space-between}
+.bar{height:6px;width:min(260px,30vw);background:var(--card);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle;margin:0 10px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3b82f6,#a855f7,#ec4899);transition:width .4s}
+.theme-toggle{position:fixed;top:10px;right:14px;z-index:60;background:var(--glass);border:1px solid var(--bd);border-radius:50px;color:var(--tx);width:40px;height:40px;cursor:pointer;font-size:18px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px 22px;cursor:pointer;color:#fff;background:linear-gradient(90deg,#2563eb,#7c3aed);transition:transform .15s,opacity .15s}
+.btn:hover{transform:scale(1.02)}.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.btn.ghost{background:var(--card);color:var(--tx);border:1px solid var(--bd)}
+.btn.block{display:block;width:100%;max-width:420px;margin:20px auto 0}
+.btn.sm{padding:9px 14px;font-size:.85rem}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.banner{border-radius:14px;padding:16px;margin:20px 0;text-align:left;font-size:.92rem;line-height:1.55}
+.banner.warn{background:linear-gradient(135deg,#b91c1c,#7f1d1d);color:#fff}
+.banner.info{background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff}
+.banner ul{margin:6px 0 0;padding-left:18px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.tile{padding:18px;border-radius:16px;border:1px solid var(--bd);background:var(--card);text-align:left}
+.tile h3{font-size:1rem}.tile p{margin:0;font-size:.88rem;color:var(--tx2)}
+label.chk{display:flex;gap:10px;align-items:flex-start;text-align:left;margin:12px 0;font-size:.93rem;line-height:1.5}
+label.chk input{margin-top:4px;width:18px;height:18px;flex:none}
+.task-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.stage{position:relative;display:flex;justify-content:center;margin:16px 0}
+.stage canvas{width:min(480px,100%);height:auto;aspect-ratio:1/1;border-radius:16px;border:1px solid var(--bd);background:var(--stage)}
+.controls{min-height:120px;text-align:center}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.choice{font:inherit;font-weight:600;padding:12px 18px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;min-width:84px}
+.choice:hover{border-color:var(--blue)}
+.choice.sel{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
+.choice.big{padding:26px 34px;font-size:1.3rem;min-width:170px}
+kbd{background:var(--card);border:1px solid var(--bd);border-radius:5px;padding:1px 7px;font-family:"JetBrains Mono",monospace;font-size:.85em}
+.q{padding:14px 0;border-bottom:1px solid var(--bd);text-align:left}
+.q p{margin:0 0 8px;font-weight:600}
+.q .row{justify-content:flex-start}
+.q .choice{min-width:0;padding:9px 13px;font-size:.88rem}
+select,input[type=range]{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px;max-width:100%}
+input[type=range]{width:100%;padding:0}
+.cardbox{height:54px;border:2px dashed var(--blue);border-radius:8px;margin:14px auto;background:var(--card)}
+.res-grid{display:grid;gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+@media(max-width:900px){.res-grid{grid-template-columns:1fr}}
+#sigCanvas{width:100%;height:auto;border-radius:20px;border:1px solid var(--bd);display:block}
+.rcard{border-left:4px solid var(--blue);margin-bottom:16px}
+.rcard.m2{border-left-color:var(--purple)}.rcard.m3{border-left-color:var(--pink)}.rcard.m4{border-left-color:var(--amber)}.rcard.m5{border-left-color:var(--green)}
+.rcard h3{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tag{font-size:.7rem;padding:3px 9px;border-radius:99px;border:1px solid var(--bd);color:var(--mut);font-weight:600}
+dl{margin:10px 0 0;display:grid;grid-template-columns:1fr auto;gap:6px 16px;font-size:.9rem}
+dt{color:var(--tx2)}dd{margin:0;font-weight:700;text-align:right;font-family:"JetBrains Mono",monospace}
+.note{font-size:.84rem;color:var(--mut);line-height:1.55;margin:10px 0 0}
+.ok{color:var(--green)}.bad{color:var(--red)}.mid{color:var(--amber)}
+.foot{margin-top:28px;max-width:860px;text-align:center;color:var(--mut);line-height:1.8}
+.foot a{color:var(--mut)}
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px}
+.stage-text{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-weight:700;color:#fff;text-shadow:0 1px 3px #000}
+.shape{display:inline-block;width:1em;height:1em;vertical-align:-.12em;margin-right:.4em}
+@media print{body{background:#fff;color:#000}.topbar,.theme-toggle,.btn{display:none!important}}
+</style>
+</head>
+<body>
+<noscript><p>This assessment needs JavaScript.</p></noscript>
+<button class="theme-toggle" id="themeBtn" aria-label="Switch between light and dark theme">◐</button>
+<header id="topbar" class="topbar hidden">
+  <div><span class="mono small muted">APGI Assessment</span><span class="bar" aria-hidden="true"><i id="barFill"></i></span><span id="barText" class="mono small muted">0%</span></div>
+  <span id="modTitle" class="mono small" style="margin-right:48px"></span>
+</header>
+<main id="screen" class="wrap" tabindex="-1" aria-live="polite"></main>
+<footer id="idFooter" class="foot mono small"></footer>
+
+<script>
+"use strict";
+/* ============================================================================
+   APGI Cognitive Processing Assessment — battery 0.6.0 (pilot build)
+   Aligned to "APGI Empirical Data Collection" (§0 gates, §3 battery, §5.1 record).
+   Design rules enforced here:
+   - No percentiles and no latent APGI parameters are shown: no reference dataset
+     exists and K7 identifiability has not passed (§3.6, §5.5).
+   - Result fields name observables, not constructs (§6.2 naming rule).
+   - Two separate consents; the product works fully without research consent.
+   - Every session carries four version stamps and a quality tier.
+   ============================================================================ */
+const CONFIG = {
+  battery: "0.6.0", features: "0.6.0", model: "none (latent parameters not computed; K7 pending)",
+  referenceDataset: null, consentVersion: "2026-10-v1", release: "pilot", tiersVersion: "tiers-0.1",
+  ids: {
+    orcid: "https://orcid.org/0009-0005-0328-2896", osf: "https://osf.io/t5hcq",
+    registration: "https://osf.io/yk29g", archive: "https://doi.org/10.5281/zenodo.21632264",
+    code: "https://github.com/apgiframework", site: "https://apgiframework.com"
+  },
+  // Keep disabled until api.apgiframework.com serves /v1/sessions (plan §9.3 step 12). Local data + JSON export work regardless.
+  api: { enabled: false, base: "https://api.apgiframework.com", version: "v1", batch: 200 },
+  detection: { practice: 4, trials: 60, catchFrac: 0.3, stimMs: 100, startContrast: 0.2, minC: 0.02, maxC: 0.6, stepStart: 0.1, stepMin: 0.03 },
+  masking: { practice: 4, reps: 8, soaMs: [33, 50, 67, 83, 117, 150], targetFrames: 2, maskMs: 100 },
+  compare: { trials: 24, instructedAt: 12 },
+  reversal: { trials: 40, pBest: 0.8 },
+  tiers: {
+    A: { maxMedianFrameMs: 17.5, maxP95FrameMs: 20, maxDurErrP95Ms: 9, maxTabLoss: 0, fullscreen: true, desktop: true },
+    B: { maxMedianFrameMs: 34, maxP95FrameMs: 50, maxDurErrP95Ms: 25, maxTabLoss: 2, desktop: true }
+  },
+  validity: { fastRtMs: 150, excludeAfterFailures: 2 },
+  retestDays: 14,
+  storage: { progress: "apgi_v2_progress", pid: "apgi_v2_pid", sessions: "apgi_v2_sessions", outbox: "apgi_v2_outbox", theme: "apgi-theme" }
+};
+
+/* ============================ PURE STATS (no DOM) ============================ */
+// <stats>
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const mean = a => (a && a.length ? a.reduce((s, v) => s + v, 0) / a.length : null);
+const sd = a => { if (!a || a.length < 2) return null; const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / (a.length - 1)); };
+const quantile = (a, q) => { if (!a || !a.length) return null; const s = [...a].sort((x, y) => x - y); const p = (s.length - 1) * q, i = Math.floor(p); return s[i] + (s[Math.min(i + 1, s.length - 1)] - s[i]) * (p - i); };
+const median = a => quantile(a, 0.5);
+const r3 = x => (x === null || x === undefined || Number.isNaN(x) ? null : Math.round(x * 1000) / 1000);
+function zInv(p) { p = clamp(p, 1e-4, 1 - 1e-4); const q = p < 0.5 ? p : 1 - p, t = Math.sqrt(-2 * Math.log(q));
+  const z = t - (2.515517 + 0.802853 * t + 0.010328 * t * t) / (1 + 1.432788 * t + 0.189269 * t * t + 0.001308 * t * t * t); return p < 0.5 ? -z : z; }
+// Log-linear correction (Hautus 1995) keeps d' finite at 0 or 1.
+function dPrimeC(hits, nSig, fas, nNoise) {
+  const h = (hits + 0.5) / (nSig + 1), f = (fas + 0.5) / (nNoise + 1), zh = zInv(h), zf = zInv(f);
+  return { d: zh - zf, c: -0.5 * (zh + zf), hitRate: nSig ? hits / nSig : null, faRate: nNoise ? fas / nNoise : null };
+}
+// Type-2 AUROC: does confidence discriminate correct from incorrect responses? 0.5 = no, 1 = perfectly.
+function auroc2(conf, correct) {
+  const pos = [], neg = []; conf.forEach((c, i) => (correct[i] ? pos : neg).push(c));
+  if (pos.length < 3 || neg.length < 3) return null;
+  let s = 0; for (const p of pos) for (const n of neg) s += p > n ? 1 : p === n ? 0.5 : 0; return s / (pos.length * neg.length);
+}
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function shuffle(arr, rng) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+// 2-down / 1-up staircase in log10 contrast, driven by signal trials only.
+function makeStair(cfg) { return { logC: Math.log10(cfg.startContrast), step: cfg.stepStart, dir: 0, streak: 0, reversals: [] }; }
+function stairMove(s, d, cfg) {
+  if (s.dir !== 0 && d !== s.dir) { s.reversals.push(Math.pow(10, s.logC)); if (s.reversals.length >= 4) s.step = Math.max(cfg.stepMin, s.step * 0.6); }
+  s.dir = d; s.logC = clamp(s.logC + d * s.step, Math.log10(cfg.minC), Math.log10(cfg.maxC));
+}
+function stairUpdate(s, hit, cfg) { if (hit) { s.streak++; if (s.streak >= 2) { s.streak = 0; stairMove(s, -1, cfg); } } else { s.streak = 0; stairMove(s, +1, cfg); } }
+
+function summariseDetection(trials, stair, fastMs) {
+  const main = trials.filter(t => !t.practice), ok = main.filter(t => t.valid);
+  const sig = ok.filter(t => t.type === "signal"), noi = ok.filter(t => t.type === "catch");
+  const late = sig.slice(Math.floor(sig.length / 3));
+  const out = { n_signal: sig.length, n_catch: noi.length, n_invalid: main.length - ok.length, d_prime: null, criterion_c: null, hit_rate: null, fa_rate: null,
+    contrast_threshold: null, threshold_stable: false, reversals: stair ? stair.reversals.length : 0, mean_rt_ms: null, metacog_auroc2: null, mean_confidence: null };
+  if (late.length >= 8 && noi.length >= 5) {
+    const dc = dPrimeC(late.filter(t => t.resp === "seen").length, late.length, noi.filter(t => t.resp === "seen").length, noi.length);
+    out.d_prime = r3(dc.d); out.criterion_c = r3(dc.c); out.hit_rate = r3(dc.hitRate); out.fa_rate = r3(dc.faRate);
+  }
+  if (stair && stair.reversals.length >= 4) {
+    const last = stair.reversals.slice(-6); out.contrast_threshold = r3(Math.exp(mean(last.map(Math.log)))); out.threshold_stable = true;
+  } else if (sig.length >= 10) { out.contrast_threshold = r3(median(sig.slice(-20).map(t => t.contrast))); }
+  out.mean_rt_ms = ok.length ? Math.round(mean(ok.map(t => t.rt))) : null;
+  out.metacog_auroc2 = r3(auroc2(ok.map(t => t.conf), ok.map(t => t.correct)));
+  out.mean_confidence = r3(mean(ok.map(t => t.conf)));
+  return out;
+}
+function fitTransition(xs, ys) {
+  const mx = mean(xs), my = mean(ys); let sxy = 0, sxx = 0; xs.forEach((x, i) => { sxy += (x - mx) * (ys[i] - my); sxx += (x - mx) ** 2; });
+  const b = sxx ? sxy / sxx : 0, a = my - b * mx; const sseLin = xs.reduce((s, x, i) => s + (a + b * x - ys[i]) ** 2, 0);
+  let best = { sse: Infinity, m: null, k: null };
+  for (let m = Math.min(...xs); m <= Math.max(...xs); m += 2) for (const k of [0.03, 0.06, 0.1, 0.2, 0.4, 0.8]) {
+    const sse = xs.reduce((s, x, i) => s + (0.5 + 0.48 / (1 + Math.exp(-k * (x - m))) - ys[i]) ** 2, 0); if (sse < best.sse) best = { sse, m, k };
+  }
+  return { sseLin, sseStep: best.sse, mid: best.m, slope: best.k };
+}
+function summariseMasking(trials) {
+  const main = trials.filter(t => !t.practice && t.valid); const bySoa = {};
+  main.forEach(t => { (bySoa[t.soaPlanned] = bySoa[t.soaPlanned] || []).push(t); });
+  const keys = Object.keys(bySoa).map(Number).sort((a, b) => a - b);
+  const acc = keys.map(k => mean(bySoa[k].map(t => (t.correct ? 1 : 0))));
+  const xs = keys.map(k => mean(bySoa[k].map(t => t.soaActual || k)));
+  const out = { n: main.length, n_invalid: trials.filter(t => !t.practice).length - main.length, acc_by_soa: Object.fromEntries(keys.map((k, i) => [k, r3(acc[i])])),
+    soa_midpoint_ms: null, soa_censored: null, transition_sharpness: null, mean_rt_ms: main.length ? Math.round(mean(main.map(t => t.rt))) : null };
+  if (keys.length >= 4 && main.length >= 24) {
+    const target = 0.75; // midpoint between chance (0.5) and ceiling for a 2-choice task
+    if (acc[0] >= target) { out.soa_midpoint_ms = xs[0]; out.soa_censored = "below"; }
+    else if (Math.max(...acc) < target) { out.soa_midpoint_ms = xs[xs.length - 1]; out.soa_censored = "above"; }
+    else { for (let i = 1; i < acc.length; i++) if (acc[i] >= target && acc[i - 1] < target) { out.soa_midpoint_ms = xs[i - 1] + (xs[i] - xs[i - 1]) * (target - acc[i - 1]) / (acc[i] - acc[i - 1]); break; }
+      if (out.soa_midpoint_ms === null) { out.soa_midpoint_ms = xs[0]; out.soa_censored = "below"; } }
+    out.soa_midpoint_ms = r3(out.soa_midpoint_ms);
+    const f = fitTransition(xs, acc); out.transition_sharpness = r3(clamp((f.sseLin - f.sseStep) / Math.max(f.sseLin, 1e-6), 0, 1));
+  }
+  return out;
+}
+function summariseCompare(trials) {
+  const ok = trials.filter(t => t.valid); const o = { n: ok.length, accuracy: null, mean_confidence: null, overconfidence: null, metacog_auroc2: null };
+  if (ok.length < 8) return o;
+  o.accuracy = r3(mean(ok.map(t => (t.correct ? 1 : 0)))); o.mean_confidence = r3(mean(ok.map(t => t.conf)));
+  o.overconfidence = r3((mean(ok.map(t => (t.conf - 1) / 3)) - o.accuracy)); // confidence rescaled 0-1 minus accuracy
+  o.metacog_auroc2 = r3(auroc2(ok.map(t => t.conf), ok.map(t => t.correct))); return o;
+}
+function summariseReversal(trials) {
+  const o = { n: trials.length, accuracy: null, win_stay: null, lose_shift: null, perseveration: null, recovery_trials: null };
+  if (trials.length < 20) return o;
+  o.accuracy = r3(mean(trials.map(t => (t.choice === t.best ? 1 : 0))));
+  const ws = [], ls = [];
+  for (let i = 1; i < trials.length; i++) { const stay = trials[i].choice === trials[i - 1].choice; (trials[i - 1].reward ? ws : ls).push(trials[i - 1].reward ? (stay ? 1 : 0) : (stay ? 0 : 1)); }
+  o.win_stay = r3(mean(ws)); o.lose_shift = r3(mean(ls));
+  const pers = [], rec = [];
+  for (let i = 1; i < trials.length; i++) if (trials[i].best !== trials[i - 1].best) {
+    const prevBest = trials[i - 1].best; const w = trials.slice(i, i + 5); pers.push(mean(w.map(t => (t.choice === prevBest ? 1 : 0))));
+    let k = 10; for (let j = 0; j + 2 < 10 && i + j + 2 < trials.length; j++) { const seg = trials.slice(i + j, i + j + 3); if (seg.every(t => t.choice === t.best)) { k = j; break; } } rec.push(k);
+  }
+  o.perseveration = r3(mean(pers)); o.recovery_trials = r3(mean(rec)); return o;
+}
+const SUBS = { T: "change_noticing", P: "confidence_awareness", S: "body_signal_use" };
+function scoreSelfReport(items, ans) {
+  const sub = { T: [], P: [], S: [] }, att = { failures: 0, detail: [] }, scored = [];
+  items.forEach(it => { const v = ans[it.id]; if (!it.sub || v == null) return; const s = it.rev ? 6 - v : v; sub[it.sub].push(s); scored.push(v); });
+  const pairs = {}; items.forEach(it => { if (it.pair) (pairs[it.pair] = pairs[it.pair] || []).push(ans[it.id]); });
+  Object.entries(pairs).forEach(([k, v]) => { const f = v.length === 2 && v[0] >= 4 && v[1] >= 4; if (f) att.failures++; att.detail.push({ id: k, failed: f }); });
+  items.filter(it => it.expect).forEach(it => { const f = ans[it.id] !== it.expect; if (f) att.failures++; att.detail.push({ id: it.id, failed: f }); });
+  const out = { attention_failures: att.failures, attention_detail: att.detail, straightlining: scored.length >= 12 && new Set(scored).size === 1 };
+  Object.entries(SUBS).forEach(([k, name]) => { out[name] = sub[k].length ? r3(mean(sub[k])) : null; out[name + "_n"] = sub[k].length; }); return out;
+}
+function computeTier(t, cfg) {
+  const a = cfg.A, b = cfg.B, why = [];
+  if (t.mobile) why.push("mobile device");
+  if (t.tabLoss > b.maxTabLoss) why.push("tab switching");
+  if (t.p95FrameMs > b.maxP95FrameMs) why.push("frame jitter");
+  if (t.medianFrameMs > b.maxMedianFrameMs) why.push("low refresh rate");
+  if (t.durErrP95Ms !== null && t.durErrP95Ms > b.maxDurErrP95Ms) why.push("stimulus timing error");
+  if (why.length) return { tier: "C", reasons: why };
+  const ra = [];
+  if (t.medianFrameMs > a.maxMedianFrameMs) ra.push("refresh below 57 Hz");
+  if (t.p95FrameMs > a.maxP95FrameMs) ra.push("frame jitter above Tier A limit");
+  if (t.durErrP95Ms !== null && t.durErrP95Ms > a.maxDurErrP95Ms) ra.push("stimulus timing error above Tier A limit");
+  if (t.tabLoss > a.maxTabLoss) ra.push("tab switching");
+  if (a.fullscreen && !t.fullscreenAlways) ra.push("not fullscreen throughout");
+  return ra.length ? { tier: "B", reasons: ra } : { tier: "A", reasons: [] };
+}
+// </stats>
+
+/* ============================ ITEM BANK (pilot candidates) ============================ */
+// Draft pool for cognitive interviews (plan §2.2): behaviours and situations, never symptoms; reverse-keyed items in every subscale.
+const ITEMS = [
+  { id: "T1", sub: "T", rev: false, text: "In a noisy room, I notice a change in the background sound before other people mention it." },
+  { id: "T2", sub: "T", rev: false, text: "I notice a moved object in a familiar room within moments of walking in." },
+  { id: "T3", sub: "T", rev: false, text: "I catch a faint flicker on a screen or light that others don't seem to see." },
+  { id: "T4", sub: "T", rev: true, text: "Small differences in a scene often slip past me until someone points them out." },
+  { id: "T5", sub: "T", rev: true, text: "I can read for a long stretch without registering sounds happening nearby." },
+  { id: "T6", sub: "T", rev: false, text: "When a silent notification lights up a nearby device, I usually catch it from the corner of my eye." },
+  { id: "P1", sub: "P", rev: false, text: "After making a decision, I can usually tell how sure I should be that it was correct." },
+  { id: "P2", sub: "P", rev: false, text: "When I say I am certain about an answer, I turn out to be right most of the time." },
+  { id: "P3", sub: "P", rev: false, text: "As I answer a question, I can tell whether I am guessing." },
+  { id: "P4", sub: "P", rev: true, text: "I am often surprised to learn that an answer I felt sure about was wrong." },
+  { id: "P5", sub: "P", rev: true, text: "I have trouble telling a confident hunch from a wild guess." },
+  { id: "P6", sub: "P", rev: false, text: "When I estimate how long a task will take, my estimate is usually close." },
+  { id: "S1", sub: "S", rev: false, text: "Before a big decision, I notice a shift in how my body feels, such as tension or ease." },
+  { id: "S2", sub: "S", rev: false, text: "I use a sense of lightness or heaviness as information when choosing between options." },
+  { id: "S3", sub: "S", rev: false, text: "I can tell I need food or rest before I have consciously thought about it." },
+  { id: "S4", sub: "S", rev: true, text: "Physical sensations rarely play a part in how I choose." },
+  { id: "S5", sub: "S", rev: true, text: "During ordinary activity I seldom notice my own heartbeat or breathing." },
+  { id: "S6", sub: "S", rev: false, text: "When a choice feels right in my body, I tend to go with it." },
+  { id: "A1a", pair: "pairA", text: "I have used a phone or computer today." },
+  { id: "A1b", pair: "pairA", text: "I have not touched any device with a screen today." },
+  { id: "A2a", pair: "pairB", text: "I read the instructions for this section." },
+  { id: "A2b", pair: "pairB", text: "I skipped the instructions for this section." },
+  { id: "A3", expect: 4, text: "To show you are reading carefully, choose \"Agree\" for this statement." }
+];
+const LIKERT = ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"];
+
+/* ============================ SESSION STATE ============================ */
+const $ = (s, r = document) => r.querySelector(s);
+const screenEl = $("#screen");
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const UNITS = { pre: 3, detection: CONFIG.detection.practice + CONFIG.detection.trials, masking: CONFIG.masking.practice + CONFIG.masking.reps * CONFIG.masking.soaMs.length,
+  compare: CONFIG.compare.trials + 1, reversal: CONFIG.reversal.trials, selfreport: ITEMS.length };
+const TOTAL_UNITS = Object.values(UNITS).reduce((a, b) => a + b, 0);
+let S = freshState();
+function freshState() {
+  return { participantId: null, sessionId: crypto.randomUUID(), sessionIndex: 1, holdout: null, form: "A", startedAt: null, consent: null, demographics: {}, checkin: {},
+    timing: null, calibration: null, tasks: { detection: null, masking: null, compare: null, reversal: null, selfreport: null }, tabLoss: 0, fsSamples: [], done: [], units: 0, results: null };
+}
+const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || !matchMedia("(any-pointer:fine)").matches;
+function save() { try { localStorage.setItem(CONFIG.storage.progress, JSON.stringify({ S, ts: Date.now() })); } catch (e) { /* storage unavailable */ } }
+function loadSaved() { try { const j = JSON.parse(localStorage.getItem(CONFIG.storage.progress) || "null"); if (j && Date.now() - j.ts < 864e5 && j.S && j.S.consent && !j.S.done.includes("results")) return j.S; } catch (e) { /* ignore */ } return null; }
+function bump(n = 1) { S.units += n; const p = Math.min(100, Math.round(S.units / TOTAL_UNITS * 100)); $("#barFill").style.width = p + "%"; $("#barText").textContent = p + "%"; }
+function setModule(t) { $("#modTitle").textContent = t; }
+document.addEventListener("visibilitychange", () => { if (document.hidden && S.startedAt && !S.done.includes("results")) S.tabLoss++; });
+function render(html, wide) { screenEl.className = "wrap" + (wide ? " wide" : ""); screenEl.innerHTML = html; screenEl.focus({ preventScroll: true }); window.scrollTo(0, 0); }
+function waitClick(sel) { return new Promise(res => { const b = $(sel); b.addEventListener("click", () => res(), { once: true }); }); }
+function waitChoice(allowed) {
+  return new Promise(res => {
+    const t0 = performance.now();
+    const fin = (v, src) => { document.removeEventListener("keydown", onK); screenEl.removeEventListener("click", onC); res({ value: v, rt: performance.now() - t0, src }); };
+    const onK = e => { if (e.repeat) return; for (const [v, keys] of Object.entries(allowed)) if (keys.includes(e.key)) { e.preventDefault(); fin(v, "key"); return; } };
+    const onC = e => { const b = e.target.closest("[data-choice]"); if (b && Object.prototype.hasOwnProperty.call(allowed, b.dataset.choice)) fin(b.dataset.choice, "tap"); };
+    document.addEventListener("keydown", onK); screenEl.addEventListener("click", onC);
+  });
+}
+function guard() { const t0 = S.tabLoss, fs0 = !!document.fullscreenElement; return () => ({ tab: S.tabLoss !== t0, fs: fs0 && !!document.fullscreenElement }); }
+function sampleFs() { S.fsSamples.push(!!document.fullscreenElement); }
+function runFrames(steps) {
+  return new Promise(res => {
+    const marks = [], deltas = []; let si = 0, fc = 0, last = null;
+    function tick(ts) {
+      if (last !== null) deltas.push(ts - last); last = ts;
+      if (fc === 0) { steps[si].draw(); marks.push(ts); }
+      if (++fc >= steps[si].frames) { si++; fc = 0; if (si >= steps.length) { res({ marks, deltas }); return; } }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+async function measureFrames(n = 180) {
+  const d = []; let last = null;
+  await new Promise(res => { function t(ts) { if (last !== null) d.push(ts - last); last = ts; d.length < n ? requestAnimationFrame(t) : res(); } requestAnimationFrame(t); });
+  const x = d.slice(5); return { medianFrameMs: r3(median(x)), p95FrameMs: r3(quantile(x, 0.95)), p99FrameMs: r3(quantile(x, 0.99)), hz: Math.round(1000 / median(x)) };
+}
+function rngFor(task) { return mulberry32(hashStr(S.participantId + "|" + S.form + "|" + task)); }
+
+/* ============================ SCREENS ============================ */
+function footer() {
+  const i = CONFIG.ids;
+  $("#idFooter").innerHTML = `Researcher <a href="${i.orcid}" rel="noopener">ORCID</a> · Project <a href="${i.osf}" rel="noopener">OSF</a> · Registration <a href="${i.registration}" rel="noopener">OSF Registries</a> · Archive <a href="${i.archive}" rel="noopener">Zenodo</a> · <a href="${i.code}" rel="noopener">Code</a><br>Battery ${CONFIG.battery} · Release state: <strong>${CONFIG.release}</strong> · Research tool, not a diagnostic or medical device`;
+}
+function showIntro() {
+  $("#topbar").classList.add("hidden");
+  render(`<section class="glass center">
+    <h1 class="gradient-text">APGI Cognitive Processing Assessment</h1>
+    <p style="font-size:1.1rem;max-width:640px;margin:0 auto" class="muted">Four short tasks and a brief questionnaire show how you detect faint signals, judge your own certainty, and learn when the rules change. You finish with a personal session signature.</p>
+    <div class="grid g2" style="margin-top:24px">
+      <div class="tile"><h3 style="color:var(--blue)">1 · Faint-spot detection</h3><p>Report a barely visible spot and rate how sure you are.</p></div>
+      <div class="tile"><h3 style="color:var(--purple)">2 · Quick arrow</h3><p>Name the direction of an arrow that is covered almost instantly.</p></div>
+      <div class="tile"><h3 style="color:var(--pink)">3 · Compare and rate</h3><p>Pick the longer bar or denser dots, then rate your confidence.</p></div>
+      <div class="tile"><h3 style="color:var(--amber)">4 · Shifting rewards</h3><p>Choose between two shapes whose payoffs swap without notice.</p></div>
+    </div>
+    <div class="banner info"><strong>Before you start:</strong>
+      <ul><li>About 20–25 minutes. Use a laptop or desktop in a quiet room; keep this tab in front.</li>
+      <li>Phones and tablets are recorded but excluded from reference analyses.</li>
+      <li>Progress saves after each task; closing the tab lets you resume within 24 hours.</li></ul></div>
+    <div class="banner warn"><strong>Non-clinical research tool</strong>
+      <ul><li>It describes how you performed in this one session, not who you are.</li>
+      <li>It is not a diagnosis, a screening test or medical advice. Consult a licensed professional for health concerns.</li></ul></div>
+    <p class="small muted">Pre-registered pilot: no reference dataset exists yet, so your results are never compared with other people.</p>
+    <button class="btn block" id="begin">Continue to consent →</button>
+  </section>`);
+  $("#begin").addEventListener("click", showConsent);
+}
+function showConsent() {
+  render(`<section class="glass">
+    <h2>Consent</h2><p class="muted small">Version ${CONFIG.consentVersion}. Two separate choices. You can use everything here without agreeing to the second one.</p>
+    <label class="chk"><input type="checkbox" id="c_age"><span>I am 18 or older.</span></label>
+    <label class="chk"><input type="checkbox" id="c_prod"><span><strong>Use of the assessment (required).</strong> Run the tasks in this browser and show me my results. Your answers stay in this browser. A random ID is stored here so repeat sessions can be matched. No name, email or free text is collected.</span></label>
+    <label class="chk"><input type="checkbox" id="c_res"><span><strong>Research use (optional).</strong> Send my de-identified task and questionnaire data, tagged with a random ID, to the APGI research archive for pooled analysis and publication of aggregate findings. Aggregate results already published cannot be withdrawn. I can request deletion of my record otherwise.</span></label>
+    <p class="note">Sensitive content is not asked for. If anything in a session distresses you, stop and close the tab.</p>
+    <button class="btn block" id="go" disabled>Agree and continue →</button></section>`);
+  const upd = () => { $("#go").disabled = !($("#c_age").checked && $("#c_prod").checked); };
+  ["#c_age", "#c_prod"].forEach(s => $(s).addEventListener("change", upd));
+  $("#go").addEventListener("click", () => {
+    let pid = null; try { pid = localStorage.getItem(CONFIG.storage.pid); } catch (e) { /* */ }
+    if (!pid) { pid = crypto.randomUUID(); try { localStorage.setItem(CONFIG.storage.pid, pid); } catch (e) { /* */ } }
+    let idx = 1; try { idx = (parseInt(localStorage.getItem(CONFIG.storage.sessions) || "0", 10) || 0) + 1; localStorage.setItem(CONFIG.storage.sessions, String(idx)); } catch (e) { /* */ }
+    S.participantId = pid; S.sessionIndex = idx; S.form = "ABC"[(hashStr(pid) + idx - 1) % 3];
+    S.holdout = mulberry32(hashStr(pid + "|holdout"))() < 0.3 ? "confirmatory" : "exploratory"; // fixed per participant at enrolment
+    S.consent = { version: CONFIG.consentVersion, product: true, research: $("#c_res").checked, timestamp: new Date().toISOString() };
+    S.startedAt = Date.now(); $("#topbar").classList.remove("hidden"); save(); flow();
+  });
+}
+function choiceRow(name, opts) { return `<div class="row" role="group" aria-label="${name}">${opts.map(([v, l]) => `<button type="button" class="choice" data-q="${name}" data-v="${v}">${l}</button>`).join("")}</div>`; }
+function bindChoices(root, store, onChange) {
+  root.addEventListener("click", e => { const b = e.target.closest("[data-q]"); if (!b) return; const q = b.dataset.q; store[q] = isNaN(+b.dataset.v) ? b.dataset.v : +b.dataset.v;
+    root.querySelectorAll(`[data-q="${q}"]`).forEach(x => x.classList.toggle("sel", x === b)); onChange(); });
+}
+function showCheckin() {
+  setModule("Check-in"); const a = {};
+  const likert5 = ["1", "2", "3", "4", "5"].map(v => [v, v]);
+  render(`<section class="glass"><h2>Quick check-in</h2><p class="muted small">About a minute. These answers help interpret your results; they are not scored as traits.</p>
+    <div class="q"><p>How many hours did you sleep last night?</p>${choiceRow("sleep", [["4", "Under 5"], ["5.5", "5–6"], ["6.5", "6–7"], ["7.5", "7–8"], ["8.5", "8–9"], ["9.5", "9+"]])}</div>
+    <div class="q"><p>How many caffeinated drinks have you had today?</p>${choiceRow("caffeine", [["0", "None"], ["1", "1"], ["2", "2"], ["3", "3 or more"]])}</div>
+    <div class="q"><p>Right now, how alert do you feel? <span class="muted">(1 = drowsy, 5 = very alert)</span></p>${choiceRow("alert", likert5)}</div>
+    <div class="q"><p>Right now, how much pressure do you feel from things on your plate? <span class="muted">(1 = none, 5 = a lot)</span></p>${choiceRow("pressure", likert5)}</div>
+    <div class="q"><p>How confident are you that you can do well on these tasks? <span class="muted">(1–5)</span></p>${choiceRow("expect", likert5)}</div>
+    <div class="q"><p>How much does doing well here matter to you today? <span class="muted">(1–5)</span></p>${choiceRow("stakes", likert5)}</div>
+    <div class="q"><p>Screen and room conditions</p>${choiceRow("light", [["dim", "Dim room"], ["normal", "Normal light"], ["bright", "Bright room"], ["glare", "Glare on screen"]])}</div>
+    <div class="q"><p>Age band <span class="muted">(optional)</span></p>${choiceRow("age", [["18-24", "18–24"], ["25-34", "25–34"], ["35-44", "35–44"], ["45-54", "45–54"], ["55-64", "55–64"], ["65+", "65+"], ["na", "Prefer not to say"]])}</div>
+    <div class="q"><p>Education <span class="muted">(optional)</span></p>${choiceRow("edu", [["secondary", "Secondary"], ["some_college", "Some college"], ["bachelor_or_equivalent", "Bachelor's"], ["postgraduate", "Postgraduate"], ["na", "Prefer not to say"]])}</div>
+    <div class="q"><p>Primary language <span class="muted">(optional)</span></p>${choiceRow("lang", [["en", "English"], ["ru", "Russian"], ["other", "Other"], ["na", "Prefer not to say"]])}</div>
+    <button class="btn block" id="go" disabled>Continue →</button></section>`);
+  const req = ["sleep", "caffeine", "alert", "pressure", "expect", "stakes", "light"];
+  bindChoices(screenEl, a, () => { $("#go").disabled = !req.every(k => k in a); });
+  return new Promise(res => $("#go").addEventListener("click", () => {
+    S.checkin = { sleep_hours: +a.sleep, caffeine_drinks: +a.caffeine, alertness_1to5: a.alert, pressure_1to5: a.pressure, expected_performance_1to5: a.expect, stakes_1to5: a.stakes, display_conditions: a.light,
+      local_time_band: (h => h < 6 ? "night" : h < 12 ? "morning" : h < 18 ? "afternoon" : "evening")(new Date().getHours()) };
+    S.demographics = { age_band: a.age || "na", education_band: a.edu || "na", primary_language: a.lang || "na" }; bump(1); res(); }));
+}
+async function showCalibration() {
+  setModule("Display check"); let touched = false, timingDone = false;
+  render(`<section class="glass center"><h2>Display check</h2>
+    <p class="muted">Hold a standard bank card flat against your screen. Drag the slider until the dashed box is exactly as wide as the card. This lets us estimate stimulus size.</p>
+    <div class="cardbox" id="cbox" style="width:320px"></div>
+    <input type="range" id="cslide" min="150" max="560" value="320" aria-label="Card width">
+    <p class="small muted" style="margin-top:18px">Approximate distance from your eyes to the screen</p>
+    ${choiceRow("dist", [["40", "40 cm"], ["50", "50 cm"], ["60", "60 cm"], ["70", "70 cm"], ["80", "80 cm"]])}
+    <p id="tstat" class="mono small muted" style="margin-top:18px">Measuring display timing…</p>
+    <button class="btn block" id="go" disabled>Start the tasks →</button></section>`);
+  const dist = {}; const chk = () => { $("#go").disabled = !(touched && "dist" in dist && timingDone); };
+  $("#cslide").addEventListener("input", e => { touched = true; $("#cbox").style.width = e.target.value + "px"; chk(); });
+  bindChoices(screenEl, dist, chk);
+  S.timing = await measureFrames(180); timingDone = true;
+  $("#tstat").textContent = `Display ≈ ${S.timing.hz} Hz · median frame ${S.timing.medianFrameMs} ms · 95th pct ${S.timing.p95FrameMs} ms`; chk();
+  await waitClick("#go");
+  const w = +$("#cslide").value; S.calibration = { cardWidthCssPx: w, pxPerMm: r3(w / 85.6), viewingDistanceCm: +dist.dist, screen: { w: screen.width, h: screen.height, dpr: window.devicePixelRatio, vw: innerWidth, vh: innerHeight } };
+  try { if (!document.fullscreenElement) await document.documentElement.requestFullscreen(); } catch (e) { /* fullscreen refused: session may be Tier B */ }
+  bump(2);
+}
+function taskShell(title, hint, canvas = true) {
+  render(`<section class="glass"><div class="task-head"><h2>${title}</h2><span id="ctr" class="mono small muted"></span></div><p class="muted" id="hint">${hint}</p>
+    <div class="stage">${canvas ? '<canvas id="stim" width="480" height="480" aria-label="Stimulus area"></canvas>' : ""}<div class="stage-text" id="stext"></div></div><div class="controls" id="controls"></div></section>`);
+  return canvas ? $("#stim").getContext("2d") : null;
+}
+const setC = h => { $("#controls").innerHTML = h; };
+async function instruct(title, html, mod) {
+  setModule(mod); render(`<section class="glass"><h2>${title}</h2>${html}<p class="note">Progress saves when this task finishes.</p><button class="btn block" id="go">Start →</button></section>`); await waitClick("#go");
+}
+const tele = (marks, deltas, planMs, g) => ({ planMs, actMs: r3(marks[1] - marks[0]), maxFrameMs: r3(Math.max(...deltas, 0)), fs: g.fs, tab: g.tab });
+
+/* ---------- Task 1: near-threshold detection ---------- */
+function bg(ctx, c) { ctx.fillStyle = c; ctx.fillRect(0, 0, 480, 480); }
+function fix(ctx, c = "#111") { ctx.strokeStyle = c; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(228, 240); ctx.lineTo(252, 240); ctx.moveTo(240, 228); ctx.lineTo(240, 252); ctx.stroke(); }
+function blob(ctx, c) {
+  const g = ctx.createRadialGradient(240, 240, 0, 240, 240, 40); [[0, 1], [0.25, 0.78], [0.5, 0.37], [0.75, 0.1], [1, 0]].forEach(([s, a]) => g.addColorStop(s, `rgba(255,255,255,${c * a})`));
+  ctx.fillStyle = g; ctx.fillRect(160, 160, 160, 160);
+}
+async function runDetection() {
+  const cfg = CONFIG.detection, rng = rngFor("det");
+  await instruct("Task 1 · Faint-spot detection", `<p>Keep your eyes on the <strong>+</strong>. On each trial a very faint, fuzzy spot may flash at the centre for a split second. Sometimes nothing appears.</p>
+    <ul><li>Answer <strong>Seen</strong> (<kbd>J</kbd>) or <strong>Not seen</strong> (<kbd>F</kbd>), then rate how sure you are (<kbd>1</kbd>–<kbd>4</kbd>).</li><li>Guess honestly when unsure. Spots get fainter as you do well, so many trials will feel hard.</li></ul>
+    <p class="muted small">${cfg.practice} practice trials come first, with feedback.</p>`, "Task 1 · Detection");
+  const ctx = taskShell("Task 1 · Faint-spot detection", "Eyes on the +. Did a faint spot flash?");
+  const nF = Math.max(1, Math.round(cfg.stimMs / S.timing.medianFrameMs));
+  let tries = 0, plan; const nCatch = Math.round(cfg.trials * cfg.catchFrac);
+  do { plan = shuffle([...Array(cfg.trials - nCatch).fill("signal"), ...Array(nCatch).fill("catch")], rng); tries++; } while (tries < 60 && /(catch,){4}/.test(plan.join(",") + ","));
+  plan = [...["signal", "catch", "signal", "catch"].slice(0, cfg.practice).map(t => ({ type: t, practice: true })), ...plan.map(t => ({ type: t, practice: false }))];
+  const stair = makeStair(cfg), trials = [];
+  for (let i = 0; i < plan.length; i++) {
+    const p = plan[i], contrast = p.practice ? 0.3 : Math.pow(10, stair.logC);
+    $("#ctr").textContent = p.practice ? `Practice ${i + 1}/${cfg.practice}` : `Trial ${i - cfg.practice + 1}/${cfg.trials}`;
+    bg(ctx, "#808080"); fix(ctx); setC(""); await sleep(700 + Math.random() * 700);
+    const g = guard(), { marks, deltas } = await runFrames([{ draw: () => { bg(ctx, "#808080"); if (p.type === "signal") blob(ctx, contrast); fix(ctx); }, frames: nF }, { draw: () => { bg(ctx, "#808080"); fix(ctx); }, frames: 1 }]);
+    setC(`<p><strong>Did you see a spot?</strong></p><div class="row"><button class="choice big" data-choice="notseen">Not seen <kbd>F</kbd></button><button class="choice big" data-choice="seen">Seen <kbd>J</kbd></button></div>`);
+    const r = await waitChoice({ notseen: ["f", "F"], seen: ["j", "J"] });
+    setC(`<p><strong>How sure are you?</strong></p><div class="row">${[["1", "Guess"], ["2", "Unsure"], ["3", "Fairly sure"], ["4", "Certain"]].map(([k, l]) => `<button class="choice" data-choice="${k}">${k} · ${l}</button>`).join("")}</div>`);
+    const c = await waitChoice({ 1: ["1"], 2: ["2"], 3: ["3"], 4: ["4"] });
+    const correct = (p.type === "signal") === (r.value === "seen"), gg = g();
+    const rec = { i, practice: p.practice, type: p.type, contrast: r3(contrast), frames: nF, resp: r.value, rt: Math.round(r.rt), conf: +c.value, correct, ...tele(marks, deltas, cfg.stimMs, gg),
+      canvasScale: r3($("#stim").clientWidth / 480), valid: !gg.tab && r.rt >= CONFIG.validity.fastRtMs && r.rt < 10000 };
+    sampleFs(); trials.push(rec);
+    if (!p.practice && p.type === "signal") stairUpdate(stair, r.value === "seen", cfg);
+    if (p.practice) { setC(`<p class="${correct ? "ok" : "mid"}"><strong>${correct ? "Correct" : "Not quite"}</strong> — ${p.type === "signal" ? "a spot was shown" : "nothing was shown"}.</p>`); await sleep(900); }
+    bump(1);
+  }
+  S.tasks.detection = { trials, stair: { reversals: stair.reversals, finalLogC: r3(stair.logC) }, config: cfg };
+}
+
+/* ---------- Task 2: backward masking ---------- */
+function arrow(ctx, dir) {
+  ctx.save(); ctx.translate(240, 240); if (dir === "L") ctx.scale(-1, 1); ctx.fillStyle = "#000";
+  ctx.beginPath(); ctx.moveTo(-60, -18); ctx.lineTo(10, -18); ctx.lineTo(10, -44); ctx.lineTo(62, 0); ctx.lineTo(10, 44); ctx.lineTo(10, 18); ctx.lineTo(-60, 18); ctx.closePath(); ctx.fill(); ctx.restore();
+}
+function mask(ctx, seed) {
+  const r = mulberry32(seed); ctx.fillStyle = "#e6e6e6"; ctx.fillRect(0, 0, 480, 480); ctx.strokeStyle = "#000"; ctx.lineWidth = 9; ctx.lineCap = "round";
+  for (let k = 0; k < 46; k++) { const x = 140 + r() * 200, y = 170 + r() * 140, a = r() * Math.PI, l = 26 + r() * 30; ctx.beginPath(); ctx.moveTo(x - Math.cos(a) * l / 2, y - Math.sin(a) * l / 2); ctx.lineTo(x + Math.cos(a) * l / 2, y + Math.sin(a) * l / 2); ctx.stroke(); }
+}
+async function runMasking() {
+  const cfg = CONFIG.masking, rng = rngFor("mask");
+  await instruct("Task 2 · Quick arrow", `<p>An arrow (pointing left or right) flashes for an instant and is immediately covered by a scribble pattern. Say which way it pointed, even if you only caught a hint.</p>
+    <ul><li>Press <kbd>←</kbd> or <kbd>→</kbd> (or tap the buttons).</li><li>Some trials are easy, some close to impossible. Your best guess is what we need.</li></ul>`, "Task 2 · Masking");
+  const ctx = taskShell("Task 2 · Quick arrow", "Eyes on the +. Which way did the arrow point?");
+  const fi = S.timing.medianFrameMs, nT = cfg.targetFrames, mF = Math.max(2, Math.round(cfg.maskMs / fi));
+  let plan = []; cfg.soaMs.forEach(s => { for (let k = 0; k < cfg.reps; k++) plan.push({ soa: s, dir: k % 2 ? "L" : "R" }); });
+  plan = [...Array(cfg.practice).fill(0).map((_, k) => ({ soa: 150, dir: k % 2 ? "L" : "R", practice: true })), ...shuffle(plan, rng).map(p => ({ ...p, practice: false }))];
+  const trials = [];
+  for (let i = 0; i < plan.length; i++) {
+    const p = plan[i]; $("#ctr").textContent = p.practice ? `Practice ${i + 1}/${cfg.practice}` : `Trial ${i - cfg.practice + 1}/${cfg.reps * cfg.soaMs.length}`;
+    bg(ctx, "#e6e6e6"); fix(ctx); setC(""); await sleep(800 + Math.random() * 500);
+    const isi = Math.max(0, Math.round(p.soa / fi) - nT), steps = [{ draw: () => { bg(ctx, "#e6e6e6"); arrow(ctx, p.dir); }, frames: nT }];
+    if (isi > 0) steps.push({ draw: () => { bg(ctx, "#e6e6e6"); }, frames: isi });
+    const seed = hashStr(S.sessionId + i); steps.push({ draw: () => mask(ctx, seed), frames: mF }, { draw: () => { bg(ctx, "#e6e6e6"); fix(ctx); }, frames: 1 });
+    const g = guard(), { marks, deltas } = await runFrames(steps), mi = isi > 0 ? 2 : 1;
+    setC(`<p><strong>Which way did the arrow point?</strong></p><div class="row"><button class="choice big" data-choice="L">← Left</button><button class="choice big" data-choice="R">Right →</button></div>`);
+    const r = await waitChoice({ L: ["ArrowLeft"], R: ["ArrowRight"] }), gg = g();
+    const soaActual = marks[mi] - marks[0], tArrowAct = marks[1] - marks[0];
+    const rec = { i, practice: p.practice, soaPlanned: p.soa, soaActual: r3(soaActual), dir: p.dir, resp: r.value, correct: r.value === p.dir, rt: Math.round(r.rt),
+      planMs: r3(nT * fi), actMs: r3(tArrowAct), soaErrMs: r3(soaActual - (nT + isi) * fi), maxFrameMs: r3(Math.max(...deltas, 0)), fs: gg.fs, tab: gg.tab, valid: !gg.tab && r.rt >= CONFIG.validity.fastRtMs && r.rt < 10000 };
+    sampleFs(); trials.push(rec);
+    if (p.practice) { setC(`<p class="${rec.correct ? "ok" : "mid"}"><strong>${rec.correct ? "Correct" : "Not quite"}</strong></p>`); await sleep(800); }
+    bump(1);
+  }
+  S.tasks.masking = { trials, config: cfg };
+}
+
+/* ---------- Task 3: compare and rate (metacognition) ---------- */
+function drawBars(ctx, hl, hr) { bg(ctx, "#808080"); ctx.fillStyle = "#111"; ctx.fillRect(130, 440 - hl, 44, hl); ctx.fillRect(306, 440 - hr, 44, hr); }
+function drawDots(ctx, nl, nr, rng) {
+  bg(ctx, "#808080"); ctx.fillStyle = "#111";
+  [[40, nl], [260, nr]].forEach(([x0, n]) => { const cells = []; for (let a = 0; a < 10; a++) for (let b = 0; b < 16; b++) cells.push([a, b]);
+    shuffle(cells, rng).slice(0, n).forEach(([a, b]) => { ctx.beginPath(); ctx.arc(x0 + a * 20 + 10 + (rng() - 0.5) * 6, 80 + b * 20 + 10 + (rng() - 0.5) * 6, 4, 0, 6.2832); ctx.fill(); }); });
+}
+async function runCompare() {
+  const cfg = CONFIG.compare, rng = rngFor("cmp");
+  await instruct("Task 3 · Compare and rate", `<p>Two things appear side by side for under a second: two bars, or two clouds of dots. Pick the <strong>longer bar</strong> or the side with <strong>more dots</strong>, then rate how sure you are.</p>
+    <ul><li><kbd>←</kbd> / <kbd>→</kbd> to choose, <kbd>1</kbd>–<kbd>4</kbd> to rate (1 = pure guess, 4 = certain).</li><li>Use the full range of the scale. We are interested in whether your confidence tracks your accuracy.</li></ul>`, "Task 3 · Compare");
+  const ctx = taskShell("Task 3 · Compare and rate", "Which side is larger?");
+  const levels = { bars: [0.04, 0.08, 0.14], dots: [0.1, 0.18, 0.3] }; let plan = [];
+  ["bars", "dots"].forEach(k => levels[k].forEach(l => { for (let r = 0; r < cfg.trials / 6; r++) plan.push({ kind: k, diff: l, big: r % 2 ? "L" : "R" }); }));
+  plan = shuffle(plan, rng); const trials = []; let attn = null;
+  for (let i = 0; i < plan.length; i++) {
+    if (i === cfg.instructedAt) {
+      $("#ctr").textContent = "Attention check"; bg(ctx, "#808080"); setC(`<p class="mid"><strong>Attention check:</strong> press <strong>Right</strong>, then rate your confidence as <strong>4</strong>.</p><div class="row"><button class="choice big" data-choice="L">← Left</button><button class="choice big" data-choice="R">Right →</button></div>`);
+      const a = await waitChoice({ L: ["ArrowLeft"], R: ["ArrowRight"] });
+      setC(`<p><strong>How sure are you?</strong></p><div class="row">${[1, 2, 3, 4].map(k => `<button class="choice" data-choice="${k}">${k}</button>`).join("")}</div>`); const c = await waitChoice({ 1: ["1"], 2: ["2"], 3: ["3"], 4: ["4"] });
+      attn = { passed: a.value === "R" && c.value === "4" }; bump(1);
+    }
+    const p = plan[i]; $("#ctr").textContent = `Trial ${i + 1}/${cfg.trials}`; setC(""); bg(ctx, "#808080"); fix(ctx); await sleep(700 + Math.random() * 400);
+    let truth = p.big; const base = 150 + Math.floor(rng() * 90); const g = guard();
+    if (p.kind === "bars") { const small = base, large = Math.round(base * (1 + p.diff)); p.big === "L" ? drawBars(ctx, large, small) : drawBars(ctx, small, large); }
+    else { const small = 60 + Math.floor(rng() * 20), large = Math.round(small * (1 + p.diff)); p.big === "L" ? drawDots(ctx, large, small, rng) : drawDots(ctx, small, large, rng); }
+    await sleep(700); bg(ctx, "#808080"); fix(ctx);
+    setC(`<p><strong>Which side was ${p.kind === "bars" ? "longer" : "denser"}?</strong></p><div class="row"><button class="choice big" data-choice="L">← Left</button><button class="choice big" data-choice="R">Right →</button></div>`);
+    const r = await waitChoice({ L: ["ArrowLeft"], R: ["ArrowRight"] });
+    setC(`<p><strong>How sure are you?</strong></p><div class="row">${[["1", "Guess"], ["2", "Unsure"], ["3", "Fairly sure"], ["4", "Certain"]].map(([k, l]) => `<button class="choice" data-choice="${k}">${k} · ${l}</button>`).join("")}</div>`);
+    const c = await waitChoice({ 1: ["1"], 2: ["2"], 3: ["3"], 4: ["4"] }), gg = g();
+    trials.push({ i, kind: p.kind, diff: p.diff, truth, resp: r.value, correct: r.value === truth, conf: +c.value, rt: Math.round(r.rt), valid: !gg.tab && r.rt >= CONFIG.validity.fastRtMs && r.rt < 10000, tab: gg.tab });
+    bump(1);
+  }
+  S.tasks.compare = { trials, attention: attn || { passed: false }, config: cfg };
+}
+
+/* ---------- Task 4: reversal learning ---------- */
+async function runReversal() {
+  const cfg = CONFIG.reversal, rng = rngFor("rev");
+  await instruct("Task 4 · Shifting rewards", `<p>Two shapes are on screen. Pick one each trial; it either pays <strong>+1</strong> or <strong>0</strong>. One shape pays more often, but <strong>which one can change without warning</strong>.</p>
+    <ul><li>Press <kbd>←</kbd> for the blue circle or <kbd>→</kbd> for the orange square (or tap).</li><li>Try to collect as many +1 as you can.</li></ul>`, "Task 4 · Rewards");
+  taskShell("Task 4 · Shifting rewards", "Which shape pays more right now?", false);
+  const blocks = []; let tot = 0; while (tot < cfg.trials) { const l = 8 + Math.floor(rng() * 5); blocks.push(l); tot += l; }
+  const bestSeq = []; let best = rng() < 0.5 ? "A" : "B"; blocks.forEach(l => { for (let k = 0; k < l; k++) bestSeq.push(best); best = best === "A" ? "B" : "A"; });
+  const sched = bestSeq.slice(0, cfg.trials).map(b => ({ A: rng() < (b === "A" ? cfg.pBest : 1 - cfg.pBest) ? 1 : 0, B: rng() < (b === "B" ? cfg.pBest : 1 - cfg.pBest) ? 1 : 0, best: b }));
+  const trials = [];
+  for (let i = 0; i < cfg.trials; i++) {
+    $("#ctr").textContent = `Trial ${i + 1}/${cfg.trials}`; $("#stext").textContent = "";
+    setC(`<div class="row"><button class="choice big" data-choice="A" style="color:#60a5fa"><span class="shape" style="background:#60a5fa;border-radius:50%"></span>Circle ←</button><button class="choice big" data-choice="B" style="color:#fb923c"><span class="shape" style="background:#fb923c"></span>Square →</button></div>`);
+    const g = guard(), r = await waitChoice({ A: ["ArrowLeft"], B: ["ArrowRight"] }), gg = g(), reward = sched[i][r.value];
+    trials.push({ i, choice: r.value, best: sched[i].best, reward, rt: Math.round(r.rt), valid: !gg.tab && r.rt >= CONFIG.validity.fastRtMs, tab: gg.tab });
+    $("#controls").insertAdjacentHTML("beforeend", `<p class="${reward ? "ok" : "muted"}" style="font-size:1.4rem"><strong>${reward ? "+1" : "0"}</strong></p>`); await sleep(650); bump(1);
+  }
+  S.tasks.reversal = { trials, blocks, config: cfg };
+}
+
+/* ---------- Self-report ---------- */
+async function runSelfReport() {
+  const rng = rngFor("items"); setModule("Questionnaire");
+  const order = shuffle(ITEMS, rng), pages = [order.slice(0, 8), order.slice(8, 16), order.slice(16)]; const ans = {};
+  for (let p = 0; p < pages.length; p++) {
+    render(`<section class="glass"><h2>Questionnaire <span class="muted small mono">${p + 1}/${pages.length}</span></h2><p class="muted small">How well does each statement describe you in everyday life? There are no right answers.</p>
+      ${pages[p].map(it => `<div class="q"><p>${it.text}</p>${choiceRow(it.id, LIKERT.map((l, k) => [String(k + 1), l]))}</div>`).join("")}<button class="btn block" id="go" disabled>${p < pages.length - 1 ? "Next →" : "See my results →"}</button></section>`);
+    bindChoices(screenEl, ans, () => { $("#go").disabled = !pages[p].every(it => it.id in ans); }); await waitClick("#go"); bump(pages[p].length);
+  }
+  S.tasks.selfreport = { answers: ans, order: order.map(i => i.id), items_version: "pilot-pool-1" };
+}
+
+/* ============================ FEATURES, QUALITY, SIGNATURE ============================ */
+function buildFeatures() {
+  const T = S.tasks, det = summariseDetection(T.detection.trials, T.detection.stair, CONFIG.validity.fastRtMs), msk = summariseMasking(T.masking.trials);
+  const cmp = summariseCompare(T.compare.trials), rev = summariseReversal(T.reversal.trials), sr = scoreSelfReport(ITEMS, T.selfreport.answers);
+  const stim = [...T.detection.trials, ...T.masking.trials].filter(t => !t.practice); const errs = stim.map(t => Math.abs(t.actMs - t.planMs));
+  const dropped = stim.length ? stim.filter(t => t.maxFrameMs > 1.5 * S.timing.medianFrameMs).length / stim.length : 0;
+  const q = { medianFrameMs: S.timing.medianFrameMs, p95FrameMs: S.timing.p95FrameMs, p99FrameMs: S.timing.p99FrameMs, hz: S.timing.hz, durErrP95Ms: errs.length ? r3(quantile(errs, 0.95)) : null,
+    droppedFrameRate: r3(dropped), tabLoss: S.tabLoss, mobile: IS_MOBILE, fullscreenAlways: S.fsSamples.length > 0 && S.fsSamples.every(Boolean), cfgVersion: CONFIG.tiersVersion };
+  const tier = computeTier(q, CONFIG.tiers); const fast = [...T.detection.trials, ...T.masking.trials, ...T.reversal.trials].filter(t => !t.practice && t.rt < CONFIG.validity.fastRtMs).length;
+  const conf = T.detection.trials.filter(t => !t.practice).map(t => t.conf), invariant = conf.length >= 20 && sd(conf) === 0;
+  const failures = sr.attention_failures + (T.compare.attention.passed ? 0 : 1);
+  const validity = { attention_checks_failed: failures, fast_response_flags: fast, invariance_flag: invariant, straightlining_flag: sr.straightlining, exclude_from_norms: failures >= CONFIG.validity.excludeAfterFailures || tier.tier === "C" };
+  return { detection: det, masking: msk, compare: cmp, reversal: rev, selfreport: { change_noticing: sr.change_noticing, confidence_awareness: sr.confidence_awareness, body_signal_use: sr.body_signal_use }, quality: { ...q, tier: tier.tier, tier_reasons: tier.reasons }, validity };
+}
+function spokesFrom(F) {
+  const n = (v, a, b) => (v == null ? null : clamp((v - a) / (b - a), 0, 1)); const D = F.detection, M = F.masking, C = F.compare, R = F.reversal, P = F.selfreport;
+  const thr = D.contrast_threshold == null ? null : 1 - n(Math.log10(D.contrast_threshold), Math.log10(0.02), Math.log10(0.4));
+  return [
+    { k: "Detection sensitivity", v: n(D.d_prime, 0, 3), g: 0 }, { k: "Faint-signal reach", v: thr, g: 0 }, { k: "Response caution", v: D.criterion_c == null ? null : n(D.criterion_c, -1, 1), g: 0 },
+    { k: "Masking resilience", v: M.soa_midpoint_ms == null ? null : 1 - n(M.soa_midpoint_ms, 33, 150), g: 1 }, { k: "Transition sharpness", v: M.transition_sharpness, g: 1 },
+    { k: "Confidence sensitivity", v: n(C.metacog_auroc2, 0.5, 1), g: 2 }, { k: "Confidence calibration", v: C.overconfidence == null ? null : 1 - clamp(Math.abs(C.overconfidence) / 0.4, 0, 1), g: 2 },
+    { k: "Win-stay", v: R.win_stay, g: 3 }, { k: "Lose-shift", v: R.lose_shift, g: 3 }, { k: "Reversal recovery", v: R.recovery_trials == null ? null : 1 - n(R.recovery_trials, 0, 10), g: 3 },
+    { k: "Change-noticing (report)", v: n(P.change_noticing, 1, 5), g: 4 }, { k: "Confidence awareness (report)", v: n(P.confidence_awareness, 1, 5), g: 4 }, { k: "Body-signal use (report)", v: n(P.body_signal_use, 1, 5), g: 4 }
+  ];
+}
+const GCOL = ["#60a5fa", "#a855f7", "#ec4899", "#fbbf24", "#34d399"];
+function drawSignature(cv, spokes, id, meta) {
+  cv.width = 1000; cv.height = 1000; const x = cv.getContext("2d"), cx = 500, cy = 500, R = 250, N = spokes.length;
+  const g = x.createRadialGradient(cx, cy, 40, cx, cy, 700); g.addColorStop(0, "#17173a"); g.addColorStop(1, "#06060c"); x.fillStyle = g; x.fillRect(0, 0, 1000, 1000);
+  x.strokeStyle = "rgba(255,255,255,.1)"; x.lineWidth = 2; [0.25, 0.5, 0.75, 1].forEach(f => { x.beginPath(); x.arc(cx, cy, R * (0.12 + 0.88 * f), 0, 6.2832); x.stroke(); });
+  const ang = i => -Math.PI / 2 + 2 * Math.PI * i / N, pt = (i, v) => { const r = R * (0.12 + 0.88 * (v == null ? 0 : v)); return [cx + Math.cos(ang(i)) * r, cy + Math.sin(ang(i)) * r]; };
+  spokes.forEach((s, i) => { x.strokeStyle = "rgba(255,255,255,.08)"; x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + Math.cos(ang(i)) * R, cy + Math.sin(ang(i)) * R); x.stroke(); });
+  x.beginPath(); spokes.forEach((s, i) => { const [px, py] = pt(i, s.v); i ? x.lineTo(px, py) : x.moveTo(px, py); }); x.closePath();
+  const fg = x.createRadialGradient(cx, cy, 20, cx, cy, R); fg.addColorStop(0, "rgba(96,165,250,.55)"); fg.addColorStop(1, "rgba(168,85,247,.25)");
+  x.shadowColor = "#a78bfa"; x.shadowBlur = 28; x.fillStyle = fg; x.fill(); x.shadowBlur = 0; x.strokeStyle = "#c4b5fd"; x.lineWidth = 3; x.stroke();
+  x.font = "600 19px Inter, sans-serif"; x.textBaseline = "middle";
+  spokes.forEach((s, i) => { const [px, py] = pt(i, s.v); x.fillStyle = s.v == null ? "rgba(255,255,255,.25)" : GCOL[s.g];
+    x.beginPath(); x.arc(px, py, s.v == null ? 5 : 9, 0, 6.2832); s.v == null ? (x.strokeStyle = GCOL[s.g], x.lineWidth = 2, x.stroke()) : x.fill();
+    const c = Math.cos(ang(i)), sn = Math.sin(ang(i)), lx = cx + c * (R + 28), ly = cy + sn * (R + 28); x.textAlign = c > 0.3 ? "left" : c < -0.3 ? "right" : "center"; x.fillStyle = s.v == null ? "rgba(255,255,255,.45)" : "#e4e4e7";
+    const words = s.k.split(" "), half = Math.ceil(words.length / 2), lines = s.k.length > 16 ? [words.slice(0, half).join(" "), words.slice(half).join(" ")] : [s.k];
+    lines.forEach((ln, j) => x.fillText(ln, lx, ly + (j - (lines.length - 1) / 2) * 22 + (sn > 0.9 ? 14 : sn < -0.9 ? -10 : 0))); });
+  x.textAlign = "center"; x.fillStyle = "#e4e4e7"; x.font = "700 26px 'JetBrains Mono', monospace"; x.fillText(id, cx, cy + 4);
+  x.font = "800 30px Inter, sans-serif"; x.fillStyle = "#c4b5fd"; x.fillText("APGI SESSION SIGNATURE", cx, 62);
+  x.font = "400 18px Inter, sans-serif"; x.fillStyle = "#a1a1aa"; x.fillText("Scaled to the instrument's own ranges, not to a population. Hollow dots = not enough valid data.", cx, 96);
+  x.fillText(`battery ${meta.battery} · ${meta.release} · quality tier ${meta.tier} · ${meta.date}`, cx, 950); x.fillText("Research tool, not a diagnostic or medical device", cx, 975);
+}
+async function sigId(F) {
+  const body = JSON.stringify({ s: S.sessionId, b: CONFIG.battery, f: F }); const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(body));
+  const hex = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase(); return `APGI-${hex.slice(0, 4)}-${hex.slice(4, 8)}-${hex.slice(8, 10)}`;
+}
+
+/* ============================ RESULTS ============================ */
+const f1 = (v, d = 2, u = "") => (v == null ? "—" : (+v).toFixed(d) + u);
+function row(l, v) { return `<dt>${l}</dt><dd>${v}</dd>`; }
+function payload(F, id) {
+  return { schema: "apgi-session-0.6", participant_id: S.participantId, session_id: S.sessionId, signature_id: id, consent_version: S.consent.version, research_consent: S.consent.research,
+    cohort_type: "convenience", recruitment_source: new URLSearchParams(location.search).get("src") || "direct", compensation_status: "unpaid", reference_dataset_version: CONFIG.referenceDataset,
+    assessment_version: "battery_" + CONFIG.battery.replace(/\./g, "_"), feature_version: CONFIG.features, model_version: CONFIG.model, release_state: CONFIG.release, holdout_assignment: S.holdout,
+    session_index: S.sessionIndex, parallel_form: S.form, device_quality_tier: F.quality.tier, validity_screen: F.validity, demographics: S.demographics, context: S.checkin,
+    timing: S.timing, calibration: S.calibration, user_agent: navigator.userAgent, identifiers: CONFIG.ids, scores: F, tasks: S.tasks, started_at: new Date(S.startedAt).toISOString(), completed_at: new Date().toISOString() };
+}
+async function upload(P) {
+  const a = CONFIG.api; if (!S.consent.research) return "Not sent: you did not opt in to research use. Your data stays in this browser.";
+  if (!a.enabled) return "Not sent: research upload is not switched on in this pilot build. Download your data below if you would like to share it directly.";
+  const base = `${a.base}/${a.version}`, post = (u, b) => fetch(base + u, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b), keepalive: false, credentials: "omit" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json().catch(() => ({})); });
+  try {
+    const ses = await post("/sessions", { participant_id: P.participant_id, session_id: P.session_id, consent_version: P.consent_version, battery_version: CONFIG.battery, parallel_form: P.parallel_form, holdout_assignment: P.holdout_assignment, session_index: P.session_index });
+    const sid = ses.session_id || P.session_id; const ev = []; Object.entries(P.tasks).forEach(([task, d]) => { const list = d && (d.trials || []); list.forEach(t => ev.push({ task, ...t })); });
+    for (let i = 0; i < ev.length; i += a.batch) await post(`/sessions/${sid}/events`, { events: ev.slice(i, i + a.batch) });
+    await post(`/sessions/${sid}/complete`, { battery_version: CONFIG.battery, feature_version: CONFIG.features, model_version: CONFIG.model, reference_dataset_version: CONFIG.referenceDataset, quality_tier: P.device_quality_tier, scores: P.scores, validity_screen: P.validity_screen, demographics: P.demographics, context: P.context, telemetry: { timing: P.timing, calibration: P.calibration } });
+    return "Sent to the APGI research archive. Thank you.";
+  } catch (e) { try { const o = JSON.parse(localStorage.getItem(CONFIG.storage.outbox) || "[]"); o.push({ sid: P.session_id, ts: Date.now() }); localStorage.setItem(CONFIG.storage.outbox, JSON.stringify(o.slice(-5))); } catch (e2) { /* */ } return "Upload failed (" + e.message + "). Your data is safe in this browser; try again later or download it below."; }
+}
+function download(name, blob) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000); }
+function icsRetest() {
+  const d = new Date(Date.now() + CONFIG.retestDays * 864e5), f = x => x.toISOString().slice(0, 10).replace(/-/g, "");
+  return new Blob([["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//APGI//Assessment//EN", "BEGIN:VEVENT", `UID:${S.sessionId}@apgiframework.com`, `DTSTAMP:${f(new Date())}T000000Z`, `DTSTART;VALUE=DATE:${f(d)}`,
+    "SUMMARY:Retake the APGI assessment (see what moved)", `DESCRIPTION:Retake the APGI assessment ${CONFIG.retestDays}-21 days after your first session. ${CONFIG.ids.site}/apgi-assessment-v2.html`, "END:VEVENT", "END:VCALENDAR"].join("\r\n")], { type: "text/calendar" });
+}
+async function showResults() {
+  setModule("Results"); $("#barFill").style.width = "100%"; $("#barText").textContent = "100%";
+  const F = buildFeatures(); S.results = F; const id = await sigId(F), D = F.detection, M = F.masking, C = F.compare, R = F.reversal, P = F.selfreport, Q = F.quality, V = F.validity;
+  const crit = D.criterion_c == null ? "—" : D.criterion_c > 0.25 ? "cautious" : D.criterion_c < -0.25 ? "liberal" : "balanced";
+  const soa = M.soa_midpoint_ms == null ? "—" : (M.soa_censored === "below" ? "≤ " : M.soa_censored === "above" ? "> " : "") + Math.round(M.soa_midpoint_ms) + " ms";
+  const tierCls = Q.tier === "A" ? "ok" : Q.tier === "B" ? "mid" : "bad";
+  render(`<div class="glass center" style="margin-bottom:20px"><h1 class="gradient-text" style="font-size:2.2rem">Your session signature</h1><p class="muted" style="max-width:640px;margin:0 auto">A snapshot of how you performed in <em>this</em> session. It is not a trait, a rank or a diagnosis.</p></div>
+  <div class="res-grid"><div><canvas id="sigCanvas" aria-label="Radial signature of your session indices"></canvas>
+    <div class="row"><button class="btn sm" id="dPng">Download signature (PNG)</button><button class="btn sm" id="dPdf">Download report (PDF)</button><button class="btn sm ghost" id="dJson">Download my data (JSON)</button><button class="btn sm ghost" id="dIcs">Add retest reminder</button></div>
+    <p class="note center">Retest in ${CONFIG.retestDays}–21 days to see what moved. Until reliability is measured, small differences between sessions can't be told apart from noise.</p></div>
+  <div>
+    <div class="glass rcard"><h3>Faint-spot detection <span class="tag">behavioural estimate · provisional</span></h3><dl>${row("Sensitivity (d′)", f1(D.d_prime))}${row("Response criterion (c)", f1(D.criterion_c) + " · " + crit)}${row("Hit / false-alarm rate", f1(D.hit_rate, 2) + " / " + f1(D.fa_rate, 2))}${row("Contrast at ~70% detection", D.contrast_threshold == null ? "—" : (D.contrast_threshold * 100).toFixed(1) + "%" )}${row("Valid signal / catch trials", D.n_signal + " / " + D.n_catch)}</dl>
+      <p class="note">d′ separates how well you discriminate from how willing you are to say "seen". The contrast figure depends on your screen's brightness and gamma, so it is not comparable across devices.${D.threshold_stable ? "" : " The staircase did not settle, so treat the contrast figure as rough."}</p></div>
+    <div class="glass rcard m2"><h3>Quick arrow <span class="tag">behavioural estimate · provisional</span></h3><dl>${row("Delay for 75% correct", soa)}${row("Accuracy at 33 / 150 ms", f1(M.acc_by_soa[33], 2) + " / " + f1(M.acc_by_soa[150], 2))}${row("Transition sharpness", f1(M.transition_sharpness))}</dl>
+      <p class="note">Shorter delays mean the arrow stayed reportable despite the cover pattern. Sharpness compares a step-like against a gradual rise and is exploratory at this trial count.</p></div>
+    <div class="glass rcard m3"><h3>Compare and rate <span class="tag">behavioural estimate · provisional</span></h3><dl>${row("Accuracy", f1(C.accuracy, 2))}${row("Confidence sensitivity (AUROC₂)", f1(C.metacog_auroc2))}${row("Over(+)/under(−)confidence", f1(C.overconfidence))}${row("Same, from the detection task", f1(D.metacog_auroc2))}</dl>
+      <p class="note">AUROC₂ is 0.5 when confidence ignores correctness and 1.0 when it separates right from wrong perfectly. With 24 trials it carries wide uncertainty.</p></div>
+    <div class="glass rcard m4"><h3>Shifting rewards <span class="tag">behavioural estimate · provisional</span></h3><dl>${row("Chose the better shape", f1(R.accuracy, 2))}${row("Stay after +1 / shift after 0", f1(R.win_stay, 2) + " / " + f1(R.lose_shift, 2))}${row("Held on to old shape after a swap", f1(R.perseveration, 2))}${row("Trials to adapt to a swap", f1(R.recovery_trials, 1))}</dl>
+      <p class="note">Model-free summaries only. A fitted learning-rate composite is withheld until the model passes its identifiability gate.</p></div>
+    <div class="glass rcard m5"><h3>Questionnaire <span class="tag">self-report · exploratory</span></h3><dl>${row("Noticing changes (1–5)", f1(P.change_noticing))}${row("Knowing how sure you are (1–5)", f1(P.confidence_awareness))}${row("Using body signals (1–5)", f1(P.body_signal_use))}</dl>
+      <p class="note">These items are still in pilot; their grouping into three scales is a hypothesis, not an established structure.</p></div>
+  </div></div>
+  <div class="glass" style="margin-top:20px"><h3>Session quality and how to read this</h3>
+    <div class="grid g2"><dl><dt>Quality tier</dt><dd class="${tierCls}">${Q.tier}${Q.tier_reasons.length ? "" : ""}</dd>${row("Display / frame jitter", Q.hz + " Hz / p95 " + f1(Q.p95FrameMs, 1, " ms"))}${row("Tab switches", Q.tabLoss)}${row("Attention checks failed", V.attention_checks_failed)}${row("Included in reference analyses", V.exclude_from_norms ? "No" : "Yes")}</dl>
+    <p class="note" style="margin:0">${Q.tier_reasons.length ? "Why not Tier A: " + Q.tier_reasons.join("; ") + ". " : "Timing and attention checks met the Tier A rules. "}Reliability of every index is <strong>not yet measured</strong> (no retest wave has run), and there is <strong>no reference group</strong> to compare you with. Nothing here says anything about health.</p></div>
+    <p class="note" id="upStat">Preparing research upload…</p>
+    <p class="note mono">${id} · session ${S.sessionId.slice(0, 8)} · battery ${CONFIG.battery} · features ${CONFIG.features} · model: none · reference: none · form ${S.form} · release ${CONFIG.release}</p>
+    <div class="row"><button class="btn sm ghost" id="again">Start a new session</button><button class="btn sm ghost" id="wipe">Delete my data from this browser</button></div></div>`, true);
+  const spokes = spokesFrom(F), cv = $("#sigCanvas"), meta = { battery: CONFIG.battery, release: CONFIG.release, tier: Q.tier, date: new Date().toISOString().slice(0, 10) }; drawSignature(cv, spokes, id, meta);
+  const P_ = payload(F, id); S.done.push("results"); save();
+  $("#dPng").addEventListener("click", () => cv.toBlob(b => download(`${id}.png`, b)));
+  $("#dJson").addEventListener("click", () => download(`${id}.json`, new Blob([JSON.stringify(P_, null, 2)], { type: "application/json" })));
+  $("#dIcs").addEventListener("click", () => download("apgi-retest.ics", icsRetest()));
+  $("#dPdf").addEventListener("click", () => pdf(F, id, cv, P_));
+  $("#again").addEventListener("click", () => { try { localStorage.removeItem(CONFIG.storage.progress); } catch (e) { /* */ } S = freshState(); showIntro(); });
+  $("#wipe").addEventListener("click", () => { try { [CONFIG.storage.progress, CONFIG.storage.pid, CONFIG.storage.sessions, CONFIG.storage.outbox].forEach(k => localStorage.removeItem(k)); } catch (e) { /* */ } $("#wipe").textContent = "Deleted from this browser"; $("#wipe").disabled = true; });
+  $("#upStat").textContent = await upload(P_);
+}
+function pdf(F, id, cv, P_) {
+  const J = window.jspdf; if (!J) { cv.toBlob(b => download(`${id}.png`, b)); return; }
+  const d = new J.jsPDF({ unit: "mm", format: "a4" }); let y = 18; const line = (t, s = 10, b = false) => { d.setFontSize(s); d.setFont("helvetica", b ? "bold" : "normal"); d.splitTextToSize(t, 176).forEach(l => { d.text(l, 17, y); y += s * 0.45; }); y += 1.5; };
+  line("APGI Cognitive Processing Assessment - session report", 15, true); line(`${id}  |  ${new Date().toISOString().slice(0, 10)}  |  battery ${CONFIG.battery}  |  release state: ${CONFIG.release}`, 9);
+  d.addImage(cv.toDataURL("image/png"), "PNG", 30, y, 150, 150); y += 156;
+  const D = F.detection, M = F.masking, C = F.compare, R = F.reversal;
+  line("Detection: d' " + f1(D.d_prime) + ", criterion c " + f1(D.criterion_c) + ", hit " + f1(D.hit_rate) + ", false alarm " + f1(D.fa_rate) + ", contrast threshold " + f1(D.contrast_threshold && D.contrast_threshold * 100, 1, "%"));
+  line("Masking: delay for 75% correct " + f1(M.soa_midpoint_ms, 0, " ms") + ", transition sharpness " + f1(M.transition_sharpness));
+  line("Metacognition: accuracy " + f1(C.accuracy) + ", AUROC2 " + f1(C.metacog_auroc2) + ", overconfidence " + f1(C.overconfidence));
+  line("Learning: accuracy " + f1(R.accuracy) + ", win-stay " + f1(R.win_stay) + ", lose-shift " + f1(R.lose_shift) + ", perseveration " + f1(R.perseveration) + ", trials to adapt " + f1(R.recovery_trials, 1));
+  line("Self-report (1-5): noticing changes " + f1(F.selfreport.change_noticing) + ", knowing certainty " + f1(F.selfreport.confidence_awareness) + ", using body signals " + f1(F.selfreport.body_signal_use));
+  line(`Quality tier ${F.quality.tier}; attention checks failed ${F.validity.attention_checks_failed}; tab switches ${F.quality.tabLoss}.`);
+  line("Claim boundary: behavioural estimates from one session. Reliability not yet measured; no reference group exists; no latent model parameters are reported. This is a research tool measuring individual differences in attention and perception; it is not a diagnostic or medical device.", 9);
+  line(`Registration ${CONFIG.ids.registration}  |  Archive ${CONFIG.ids.archive}  |  Site ${CONFIG.ids.site}`, 8); d.save(`${id}.pdf`);
+}
+
+/* ============================ FLOW ============================ */
+async function flow() {
+  const steps = [["checkin", showCheckin], ["calibration", showCalibration], ["detection", runDetection], ["masking", runMasking], ["compare", runCompare], ["reversal", runReversal], ["selfreport", runSelfReport]];
+  for (const [name, fn] of steps) {
+    if (S.done.includes(name)) continue;
+    if (name === "detection" && !S.timing) await showCalibration();
+    await fn(); S.done.push(name); save();
+  }
+  await showResults();
+}
+function boot() {
+  const th = (() => { try { return localStorage.getItem(CONFIG.storage.theme); } catch (e) { return null; } })() || "dark"; document.documentElement.setAttribute("data-theme", th);
+  $("#themeBtn").addEventListener("click", () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); try { localStorage.setItem(CONFIG.storage.theme, n); } catch (e) { /* */ } });
+  footer(); const saved = loadSaved();
+  if (saved) {
+    render(`<section class="glass center"><h2>Resume your session?</h2><p class="muted">You have an unfinished session. It restarts at the beginning of the task you were on.</p><div class="row"><button class="btn" id="res">Resume</button><button class="btn ghost" id="new">Start over</button></div></section>`);
+    $("#res").addEventListener("click", () => { S = saved; S.tabLoss = S.tabLoss || 0; $("#topbar").classList.remove("hidden"); bump(0); flow(); });
+    $("#new").addEventListener("click", () => { try { localStorage.removeItem(CONFIG.storage.progress); } catch (e) { /* */ } showIntro(); });
+  } else showIntro();
+}
+boot();
+</script>
+</body>
+</html>
