@@ -20,3 +20,24 @@ assessment-onepage.html
 apgi-assessment.html
 funnels/2_therapists_coaches.html
 funnels/6_healthcare_professionals.html
+
+# Held pending a rewrite (2026-10-18 publication-readiness rating): claim
+# language, contradictions, thin content, or not yet wanted on the public
+# site. Remove each line once the page is fixed and approved to ship.
+sitemap.html
+home-full.html
+apgi-landing.html
+multi-scale-consciousness-paper.html
+consciousness-visualization.html
+neuromodulatory-cascade.html
+book-outline.html
+book-available-now.html
+app-explorer.html
+funnels.html
+funnels/3_academic_researchers.html
+funnels/4_organizational_development.html
+funnels/5_educational_institutions.html
+funnels/7_tech_industry_professionals.html
+
+# Unrelated "Quick Book" demo product — slated for deletion.
+booking-*.html
