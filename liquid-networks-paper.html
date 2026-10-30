@@ -32,17 +32,17 @@
       }
       :root {
         --apgi-threshold: #00b4ff;
-        --apgi-precision: #ff3366;
+        --apgi-precision: #ff5c85;
         --apgi-neuromod: #00cc99;
         --apgi-error: #ffcc00;
-        --apgi-workspace: #9966ff;
+        --apgi-workspace: #a98aff;
         --bg-base: #0a0f1a;
         --bg-surface: #1a1f2e;
         --bg-elevated: #242938;
         --text-primary: #ffffff;
         --text-secondary: #e2e8f0;
         --text-muted: #94a3b8;
-        --text-subtle: #64748b;
+        --text-subtle: #8b9bb3;
         --border-subtle: rgba(255, 255, 255, 0.06);
         --border-default: rgba(255, 255, 255, 0.12);
         --glow-threshold:
@@ -602,7 +602,7 @@
       .footer-eq {
         font-family: "Computer Modern", "Georgia", serif;
         font-size: 1.5rem;
-        opacity: 0.3;
+        opacity: 0.6;
       }
 
       @media (max-width: 640px) {
@@ -622,7 +622,7 @@
 <script src="/assets/js/site-enhancements.js" defer></script>
 </head>
   <body>
-    <nav>
+    <nav aria-label="Series navigation">
       <div class="nav-logo"><img src="assets/images/apgi-logo.png" alt="APGI" style="height: 24px; width: auto; vertical-align: middle;"></div>
       <span class="nav-series">Paper 2 of 4</span>
       <a href="papers-index.html" class="nav-back">← All Papers</a>
@@ -993,7 +993,7 @@
             computation.
           </p>
         </div>
-        <nav class="footer-nav">
+        <nav class="footer-nav" aria-label="Footer">
           <a href="papers-index.html">← All Papers</a>
           <a href="framework-paper.html">Paper 1: Framework →</a>
           <a href="epistemic-architecture-paper.html">Paper 4: Epistemic →</a>

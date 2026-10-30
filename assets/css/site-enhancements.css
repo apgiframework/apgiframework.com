@@ -145,4 +145,15 @@ pre.se-has-copy { position: relative; }
   .se-related a { color: #000 !important; }
   details.se-faq-item, .se-faq details { break-inside: avoid; }
   pre { white-space: pre-wrap; border: 1px solid #999; }
+  /* Dark-theme pages use light text on dark panels; force readable ink. */
+  body *:not(svg):not(svg *) {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+  body * { animation: none !important; opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  .neural-bg, canvas, [class*="particle"], [id*="particle"] { display: none !important; }
+  nav, header nav { position: static !important; }
 }

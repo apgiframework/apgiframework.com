@@ -218,3 +218,10 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [x] Hedged "Peer-Reviewed Evidence" heading, "47 peer-reviewed studies" caption, EP-4 "clinically urgent" wording, software-system "Performance & Validation" (now design targets), experiments "Validated Experiments".
 - [x] Added `<main>` landmarks to 10 published pages; "See also" sections on 11 research pages; fixed `apgi-experiments.html` duplicate `canvas` declaration that stopped its second script (and a missing `#particle-canvas` element).
 - [ ] Open: `app-appendix.html` "Download for macOS" points to github.com/lesoto/apgi-framework releases, which could not be verified from this environment; confirm ownership or remove.
+
+## Session log — batch 5 (accessibility, contrast, print)
+- [x] **Bug:** `assets/css/information-pages.css` had a line-wrapped `@import`, which is invalid CSS and corrupted the following `:root` rule, so about/faq/accessibility/cookie-policy rendered unstyled (white, serif). Fixed by putting the `@import` on one line.
+- [x] contact form inputs inherited light text on a white field (typed text near-invisible); set an explicit colour. Primary buttons/nav: `#3b82f6` -> `#2563eb` for white-text contrast.
+- [x] axe-core (WCAG 2 A/AA + best-practice) over 21 shipped pages: 0 serious violations remain except decorative footer equations (opacity-dimmed, now 0.6). Lightened muted text and purple/pink accents on dark pages; fixed heading order on assessment-v2, experiments, appendix, 404; added unique nav labels; 404 now has `<main>`.
+- [x] Print styles now force readable ink on dark-theme pages and show animation-hidden content (verified by rendering PDFs).
+- [ ] Open (moderate, best-practice only): "content outside landmarks" for theme toggles/CDN indicator on contact, terms, privacy, experiments, software-system, 404; no manual screen-reader or keyboard-flow test performed; no Lighthouse run.

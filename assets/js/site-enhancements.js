@@ -53,7 +53,7 @@
     var path = location.pathname;
 
     /* ---- Floating actions: back to top (after 300px) + contact ---- */
-    var stack = el("div", { class: "se-fab-stack" });
+    var stack = el("aside", { class: "se-fab-stack", "aria-label": "Page shortcuts" });
     var top;
     if (!body.hasAttribute("data-no-top")) {
       top = el("button", { type: "button", class: "se-fab se-fab--top se-hidden", "aria-label": "Back to top" }, "↑ Top");
