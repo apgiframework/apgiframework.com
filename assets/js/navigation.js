@@ -9,7 +9,9 @@ class APGINavigation {
   constructor() {
     this.links = [
       { href: "/index.html", label: "APGI Framework", brand: true },
+      { href: "/about.html", label: "About" },
       { href: "/papers-index.html", label: "Papers" },
+      { href: "https://api.apgiframework.com/docs", label: "API docs" },
       { href: "/apgi-assessment.html", label: "Assessment" },
       { href: "/book-outline.html", label: "Book" },
       { href: "/apgi-software-system.html", label: "Software" },

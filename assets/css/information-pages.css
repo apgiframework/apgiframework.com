@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600;
+  700&family=Inter:wght@400;
+  500;
+  600;
+  700&display=swap');
+  
+:root {
+  color-scheme:dark;
+  --bg:#0A0F1A;
+  --surface:#1A1F2E;
+  --cyan:#00B4FF;
+  --purple:#9966FF;
+  --text:#E2E8F0;
+  --muted:#94A3B8}
+* {
+  box-sizing:border-box}
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top left,rgba(0,180,255,.08),transparent 50%),radial-gradient(ellipse at bottom right,rgba(153,102,255,.08),transparent 50%),var(--bg);
+  color:var(--text);
+  font:1rem/1.75 Inter,system-ui,sans-serif}
+a {
+  color:#65d1ff;
+  text-underline-offset:.22em}
+a:hover {
+  color:#fff}
+a:focus-visible {
+  outline:3px solid #FFCC00;
+  outline-offset:5px;
+  border-radius:3px}
+.skip-link {
+  position:absolute;
+  top:-100px;
+  left:1rem;
+  background:var(--surface);
+  padding:.75rem;
+  z-index:2}
+.skip-link:focus {
+  top:1rem}
+.site-header,main,footer {
+  width:min(100% - 3rem,1040px);
+  margin:auto}
+.site-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  padding:1.5rem 0;
+  border-bottom:1px solid #ffffff26}
+.brand img {
+  width:155px;
+  height:auto;
+  display:block}
+nav {
+  display:flex;
+  gap:.75rem 1.25rem;
+  flex-wrap:wrap}
+nav a {
+  font-size:.9rem}
+nav a[aria-current=page] {
+  color:#fff;
+  text-decoration-thickness:3px}
+main {
+  max-width:800px;
+  padding:4rem 0}
+.eyebrow {
+  color:var(--cyan);
+  font-size:.8rem;
+  letter-spacing:.12em;
+  text-transform:uppercase}
+h1,h2 {
+  font-family:'Crimson Pro',Georgia,serif;
+  color:#fff;
+  line-height:1.2}
+h1 {
+  font-size:clamp(2.5rem,7vw,4rem);
+  margin:.5rem 0 1rem}
+h2 {
+  font-size:1.8rem;
+  margin:0 0 1rem}
+.lede {
+  font-size:1.15rem}
+.updated {
+  font-size:.85rem;
+  color:var(--muted)}
+section {
+  background:var(--surface);
+  border:1px solid #ffffff20;
+  border-top:2px solid var(--purple);
+  border-radius:10px;
+  margin-top:1.5rem;
+  padding:1.75rem}
+p {
+  margin:0 0 1rem}
+section>:last-child {
+  margin-bottom:0}
+li+li {
+  margin-top:.5rem}
+footer {
+  border-top:1px solid #ffffff26;
+  padding:1.5rem 0 2.5rem;
+  font-size:.85rem;
+  color:var(--muted)}
+footer nav {
+  margin-bottom:1rem}
+@media(max-width:540px) {
+  main {
+  padding:2.5rem 0}
+section {
+  padding:1.25rem}
+.site-header {
+  align-items:flex-start}
+}
+@media print {
+  body {
+  background:white;
+  color:black}
+h1,h2,a {
+  color:black}
+.site-header,.skip-link,footer {
+  display:none}
+section {
+  background:white;
+  border:1px solid #999;
+  break-inside:avoid}
+main {
+  width:100%;
+  padding:0}
+.updated {
+  color:#333}
+}
+

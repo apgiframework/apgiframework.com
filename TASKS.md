@@ -117,10 +117,10 @@ Several items from the docx's Phase 0A/1 list were checked and found **already r
 
 ## 4. Missing pages — apgiframework.com
 
-- [ ] Build an **About** page — does not exist anywhere in the repo today.
-- [ ] Build a single canonical **API docs** surface — currently 3 competing partial sources (`apgi_protocol_reference.html` here, `apgi-api/docs/REST-API.md`, `apgi-api/web/API.html`); recommend consolidating to `api.apgiframework.com/docs` (FastAPI's own auto-generated OpenAPI UI, already working) and linking to it, rather than maintaining a fourth copy.
-- [ ] Build a **Cookie Policy** page — `terms-of-service.html` links to one that doesn't exist. Becomes a hard legal requirement the moment `analytics.js` (currently unwired) is activated.
-- [ ] Build an **Accessibility Statement** page — same dead-link pattern as Cookie Policy.
+- [x] Build an **About** page — `about.html`, linked from the homepage and shared navigation.
+- [x] Link to the canonical **API docs** at `https://api.apgiframework.com/docs` from the homepage, shared navigation and information pages. Keep `apgi_protocol_reference.html` as a research reference with an explicit API-docs link. Backend documentation retirement remains a separate `apgi-api` task.
+- [x] Build a **Cookie Policy** page — `cookie-policy.html`; legal and homepage links wired. Optional analytics remains disabled; provider inventory and applicable consent controls are prerequisites to activation.
+- [x] Build an **Accessibility Statement** page — `accessibility.html`; documents the target, known limitations and reporting route without claiming conformance.
 
 ---
 
