@@ -9,6 +9,8 @@ Checks, using only the standard library:
   2. Pages that must not ship return 404.
   3. Every internal href/src on every sitemap page resolves with HTTP 200.
   4. Every URL in sitemap.xml resolves with HTTP 200.
+  5. Every sitemap page's <link rel="canonical"> equals its own sitemap <loc>
+     (same host and path), and robots.txt points at the same sitemap host.
 Exit status is non-zero if anything fails.
 """
 import re
@@ -48,9 +50,9 @@ def fetch(path):
         return cache[path]
     try:
         with urllib.request.urlopen(base + path, timeout=15) as r:
-            out = (r.status, dict(r.headers), r.read())
+            out = (r.status, {k.lower(): v for k, v in r.headers.items()}, r.read())
     except urllib.error.HTTPError as e:
-        out = (e.code, dict(e.headers), e.read())
+        out = (e.code, {k.lower(): v for k, v in e.headers.items()}, e.read())
     cache[path] = out
     return out
 
@@ -63,8 +65,7 @@ def fail(msg):
 # 1. headers
 for path in ["/", "/about.html", "/assets/css/site-enhancements.css", "/does-not-exist"]:
     status, headers, _ = fetch(path)
-    lower = {k.lower() for k in headers}
-    missing = [h for h in REQUIRED_HEADERS if h.lower() not in lower]
+    missing = [h for h in REQUIRED_HEADERS if h.lower() not in headers]
     if missing:
         fail(f"{path} ({status}) missing headers: {', '.join(missing)}")
     if path == "/does-not-exist" and status != 404:
@@ -84,6 +85,11 @@ if status != 200:
 else:
     locs = re.findall(r"<loc>([^<]+)</loc>", body.decode())
     pages = [urllib.parse.urlparse(u).path or "/" for u in locs]
+    loc_for = dict(zip(pages, locs))
+    _, _, robots = fetch("/robots.txt")
+    m = re.search(r"^Sitemap:\s*(\S+)", robots.decode(), re.M)
+    if not m or urllib.parse.urlparse(m.group(1)).netloc != urllib.parse.urlparse(locs[0]).netloc:
+        fail(f"robots.txt Sitemap ({m.group(1) if m else 'missing'}) does not use the sitemap host")
     for path in pages:
         if fetch(path)[0] != 200:
             fail(f"sitemap URL {path} returned {fetch(path)[0]}")
@@ -91,9 +97,15 @@ else:
 refs = 0
 for page in pages + ["/sitemap.html", "/404.html"]:
     status, headers, body = fetch(page)
-    if status != 200 or "html" not in headers.get("Content-Type", ""):
+    if status != 200 or "html" not in headers.get("content-type", ""):
         continue
     text = body.decode("utf-8", "ignore")
+    if page in loc_for:
+        c = re.search(r'<link[^>]*rel="canonical"[^>]*href="([^"]+)"', text)
+        if not c:
+            fail(f"{page} has no canonical link")
+        elif c.group(1) != loc_for[page]:
+            fail(f"{page} canonical {c.group(1)} != sitemap {loc_for[page]}")
     for m in re.finditer(r'(?:href|src)="([^"]+)"', text):
         ref = m.group(1).split("#")[0].split("?")[0]
         if not ref or re.match(r"(https?:|mailto:|tel:|data:|javascript:|//|\$|\{|%)", ref):
@@ -102,6 +114,9 @@ for page in pages + ["/sitemap.html", "/404.html"]:
         target = urllib.parse.urljoin(page, ref)
         if fetch(target)[0] != 200:
             fail(f"{page} -> {ref} returned {fetch(target)[0]}")
+
+if pages and refs == 0:
+    fail("link crawl examined 0 internal references; the check did not run")
 
 print(f"checked {len(cache)} URLs, {refs} internal references, {len(pages)} sitemap pages")
 if failures:

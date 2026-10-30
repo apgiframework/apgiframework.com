@@ -1,3 +1,11 @@
+# MANUAL FALLBACK ONLY. The authoritative, automatic deploy is the Cloud Build
+# trigger `deploy-apgiframework-com` (push to `main` -> cloudbuild.yaml -> Cloud
+# Run service `apgiframework-com`; see INFRASTRUCTURE.md). This workflow has never
+# succeeded on `main` because the two secrets below were never set, and running
+# both pipelines automatically would make them race to deploy the same service.
+# It therefore runs only on manual dispatch. To make it the primary pipeline
+# instead: complete the setup below, then disable the Cloud Build trigger.
+#
 # One-time setup (run locally with `gcloud`, as a project owner/editor on
 # apgiframework-web — this workflow has no credentials until this is done):
 #
@@ -41,8 +49,6 @@
 name: Deploy to Cloud Run
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch: {}
 
 permissions:

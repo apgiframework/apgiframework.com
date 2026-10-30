@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /funnels/_internal/
 Allow: /
 
-Sitemap: https://apgiframework.com/sitemap.xml
+Sitemap: https://www.apgiframework.com/sitemap.xml
