@@ -232,3 +232,10 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [x] Crawl through the real `nginx.conf.template` against an emulated image root: 299 internal href/src references, 46 unique URLs, 0 non-200; 0 `href="#"` placeholders; all 19 `sitemap.xml` URLs served.
 - [x] CSP check (production headers, headless Chromium): 0 violations on any shipped page. External hosts actually requested: fonts.googleapis.com, unpkg.com, cdnjs.cloudflare.com.
 - [ ] Open: the quarantined files still exist in the repo (excluded, not deleted) pending your keep/delete decision; none was clinically re-audited.
+
+## Session log — batch 7 (unification with main)
+- State at start: `main` = `ea3eac1` (unchanged since); working branch 14 commits ahead, 0 behind; PR #4 open into `main`, CI green. Previous merges: #1, #2, #3. All four `Deploy to Cloud Run` runs on `main` failed at "Authenticate to Google Cloud" because `GCP_WORKLOAD_IDENTITY_PROVIDER` reaches the action empty (repository secret not set / not visible to the workflow).
+- [x] CI now builds the image, runs the container and runs `scripts/verify_site.py` (security headers on pages/assets/404, held pages 404, every sitemap URL and internal link 200). Passed on the real image in GitHub Actions: 58 URLs, 296 references. Confirmed the script fails against `main`'s old nginx config (all six security headers were missing on every response).
+- [x] `deploy.yml`: preflight step fails early with an actionable message when the GCP secrets are missing; deploys serialised via `concurrency`.
+- [x] Codex review finding on PR #4 (generated TOC `<nav>` inherited the papers' fixed top-bar `nav` styles): reproduced, fixed (role=navigation div), thread resolved.
+- [ ] Needs a human: set repo secrets `GCP_WORKLOAD_IDENTITY_PROVIDER` and `GCP_SERVICE_ACCOUNT` (see top of `deploy.yml`), then merge PR #4 and re-run the deploy; then verify the serving revision, live headers, TLS and DNS.
