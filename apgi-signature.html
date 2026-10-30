@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>APGI Signature | The Coordinate System of Consciousness</title>
-    <meta name="description" content="APGI Signature — the coordinate system of consciousness, mapping prediction error, precision, and threshold into a single signature." />
+    <meta name="description" content="APGI Signature — an illustrative explorer for the APGI model. Values are demonstration settings, not measurements." />
     <link rel="canonical" href="https://apgiframework.com/apgi-signature.html" />
     <meta property="og:title" content="APGI Signature | The Coordinate System of Consciousness" />
-    <meta property="og:description" content="APGI Signature — the coordinate system of consciousness, mapping prediction error, precision, and threshold into a single signature." />
+    <meta property="og:description" content="APGI Signature — an illustrative explorer for the APGI model. Values are demonstration settings, not measurements." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://apgiframework.com/apgi-signature.html" />
     <meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Framework-Diagram.png" />
@@ -75,8 +75,8 @@
           APGI Signature
         </h1>
         <p class="text-slate-400 text-lg max-w-2xl mx-auto italic">
-          "An APGI signature is the brain's ignition fingerprint for a state or
-          disorder."
+          "An illustrative explorer for the APGI model. Slider values are
+          arbitrary demonstration settings, not measurements of any person."
         </p>
         <div
           class="mt-4 flex justify-center gap-4 text-sm font-mono text-blue-400"
@@ -213,35 +213,14 @@
                 data-type="state"
                 data-id="anxiety"
               >
-                Anxiety
-              </button>
-              <button
-                class="preset-btn px-3 py-2 rounded bg-slate-800/50 hover:bg-slate-700 text-sm border border-slate-700 transition"
-                data-type="disorder"
-                data-id="ocd"
-              >
-                OCD
-              </button>
-              <button
-                class="preset-btn px-3 py-2 rounded bg-slate-800/50 hover:bg-slate-700 text-sm border border-slate-700 transition"
-                data-type="disorder"
-                data-id="psychosis"
-              >
-                Psychosis
-              </button>
-              <button
-                class="preset-btn px-3 py-2 rounded bg-slate-800/50 hover:bg-slate-700 text-sm border border-slate-700 transition"
-                data-type="disorder"
-                data-id="depression"
-              >
-                Depression
+                Heightened Alertness
               </button>
               <button
                 class="preset-btn px-3 py-2 rounded bg-slate-800/50 hover:bg-slate-700 text-sm border border-slate-700 transition"
                 data-type="state"
                 data-id="dissociation"
               >
-                Dissociation
+                Detached Feeling
               </button>
             </div>
           </section>
@@ -359,7 +338,7 @@
               <h4
                 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4"
               >
-                Neural Correlates
+                Hypothesised neural correlates (unvalidated)
               </h4>
               <p
                 id="neural-correlates"
@@ -422,40 +401,16 @@
           pi: 0.7,
           theta: 0.4,
           beta: 0.85,
-          name: "Acute Anxiety",
-          desc: "Threat monitoring, somatic hyper-arousal.",
-        },
-        ocd: {
-          epsilon: 0.4,
-          pi: 0.95,
-          theta: 0.25,
-          beta: 0.7,
-          name: "OCD Signature",
-          desc: "Rigid error amplification, high π on threat.",
-        },
-        psychosis: {
-          epsilon: 0.7,
-          pi: 0.3,
-          theta: 0.15,
-          beta: 0.4,
-          name: "Early Psychosis",
-          desc: "Internal error misattribution, high noise.",
-        },
-        depression: {
-          epsilon: 0.1,
-          pi: 0.2,
-          theta: 0.6,
-          beta: 0.25,
-          name: "MDD Signature",
-          desc: "Suppressed reward ε, high threshold θt.",
+          name: "Heightened Alertness",
+          desc: "Strong attention to possible threats, high bodily arousal.",
         },
         dissociation: {
           epsilon: 0.5,
           pi: 0.1,
           theta: 0.5,
           beta: 0.05,
-          name: "Dissociative State",
-          desc: "Low somatic anchoring, detached awareness.",
+          name: "Detached Feeling",
+          desc: "Weak bodily anchoring, distant awareness.",
         },
       };
 
@@ -554,7 +509,7 @@
         else displays.stabilityTag.textContent = "Dynamic / Adaptive";
 
         // Regime Tag
-        if (t > 0.7) displays.regimeTag.textContent = "Dissociative / Guarded";
+        if (t > 0.7) displays.regimeTag.textContent = "Detached / Guarded";
         else if (t < 0.2) displays.regimeTag.textContent = "Hyper-Sensitive";
         else displays.regimeTag.textContent = "Homeostatic";
 
@@ -569,7 +524,7 @@
         displays.neuralCorrelates.textContent =
           correlates.length > 0
             ? correlates.join(" • ")
-            : "Baseline Neural Processing";
+            : "No hypothesised correlates for these settings";
       }
 
       // Event Listeners
