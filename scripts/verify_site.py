@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Smoke-test a running copy of the site (e.g. the built container).
 
-Usage: scripts/verify_site.py http://localhost:8080
+Usage: scripts/verify_site.py http://localhost:8080 [--apex-redirect]
+
+  --apex-redirect  also check that requests carrying `Host: apgiframework.com`
+                   get a 301 to the same path on https://www.apgiframework.com
+                   (only meaningful against the container/localhost, where the
+                   Host header can be set; production apex DNS is separate).
 
 Checks, using only the standard library:
   1. Security headers are present on HTML, assets and 404 responses
@@ -9,7 +14,8 @@ Checks, using only the standard library:
   2. Pages that must not ship return 404.
   3. Every internal href/src on every sitemap page resolves with HTTP 200.
   4. Every URL in sitemap.xml resolves with HTTP 200.
-  5. Every sitemap page's <link rel="canonical"> equals its own sitemap <loc>
+  5. (with --apex-redirect) the apex Host gets a permanent redirect to www.
+  6. Every sitemap page's <link rel="canonical"> equals its own sitemap <loc>
      (same host and path), and robots.txt points at the same sitemap host.
 Exit status is non-zero if anything fails.
 """
@@ -40,7 +46,9 @@ MUST_NOT_SHIP = [
     "/.git/config",
 ]
 
-base = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8080").rstrip("/")
+args = [a for a in sys.argv[1:] if not a.startswith("--")]
+base = (args[0] if args else "http://localhost:8080").rstrip("/")
+check_apex = "--apex-redirect" in sys.argv
 failures = []
 cache = {}
 
@@ -76,6 +84,19 @@ for path in MUST_NOT_SHIP:
     status, _, _ = fetch(path)
     if status != 404:
         fail(f"{path} returned {status}, expected 404")
+
+# apex redirect (container only)
+if check_apex:
+    import http.client
+
+    u = urllib.parse.urlparse(base)
+    conn = http.client.HTTPConnection(u.hostname, u.port or 80, timeout=15)
+    conn.request("GET", "/about.html?x=1", headers={"Host": "apgiframework.com"})
+    r = conn.getresponse()
+    loc = r.getheader("Location")
+    if r.status != 301 or loc != "https://www.apgiframework.com/about.html?x=1":
+        fail(f"apex Host returned {r.status} -> {loc}, expected 301 -> https://www.apgiframework.com/about.html?x=1")
+    conn.close()
 
 # 3 + 4. sitemap and link crawl
 status, _, body = fetch("/sitemap.xml")

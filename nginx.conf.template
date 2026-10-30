@@ -1,5 +1,16 @@
+# Apex host: once https://apgiframework.com is mapped to this service (Cloud Run
+# domain mapping + A/AAAA records), send everything to the canonical www host with
+# a permanent redirect. Harmless until then: no traffic carries this Host header.
 server {
     listen ${PORT};
+    server_name apgiframework.com;
+
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    return 301 https://www.apgiframework.com$request_uri;
+}
+
+server {
+    listen ${PORT} default_server;
     server_name _;
     root /usr/share/nginx/html;
     index index.html;

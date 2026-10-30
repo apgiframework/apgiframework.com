@@ -239,3 +239,9 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [x] `deploy.yml`: preflight step fails early with an actionable message when the GCP secrets are missing; deploys serialised via `concurrency`.
 - [x] Codex review finding on PR #4 (generated TOC `<nav>` inherited the papers' fixed top-bar `nav` styles): reproduced, fixed (role=navigation div), thread resolved.
 - [ ] Needs a human: set repo secrets `GCP_WORKLOAD_IDENTITY_PROVIDER` and `GCP_SERVICE_ACCOUNT` (see top of `deploy.yml`), then merge PR #4 and re-run the deploy; then verify the serving revision, live headers, TLS and DNS.
+
+## Session log — batch 9 (email domain, apex redirect, runbook)
+- [x] **Published contact address was on a non-existent domain**: `support@`/`legal@apgi-framework.com` (hyphenated) - `apgi-framework.com` returns NXDOMAIN, so visitor messages would bounce and anyone could register the domain and receive them. Replaced with `info@apgiframework.com` (the mailbox `INFRASTRUCTURE.md` documents as the ops address) in contact.html (x2 visible + 1 fallback) and terms-of-service.html. **Confirm that mailbox receives mail.**
+- [x] nginx: apex Host -> 301 to the same path on `https://www.apgiframework.com` (default_server keeps health checks and the `*.run.app` host working). `verify_site.py --apex-redirect` tests it; CI runs it; confirmed it fails against the previous config.
+- [x] `DEPLOY_RUNBOOK.md`: GitHub-Actions-primary switch-over, secrets, disabling the Cloud Build trigger, 302 -> 301, apex Cloud Run mapping + A/AAAA, SPF/DMARC.
+- [ ] Needs a human: add SPF and DMARC TXT records (none exist); apex mapping or 301; secrets only if switching pipelines.
