@@ -132,7 +132,8 @@
         var toc = el("details", { class: "se-toc" });
         toc.open = true;
         toc.appendChild(el("summary", {}, "On this page"));
-        var nav = el("nav", { "aria-label": "On this page" });
+        // A div with role=navigation, not <nav>: several pages style bare `nav` as a fixed top bar.
+        var nav = el("div", { role: "navigation", "aria-label": "On this page" });
         nav.appendChild(list);
         toc.appendChild(nav);
         var anchor = h1;
