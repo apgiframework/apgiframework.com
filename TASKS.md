@@ -93,7 +93,7 @@ Several items from the docx's Phase 0A/1 list were checked and found **already r
 - [ ] Rewrite `sitemap.html` to exclude internal/redirect/prototype/blocked pages once §1a lands.
 - [ ] Verify `contact.html`'s form/env wiring end-to-end (no `action=` attribute today, JS-driven submission via `form-handler.js`).
 - [ ] Fix `terms-of-service.html`'s two dead `href="#"` placeholder links (Cookie Policy, Accessibility) — either build the target pages (§6) or remove the links.
-- [ ] Delete `assets/js/enhanced-cdn-fallbacks.js`, `d3-fallback.js`, `performance-optimizer-v2.js`, `lazy-quiz-loader.js`, `quiz.js`, `dropdown-navigation.js`, `image-converter.js`, `data-extraction.js`, `polyfills.js`, `ui-components.js`, `ui-components-examples.js`, `assets/css/buttons.css`, `assets/css/fallbacks.css`, `assets/css/input.css` — confirmed dead with no scaffolding intent (see FILE_MANIFEST.md for the verification behind each).
+- [x] (Done) Delete `assets/js/enhanced-cdn-fallbacks.js`, `d3-fallback.js`, `performance-optimizer-v2.js`, `lazy-quiz-loader.js`, `quiz.js`, `dropdown-navigation.js`, `image-converter.js`, `data-extraction.js`, `polyfills.js`, `ui-components.js`, `ui-components-examples.js`, `assets/css/buttons.css`, `assets/css/fallbacks.css`, `assets/css/input.css` — confirmed dead with no scaffolding intent (see FILE_MANIFEST.md for the verification behind each).
 
 ---
 
@@ -196,3 +196,10 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [ ] Data-residency decision for EU participants (concrete GCP region choice).
 - [ ] Decide and state in the consent text whether research consent is irrevocable for already-published aggregate results.
 - [ ] Confirm the canonical Neural Glow wellness/spiritual forbidden-language list against the `apgi-design` skill (referenced by the governing doc, not found locally).
+
+## Session log — delivery/hardening batch 2
+- [x] nginx: `expires` replaces location-level `add_header Cache-Control`; verified on nginx 1.24 against an emulated image root (HSTS/XFO/CSP present on every response, held pages 404). Docker daemon was unavailable, so the container itself was not built.
+- [x] Pinned remaining CDNs (Chart.js 3.9.1 + SRI in Dashboard-Acad, React 18.3.1, Tailwind Play 3.4.17, MathJax 3.2.2).
+- [x] Rewrote `sitemap.html` to list public pages only and removed it from `.dockerignore`.
+- [x] Excluded four prototype pages with unresolved links from the image; fixed the Terms `href="#"` link.
+- [ ] Still open: ~30 other dead JS files in `assets/js/` pending the keep/delete cluster decision; contact endpoint `POST /api/contact` must exist in `apgi-api`.
