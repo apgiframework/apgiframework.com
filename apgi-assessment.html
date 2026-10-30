@@ -3890,49 +3890,6 @@
           startTest();
         }
 
-        // Add test function for debugging (remove in production)
-        window.testCalculations = function () {
-          // Simulate some test data
-          state.data.epsilon.violations = [
-            { trial: 1, rt: 400 },
-            { trial: 2, rt: 350 },
-          ];
-          state.data.epsilon.standards = [
-            { trial: 3, rt: 300 },
-            { trial: 4, rt: 320 },
-          ];
-          state.data.epsilon.trials = [
-            { trial: 1, type: "violation", rt: 400, valid: true },
-            { trial: 2, type: "violation", rt: 350, valid: true },
-            { trial: 3, type: "standard", rt: 300, valid: true },
-            { trial: 4, type: "standard", rt: 320, valid: true },
-          ];
-
-          state.data.pi.trials = [
-            { trial: 1, correct: true, confidence: 0.8 },
-            { trial: 2, correct: false, confidence: 0.3 },
-          ];
-
-          state.data.beta.heartbeat = [{ task: 1, accuracy: 85 }];
-          state.data.beta.emotionBody = [{ task: 1, rating: 70 }];
-          state.data.beta.decisionSomatic = [{ task: 1, rating: 60 }];
-
-          state.data.theta.trials = [
-            { trial: 1, response: "hit", intensity: 0.3, valid: true },
-            { trial: 2, response: "miss", intensity: 0.3, valid: true },
-            { trial: 3, response: "false_alarm", intensity: 0.3, valid: true },
-          ];
-          state.data.theta.staircase = {
-            reversals: [
-              { trial: 1, intensity: 0.3 },
-              { trial: 2, intensity: 0.25 },
-            ],
-          };
-
-          calculateResults();
-          console.log("Test results:", state.results);
-          return state.results;
-        };
       });
     </script>
   </body>

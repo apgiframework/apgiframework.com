@@ -303,7 +303,10 @@
         }
       }
     </style>
-  </head>
+  <meta name="apgi:last-updated" content="2026-10-18" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
+</head>
   <body>
     <!-- Navigation -->
     <nav class="main-nav" aria-label="Primary">
@@ -360,7 +363,7 @@
           </div>
 
           <div class="error-message" id="errorMessage">
-            There was an error sending your message. Please try again.
+            Your message was not sent. Please try again, or email <a href="mailto:support@apgi-framework.com">support@apgi-framework.com</a> directly.
           </div>
 
           <form id="contactForm">
@@ -435,73 +438,56 @@
             </div>
             <div class="contact-details">
               <h3>Email</h3>
-              <p>support@apgi-framework.com</p>
+              <p><a href="mailto:support@apgi-framework.com">support@apgi-framework.com</a></p>
             </div>
           </div>
 
-          <div class="contact-item">
-            <div class="contact-icon">
-              <i data-lucide="phone"></i>
-            </div>
-            <div class="contact-details">
-              <h3>Phone</h3>
-              <p>+1 (555) 123-4567</p>
-            </div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-icon">
-              <i data-lucide="clock"></i>
-            </div>
-            <div class="contact-details">
-              <h3>Response Time</h3>
-              <p>Usually within 24 hours</p>
-            </div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-icon">
-              <i data-lucide="map-pin"></i>
-            </div>
-            <div class="contact-details">
-              <h3>Location</h3>
-              <p>Remote-first team</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
     <script>
-      // Contact form handling
+      // Contact form handling. Success is shown only after the API confirms
+      // delivery; any failure falls back to the direct email address.
+      const CONTACT_ENDPOINT = "https://api.apgiframework.com/api/contact";
+      const CONTACT_TIMEOUT_MS = 15000;
+
       document
         .getElementById("contactForm")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
 
-          const formData = new FormData(e.target);
-          const data = Object.fromEntries(formData.entries());
+          const form = e.target;
+          const button = form.querySelector('button[type="submit"]');
+          const success = document.getElementById("successMessage");
+          const failure = document.getElementById("errorMessage");
+          const data = Object.fromEntries(new FormData(form).entries());
 
-          // Hide previous messages
-          document.getElementById("successMessage").style.display = "none";
-          document.getElementById("errorMessage").style.display = "none";
+          success.style.display = "none";
+          failure.style.display = "none";
+          if (button) button.disabled = true;
+
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), CONTACT_TIMEOUT_MS);
 
           try {
-            // In a real implementation, this would send to your backend
-            // For now, we'll simulate a successful submission
-            console.log("Contact form submission:", data);
-
-            // Show success message
-            document.getElementById("successMessage").style.display = "block";
-
-            // Reset form
-            e.target.reset();
-
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            const response = await fetch(CONTACT_ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+              signal: controller.signal,
+            });
+            if (!response.ok) {
+              throw new Error("Contact endpoint returned " + response.status);
+            }
+            success.style.display = "block";
+            form.reset();
+            success.scrollIntoView({ behavior: "smooth", block: "center" });
           } catch (error) {
-            console.error("Contact form error:", error);
-            document.getElementById("errorMessage").style.display = "block";
+            failure.style.display = "block";
+            failure.scrollIntoView({ behavior: "smooth", block: "center" });
+          } finally {
+            clearTimeout(timer);
+            if (button) button.disabled = false;
           }
         });
 

@@ -18,11 +18,13 @@ server {
 
     error_page 404 /404.html;
 
+    # NOTE: nginx drops every inherited add_header once a location declares its
+    # own, so locations below use `expires` (which sets Cache-Control without
+    # add_header) to keep the security headers above in effect.
     # Long cache for fingerprint-free static assets; browsers still revalidate
     # via ETag so an asset edit doesn't get stuck behind a stale cache.
     location /assets/ {
         expires 7d;
-        add_header Cache-Control "public, max-age=604800";
         try_files $uri =404;
     }
 
@@ -31,12 +33,12 @@ server {
 
     # HTML: no long-lived cache, so content edits show up immediately.
     location = / {
-        add_header Cache-Control "no-cache";
+        expires -1;
         try_files /index.html =404;
     }
 
     location / {
-        add_header Cache-Control "no-cache";
+        expires -1;
         try_files $uri $uri.html =404;
     }
 }
