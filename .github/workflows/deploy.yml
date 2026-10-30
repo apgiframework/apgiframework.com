@@ -49,6 +49,10 @@ permissions:
   contents: read
   id-token: write
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 env:
   PROJECT_ID: apgiframework-web
   REGION: us-central1
@@ -61,6 +65,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check deploy configuration
+        env:
+          WIF_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          DEPLOY_SA: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+        run: |
+          missing=""
+          [ -n "$WIF_PROVIDER" ] || missing="$missing GCP_WORKLOAD_IDENTITY_PROVIDER"
+          [ -n "$DEPLOY_SA" ] || missing="$missing GCP_SERVICE_ACCOUNT"
+          if [ -n "$missing" ]; then
+            echo "::error title=Deploy secrets not set::Missing repository secret(s):$missing. Add them under Settings > Secrets and variables > Actions (values and one-time gcloud setup are in the comment block at the top of this file). Nothing was built or deployed."
+            exit 1
+          fi
 
       - id: auth
         name: Authenticate to Google Cloud

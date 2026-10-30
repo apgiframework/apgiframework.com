@@ -8,10 +8,28 @@ on:
 
 jobs:
   docker-build:
-    name: Build container image
+    name: Build and verify container image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Build image
         run: docker build -t apgiframework-com:ci .
+
+      - name: Run container
+        run: |
+          docker run -d --name site -e PORT=8080 -p 8080:8080 apgiframework-com:ci
+          for i in $(seq 1 30); do
+            curl -fsS -o /dev/null http://localhost:8080/ && exit 0
+            sleep 1
+          done
+          docker logs site
+          echo "::error::Container did not start serving on :8080"
+          exit 1
+
+      - name: Verify headers, held pages, sitemap and internal links
+        run: python3 scripts/verify_site.py http://localhost:8080
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker logs site
