@@ -683,7 +683,9 @@
       id="neural-background"
       style="position: fixed; top: 0; left: 0; width: 100%; height: 100%"
     ></canvas>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
     <script>
+      (function () {
       // Get the canvas element
       var canvas = document.getElementById("neural-background");
       // Set the canvas dimensions
@@ -719,6 +721,7 @@
         }
       }
       drawNeuralNetwork();
+      })();
     </script>
     <nav>
       <div class="container">
@@ -733,7 +736,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <main id="main" tabindex="-1">
+<section class="hero">
       <div class="container">
         <h1>Computational Consciousness Modeling</h1>
         <p class="subtitle">
@@ -1046,6 +1050,7 @@
         </div>
       </div>
     </section>
+</main>
 
     <!-- Footer -->
     <footer>

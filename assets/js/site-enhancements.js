@@ -144,6 +144,52 @@
       }
     }
 
+
+    /* ---- See also: related pages for research content ---- */
+    var related = {
+      "/framework-paper.html": ["/liquid-networks-paper.html", "/epistemic-architecture-paper.html", "/how-to-falsify-apgi.html"],
+      "/liquid-networks-paper.html": ["/framework-paper.html", "/epistemic-architecture-paper.html", "/apgi_protocol_reference.html"],
+      "/epistemic-architecture-paper.html": ["/framework-paper.html", "/how-to-falsify-apgi.html", "/papers-index.html"],
+      "/how-to-falsify-apgi.html": ["/apgi_protocol_reference.html", "/framework-paper.html", "/epistemic-architecture-paper.html"],
+      "/apgi_protocol_reference.html": ["/how-to-falsify-apgi.html", "/framework-paper.html", "/apgi-experiments.html"],
+      "/apgi-experiments.html": ["/apgi_protocol_reference.html", "/apgi-software-system.html", "/how-to-falsify-apgi.html"],
+      "/apgi-software-system.html": ["/apgi-experiments.html", "/framework-paper.html", "/app-appendix.html"],
+      "/app-appendix.html": ["/apgi-software-system.html", "/papers-index.html", "/framework-paper.html"],
+      "/papers-index.html": ["/how-to-falsify-apgi.html", "/apgi_protocol_reference.html", "/about.html"],
+      "/about.html": ["/papers-index.html", "/faq.html", "/contact.html"],
+      "/faq.html": ["/about.html", "/papers-index.html", "/contact.html"]
+    };
+    var titles = {
+      "/framework-paper.html": "Allostatic Precision-Gating of Conscious Access",
+      "/liquid-networks-paper.html": "Conscious Access Through Liquid Network Dynamics",
+      "/epistemic-architecture-paper.html": "Epistemic Architecture: Evaluating Theories of Conscious Access",
+      "/how-to-falsify-apgi.html": "How to Falsify APGI",
+      "/apgi_protocol_reference.html": "Empirical Protocol Reference",
+      "/apgi-experiments.html": "Experiment Paradigms",
+      "/apgi-software-system.html": "APGI Software System",
+      "/app-appendix.html": "Appendix",
+      "/papers-index.html": "Research Papers",
+      "/about.html": "About APGI",
+      "/faq.html": "FAQ",
+      "/contact.html": "Contact"
+    };
+    var key = path.replace(/\/index$/, "");
+    var links = related[key];
+    if (links && !doc.querySelector(".se-related")) {
+      var box = el("aside", { class: "se-related", "aria-labelledby": "se-related-h" });
+      box.appendChild(el("h2", { id: "se-related-h" }, "See also"));
+      var ul = el("ul");
+      links.forEach(function (href) {
+        var li = el("li");
+        li.appendChild(el("a", { href: href }, titles[href] || href));
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+      var footer = doc.querySelector("body > footer, footer");
+      if (footer && footer.parentNode) footer.parentNode.insertBefore(box, footer);
+      else (doc.querySelector("main") || body).appendChild(box);
+    }
+
     /* ---- Last-updated line from <meta name="apgi:last-updated"> ---- */
     var meta = doc.querySelector('meta[name="apgi:last-updated"]');
     if (meta && main && !main.querySelector(".updated, [data-last-updated]")) {

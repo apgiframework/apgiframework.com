@@ -212,3 +212,9 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [x] apgi-assessment: removed raw scores, CIs, percentiles, radar chart, style card, recommendations (page + PDF). Open defect: scoring code still substitutes placeholder norm means when a task has no data; results now say "Not enough data" for those.
 - [x] Therapist/healthcare/education funnels, book-outline testimonials, multi-scale/framework/liquid-networks/appendix wording rewritten or hedged.
 - [ ] Open: checkout wording (apgi-api), canonical forbidden-language list reconciliation, a final independent claim audit pass.
+
+## Session log — batch 4 (published-page audit and structure)
+- [x] Rebuilt `funnels/1_individual_self_explorers.html` (published, in sitemap) as a research-only page: removed fabricated testimonial, $149/$49 pricing, Stripe key/checkout script, hardcover/app/dashboard/guarantee claims.
+- [x] Hedged "Peer-Reviewed Evidence" heading, "47 peer-reviewed studies" caption, EP-4 "clinically urgent" wording, software-system "Performance & Validation" (now design targets), experiments "Validated Experiments".
+- [x] Added `<main>` landmarks to 10 published pages; "See also" sections on 11 research pages; fixed `apgi-experiments.html` duplicate `canvas` declaration that stopped its second script (and a missing `#particle-canvas` element).
+- [ ] Open: `app-appendix.html` "Download for macOS" points to github.com/lesoto/apgi-framework releases, which could not be verified from this environment; confirm ownership or remove.
