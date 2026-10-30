@@ -225,3 +225,10 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [x] axe-core (WCAG 2 A/AA + best-practice) over 21 shipped pages: 0 serious violations remain except decorative footer equations (opacity-dimmed, now 0.6). Lightened muted text and purple/pink accents on dark pages; fixed heading order on assessment-v2, experiments, appendix, 404; added unique nav labels; 404 now has `<main>`.
 - [x] Print styles now force readable ink on dark-theme pages and show animation-hidden content (verified by rendering PDFs).
 - [ ] Open (moderate, best-practice only): "content outside landmarks" for theme toggles/CDN indicator on contact, terms, privacy, experiments, software-system, 404; no manual screen-reader or keyboard-flow test performed; no Lighthouse run.
+
+## Session log — batch 6 (shipped-set containment and link/CSP verification)
+- [x] Shipped set audited: 35 HTML pages were reachable in the image, 14 of them unlinked/unsitemapped (ad/Instagram/TikTok templates, a 4.6 MB Plotly export, typo-named duplicates, a quiz with parameter scores, a dashboard on randomly generated sample data, a states visualizer with mechanism claims, the macOS design guide). Added to `.dockerignore`; image now serves 21 HTML pages.
+- [x] Shared nav (`assets/js/navigation.js`) and `sitemap.html` linked to excluded pages (Assessment, Book, Solutions -> 404). Assessment now points at `apgi-assessment-v2.html`; Book/Solutions removed; FAQ added.
+- [x] Crawl through the real `nginx.conf.template` against an emulated image root: 299 internal href/src references, 46 unique URLs, 0 non-200; 0 `href="#"` placeholders; all 19 `sitemap.xml` URLs served.
+- [x] CSP check (production headers, headless Chromium): 0 violations on any shipped page. External hosts actually requested: fonts.googleapis.com, unpkg.com, cdnjs.cloudflare.com.
+- [ ] Open: the quarantined files still exist in the repo (excluded, not deleted) pending your keep/delete decision; none was clinically re-audited.
