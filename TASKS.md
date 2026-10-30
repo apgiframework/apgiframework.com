@@ -203,3 +203,12 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [x] Rewrote `sitemap.html` to list public pages only and removed it from `.dockerignore`.
 - [x] Excluded four prototype pages with unresolved links from the image; fixed the Terms `href="#"` link.
 - [ ] Still open: ~30 other dead JS files in `assets/js/` pending the keep/delete cluster decision; contact endpoint `POST /api/contact` must exist in `apgi-api`.
+
+## Session log — claim-discipline batch 3
+- [x] quiz-signature: renamed to Reflection Quiz; removed parameter-signature panel, numeric scores and clinical archetype names.
+- [x] assessment-onepage: removed parameter values, charts, interactions and recommendations; qualitative reflection summary only; removed Anxiety/somatic-anxiety wording.
+- [x] state-assessment: renamed Anxiety/Depression/Dissociation states; removed val-e/p/t/b displays, radar chart, confidence %, mechanism text.
+- [x] apgi-signature: removed OCD/Psychosis/Depression presets; hedged neural correlates.
+- [x] apgi-assessment: removed raw scores, CIs, percentiles, radar chart, style card, recommendations (page + PDF). Open defect: scoring code still substitutes placeholder norm means when a task has no data; results now say "Not enough data" for those.
+- [x] Therapist/healthcare/education funnels, book-outline testimonials, multi-scale/framework/liquid-networks/appendix wording rewritten or hedged.
+- [ ] Open: checkout wording (apgi-api), canonical forbidden-language list reconciliation, a final independent claim audit pass.
