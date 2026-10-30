@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Allostatic Precision-Gated Ignition (APGI) Framework for Conscious Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+      :root {
+        --bg-color: #f4f4f4;
+        --paper-bg: #ffffff;
+        --main-text: #000000;
+        --border-color: #000000;
+        --link-color: #0000ff;
+        --header-bg: #eeeeee;
+        --font-primary: 'Inter', sans-serif; /* Clean sans-serif for headers */
+        --font-secondary: 'Georgia', serif;   /* Readable serif for body */
+      }
+
+      /* Basic Setup: Minimal, high-contrast. */
+      body {
+        margin: 0;
+        padding: 1rem;
+        background-color: var(--bg-color);
+        color: var(--main-text);
+        font-family: var(--font-secondary);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 800px; /* Optimal width for reading text */
+        width: 100%;
+        margin: 2rem auto;
+        padding: 1.5rem 2rem;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        background-color: var(--paper-bg);
+      }
+
+      /* Header Styling: Clear and academic. */
+      .header {
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 1rem;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-family: var(--font-primary);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .authors {
+        font-family: var(--font-secondary);
+        font-size: 1.1rem;
+        font-style: italic;
+        margin: 1rem 0;
+      }
+
+      .header-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        align-items: center;
+        margin-top: 1.5rem;
+      }
+
+      .header-buttons a {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: underline;
+        color: var(--link-color);
+        background-color: transparent;
+        border: none;
+        transition: none;
+        cursor: pointer;
+      }
+
+      .header-buttons a:hover {
+        color: var(--main-text);
+      }
+      
+      /* Section Styling: Structural and blocky. */
+      .section {
+        margin-bottom: 1.5rem;
+        border: 2px solid var(--border-color);
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-bottom: 2px solid var(--border-color);
+        background-color: var(--header-bg);
+        cursor: pointer;
+      }
+
+      .section-header h2 {
+        font-family: var(--font-primary);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .toggle-button {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background: var(--paper-bg);
+        border: 2px solid var(--border-color);
+        color: var(--main-text);
+        font-size: 1.2rem;
+      }
+
+      .toggle-button:hover {
+        background: var(--main-text);
+        color: var(--paper-bg);
+      }
+
+      .collapsible-content {
+        padding: 1.5rem;
+        max-height: 1000px;
+        transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
+        overflow: hidden;
+      }
+
+      .collapsible-content.hidden {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      
+      .collapsible-content p, .collapsible-content li {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        font-weight: 400;
+        margin-bottom: 1.25rem;
+      }
+
+      .collapsible-content h3 {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        margin-top: 1.5rem;
+      }
+
+      .collapsible-content blockquote {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1.1rem;
+        padding: 1rem;
+        background: var(--header-bg);
+        border-left: 3px solid var(--border-color);
+        margin-left: 1rem;
+      }
+      
+      /* Chart Styling: Simple and functional. */
+      .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+        padding-top: 1rem;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>An Allostatic Precision-Gated Ignition (APGI) Framework for Conscious Access: A Mechanistic Model</h1>
+            <p class="authors">S. Dehaene, J-P. Changeux, L. Naccache, et al.</p>
+            <div class="header-buttons">
+                <a href="#abstract-section">ABSTRACT</a>
+                <a href="#introduction-section">INTRODUCTION</a>
+                <a href="#framework-section">FRAMEWORK</a>
+                <a href="#model-section">MODEL</a>
+                <a href="#conclusion-section">CONCLUSION</a>
+            </div>
+        </div>
+
+        <div class="section" id="abstract-section">
+            <div class="section-header" data-target="abstract-content">
+                <h2>ABSTRACT</h2>
+                <button class="toggle-button" aria-label="Toggle Abstract">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div id="abstract-content" class="collapsible-content hidden">
+                <p>
+                    Consciousness is one of the most challenging problems in neuroscience, demanding a comprehensive explanation across computational, algorithmic and implementation levels. The Allostatic Precision-Gated Ignition (APGI) Framework presents a mechanistic theory that formalizes conscious access—the process by which specific neural representations become globally available for reporting, reasoning and flexible action—as a non-linear threshold phenomenon.
+                </p>
+                <p>
+                    The APGI Framework posits conscious access as a metabolically expensive, high-level adaptive mechanism. It emerges when local, peripheral processes cannot resolve hierarchical prediction errors. Access is triggered when the sum of precision-weighted exteroceptive and interoceptive prediction errors surpasses a dynamic, context-sensitive threshold, leading to global ignition in frontoparietal-thalamic networks.
+                </p>
+                <p>
+                    The APGI Framework synthesizes three foundational theories to treat consciousness as an embodied, allostatic and computational strategy: The Free Energy Principle, Interoceptive Predictive Processing, and The Global Neuronal Workspace Theory (GNWT). The framework is operationalized through mathematical formalisms and multi-scale neural dynamics, providing a direct mapping from model variables to measurable neural phenomena.
+                </p>
+                <p>
+                    <strong>Keywords:</strong> Consciousness; Free Energy Principle; Global Neuronal Workspace; Neural Ignition; Interoceptive Prediction; Somatic Markers; Active Inference; Precision Weighting; Self-Model Coherence; Access Consciousness
+                </p>
+            </div>
+        </div>
+
+        <div class="section" id="introduction-section">
+            <div class="section-header" data-target="introduction-content">
+                <h2>INTRODUCTION AND PROBLEM STATEMENT</h2>
+                <button class="toggle-button" aria-label="Toggle Introduction">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div id="introduction-content" class="collapsible-content hidden">
+                <p>
+                    The human brain performs an astonishing 10¹⁶ synaptic operations per second to manage vast sensory data streams, maintain homeostasis, coordinate motor functions and update internal models. Yet, only a small fraction of this processing enters subjective awareness, presenting a concrete computational problem: How does an energy-constrained system determine which information gains conscious access?
+                </p>
+                <p>
+                    This selectivity of consciousness is not merely philosophical but central to understanding brain function, raising critical mechanistic questions about what regulates entry into the global workspace and why certain representations become reportable, memorable and actionable while others remain confined to local processing.
+                </p>
+                <p>
+                    To address these questions, this paper focuses on access consciousness—the globally available information used for verbal report and behavioral control—as a tractable entry point for bridging neural mechanisms and subjective experience. The persistent gap between continuous neural processing and limited global availability defines the access threshold problem: What computational principle dictates which representations cross into conscious awareness?
+                </p>
+                <h3>Research Objectives</h3>
+                <p>
+                    The primary goal of the APGI Framework is to present a rigorous, unified model that bridges conceptual gaps in consciousness research, with a specific focus on the transition from unconscious to conscious processing. To achieve this, the paper explores when why and how certain neural representations attain global availability and pursues three core objectives:
+                </p>
+                <ol>
+                    <li>Synthesizing foundational theoretical concepts from FEP, GNWT and interoception.</li>
+                    <li>Identifying conceptual gaps in these theories, particularly their inability to explain the normative trigger for global access.</li>
+                    <li>Deriving testable predictions and implications to critically evaluate the framework.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section" id="framework-section">
+            <div class="section-header" data-target="framework-content">
+                <h2>THE APGI FRAMEWORK</h2>
+                <button class="toggle-button" aria-label="Toggle Framework">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div id="framework-content" class="collapsible-content hidden">
+                <p>
+                    The Allostatic Precision-Gated Ignition (APGI) Framework presents a mechanistic model that explains how global availability is achieved by synthesizing the Free Energy Principle, Global Neuronal Workspace Theory and interoception. The framework focuses on functionally available information, proposing a specific and testable threshold mechanism for conscious access.
+                </p>
+                <h3>Core Theoretical Integration</h3>
+                <p>
+                    The central hypothesis posits that conscious access arises as a non-linear threshold phenomenon, termed ignition which occurs when precision-weighted, somatically marked prediction errors exceed a dynamic threshold. Conscious access is thus gated by the precision-weighted relevance of prediction errors, with interoceptive salience serving as a primary embodied relevance signal.
+                </p>
+                <p>
+                    The model asserts that global availability results from the interplay of three components:
+                </p>
+                <ol>
+                    <li><strong>Prediction:</strong> Grounded in the Free Energy Principle and Active Inference</li>
+                    <li><strong>Integration:</strong> Articulated by the global ignition mechanism of Global Neuronal Workspace Theory</li>
+                    <li><strong>Ignition:</strong> Defined as a precision-gated, somatically biased threshold event</li>
+                </ol>
+                <h3>Mechanistic Implementation</h3>
+                <p>
+                    The APGI Framework is composed of two primary mechanisms:
+                </p>
+                <ol>
+                    <li><strong>Predictive Signaling:</strong> High-level cortical areas continuously generate top-down predictions about incoming sensory data.</li>
+                    <li><strong>Ignition Event:</strong> When bottom-up sensory input (or prediction error) is strong and precise enough to match a top-down prediction, it triggers a non-linear amplification loop.</li>
+                </ol>
+                <h3>Model Formalization</h3>
+                <p>The state of conscious access can be modeled as:</p>
+                <blockquote>
+                    Accumulated Signal: Sₜ = Πᵉ·|εᵉ| + Πⁱ(M,c,a)·|εⁱ|
+                </blockquote>
+                <blockquote>
+                    Global Ignition Probability: Bₜ = σ(α·(Sₜ − θₜ))
+                </blockquote>
+                <p>Where σ is the logistic sigmoid function and α is a gain parameter. Ignition occurs when the total surprise Sₜ exceeds the dynamic threshold θₜ.</p>
+            </div>
+        </div>
+
+        <div class="section" id="model-section">
+            <div class="section-header" data-target="model-content">
+                <h2>COMPUTATIONAL MODEL & PREDICTIONS</h2>
+                <button class="toggle-button" aria-label="Toggle Model">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div id="model-content" class="collapsible-content hidden">
+                <p>
+                    The framework offers a specific, testable structure to advance the scientific study of consciousness. Whether consciousness ultimately proves to be a phase transition, an emergent property of self-modeling systems or a fundamental feature of information processing, the framework provides essential scaffolding for discovery.
+                </p>
+                <h3>Formal Computational Model</h3>
+                <p>
+                    The mathematical formalization of the APGI Framework enables precise computational implementation and empirical testing:
+                </p>
+                <blockquote>
+                    Accumulated Signal: Sₜ = Πᵉ·|εᵉ| + Πⁱ(M,c,a)·|εⁱ|
+                </blockquote>
+                <blockquote>
+                    Global Ignition Probability: Bₜ = σ(α·(Sₜ − θₜ))
+                </blockquote>
+                <blockquote>
+                    Ignition occurs if Sₜ > θₜ
+                </blockquote>
+                <h3>Testable Predictions</h3>
+                <p>
+                    The framework generates novel, falsifiable predictions across multiple domains:
+                </p>
+                <ul>
+                    <li><strong>Neural:</strong> Effective connectivity patterns, oscillatory signatures</li>
+                    <li><strong>Behavioral:</strong> Interoceptive sensitivity effects</li>
+                    <li><strong>Clinical:</strong> Precision dysregulation in psychiatric disorders</li>
+                    <li><strong>Computational:</strong> Agent-based modeling outcomes</li>
+                </ul>
+                <p>
+                    The central tenet posits that somatic-precision-weighted prediction errors reliably precede established neural signatures of conscious ignition, including the P3b event-related potential and surges in fMRI global connectivity.
+                </p>
+                <div class="chart-container">
+                    <canvas id="ignitionChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="conclusion-section">
+            <div class="section-header" data-target="conclusion-content">
+                <h2>CONCLUSION</h2>
+                <button class="toggle-button" aria-label="Toggle Conclusion">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div id="conclusion-content" class="collapsible-content hidden">
+                <p>
+                    Consciousness arises at the convergence of predictive regulation, embodied valuation and global accessibility. This framework synthesizes key theoretical advances in neuroscience, proposing that consciousness is not an epiphenomenon but the brain's embodied solution to profound uncertainty.
+                </p>
+                <p>
+                    By integrating prediction, integration and ignition within an allostatic, free energy-minimizing architecture, the model clarifies why consciousness is rare, how it emerges from neural dynamics and its adaptive purpose: to sustain organismic viability in an unpredictable world.
+                </p>
+                <p>
+                    The APGI Framework's integrative power represents one of its primary strengths, unifying previously disparate theories within a single coherent structure. Its mechanistic specificity defines the neural processes and computational principles involved, enabling testability through concrete predictions for empirical research.
+                </p>
+                <p>
+                    This framework provides a falsifiable bridge between neural dynamics, subjective experience and decision-making, paving the way for an integrated science of consciousness with significant implications for both basic research and clinical applications.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        
+        // --- Collapsible Sections ---
+        const sectionHeaders = document.querySelectorAll(".section-header");
+        sectionHeaders.forEach((header) => {
+            const button = header.querySelector('.toggle-button');
+            const targetId = header.getAttribute("data-target");
+            const targetElement = document.getElementById(targetId);
+            const icon = button.querySelector("i");
+            
+            const toggleSection = () => {
+                const isHidden = targetElement.classList.contains("hidden");
+                targetElement.classList.toggle("hidden");
+                icon.className = isHidden ? "fas fa-minus" : "fas fa-plus";
+            };
+
+            header.addEventListener("click", toggleSection);
+
+            if (targetElement.classList.contains('hidden')) {
+                icon.className = "fas fa-plus";
+            } else {
+                icon.className = "fas fa-minus";
+            }
+        });
+
+        // --- Jump Link Navigation ---
+        document.querySelectorAll('.header-buttons a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Don't prevent default, we want the jump
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const contentId = targetSection.querySelector('.section-header').getAttribute('data-target');
+                    const contentElement = document.getElementById(contentId);
+                    
+                    // Check if it's hidden, and if so, "click" its header to open it
+                    if (contentElement && contentElement.classList.contains('hidden')) {
+                        targetSection.querySelector('.section-header').click();
+                    }
+                }
+            });
+        });
+
+        // --- Chart.js Initialization ---
+        let ignitionChart;
+        const chartCanvas = document.getElementById("ignitionChart");
+
+        function createChart() {
+            if (chartCanvas) {
+                const ctx = chartCanvas.getContext("2d");
+                
+                ignitionChart = new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: ["Low Precision", "Medium Precision", "High Precision"],
+                        datasets: [
+                            {
+                                label: "Ignition Probability",
+                                data: [25, 50, 90], // Shows precision effect on ignition
+                                backgroundColor: ['#eeeeee', '#bbbbbb', '#000000'],
+                                borderColor: '#000000',
+                                borderWidth: 2,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: true }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    font: { family: "'Inter', sans-serif" }
+                                }
+                            },
+                            y: {
+                                title: { display: true, text: 'Ignition Probability (%)' },
+                                grid: { color: '#eee' },
+                                ticks: {
+                                    font: { family: "'Inter', sans-serif" }
+                                }
+                            }
+                        }
+                    },
+                });
+            }
+        }
+        
+        // Open the ABSTRACT section by default
+        const abstractHeader = document.querySelector('#abstract-section .section-header');
+        if (abstractHeader) {
+            abstractHeader.click();
+        }
+
+        createChart();
+      });
+    </script>
+</body>
+</html>

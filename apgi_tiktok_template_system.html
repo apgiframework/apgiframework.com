@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APGI TikTok Overlay Template System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     APGI BRAND TOKENS
+  ============================================================ */
+  :root {
+    --apgi-blue:   #00B4FF;
+    --apgi-red:    #FF3366;
+    --apgi-yellow: #FFCC00;
+    --apgi-green:  #00CC99;
+    --apgi-purple: #9966FF;
+    --apgi-dark:   #2C3E50;
+    --apgi-bg:     #111920;
+    --apgi-bg2:    #1a2530;
+    --apgi-panel:  #1e2d3a;
+    --apgi-border: rgba(255,255,255,0.08);
+    --apgi-muted:  rgba(255,255,255,0.35);
+    --apgi-sub:    rgba(255,255,255,0.55);
+
+    /* TikTok-exact brand hierarchy */
+    --hook-font:   'DM Sans', sans-serif;
+    --hook-size:   48px;
+    --hook-weight: 800;
+    --hook-color:  #ffffff;
+
+    --core-font:   'DM Sans', sans-serif;
+    --core-weight: 700;
+
+    --cta-font:    'DM Sans', sans-serif;
+    --cta-color:   var(--apgi-purple);
+    --cta-weight:  700;
+
+    --eq-font:     'DM Mono', monospace;
+    --eq-color:    var(--apgi-yellow);
+
+    /* phone frame */
+    --phone-w: 280px;
+    --phone-h: 498px; /* 9:16 */
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--apgi-bg);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ============================================================
+     LAYOUT
+  ============================================================ */
+  .app {
+    display: grid;
+    grid-template-columns: 340px 1fr 320px;
+    grid-template-rows: 56px 1fr;
+    min-height: 100vh;
+    gap: 0;
+  }
+
+  /* Top Bar */
+  .topbar {
+    grid-column: 1 / -1;
+    background: var(--apgi-panel);
+    border-bottom: 1px solid var(--apgi-border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+  }
+
+  .topbar-logo {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--apgi-blue);
+    letter-spacing: -0.5px;
+  }
+
+  .topbar-sep { width: 1px; height: 24px; background: var(--apgi-border); }
+
+  .topbar-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--apgi-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .topbar-tabs {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    background: none;
+    border: 1px solid var(--apgi-border);
+    color: var(--apgi-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: 0.3px;
+  }
+
+  .tab-btn:hover { border-color: var(--apgi-blue); color: var(--apgi-blue); }
+  .tab-btn.active {
+    background: var(--apgi-blue);
+    border-color: var(--apgi-blue);
+    color: #000;
+  }
+
+  /* Left panel – Template picker */
+  .left-panel {
+    background: var(--apgi-panel);
+    border-right: 1px solid var(--apgi-border);
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .panel-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--apgi-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 4px 4px;
+  }
+
+  .template-card {
+    background: var(--apgi-bg2);
+    border: 1px solid var(--apgi-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all .15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .template-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent, var(--apgi-blue));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .template-card:hover {
+    border-color: var(--accent, var(--apgi-blue));
+    transform: translateX(2px);
+  }
+
+  .template-card.active {
+    border-color: var(--accent, var(--apgi-blue));
+    background: rgba(0, 180, 255, 0.06);
+  }
+
+  .tc-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent, var(--apgi-blue));
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .tc-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .tc-desc {
+    font-size: 11px;
+    color: var(--apgi-muted);
+    line-height: 1.4;
+  }
+
+  .tc-timing {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.25);
+    margin-top: 4px;
+  }
+
+  /* Center – Phone Preview */
+  .center-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    gap: 20px;
+    position: relative;
+  }
+
+  .preview-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ctrl-btn {
+    background: var(--apgi-panel);
+    border: 1px solid var(--apgi-border);
+    color: var(--apgi-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .ctrl-btn:hover { border-color: var(--apgi-blue); color: var(--apgi-blue); }
+  .ctrl-btn.active { background: var(--apgi-blue); border-color: var(--apgi-blue); color: #000; }
+
+  .ctrl-btn .icon { font-size: 14px; }
+
+  /* Phone frame */
+  .phone-wrap {
+    position: relative;
+    width: var(--phone-w);
+    filter: drop-shadow(0 24px 60px rgba(0,0,0,0.7));
+  }
+
+  .phone-shell {
+    width: var(--phone-w);
+    height: var(--phone-h);
+    background: #0a0f14;
+    border-radius: 32px;
+    border: 2px solid rgba(255,255,255,0.12);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      0 0 40px rgba(0, 180, 255, 0.08);
+  }
+
+  /* Dynamic island */
+  .phone-notch {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 20px;
+    background: #000;
+    border-radius: 12px;
+    z-index: 100;
+  }
+
+  /* The canvas where overlays render */
+  .phone-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: var(--apgi-bg);
+    overflow: hidden;
+  }
+
+  /* Simulated video background */
+  .video-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(160deg, rgba(0,30,50,0.95) 0%, rgba(20,10,40,0.9) 50%, rgba(0,20,30,0.95) 100%);
+  }
+
+  /* Subtle noise texture for video feel */
+  .video-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Brain silhouette bg watermark */
+  .brain-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .brain-bg svg {
+    width: 200px;
+    opacity: 0.04;
+  }
+
+  /* TikTok UI chrome elements */
+  .tiktok-chrome {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* Right sidebar (like, comment, share) */
+  .tk-sidebar {
+    position: absolute;
+    right: 6px;
+    bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .tk-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .tk-action-icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .tk-action-count {
+    font-size: 8px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Bottom info bar */
+  .tk-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 6px 8px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  }
+
+  .tk-username {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .tk-caption {
+    font-size: 8px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 4px;
+  }
+
+  .tk-music {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 7px;
+    color: rgba(255,255,255,0.6);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ============================================================
+     OVERLAY LAYERS — THE ACTUAL TEMPLATE SYSTEM
+  ============================================================ */
+  .overlay-layer {
+    position: absolute;
+    left: 0; right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+  }
+
+  /* LAYER 1 — HOOK (0–3s) */
+  .layer-hook {
+    top: 32px;
+    animation: layerFadeIn .3s ease forwards;
+  }
+
+  .hook-text {
+    font-family: var(--hook-font);
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--hook-color);
+    line-height: 1.1;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+    letter-spacing: -0.5px;
+    display: block;
+  }
+
+  .hook-text.highlight-blue  { color: var(--apgi-blue); }
+  .hook-text.highlight-yellow{ color: var(--apgi-yellow); }
+  .hook-text.highlight-red   { color: var(--apgi-red); }
+  .hook-text.highlight-purple{ color: var(--apgi-purple); }
+
+  /* LAYER 2 — AUTHORITY FLASH (4–8s) */
+  .layer-authority {
+    top: 115px;
+  }
+
+  .authority-pill {
+    background: rgba(0, 180, 255, 0.15);
+    border: 1px solid rgba(0, 180, 255, 0.4);
+    border-radius: 6px;
+    padding: 3px 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+
+  .authority-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--apgi-blue);
+    flex-shrink: 0;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .authority-pill-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    font-weight: 500;
+    color: var(--apgi-blue);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .concept-text {
+    font-family: var(--hook-font);
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .concept-param {
+    font-family: var(--hook-font);
+    font-size: 18px;
+    font-weight: 800;
+    display: inline;
+  }
+
+  .param-blue   { color: var(--apgi-blue); }
+  .param-red    { color: var(--apgi-red); }
+  .param-yellow { color: var(--apgi-yellow); }
+  .param-purple { color: var(--apgi-purple); }
+  .param-green  { color: var(--apgi-green); }
+
+  /* LAYER 3 — EQUATION FLASH (center, 5–8s) */
+  .layer-equation {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .eq-badge {
+    background: rgba(0,0,0,0.5);
+    border: 1.5px solid rgba(0, 180, 255, 0.5);
+    border-radius: 10px;
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    backdrop-filter: blur(4px);
+  }
+
+  .eq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    font-weight: 500;
+    color: var(--apgi-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .eq-formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--apgi-yellow);
+    letter-spacing: 2px;
+  }
+
+  .eq-sub {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--apgi-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Param dots row */
+  .eq-params {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .eq-param-dot {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+  }
+
+  .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  /* LAYER 4 — COMPASSIONATE PAYOFF (9–12s) */
+  .layer-payoff {
+    bottom: 110px;
+    top: auto;
+    align-items: flex-start;
+  }
+
+  .payoff-card {
+    background: rgba(0,0,0,0.55);
+    border-left: 3px solid var(--apgi-red);
+    border-radius: 0 8px 8px 0;
+    padding: 8px 10px;
+    max-width: 220px;
+    backdrop-filter: blur(4px);
+  }
+
+  .payoff-title {
+    font-family: var(--hook-font);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--apgi-red);
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .payoff-body {
+    font-family: var(--hook-font);
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  .payoff-mechanism {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--apgi-muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* LAYER 5 — CTA (13–15s) */
+  .layer-cta {
+    bottom: 75px;
+    top: auto;
+    align-items: center;
+    width: 100%;
+  }
+
+  .cta-btn {
+    background: var(--apgi-purple);
+    border-radius: 8px;
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 20px rgba(153, 102, 255, 0.45);
+  }
+
+  .cta-text {
+    font-family: var(--hook-font);
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.2px;
+  }
+
+  .cta-arrow {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    animation: nudge .8s ease-in-out infinite;
+  }
+
+  @keyframes nudge { 0%,100%{transform:translateX(0)} 50%{transform:translateX(3px)} }
+
+  /* APGI Watermark */
+  .apgi-watermark {
+    position: absolute;
+    bottom: 60px;
+    right: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--apgi-blue);
+    opacity: 0.3;
+    letter-spacing: 0.5px;
+    z-index: 20;
+  }
+
+  /* Layer animations */
+  @keyframes layerFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.88) translateY(-50%); }
+    70%  { transform: scale(1.04) translateY(-50%); }
+    100% { opacity: 1; transform: scale(1) translateY(-50%); }
+  }
+
+  .animate-fade  { animation: layerFadeIn .35s .05s both; }
+  .animate-slide { animation: slideUp .35s .1s both; }
+  .animate-pop   { animation: popIn .4s .05s both; }
+
+  /* ============================================================
+     RIGHT PANEL — Controls
+  ============================================================ */
+  .right-panel {
+    background: var(--apgi-panel);
+    border-left: 1px solid var(--apgi-border);
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .rp-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rp-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--apgi-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--apgi-border);
+    padding-bottom: 6px;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--apgi-sub);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .field-color-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .field-input {
+    background: var(--apgi-bg2);
+    border: 1px solid var(--apgi-border);
+    border-radius: 7px;
+    padding: 8px 10px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    width: 100%;
+    transition: border-color .15s;
+    resize: none;
+    outline: none;
+    line-height: 1.4;
+  }
+
+  .field-input:focus { border-color: var(--apgi-blue); }
+  .field-input::placeholder { color: rgba(255,255,255,0.2); }
+
+  /* Color toggle chips */
+  .color-chips {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .color-chip {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all .15s;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+
+  .color-chip:hover { transform: scale(1.05); }
+  .color-chip.selected { border-color: #fff !important; }
+
+  /* Layer visibility toggles */
+  .layer-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .layer-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--apgi-bg2);
+    border: 1px solid var(--apgi-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .layer-toggle:hover { border-color: var(--apgi-border); background: rgba(255,255,255,0.04); }
+  .layer-toggle.on { border-color: var(--accent-color); }
+
+  .lt-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .lt-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-color, #fff);
+  }
+
+  .lt-timing {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--apgi-muted);
+  }
+
+  .toggle-pill {
+    width: 32px;
+    height: 18px;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.1);
+    position: relative;
+    transition: background .15s;
+    flex-shrink: 0;
+  }
+
+  .toggle-pill.on { background: var(--accent-color, var(--apgi-blue)); }
+
+  .toggle-pill::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform .15s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  .toggle-pill.on::after { transform: translateX(14px); }
+
+  /* Timing diagram */
+  .timing-diagram {
+    background: var(--apgi-bg2);
+    border: 1px solid var(--apgi-border);
+    border-radius: 10px;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  .timing-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .timing-row:last-child { margin-bottom: 0; }
+
+  .timing-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--apgi-muted);
+    width: 46px;
+    flex-shrink: 0;
+  }
+
+  .timing-bar-wrap {
+    flex: 1;
+    height: 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timing-bar {
+    position: absolute;
+    top: 0; bottom: 0;
+    border-radius: 3px;
+    opacity: 0.85;
+  }
+
+  .timing-dur {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--apgi-muted);
+    width: 28px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Tick marks */
+  .timing-ticks {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding-left: 52px;
+    margin-bottom: 4px;
+  }
+
+  .timing-tick {
+    flex: 1;
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    color: rgba(255,255,255,0.15);
+    text-align: left;
+    position: relative;
+  }
+
+  .timing-tick::before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    width: 1px;
+    height: 10px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Export section */
+  .export-btn {
+    background: var(--apgi-blue);
+    border: none;
+    color: #000;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 11px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: all .15s;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .export-btn:hover { background: #33c3ff; transform: translateY(-1px); }
+  .export-btn:active { transform: translateY(0); }
+
+  .export-btn-sec {
+    background: none;
+    border: 1px solid var(--apgi-border);
+    color: var(--apgi-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: all .15s;
+  }
+
+  .export-btn-sec:hover { border-color: var(--apgi-purple); color: var(--apgi-purple); }
+
+  /* playhead */
+  .playhead-wrap {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .playhead-track {
+    width: 100%;
+    height: 3px;
+    background: var(--apgi-border);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .playhead-progress {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--apgi-blue), var(--apgi-purple));
+    transition: width .1s;
+    position: relative;
+  }
+
+  .playhead-handle {
+    position: absolute;
+    right: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--apgi-blue);
+  }
+
+  .playhead-labels {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .playhead-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--apgi-muted);
+  }
+
+  /* Play button */
+  .play-btn {
+    background: none;
+    border: 1px solid var(--apgi-border);
+    color: var(--apgi-blue);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .play-btn:hover { background: rgba(0, 180, 255, 0.1); border-color: var(--apgi-blue); }
+
+  /* Safe zone indicator */
+  .safe-zone-overlay {
+    position: absolute;
+    top: 8%;
+    bottom: 20%;
+    left: 5%;
+    right: 5%;
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .safe-zone-label {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    color: rgba(255,255,255,0.15);
+    white-space: nowrap;
+    background: var(--apgi-bg);
+    padding: 0 4px;
+  }
+
+  /* ============================================================
+     HASHTAG BAR
+  ============================================================ */
+  .hashtag-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .hashtag-chip {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--apgi-border);
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--apgi-muted);
+    cursor: pointer;
+    transition: all .12s;
+  }
+
+  .hashtag-chip:hover { border-color: var(--apgi-blue); color: var(--apgi-blue); }
+  .hashtag-chip.on { background: rgba(0, 180, 255, 0.1); border-color: var(--apgi-blue); color: var(--apgi-blue); }
+
+  /* ============================================================
+     SCROLLBAR
+  ============================================================ */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+  /* ============================================================
+     TOAST
+  ============================================================ */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(60px);
+    background: var(--apgi-panel);
+    border: 1px solid var(--apgi-blue);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--apgi-blue);
+    z-index: 9999;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+    pointer-events: none;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* visibility classes */
+  .hidden { display: none !important; }
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===================== TOP BAR ===================== -->
+  <header class="topbar">
+    <span class="topbar-logo">APGI</span>
+    <div class="topbar-sep"></div>
+    <span class="topbar-label">TikTok Overlay Template System</span>
+    <div class="topbar-tabs">
+      <button class="tab-btn active" onclick="switchMode('builder')">Template Builder</button>
+      <button class="tab-btn" onclick="switchMode('spec')">Spec Sheet</button>
+      <button class="tab-btn" onclick="switchMode('timing')">Timing Guide</button>
+    </div>
+  </header>
+
+  <!-- ===================== LEFT PANEL ===================== -->
+  <aside class="left-panel">
+
+    <div class="panel-section-title">Hook Types</div>
+
+    <!-- Template cards -->
+    <div class="template-card active" style="--accent:#00B4FF" onclick="loadTemplate('mechanism')">
+      <div class="tc-label">HOOK A</div>
+      <div class="tc-name">Mechanism Reveal</div>
+      <div class="tc-desc">Explains an APGI parameter with scientific framing. Highest authority weight.</div>
+      <div class="tc-timing">0–3s hook · 4–8s concept · 9–12s payoff · 13–15s CTA</div>
+    </div>
+
+    <div class="template-card" style="--accent:#FF3366" onclick="loadTemplate('pain')">
+      <div class="tc-label">HOOK B</div>
+      <div class="tc-name">Pain Point → Solution</div>
+      <div class="tc-desc">Leads with relatable struggle, maps to APGI parameter, offers mechanism.</div>
+      <div class="tc-timing">0–3s pain · 4–8s reframe · 9–12s solution · 13–15s CTA</div>
+    </div>
+
+    <div class="template-card" style="--accent:#FFCC00" onclick="loadTemplate('equation')">
+      <div class="tc-label">HOOK C</div>
+      <div class="tc-name">Equation First</div>
+      <div class="tc-desc">Opens with Π × |ε| > Bₜ as the visual anchor. Math-forward authority.</div>
+      <div class="tc-timing">0–3s equation · 4–8s decode · 9–12s real-world · 13–15s CTA</div>
+    </div>
+
+    <div class="template-card" style="--accent:#9966FF" onclick="loadTemplate('counterintuitive')">
+      <div class="tc-label">HOOK D</div>
+      <div class="tc-name">Counterintuitive Claim</div>
+      <div class="tc-desc">Pattern interrupt opening. Bold white claim, no colour until authority flash.</div>
+      <div class="tc-timing">0–3s claim · 4–8s why · 9–12s proof · 13–15s CTA</div>
+    </div>
+
+    <div class="template-card" style="--accent:#00CC99" onclick="loadTemplate('flowstate')">
+      <div class="tc-label">HOOK E</div>
+      <div class="tc-name">Flow State / Somatic</div>
+      <div class="tc-desc">Compassion-first. Opens with body experience, maps to precision parameter.</div>
+      <div class="tc-timing">0–3s experience · 4–8s Π mapping · 9–12s calibration · 13–15s CTA</div>
+    </div>
+
+    <div class="panel-section-title" style="margin-top:8px">Caption Formulas</div>
+
+    <div class="template-card" style="--accent:#00B4FF" onclick="loadCaption('standard')">
+      <div class="tc-label">CAP 1</div>
+      <div class="tc-name">Standard Formula</div>
+      <div class="tc-desc">Hook question + APGI terminology + CTA. 100–150 char.</div>
+    </div>
+
+    <div class="template-card" style="--accent:#9966FF" onclick="loadCaption('research')">
+      <div class="tc-label">CAP 2</div>
+      <div class="tc-name">Research-backed</div>
+      <div class="tc-desc">Cites specific study + mechanism + CTA. Authority-heavy.</div>
+    </div>
+
+    <div class="template-card" style="--accent:#FF3366" onclick="loadCaption('compassion')">
+      <div class="tc-label">CAP 3</div>
+      <div class="tc-name">Compassion-led</div>
+      <div class="tc-desc">Validates experience + system explanation + adjustment offer.</div>
+    </div>
+
+  </aside>
+
+  <!-- ===================== CENTER PANEL ===================== -->
+  <main class="center-panel">
+
+    <!-- Builder mode -->
+    <div id="mode-builder" style="display:flex;flex-direction:column;align-items:center;gap:20px;width:100%">
+
+      <!-- Playhead -->
+      <div class="playhead-wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+          <span style="font-size:11px;font-weight:600;color:var(--apgi-muted)">PREVIEW TIMELINE</span>
+          <button class="play-btn" id="play-btn" onclick="togglePlay()">
+            <span id="play-icon">▶</span> <span id="play-label">Play</span>
+          </button>
+        </div>
+        <div class="playhead-track" onclick="seekTimeline(event)" id="timeline-track">
+          <div class="playhead-progress" id="playhead" style="width:0%">
+            <div class="playhead-handle"></div>
+          </div>
+        </div>
+        <div class="playhead-labels">
+          <span class="playhead-label">0s</span>
+          <span class="playhead-label" style="color:var(--apgi-blue)">HOOK</span>
+          <span class="playhead-label" style="color:var(--apgi-yellow)">AUTH</span>
+          <span class="playhead-label" style="color:var(--apgi-red)">PAYOFF</span>
+          <span class="playhead-label" style="color:var(--apgi-purple)">CTA</span>
+          <span class="playhead-label">15s</span>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="phone-wrap">
+        <div class="phone-shell" id="phone-shell">
+          <div class="phone-notch"></div>
+
+          <div class="phone-canvas" id="phone-canvas">
+
+            <!-- Video background -->
+            <div class="video-bg"></div>
+
+            <!-- Brain watermark -->
+            <div class="brain-bg">
+              <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 18 Q72 16 58 48 Q40 88 50 140 Q38 174 58 200 Q76 220 100 224 Q124 220 142 200 Q162 174 150 140 Q160 88 142 48 Q128 16 100 18Z" fill="white"/>
+                <path d="M58 88 Q76 74 92 88 Q106 100 122 82 Q136 67 154 88" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M52 128 Q72 112 92 124 Q110 134 130 118 Q148 104 164 122" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- Safe zone indicator -->
+            <div class="safe-zone-overlay" id="safe-zone">
+              <span class="safe-zone-label">SAFE ZONE (70%)</span>
+            </div>
+
+            <!-- ========== OVERLAY LAYERS ========== -->
+
+            <!-- LAYER 1: HOOK (0–3s) -->
+            <div class="overlay-layer layer-hook animate-fade" id="layer-hook">
+              <span class="hook-text" id="hook-line1">Your brain has</span>
+              <span class="hook-text highlight-blue" id="hook-line2">a threshold.</span>
+              <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);margin-top:3px;display:block" id="hook-sub">Here's the math.</span>
+            </div>
+
+            <!-- LAYER 2: AUTHORITY FLASH (4–8s) -->
+            <div class="overlay-layer layer-authority animate-fade" id="layer-authority">
+              <div class="authority-pill">
+                <div class="authority-dot"></div>
+                <span class="authority-pill-text" id="auth-source">Barrett 2017 · Predictive Processing</span>
+              </div>
+              <span class="concept-text">Consciousness activates only when</span>
+              <span class="concept-text">
+                <span class="concept-param param-yellow" id="auth-param1">precision-weighted error</span>
+              </span>
+              <span class="concept-text">
+                exceeds the <span class="concept-param param-blue" id="auth-param2">threshold gate</span>
+              </span>
+            </div>
+
+            <!-- LAYER 3: EQUATION (center) -->
+            <div class="overlay-layer layer-equation animate-pop" id="layer-equation">
+              <div class="eq-badge">
+                <span class="eq-label">APGI Core Equation</span>
+                <span class="eq-formula">Π × |ε| &gt; B<sub style="font-size:14px">t</sub></span>
+                <div class="eq-params">
+                  <span class="eq-param-dot"><span class="dot" style="background:var(--apgi-red)"></span><span style="color:var(--apgi-red)">Π</span></span>
+                  <span class="eq-param-dot" style="color:var(--apgi-muted)">×</span>
+                  <span class="eq-param-dot"><span class="dot" style="background:var(--apgi-yellow)"></span><span style="color:var(--apgi-yellow)">|ε|</span></span>
+                  <span class="eq-param-dot" style="color:var(--apgi-muted)">&gt;</span>
+                  <span class="eq-param-dot"><span class="dot" style="background:var(--apgi-blue)"></span><span style="color:var(--apgi-blue)">Bₜ</span></span>
+                </div>
+                <span class="eq-sub" id="eq-sub-text">Consciousness threshold crossing</span>
+              </div>
+            </div>
+
+            <!-- LAYER 4: COMPASSIONATE PAYOFF (9–12s) -->
+            <div class="overlay-layer layer-payoff animate-slide" id="layer-payoff">
+              <div class="payoff-card">
+                <div class="payoff-title" id="payoff-title">This is why</div>
+                <div class="payoff-body" id="payoff-body">Meditation feels impossible when anxious — your Bₜ is elevated.</div>
+                <span class="payoff-mechanism" id="payoff-mechanism">High arousal → elevated Bₜ → harder threshold crossing</span>
+              </div>
+            </div>
+
+            <!-- LAYER 5: CTA (13–15s) -->
+            <div class="overlay-layer layer-cta animate-slide" id="layer-cta">
+              <div class="cta-btn">
+                <span class="cta-text" id="cta-text">Full framework in bio</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+
+            <!-- Watermark -->
+            <div class="apgi-watermark">APGI</div>
+
+            <!-- TikTok chrome -->
+            <div class="tiktok-chrome">
+              <div class="tk-sidebar">
+                <div class="tk-action">
+                  <div class="tk-action-icon">♥</div>
+                  <span class="tk-action-count">42.1K</span>
+                </div>
+                <div class="tk-action">
+                  <div class="tk-action-icon">💬</div>
+                  <span class="tk-action-count">1.8K</span>
+                </div>
+                <div class="tk-action">
+                  <div class="tk-action-icon">↗</div>
+                  <span class="tk-action-count">8.2K</span>
+                </div>
+                <div class="tk-action" style="margin-top:4px">
+                  <div class="tk-action-icon" style="border-radius:6px;background:var(--apgi-blue);width:24px;height:24px;font-size:10px;font-weight:800;color:#000;display:flex;align-items:center;justify-content:center;">A</div>
+                  <span class="tk-action-count">Music</span>
+                </div>
+              </div>
+              <div class="tk-bottom">
+                <div class="tk-username">@apgi_framework</div>
+                <div class="tk-caption" id="tk-caption">Why does meditation feel impossible when you're anxious? It's your threshold parameter. #APGI #ConsciousnessScience</div>
+                <div class="tk-music">♪ original sound — APGI</div>
+              </div>
+            </div>
+
+          </div><!-- end phone-canvas -->
+        </div><!-- end phone-shell -->
+      </div><!-- end phone-wrap -->
+
+      <!-- Layer visibility quick toggles under phone -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:320px">
+        <button class="ctrl-btn active" onclick="toggleLayerQuick('hook',this)" data-layer="hook">
+          <span class="icon" style="color:var(--apgi-blue)">●</span> Hook
+        </button>
+        <button class="ctrl-btn active" onclick="toggleLayerQuick('authority',this)" data-layer="authority">
+          <span class="icon" style="color:var(--apgi-yellow)">●</span> Auth
+        </button>
+        <button class="ctrl-btn active" onclick="toggleLayerQuick('equation',this)" data-layer="equation">
+          <span class="icon" style="color:var(--apgi-yellow)">●</span> Eq
+        </button>
+        <button class="ctrl-btn active" onclick="toggleLayerQuick('payoff',this)" data-layer="payoff">
+          <span class="icon" style="color:var(--apgi-red)">●</span> Payoff
+        </button>
+        <button class="ctrl-btn active" onclick="toggleLayerQuick('cta',this)" data-layer="cta">
+          <span class="icon" style="color:var(--apgi-purple)">●</span> CTA
+        </button>
+        <button class="ctrl-btn" onclick="toggleLayerQuick('safezone',this)" data-layer="safezone">
+          <span class="icon" style="color:rgba(255,255,255,0.3)">□</span> Safe zone
+        </button>
+      </div>
+    </div><!-- end mode-builder -->
+
+    <!-- Spec mode -->
+    <div id="mode-spec" class="hidden" style="max-width:560px;width:100%">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:11px;font-weight:600;color:var(--apgi-muted);letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--apgi-border);padding-bottom:8px">
+          TikTok Text Overlay Specification — APGI Brand Guide
+        </div>
+
+        <div style="background:var(--apgi-panel);border:1px solid var(--apgi-border);border-radius:12px;overflow:hidden">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead>
+              <tr style="border-bottom:1px solid var(--apgi-border)">
+                <th style="padding:10px 14px;text-align:left;font-size:9px;font-weight:600;color:var(--apgi-muted);letter-spacing:1.5px;text-transform:uppercase;width:22%">Layer</th>
+                <th style="padding:10px 14px;text-align:left;font-size:9px;font-weight:600;color:var(--apgi-muted);letter-spacing:1.5px;text-transform:uppercase;width:15%">Timing</th>
+                <th style="padding:10px 14px;text-align:left;font-size:9px;font-weight:600;color:var(--apgi-muted);letter-spacing:1.5px;text-transform:uppercase;width:18%">Color</th>
+                <th style="padding:10px 14px;text-align:left;font-size:9px;font-weight:600;color:var(--apgi-muted);letter-spacing:1.5px;text-transform:uppercase">Spec</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--apgi-border)">
+                <td style="padding:12px 14px">
+                  <div style="font-weight:700;color:#fff;margin-bottom:2px">Hook Text</div>
+                  <div style="font-size:10px;color:var(--apgi-muted)">Pattern interrupt</div>
+                </td>
+                <td style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue)">0–3s</td>
+                <td style="padding:12px 14px">
+                  <span style="background:rgba(255,255,255,0.1);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:#fff">#FFFFFF</span>
+                </td>
+                <td style="padding:12px 14px;font-size:11px;color:var(--apgi-sub);line-height:1.5">DM Sans 800 · 48–60pt · White · No background · 1–2 word wrap max · text-shadow for contrast</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--apgi-border)">
+                <td style="padding:12px 14px">
+                  <div style="font-weight:700;color:var(--apgi-blue);margin-bottom:2px">Threshold Label</div>
+                  <div style="font-size:10px;color:var(--apgi-muted)">Gate / Bₜ content</div>
+                </td>
+                <td style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue)">4–12s</td>
+                <td style="padding:12px 14px">
+                  <span style="background:rgba(0,180,255,0.15);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--apgi-blue)">#00B4FF</span>
+                </td>
+                <td style="padding:12px 14px;font-size:11px;color:var(--apgi-sub);line-height:1.5">Electric Blue · Use for threshold gate, Bₜ, access, consciousness "turning on". DM Sans 700 32–40pt</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--apgi-border)">
+                <td style="padding:12px 14px">
+                  <div style="font-weight:700;color:var(--apgi-red);margin-bottom:2px">Interoception Label</div>
+                  <div style="font-size:10px;color:var(--apgi-muted)">Π / body signals</div>
+                </td>
+                <td style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue)">4–12s</td>
+                <td style="padding:12px 14px">
+                  <span style="background:rgba(255,51,102,0.15);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--apgi-red)">#FF3366</span>
+                </td>
+                <td style="padding:12px 14px;font-size:11px;color:var(--apgi-sub);line-height:1.5">Vibrant Red · Use for precision Π, interoception, body-to-brain, urgency, somatic bias. Used for payoff border accent.</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--apgi-border)">
+                <td style="padding:12px 14px">
+                  <div style="font-weight:700;color:var(--apgi-yellow);margin-bottom:2px">Equation / Error</div>
+                  <div style="font-size:10px;color:var(--apgi-muted)">|ε| and all math</div>
+                </td>
+                <td style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue)">5–8s</td>
+                <td style="padding:12px 14px">
+                  <span style="background:rgba(255,204,0,0.15);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--apgi-yellow)">#FFCC00</span>
+                </td>
+                <td style="padding:12px 14px;font-size:11px;color:var(--apgi-sub);line-height:1.5">Amber Yellow · ALL equations including Π × |ε| > Bₜ · prediction error |ε| · surprise and mismatch. DM Mono 700 36pt.</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--apgi-border)">
+                <td style="padding:12px 14px">
+                  <div style="font-weight:700;color:var(--apgi-purple);margin-bottom:2px">CTA Text</div>
+                  <div style="font-size:10px;color:var(--apgi-muted)">Link in bio, quiz</div>
+                </td>
+                <td style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue)">13–15s</td>
+                <td style="padding:12px 14px">
+                  <span style="background:rgba(153,102,255,0.15);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--apgi-purple)">#9966FF</span>
+                </td>
+                <td style="padding:12px 14px;font-size:11px;color:var(--apgi-sub);line-height:1.5">Purple · Global workspace, CTA button, "Link in bio", quiz prompt, integration. Filled button: bg #9966FF, text white.</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px">
+                  <div style="font-weight:700;color:var(--apgi-green);margin-bottom:2px">Neuromodulator</div>
+                  <div style="font-size:10px;color:var(--apgi-muted)">τ / chemical tone</div>
+                </td>
+                <td style="padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue)">contextual</td>
+                <td style="padding:12px 14px">
+                  <span style="background:rgba(0,204,153,0.15);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--apgi-green)">#00CC99</span>
+                </td>
+                <td style="padding:12px 14px;font-size:11px;color:var(--apgi-sub);line-height:1.5">Emerald Green · Brainstem, neuromodulator τ, arousal/chemical balance videos only.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background:var(--apgi-panel);border:1px solid var(--apgi-border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:10px;font-weight:600;color:var(--apgi-muted);letter-spacing:1.5px;text-transform:uppercase">FORBIDDEN — Never use on TikTok</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ "journey"</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ "awakening"</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ "enlightenment"</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ "soul" / "spirit"</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ "energy" / "vibration"</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ "manifestation"</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ Decorative colors</span>
+            <span style="background:rgba(255,255,255,0.04);border:1px solid var(--apgi-border);border-radius:6px;padding:4px 10px;font-size:11px;color:rgba(255,80,80,0.7)">❌ Off-brand colors</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- end mode-spec -->
+
+    <!-- Timing Guide mode -->
+    <div id="mode-timing" class="hidden" style="max-width:480px;width:100%">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:11px;font-weight:600;color:var(--apgi-muted);letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--apgi-border);padding-bottom:8px">
+          Hook → Authority → Payoff → CTA Formula
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <div style="background:var(--apgi-panel);border:1px solid rgba(0,180,255,0.3);border-left:3px solid var(--apgi-blue);border-radius:0 12px 12px 0;padding:16px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-blue);margin-bottom:6px">0–3 SECONDS · HOOK</div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">Pattern Interrupt</div>
+            <div style="font-size:12px;color:var(--apgi-sub);line-height:1.6">White bold text. Short. Declarative. Fragmented for emphasis. The first 1 second must earn the next 14. No color until the claim lands.</div>
+            <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25)">Examples: "Your brain has a bug." · "Consciousness isn't what you think." · "Flow state? Just math."</div>
+          </div>
+
+          <div style="background:var(--apgi-panel);border:1px solid rgba(255,204,0,0.3);border-left:3px solid var(--apgi-yellow);border-radius:0 12px 12px 0;padding:16px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-yellow);margin-bottom:6px">4–8 SECONDS · AUTHORITY FLASH</div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">Evidence + Mechanism</div>
+            <div style="font-size:12px;color:var(--apgi-sub);line-height:1.6">Introduce APGI parameters with semantic color. Blue for threshold, Red for precision, Yellow for equation. Citation pill at top-left. Equation badge optional.</div>
+            <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25)">Citation pill format: "Barrett 2017 · Predictive Processing"</div>
+          </div>
+
+          <div style="background:var(--apgi-panel);border:1px solid rgba(255,51,102,0.3);border-left:3px solid var(--apgi-red);border-radius:0 12px 12px 0;padding:16px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-red);margin-bottom:6px">9–12 SECONDS · COMPASSIONATE PAYOFF</div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">Pain → Mechanism</div>
+            <div style="font-size:12px;color:var(--apgi-sub);line-height:1.6">Red left-border card. Acknowledge experience → name the APGI parameter → explain why. Validate without diagnosis. State language: "your system is in X configuration".</div>
+            <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25)">Template: "This is why [struggle] — your [parameter] is [state]. [Mechanism]."</div>
+          </div>
+
+          <div style="background:var(--apgi-panel);border:1px solid rgba(153,102,255,0.3);border-left:3px solid var(--apgi-purple);border-radius:0 12px 12px 0;padding:16px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--apgi-purple);margin-bottom:6px">13–15 SECONDS · CTA</div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">Purple Button</div>
+            <div style="font-size:12px;color:var(--apgi-sub);line-height:1.6">Filled purple pill button. Always specific and action-oriented. "Full framework in bio" OR "Take the quiz (link in bio)". Never generic "follow me".</div>
+            <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25)">Approved: "Full framework in bio" · "Take the APGI quiz →" · "Understanding your signature →"</div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- end mode-timing -->
+
+  </main>
+
+  <!-- ===================== RIGHT PANEL ===================== -->
+  <aside class="right-panel">
+
+    <!-- Layer toggles -->
+    <div class="rp-section">
+      <div class="rp-title">Layer Visibility</div>
+      <div class="layer-toggles">
+        <div class="layer-toggle on" style="--accent-color:var(--apgi-blue)" onclick="toggleLayer('hook',this)">
+          <div class="lt-info">
+            <div class="lt-name" style="--accent-color:var(--apgi-blue)">Hook Text</div>
+            <div class="lt-timing">0–3s · White 800 · Pattern interrupt</div>
+          </div>
+          <div class="toggle-pill on" id="toggle-hook" style="--accent-color:var(--apgi-blue)"></div>
+        </div>
+        <div class="layer-toggle on" style="--accent-color:var(--apgi-yellow)" onclick="toggleLayer('authority',this)">
+          <div class="lt-info">
+            <div class="lt-name" style="color:var(--apgi-yellow)">Authority Flash</div>
+            <div class="lt-timing">4–8s · Blue/Yellow/Red params</div>
+          </div>
+          <div class="toggle-pill on" id="toggle-authority" style="--accent-color:var(--apgi-yellow)"></div>
+        </div>
+        <div class="layer-toggle on" style="--accent-color:var(--apgi-yellow)" onclick="toggleLayer('equation',this)">
+          <div class="lt-info">
+            <div class="lt-name" style="color:var(--apgi-yellow)">Equation Badge</div>
+            <div class="lt-timing">5–8s · Yellow DM Mono · Center</div>
+          </div>
+          <div class="toggle-pill on" id="toggle-equation" style="--accent-color:var(--apgi-yellow)"></div>
+        </div>
+        <div class="layer-toggle on" style="--accent-color:var(--apgi-red)" onclick="toggleLayer('payoff',this)">
+          <div class="lt-info">
+            <div class="lt-name" style="color:var(--apgi-red)">Compassionate Payoff</div>
+            <div class="lt-timing">9–12s · Red border card</div>
+          </div>
+          <div class="toggle-pill on" id="toggle-payoff" style="--accent-color:var(--apgi-red)"></div>
+        </div>
+        <div class="layer-toggle on" style="--accent-color:var(--apgi-purple)" onclick="toggleLayer('cta',this)">
+          <div class="lt-info">
+            <div class="lt-name" style="color:var(--apgi-purple)">CTA Button</div>
+            <div class="lt-timing">13–15s · Purple pill · Link in bio</div>
+          </div>
+          <div class="toggle-pill on" id="toggle-cta" style="--accent-color:var(--apgi-purple)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Hook -->
+    <div class="rp-section">
+      <div class="rp-title">Edit Hook (0–3s)</div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:#fff"></span>Line 1 (white)</label>
+        <input class="field-input" id="inp-hook1" value="Your brain has" oninput="update('hook-line1',this.value)">
+      </div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:var(--apgi-blue)"></span>Line 2 (color)</label>
+        <input class="field-input" id="inp-hook2" value="a threshold." oninput="update('hook-line2',this.value)">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Line 2 color</label>
+        <div class="color-chips">
+          <span class="color-chip selected" style="background:rgba(0,180,255,0.15);color:var(--apgi-blue);border-color:rgba(0,180,255,0.4)" onclick="setHookColor('highlight-blue',this)">Blue (Bₜ)</span>
+          <span class="color-chip" style="background:rgba(255,51,102,0.12);color:var(--apgi-red);border-color:rgba(255,51,102,0.3)" onclick="setHookColor('highlight-red',this)">Red (Π)</span>
+          <span class="color-chip" style="background:rgba(255,204,0,0.12);color:var(--apgi-yellow);border-color:rgba(255,204,0,0.3)" onclick="setHookColor('highlight-yellow',this)">Yellow (|ε|)</span>
+          <span class="color-chip" style="background:rgba(153,102,255,0.12);color:var(--apgi-purple);border-color:rgba(153,102,255,0.3)" onclick="setHookColor('highlight-purple',this)">Purple (GW)</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:rgba(255,255,255,0.3)"></span>Sub-text (gray)</label>
+        <input class="field-input" id="inp-sub" value="Here's the math." oninput="update('hook-sub',this.value)">
+      </div>
+    </div>
+
+    <!-- Edit Authority -->
+    <div class="rp-section">
+      <div class="rp-title">Edit Authority Flash (4–8s)</div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:var(--apgi-blue)"></span>Citation pill</label>
+        <input class="field-input" id="inp-citation" value="Barrett 2017 · Predictive Processing" oninput="update('auth-source',this.value)">
+      </div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:var(--apgi-yellow)"></span>Parameter 1 (yellow)</label>
+        <input class="field-input" value="precision-weighted error" oninput="update('auth-param1',this.value)">
+      </div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:var(--apgi-blue)"></span>Parameter 2 (blue)</label>
+        <input class="field-input" value="threshold gate" oninput="update('auth-param2',this.value)">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Equation sub-label</label>
+        <input class="field-input" value="Consciousness threshold crossing" oninput="update('eq-sub-text',this.value)">
+      </div>
+    </div>
+
+    <!-- Edit Payoff -->
+    <div class="rp-section">
+      <div class="rp-title">Edit Payoff (9–12s)</div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:var(--apgi-red)"></span>Title</label>
+        <input class="field-input" value="This is why" oninput="update('payoff-title',this.value)">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Body (compassionate)</label>
+        <textarea class="field-input" rows="2" oninput="update('payoff-body',this.value)">Meditation feels impossible when anxious — your Bₜ is elevated.</textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:rgba(255,255,255,0.2)"></span>Mechanism (mono)</label>
+        <input class="field-input" value="High arousal → elevated Bₜ → harder threshold crossing" oninput="update('payoff-mechanism',this.value)">
+      </div>
+    </div>
+
+    <!-- Edit CTA -->
+    <div class="rp-section">
+      <div class="rp-title">Edit CTA (13–15s)</div>
+      <div class="field-group">
+        <label class="field-label"><span class="field-color-dot" style="background:var(--apgi-purple)"></span>CTA text</label>
+        <input class="field-input" id="inp-cta" value="Full framework in bio" oninput="update('cta-text',this.value)">
+      </div>
+      <div class="field-group" style="margin-top:4px">
+        <div class="color-chips">
+          <span class="color-chip" style="background:rgba(153,102,255,0.12);color:var(--apgi-purple);font-size:9px" onclick="setCTA('Full framework in bio')">Full framework in bio</span>
+          <span class="color-chip" style="background:rgba(153,102,255,0.12);color:var(--apgi-purple);font-size:9px" onclick="setCTA('Take the APGI quiz →')">Take the APGI quiz</span>
+          <span class="color-chip" style="background:rgba(153,102,255,0.12);color:var(--apgi-purple);font-size:9px" onclick="setCTA('Get your signature →')">Get your signature</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caption editor -->
+    <div class="rp-section">
+      <div class="rp-title">TikTok Caption</div>
+      <div class="field-group">
+        <textarea class="field-input" rows="3" id="caption-editor" oninput="update('tk-caption',this.value)">Why does meditation feel impossible when you're anxious? It's your threshold parameter. #APGI #ConsciousnessScience</textarea>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--apgi-muted)" id="char-count">100/150 chars</span>
+        <span style="font-size:9px;color:var(--apgi-muted)">Optimal: 100–150</span>
+      </div>
+      <div class="rp-title" style="margin-top:6px">Hashtags</div>
+      <div class="hashtag-row">
+        <span class="hashtag-chip on" onclick="toggleHashtag(this,'#APGI')">#APGI</span>
+        <span class="hashtag-chip on" onclick="toggleHashtag(this,'#ConsciousnessScience')">#ConsciousnessScience</span>
+        <span class="hashtag-chip" onclick="toggleHashtag(this,'#PredictiveProcessing')">#PredictiveProcessing</span>
+        <span class="hashtag-chip" onclick="toggleHashtag(this,'#Neuroscience')">#Neuroscience</span>
+        <span class="hashtag-chip" onclick="toggleHashtag(this,'#BrainScience')">#BrainScience</span>
+        <span class="hashtag-chip" onclick="toggleHashtag(this,'#CognitiveScience')">#CognitiveScience</span>
+        <span class="hashtag-chip" onclick="toggleHashtag(this,'#Meditation')">#Meditation</span>
+        <span class="hashtag-chip" onclick="toggleHashtag(this,'#FlowState')">#FlowState</span>
+      </div>
+    </div>
+
+    <!-- Export -->
+    <div class="rp-section">
+      <div class="rp-title">Export</div>
+      <button class="export-btn" onclick="exportSVG()">
+        <span>↓</span> Export as SVG
+      </button>
+      <button class="export-btn-sec" onclick="copySpecs()" style="margin-top:6px">
+        Copy Overlay Specs
+      </button>
+    </div>
+
+  </aside>
+
+</div><!-- end app -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   STATE
+============================================================ */
+const templates = {
+  mechanism: {
+    hook1: 'Your brain has', hook2: 'a threshold.', hookSub: 'Here\'s the math.',
+    hookColor: 'highlight-blue',
+    citation: 'Barrett 2017 · Predictive Processing',
+    param1: 'precision-weighted error', param2: 'threshold gate',
+    eqSub: 'Consciousness threshold crossing',
+    payoffTitle: 'This is why', payoffBody: 'Meditation feels impossible when anxious — your Bₜ is elevated.', payoffMech: 'High arousal → elevated Bₜ → harder threshold crossing',
+    cta: 'Full framework in bio',
+    caption: 'Why does meditation feel impossible when you\'re anxious? It\'s your threshold parameter. #APGI #ConsciousnessScience'
+  },
+  pain: {
+    hook1: 'Can\'t focus.', hook2: 'Not your fault.', hookSub: 'It\'s mathematical.',
+    hookColor: 'highlight-red',
+    citation: 'Friston 2010 · Active Inference',
+    param1: 'somatic noise (β)', param2: 'precision collapse',
+    eqSub: 'Scattered attention = low Π',
+    payoffTitle: 'Your system', payoffBody: 'Scattered mind = low precision weighting. Not a flaw — a configuration.', payoffMech: 'Low Π → prediction errors ignored → diffuse awareness',
+    cta: 'Take the APGI quiz →',
+    caption: 'Your scattered mind isn\'t a character flaw — it\'s a system configuration. Here\'s the parameter. #APGI #Neuroscience'
+  },
+  equation: {
+    hook1: 'Π × |ε| > Bₜ', hook2: 'is consciousness.', hookSub: 'Every. Single. Time.',
+    hookColor: 'highlight-yellow',
+    citation: 'APGI Framework v2.1 · 47 studies',
+    param1: 'Π precision weight', param2: 'Bₜ threshold gate',
+    eqSub: 'When met: consciousness activates',
+    payoffTitle: 'What this means', payoffBody: 'Every moment you\'re aware, this equation just fired in your brain.', payoffMech: 'Π (confidence) × |ε| (surprise) > Bₜ (gate)',
+    cta: 'Get your signature →',
+    caption: 'Consciousness isn\'t continuous — it\'s intermittent. Fired by this equation every time. #APGI #PredictiveProcessing'
+  },
+  counterintuitive: {
+    hook1: 'You\'re not conscious', hook2: 'right now.', hookSub: 'You\'re broadcasting.',
+    hookColor: 'highlight-purple',
+    citation: 'Dehaene 2014 · Global Workspace Theory',
+    param1: 'global workspace (GW)', param2: 'ignition threshold',
+    eqSub: 'Broadcast only when Π × |ε| > Bₜ',
+    payoffTitle: 'Consciousness is', payoffBody: 'An intermittent broadcast — not a constant stream. Your brain filters what gets aired.', payoffMech: 'Below threshold → no broadcast → no awareness',
+    cta: 'Full framework in bio',
+    caption: 'Consciousness isn\'t continuous. It\'s an intermittent broadcast system — and the APGI equation predicts when it fires. #APGI #BrainScience'
+  },
+  flowstate: {
+    hook1: 'Flow state is', hook2: 'just low Bₜ.', hookSub: 'Predictable. Reproducible.',
+    hookColor: 'highlight-green',
+    citation: 'Csikszentmihalyi 1990 + APGI mapping',
+    param1: 'low threshold (Bₜ↓)', param2: 'high precision (Π↑)',
+    eqSub: 'Easy crossing = flow configuration',
+    payoffTitle: 'Flow isn\'t magic', payoffBody: 'When Bₜ is low and Π is high, every signal crosses easily. That\'s the flow formula.', payoffMech: 'Bₜ↓ + Π↑ → every |ε| crosses → full broadcast',
+    cta: 'Get your signature →',
+    caption: 'Flow state has a mathematical formula: low threshold + high precision = consciousness fires easily. Not mysticism. #APGI #FlowState'
+  }
+};
+
+const hookColors = {
+  'highlight-blue':   'var(--apgi-blue)',
+  'highlight-red':    'var(--apgi-red)',
+  'highlight-yellow': 'var(--apgi-yellow)',
+  'highlight-purple': 'var(--apgi-purple)',
+  'highlight-green':  'var(--apgi-green)'
+};
+
+let currentHookColor = 'highlight-blue';
+let playing = false;
+let playTimer = null;
+let playTime = 0;
+
+/* ============================================================
+   CORE UPDATE
+============================================================ */
+function update(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+  if (id === 'tk-caption') updateCharCount();
+}
+
+function updateCharCount() {
+  const cap = document.getElementById('caption-editor');
+  const cnt = document.getElementById('char-count');
+  if (cap && cnt) {
+    const n = cap.value.length;
+    cnt.textContent = `${n}/150 chars`;
+    cnt.style.color = n > 150 ? 'var(--apgi-red)' : n > 120 ? 'var(--apgi-yellow)' : 'var(--apgi-muted)';
+  }
+}
+
+function setHookColor(cls, chipEl) {
+  const line2 = document.getElementById('hook-line2');
+  // Remove all highlight classes
+  line2.className = 'hook-text';
+  line2.classList.add(cls);
+  currentHookColor = cls;
+  // Update chip selection
+  document.querySelectorAll('.color-chip').forEach(c => {
+    if (c.closest('.rp-section') && c.onclick && c.onclick.toString().includes('setHookColor')) {
+      c.classList.remove('selected');
+    }
+  });
+  chipEl.classList.add('selected');
+}
+
+function setCTA(text) {
+  document.getElementById('inp-cta').value = text;
+  update('cta-text', text);
+}
+
+/* ============================================================
+   LAYER TOGGLE
+============================================================ */
+function toggleLayer(name, el) {
+  const layer = document.getElementById('layer-' + name);
+  const pill = document.getElementById('toggle-' + name);
+  if (!layer) return;
+  const isOn = layer.style.display !== 'none' && !layer.classList.contains('hidden');
+  layer.style.opacity = isOn ? '0' : '1';
+  layer.style.pointerEvents = isOn ? 'none' : '';
+  layer.style.transition = 'opacity .2s';
+  setTimeout(() => { layer.style.display = isOn ? 'none' : ''; layer.style.opacity = ''; }, isOn ? 200 : 0);
+  if (pill) pill.classList.toggle('on', !isOn);
+  if (el) el.classList.toggle('on', !isOn);
+}
+
+function toggleLayerQuick(name, btn) {
+  if (name === 'safezone') {
+    const sz = document.getElementById('safe-zone');
+    if (sz) sz.style.display = sz.style.display === 'none' ? '' : 'none';
+    btn.classList.toggle('active');
+    return;
+  }
+  const layer = document.getElementById('layer-' + name);
+  const pill = document.getElementById('toggle-' + name);
+  if (!layer) return;
+  const isOn = btn.classList.contains('active');
+  layer.style.display = isOn ? 'none' : '';
+  if (pill) pill.classList.toggle('on', !isOn);
+  btn.classList.toggle('active', !isOn);
+}
+
+/* ============================================================
+   TEMPLATE LOADING
+============================================================ */
+function loadTemplate(key) {
+  const t = templates[key];
+  if (!t) return;
+
+  // Update inputs
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+  set('inp-hook1', t.hook1); set('inp-hook2', t.hook2); set('inp-sub', t.hookSub);
+  set('inp-citation', t.citation); set('inp-cta', t.cta);
+  const cap = document.getElementById('caption-editor');
+  if (cap) cap.value = t.caption;
+
+  // Update preview
+  update('hook-line1', t.hook1);
+  update('hook-line2', t.hook2);
+  update('hook-sub', t.hookSub);
+  update('auth-source', t.citation);
+  update('auth-param1', t.param1);
+  update('auth-param2', t.param2);
+  update('eq-sub-text', t.eqSub);
+  update('payoff-title', t.payoffTitle);
+  update('payoff-body', t.payoffBody);
+  update('payoff-mechanism', t.payoffMech);
+  update('cta-text', t.cta);
+  update('tk-caption', t.caption);
+
+  // Hook color
+  const line2 = document.getElementById('hook-line2');
+  line2.className = 'hook-text ' + t.hookColor;
+  currentHookColor = t.hookColor;
+
+  updateCharCount();
+
+  // Mark active template card
+  document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  showToast('Template loaded: ' + key);
+}
+
+function loadCaption(key) {
+  const caps = {
+    standard: 'Why does [struggle] happen? It\'s your [parameter] in [state]. Understanding your APGI signature changes everything. Link in bio. #APGI #ConsciousnessScience',
+    research: 'Barrett 2017 + 46 other studies point to the same mechanism: consciousness is precision-weighted threshold crossing. Here\'s what that means for you. #APGI #Neuroscience',
+    compassion: 'If you\'ve ever felt [experience] — that\'s [APGI parameter] in [configuration]. This isn\'t a bug. Here\'s the adjustment: [actionable step]. #APGI #BrainScience'
+  };
+  const cap = document.getElementById('caption-editor');
+  if (cap) { cap.value = caps[key]; update('tk-caption', caps[key]); updateCharCount(); }
+}
+
+/* ============================================================
+   HASHTAGS
+============================================================ */
+function toggleHashtag(el, tag) {
+  el.classList.toggle('on');
+  const cap = document.getElementById('caption-editor');
+  if (!cap) return;
+  let text = cap.value;
+  if (el.classList.contains('on')) {
+    if (!text.includes(tag)) text += ' ' + tag;
+  } else {
+    text = text.replace(tag, '').replace(/\s+/g, ' ').trim();
+  }
+  cap.value = text;
+  update('tk-caption', text);
+  updateCharCount();
+}
+
+/* ============================================================
+   PLAYBACK SIMULATION
+============================================================ */
+function togglePlay() {
+  playing = !playing;
+  document.getElementById('play-icon').textContent = playing ? '⏸' : '▶';
+  document.getElementById('play-label').textContent = playing ? 'Pause' : 'Play';
+  if (playing) runPlay();
+  else clearInterval(playTimer);
+}
+
+function runPlay() {
+  const total = 15000; // 15s
+  const start = Date.now() - playTime;
+  playTimer = setInterval(() => {
+    const elapsed = Date.now() - start;
+    if (elapsed >= total) {
+      playTime = 0;
+      setPlayhead(1);
+      applyTimeState(1);
+      clearInterval(playTimer);
+      playing = false;
+      document.getElementById('play-icon').textContent = '▶';
+      document.getElementById('play-label').textContent = 'Play';
+      return;
+    }
+    playTime = elapsed;
+    const pct = elapsed / total;
+    setPlayhead(pct);
+    applyTimeState(pct);
+  }, 50);
+}
+
+function setPlayhead(pct) {
+  document.getElementById('playhead').style.width = (pct * 100) + '%';
+}
+
+function applyTimeState(pct) {
+  const t = pct * 15; // seconds 0-15
+  const show = (id, on) => {
+    const el = document.getElementById('layer-' + id);
+    if (el) el.style.display = on ? '' : 'none';
+  };
+  show('hook',      t < 4);
+  show('authority', t >= 3 && t < 9);
+  show('equation',  t >= 5 && t < 9);
+  show('payoff',    t >= 8 && t < 13);
+  show('cta',       t >= 12);
+}
+
+function seekTimeline(e) {
+  const track = document.getElementById('timeline-track');
+  const rect = track.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  playTime = pct * 15000;
+  setPlayhead(pct);
+  applyTimeState(pct);
+}
+
+/* ============================================================
+   MODE SWITCH
+============================================================ */
+function switchMode(mode) {
+  ['builder','spec','timing'].forEach(m => {
+    const el = document.getElementById('mode-' + m);
+    if (el) el.classList.toggle('hidden', m !== mode);
+  });
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', ['builder','spec','timing'][i] === mode);
+  });
+}
+
+/* ============================================================
+   EXPORT
+============================================================ */
+function exportSVG() {
+  const h1 = document.getElementById('hook-line1')?.textContent || '';
+  const h2 = document.getElementById('hook-line2')?.textContent || '';
+  const colorMap = {
+    'highlight-blue': '#00B4FF', 'highlight-red': '#FF3366',
+    'highlight-yellow': '#FFCC00', 'highlight-purple': '#9966FF', 'highlight-green': '#00CC99'
+  };
+  const h2color = colorMap[currentHookColor] || '#00B4FF';
+  const payTitle = document.getElementById('payoff-title')?.textContent || '';
+  const payBody = document.getElementById('payoff-body')?.textContent || '';
+  const payMech = document.getElementById('payoff-mechanism')?.textContent || '';
+  const ctaTxt = document.getElementById('cta-text')?.textContent || '';
+  const authSrc = document.getElementById('auth-source')?.textContent || '';
+  const p1 = document.getElementById('auth-param1')?.textContent || '';
+  const p2 = document.getElementById('auth-param2')?.textContent || '';
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <!-- APGI TikTok Overlay Template — Allostatic Precision-Gated Ignition -->
+  <!-- Generated by APGI Template System -->
+  <defs>
+    <style>
+      text { font-family: 'DM Sans', 'Inter', Arial, sans-serif; }
+      .mono { font-family: 'DM Mono', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  <!-- TRANSPARENT BACKGROUND — place over video footage -->
+  <rect width="1080" height="1920" fill="transparent"/>
+
+  <!-- ======= LAYER 1: HOOK (0-3s) ======= -->
+  <g id="layer-hook">
+    <!-- White 800 — Pattern interrupt -->
+    <text x="80" y="210" font-size="96" font-weight="800" fill="#ffffff"
+          style="text-shadow:0 4px 24px rgba(0,0,0,0.9)">${h1}</text>
+    <!-- Color highlight — semantic parameter color -->
+    <text x="80" y="320" font-size="96" font-weight="800" fill="${h2color}">${h2}</text>
+    <!-- Sub-text — muted white -->
+    <text x="82" y="380" font-size="48" font-weight="500" fill="rgba(255,255,255,0.55)">Here's the math.</text>
+  </g>
+
+  <!-- ======= LAYER 2: AUTHORITY FLASH (4-8s) ======= -->
+  <g id="layer-authority">
+    <!-- Citation pill — Blue border -->
+    <rect x="80" y="480" width="560" height="52" rx="10"
+          fill="rgba(0,180,255,0.15)" stroke="#00B4FF" stroke-width="2"/>
+    <circle cx="108" cy="506" r="8" fill="#00B4FF"/>
+    <text x="126" y="512" class="mono" font-size="20" font-weight="500" fill="#00B4FF">${authSrc}</text>
+    <!-- Concept text -->
+    <text x="80" y="580" font-size="44" font-weight="700" fill="#ffffff">Consciousness activates when</text>
+    <!-- Param 1 — Yellow (|ε|) -->
+    <text x="80" y="640" font-size="48" font-weight="800" fill="#FFCC00">${p1}</text>
+    <!-- Param 2 — Blue (Bₜ) -->
+    <text x="80" y="700" font-size="44" font-weight="700" fill="#ffffff">exceeds the
+      <tspan fill="#00B4FF" font-weight="800">${p2}</tspan>
+    </text>
+  </g>
+
+  <!-- ======= LAYER 3: EQUATION BADGE (5-8s center) ======= -->
+  <g id="layer-equation">
+    <rect x="240" y="820" width="600" height="170" rx="20"
+          fill="rgba(0,0,0,0.6)" stroke="#00B4FF" stroke-width="3"/>
+    <text x="540" y="862" text-anchor="middle" class="mono" font-size="18"
+          font-weight="500" fill="rgba(255,255,255,0.45)"
+          letter-spacing="3">APGI CORE EQUATION</text>
+    <text x="540" y="940" text-anchor="middle" class="mono" font-size="72"
+          font-weight="700" fill="#FFCC00" letter-spacing="4">Π × |ε| &gt; Bₜ</text>
+    <!-- Parameter dots -->
+    <circle cx="380" cy="970" r="8" fill="#FF3366"/>
+    <text x="396" y="976" class="mono" font-size="18" fill="#FF3366">Π</text>
+    <text x="430" y="976" class="mono" font-size="18" fill="rgba(255,255,255,0.3)">×</text>
+    <circle cx="460" cy="970" r="8" fill="#FFCC00"/>
+    <text x="476" y="976" class="mono" font-size="18" fill="#FFCC00">|ε|</text>
+    <text x="510" y="976" class="mono" font-size="18" fill="rgba(255,255,255,0.3)">&gt;</text>
+    <circle cx="540" cy="970" r="8" fill="#00B4FF"/>
+    <text x="556" y="976" class="mono" font-size="18" fill="#00B4FF">Bₜ</text>
+  </g>
+
+  <!-- ======= LAYER 4: COMPASSIONATE PAYOFF (9-12s) ======= -->
+  <g id="layer-payoff">
+    <!-- Red left-border card -->
+    <rect x="80" y="1360" width="800" height="190" rx="0 12 12 0"
+          fill="rgba(0,0,0,0.65)"/>
+    <rect x="80" y="1360" width="8" height="190" rx="4" fill="#FF3366"/>
+    <!-- Title — Red uppercase -->
+    <text x="110" y="1400" font-size="28" font-weight="800" fill="#FF3366"
+          letter-spacing="1">${payTitle.toUpperCase()}</text>
+    <!-- Body — White, compassionate -->
+    <text x="110" y="1445" font-size="32" font-weight="500" fill="rgba(255,255,255,0.88)">${payBody}</text>
+    <!-- Mechanism — Monospace muted -->
+    <text x="110" y="1530" class="mono" font-size="22" fill="rgba(255,255,255,0.35)">${payMech}</text>
+  </g>
+
+  <!-- ======= LAYER 5: CTA BUTTON (13-15s) ======= -->
+  <g id="layer-cta">
+    <!-- Purple filled pill -->
+    <rect x="240" y="1650" width="600" height="110" rx="20" fill="#9966FF"/>
+    <text x="540" y="1715" text-anchor="middle" font-size="42" font-weight="800"
+          fill="#ffffff">${ctaTxt} →</text>
+    <text x="540" y="1748" text-anchor="middle" font-size="22"
+          fill="rgba(255,255,255,0.6)">Link in bio · Free assessment</text>
+  </g>
+
+  <!-- ======= BRAND WATERMARK (always visible, 20% opacity) ======= -->
+  <text x="1020" y="1860" text-anchor="end" font-size="28" font-weight="800"
+        fill="#00B4FF" opacity="0.2">APGI</text>
+  <text x="1020" y="1888" text-anchor="end" font-size="18"
+        fill="rgba(255,255,255,0.15)" opacity="0.2">apgi.com</text>
+
+</svg>`;
+
+  const blob = new Blob([svg], {type:'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'apgi_tiktok_overlay.svg';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('SVG exported — import into CapCut or Canva');
+}
+
+function copySpecs() {
+  const specs = `APGI TIKTOK OVERLAY SPECS — Allostatic Precision-Gated Ignition
+
+TIMING FORMULA: Hook(0-3s) → Authority Flash(4-8s) → Equation(5-8s) → Payoff(9-12s) → CTA(13-15s)
+
+COLOR HIERARCHY (semantic — never decorative):
+  Hook Text:           #FFFFFF — White 800 — Pattern interrupt
+  Threshold / Bₜ:     #00B4FF — Electric Blue — Gate, access, consciousness "on"
+  Precision / Π:       #FF3366 — Vibrant Red — Interoception, body signals, urgency
+  Error / |ε|:         #FFCC00 — Amber Yellow — All equations, mismatch, prediction error
+  Global Workspace:    #9966FF — Purple — CTA button, integration, broadcast
+  Neuromodulator / τ: #00CC99 — Emerald Green — Brainstem, arousal tone (contextual)
+  Background:          #2C3E50 — Dark Gray — Inactive regions
+
+LAYER SPECS:
+  HOOK (0-3s):       Inter/DM Sans 800 · 48-60pt · White · No BG · Text-shadow
+  AUTHORITY (4-8s):  Citation pill [Blue border + dot] · Params in semantic color
+  EQUATION (5-8s):   DM Mono 700 · 36pt · Yellow (#FFCC00) · Dark semi-transparent BG
+  PAYOFF (9-12s):    Red left-border card (3px #FF3366) · Body white · Mono mechanism
+  CTA (13-15s):      Filled purple pill #9966FF · White text · Always specific action
+
+FORBIDDEN VOCABULARY: journey · awakening · enlightenment · soul · spirit · energy · vibration · manifestation
+USE INSTEAD: threshold · dashboard · alarm system · precision-weighted error · broadcast system · parameter adjustment
+
+VIDEO SPECS (TikTok):
+  Resolution: 1080×1920px (9:16 vertical)
+  Frame Rate: 30fps min, 60fps preferred
+  Duration: 15-60s optimal
+  Text Safety: Keep all overlays in center 70%
+  Captions: Upload SRT for accuracy`;
+
+  navigator.clipboard.writeText(specs).then(() => showToast('Specs copied to clipboard'));
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+updateCharCount();
+// Ensure safe-zone off by default
+document.getElementById('safe-zone').style.display = 'none';
+</script>
+</body>
+</html>

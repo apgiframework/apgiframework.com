@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APGI macOS Design Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f9f9f9;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0066CC;
+        }
+        
+        h2 {
+            font-size: 30px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #0066CC;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        
+        h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: #0066CC;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 40px 0;
+        }
+        
+        strong {
+            color: #0066CC;
+        }
+        
+        .color-swatch {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid #ccc;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .component-spec {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #0066CC;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>APGI macOS Design Guide</h1>
+        
+        <h2>Overview</h2>
+        <p>This document specifies the exact design specifications for the APGI Appendix macOS application in light mode. All colors, typography, spacing, and component specifications are defined to ensure consistency across the application.</p>
+        
+        <hr>
+        
+        <h2>Color Palette (Light Mode)</h2>
+        
+        <h3>Neural Glow Semantics</h3>
+        <p>The light mode uses a semantic color system based on neural terminology, providing clear visual hierarchy and meaning.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Semantic Name</th>
+                    <th>Hex Code</th>
+                    <th>RGB</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>thresholdBlue</strong></td>
+                    <td><code>#0066CC</code></td>
+                    <td>rgb(0, 102, 204)</td>
+                    <td>Primary actions, links, info states</td>
+                </tr>
+                <tr>
+                    <td><strong>precisionRed</strong></td>
+                    <td><code>#CC0033</code></td>
+                    <td>rgb(204, 0, 51)</td>
+                    <td>Errors, danger states, critical alerts</td>
+                </tr>
+                <tr>
+                    <td><strong>errorYellow</strong></td>
+                    <td><code>#CC9900</code></td>
+                    <td>rgb(204, 153, 0)</td>
+                    <td>Warnings, caution states</td>
+                </tr>
+                <tr>
+                    <td><strong>workspacePurple</strong></td>
+                    <td><code>#6633CC</code></td>
+                    <td>rgb(102, 51, 204)</td>
+                    <td>Secondary actions, workspace elements</td>
+                </tr>
+                <tr>
+                    <td><strong>neuromodGreen</strong></td>
+                    <td><code>#008866</code></td>
+                    <td>rgb(0, 136, 102)</td>
+                    <td>Success states, confirmations</td>
+                </tr>
+                <tr>
+                    <td><strong>inactiveSlate</strong></td>
+                    <td><code>#6B7280</code></td>
+                    <td>rgb(107, 114, 128)</td>
+                    <td>Disabled states, inactive elements</td>
+                </tr>
+                <tr>
+                    <td><strong>spaceBlack</strong></td>
+                    <td><code>#FFFFFF</code></td>
+                    <td>rgb(255, 255, 255)</td>
+                    <td>Backgrounds, cards, surfaces</td>
+                </tr>
+                <tr>
+                    <td><strong>darkNavy</strong></td>
+                    <td><code>#F3F4F6</code></td>
+                    <td>rgb(243, 244, 246)</td>
+                    <td>Secondary backgrounds, dividers</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Legacy Brand Color Aliases</h3>
+        <p>For backward compatibility, the following aliases map to the semantic colors:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Legacy Name</th>
+                    <th>Maps To</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>apgiBlue</code></td>
+                    <td><code>thresholdBlue</code></td>
+                </tr>
+                <tr>
+                    <td><code>apgiPurple</code></td>
+                    <td><code>workspacePurple</code></td>
+                </tr>
+                <tr>
+                    <td><code>apgiGreen</code></td>
+                    <td><code>neuromodGreen</code></td>
+                </tr>
+                <tr>
+                    <td><code>apgiOrange</code></td>
+                    <td><code>errorYellow</code></td>
+                </tr>
+                <tr>
+                    <td><code>apgiRed</code></td>
+                    <td><code>precisionRed</code></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Semantic State Colors</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Color</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>apgiSuccess</code></td>
+                    <td><code>neuromodGreen</code></td>
+                    <td>Success messages, completed states</td>
+                </tr>
+                <tr>
+                    <td><code>apgiWarning</code></td>
+                    <td><code>errorYellow</code></td>
+                    <td>Warning messages, caution alerts</td>
+                </tr>
+                <tr>
+                    <td><code>apgiDanger</code></td>
+                    <td><code>precisionRed</code></td>
+                    <td>Error messages, destructive actions</td>
+                </tr>
+                <tr>
+                    <td><code>apgiInfo</code></td>
+                    <td><code>thresholdBlue</code></td>
+                    <td>Information messages, help text</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <hr>
+        
+        <h2>Typography</h2>
+        
+        <h3>Font Families</h3>
+        <p>The application uses three font families for different purposes:</p>
+        
+        <h4>Crimson Pro (Headlines & Titles)</h4>
+        <ul>
+            <li><strong>Usage:</strong> Display text, headings, titles</li>
+            <li><strong>Characteristics:</strong> Serif font, elegant and readable for long-form content</li>
+        </ul>
+        
+        <h4>Inter (Body, Labels, Captions)</h4>
+        <ul>
+            <li><strong>Usage:</strong> Body text, UI labels, captions</li>
+            <li><strong>Characteristics:</strong> Sans-serif, highly legible at small sizes</li>
+        </ul>
+        
+        <h4>Fira Code (Monospace)</h4>
+        <ul>
+            <li><strong>Usage:</strong> Code snippets, technical content</li>
+            <li><strong>Characteristics:</strong> Monospace, optimized for code readability</li>
+        </ul>
+        
+        <h3>Typography Scale</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Font Family</th>
+                    <th>Weight</th>
+                    <th>Size</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>display</strong></td>
+                    <td>Crimson Pro</td>
+                    <td>Bold</td>
+                    <td>72pt</td>
+                    <td>Hero titles, main headings</td>
+                </tr>
+                <tr>
+                    <td><strong>h1</strong></td>
+                    <td>Crimson Pro</td>
+                    <td>Bold</td>
+                    <td>48pt</td>
+                    <td>Page titles</td>
+                </tr>
+                <tr>
+                    <td><strong>h2</strong></td>
+                    <td>Crimson Pro</td>
+                    <td>SemiBold</td>
+                    <td>30pt</td>
+                    <td>Section headings</td>
+                </tr>
+                <tr>
+                    <td><strong>h3</strong></td>
+                    <td>Inter</td>
+                    <td>SemiBold</td>
+                    <td>20pt</td>
+                    <td>Subsection headings</td>
+                </tr>
+                <tr>
+                    <td><strong>body</strong></td>
+                    <td>Inter</td>
+                    <td>Regular</td>
+                    <td>16pt</td>
+                    <td>Body text, paragraphs</td>
+                </tr>
+                <tr>
+                    <td><strong>label</strong></td>
+                    <td>Inter</td>
+                    <td>Medium</td>
+                    <td>14pt</td>
+                    <td>UI labels, form fields</td>
+                </tr>
+                <tr>
+                    <td><strong>caption</strong></td>
+                    <td>Inter</td>
+                    <td>Regular</td>
+                    <td>14pt</td>
+                    <td>Captions, helper text</td>
+                </tr>
+                <tr>
+                    <td><strong>micro</strong></td>
+                    <td>Inter</td>
+                    <td>Regular</td>
+                    <td>12pt</td>
+                    <td>Small text, footnotes</td>
+                </tr>
+                <tr>
+                    <td><strong>mono</strong></td>
+                    <td>Fira Code</td>
+                    <td>Regular</td>
+                    <td>14pt</td>
+                    <td>Code, technical content</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>System Font Fallbacks</h3>
+        <p>When custom fonts are not available, the following system fonts are used:</p>
+        <ul>
+            <li><strong>Headlines:</strong> System serif font with bold weight</li>
+            <li><strong>Body:</strong> System default font with regular weight</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Spacing System</h2>
+        
+        <h3>Base Unit</h3>
+        <p>The spacing system is based on an 8px grid unit (<code>unit = 8</code>).</p>
+        
+        <h3>Spacing Scale</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value (px)</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>xs</strong></td>
+                    <td>4px</td>
+                    <td>Tight spacing between related elements</td>
+                </tr>
+                <tr>
+                    <td><strong>sm</strong></td>
+                    <td>8px</td>
+                    <td>Small gaps, icon padding</td>
+                </tr>
+                <tr>
+                    <td><strong>md</strong></td>
+                    <td>16px</td>
+                    <td>Standard spacing, paragraph spacing</td>
+                </tr>
+                <tr>
+                    <td><strong>lg</strong></td>
+                    <td>24px</td>
+                    <td>Component padding, section margins</td>
+                </tr>
+                <tr>
+                    <td><strong>xl</strong></td>
+                    <td>32px</td>
+                    <td>Large spacing between sections</td>
+                </tr>
+                <tr>
+                    <td><strong>xxl</strong></td>
+                    <td>48px</td>
+                    <td>Extra large spacing</td>
+                </tr>
+                <tr>
+                    <td><strong>xxxl</strong></td>
+                    <td>64px</td>
+                    <td>Major section breaks</td>
+                </tr>
+                <tr>
+                    <td><strong>giant</strong></td>
+                    <td>96px</td>
+                    <td>Page-level spacing</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Contextual Spacing</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Context</th>
+                    <th>Value</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>cardPadding</strong></td>
+                    <td>24px</td>
+                    <td>Padding inside cards</td>
+                </tr>
+                <tr>
+                    <td><strong>sectionSpacing</strong></td>
+                    <td>96px</td>
+                    <td>Spacing between major sections</td>
+                </tr>
+                <tr>
+                    <td><strong>componentSpacing</strong></td>
+                    <td>48px</td>
+                    <td>Spacing between components</td>
+                </tr>
+                <tr>
+                    <td><strong>elementSpacing</strong></td>
+                    <td>24px</td>
+                    <td>Spacing between related elements</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <hr>
+        
+        <h2>Border Radius</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>standard</strong></td>
+                    <td>12px</td>
+                    <td>Standard corner radius for cards, buttons, containers</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <hr>
+        
+        <h2>Accessibility Specifications</h2>
+        
+        <h3>Color Blind Modes</h3>
+        <p>The application supports the following color blind modes with automatic adjustments:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Mode</th>
+                    <th>Adjustment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>None</strong></td>
+                    <td>No adjustments</td>
+                </tr>
+                <tr>
+                    <td><strong>Protanopia</strong></td>
+                    <td>Opacity: 0.8, Saturation: 0.7</td>
+                </tr>
+                <tr>
+                    <td><strong>Deuteranopia</strong></td>
+                    <td>Opacity: 0.8, Saturation: 0.6</td>
+                </tr>
+                <tr>
+                    <td><strong>Tritanopia</strong></td>
+                    <td>Opacity: 0.8, Saturation: 0.5</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>High Contrast Mode</h3>
+        <p>When high contrast is enabled:</p>
+        <ul>
+            <li><strong>Background:</strong> Pure white (<code>#FFFFFF</code>)</li>
+            <li><strong>Foreground:</strong> Pure black (<code>#000000</code>)</li>
+            <li><strong>Color Scheme:</strong> Forced to light mode</li>
+        </ul>
+        
+        <h3>Accessibility Preferences</h3>
+        <p>Default accessibility settings:</p>
+        <ul>
+            <li><strong>Color Blind Mode:</strong> None</li>
+            <li><strong>High Contrast:</strong> Disabled</li>
+            <li><strong>Reduced Motion:</strong> Disabled</li>
+            <li><strong>Haptic Feedback:</strong> Enabled</li>
+        </ul>
+        
+        <h3>Dynamic Type</h3>
+        <p>The application honors the user's system dynamic type settings. No forced font sizes are applied to ensure accessibility for users with vision impairments.</p>
+        
+        <hr>
+        
+        <h2>Component Specifications</h2>
+        
+        <h3>Buttons</h3>
+        
+        <div class="component-spec">
+            <h4>Primary Button</h4>
+            <ul>
+                <li>Background: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+                <li>Text: White</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+                <li>Padding: <code>md</code> (16px) horizontal, <code>sm</code> (8px) vertical</li>
+                <li>Font: <code>label</code> (Inter Medium, 14pt)</li>
+            </ul>
+        </div>
+        
+        <div class="component-spec">
+            <h4>Secondary Button</h4>
+            <ul>
+                <li>Background: Transparent</li>
+                <li>Border: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+                <li>Text: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+                <li>Padding: <code>md</code> (16px) horizontal, <code>sm</code> (8px) vertical</li>
+                <li>Font: <code>label</code> (Inter Medium, 14pt)</li>
+            </ul>
+        </div>
+        
+        <div class="component-spec">
+            <h4>Destructive Button</h4>
+            <ul>
+                <li>Background: <code>precisionRed</code> (<code>#CC0033</code>)</li>
+                <li>Text: White</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+                <li>Padding: <code>md</code> (16px) horizontal, <code>sm</code> (8px) vertical</li>
+                <li>Font: <code>label</code> (Inter Medium, 14pt)</li>
+            </ul>
+        </div>
+        
+        <h3>Cards</h3>
+        
+        <div class="component-spec">
+            <h4>Content Card</h4>
+            <ul>
+                <li>Background: <code>spaceBlack</code> (<code>#FFFFFF</code>)</li>
+                <li>Border: 1px solid <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+                <li>Padding: <code>cardPadding</code> (24px)</li>
+                <li>Shadow: Subtle drop shadow</li>
+            </ul>
+        </div>
+        
+        <div class="component-spec">
+            <h4>Interactive Card</h4>
+            <ul>
+                <li>Background: <code>spaceBlack</code> (<code>#FFFFFF</code>)</li>
+                <li>Border: 1px solid <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+                <li>Padding: <code>cardPadding</code> (24px)</li>
+                <li>Hover State: Border color changes to <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+            </ul>
+        </div>
+        
+        <h3>Navigation</h3>
+        
+        <div class="component-spec">
+            <h4>Sidebar</h4>
+            <ul>
+                <li>Background: <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Selected Item Background: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+                <li>Selected Item Text: White</li>
+                <li>Unselected Item Text: <code>inactiveSlate</code> (<code>#6B7280</code>)</li>
+                <li>Item Padding: <code>md</code> (16px)</li>
+                <li>Font: <code>label</code> (Inter Medium, 14pt)</li>
+            </ul>
+        </div>
+        
+        <div class="component-spec">
+            <h4>Toolbar</h4>
+            <ul>
+                <li>Background: <code>spaceBlack</code> (<code>#FFFFFF</code>)</li>
+                <li>Border: 1px solid <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Height: 52px</li>
+                <li>Icon Color: <code>inactiveSlate</code> (<code>#6B7280</code>)</li>
+                <li>Active Icon Color: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+            </ul>
+        </div>
+        
+        <h3>Tables</h3>
+        
+        <div class="component-spec">
+            <h4>Enhanced Data Table</h4>
+            <ul>
+                <li>Background: <code>spaceBlack</code> (<code>#FFFFFF</code>)</li>
+                <li>Header Background: <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Header Text: <code>h3</code> (Inter SemiBold, 20pt)</li>
+                <li>Row Text: <code>body</code> (Inter Regular, 16pt)</li>
+                <li>Border Color: <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Row Padding: <code>md</code> (16px)</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+            </ul>
+        </div>
+        
+        <h3>Form Elements</h3>
+        
+        <div class="component-spec">
+            <h4>Text Field</h4>
+            <ul>
+                <li>Background: <code>spaceBlack</code> (<code>#FFFFFF</code>)</li>
+                <li>Border: 1px solid <code>darkNavy</code> (<code>#F3F4F6</code>)</li>
+                <li>Corner Radius: <code>standard</code> (12px)</li>
+                <li>Padding: <code>md</code> (16px)</li>
+                <li>Font: <code>body</code> (Inter Regular, 16pt)</li>
+                <li>Focus State: Border color changes to <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+            </ul>
+        </div>
+        
+        <div class="component-spec">
+            <h4>Toggle/Switch</h4>
+            <ul>
+                <li>Active Color: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+                <li>Inactive Color: <code>inactiveSlate</code> (<code>#6B7280</code>)</li>
+                <li>Corner Radius: Fully rounded</li>
+            </ul>
+        </div>
+        
+        <hr>
+        
+        <h2>Iconography</h2>
+        
+        <h3>SF Symbols</h3>
+        <p>The application uses Apple's SF Symbols for consistency with macOS design language.</p>
+        
+        <h4>Common Icons</h4>
+        <ul>
+            <li>Navigation: <code>chevron.left</code>, <code>chevron.right</code>, <code>house</code>, <code>book</code></li>
+            <li>Actions: <code>plus</code>, <code>minus</code>, <code>trash</code>, <code>pencil</code></li>
+            <li>Status: <code>checkmark.circle</code>, <code>exclamationmark.triangle</code>, <code>info.circle</code></li>
+            <li>Settings: <code>gear</code>, <code>slider.horizontal.3</code></li>
+        </ul>
+        
+        <h4>Icon Colors</h4>
+        <ul>
+            <li>Default: <code>inactiveSlate</code> (<code>#6B7280</code>)</li>
+            <li>Active: <code>thresholdBlue</code> (<code>#0066CC</code>)</li>
+            <li>Success: <code>neuromodGreen</code> (<code>#008866</code>)</li>
+            <li>Warning: <code>errorYellow</code> (<code>#CC9900</code>)</li>
+            <li>Error: <code>precisionRed</code> (<code>#CC0033</code>)</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Animation & Motion</h2>
+        
+        <h3>Transitions</h3>
+        <ul>
+            <li><strong>Default Duration:</strong> 0.3s</li>
+            <li><strong>Easing:</strong> Ease-in-out</li>
+            <li><strong>Reduced Motion:</strong> Disabled when reduced motion preference is enabled</li>
+        </ul>
+        
+        <h3>Hover States</h3>
+        <ul>
+            <li><strong>Duration:</strong> 0.2s</li>
+            <li><strong>Easing:</strong> Ease-out</li>
+            <li><strong>Effect:</strong> Subtle opacity change or color transition</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Dark Mode Considerations</h2>
+        <p>While this document specifies light mode, the application also supports dark mode. When implementing dark mode:</p>
+        <ul>
+            <li>Invert the semantic color meanings while maintaining contrast ratios</li>
+            <li>Use darker backgrounds (<code>#1C1C1E</code> or similar)</li>
+            <li>Adjust text colors to maintain WCAG AA compliance</li>
+            <li>Preserve the semantic color relationships (e.g., <code>thresholdBlue</code> remains the primary action color)</li>
+        </ul>
+        
+        <hr>
+        
+        <h2>Implementation Notes</h2>
+        
+        <h3>Color Extension</h3>
+        <p>All colors are accessible through the <code>Color</code> extension in <code>APGIColors.swift</code>:</p>
+        
+        <pre><code>Color.thresholdBlue
+Color.precisionRed
+Color.errorYellow
+Color.workspacePurple
+Color.neuromodGreen
+Color.inactiveSlate
+Color.spaceBlack
+Color.darkNavy</code></pre>
+        
+        <h3>Typography Extension</h3>
+        <p>All typography is accessible through the <code>APGITypography</code> enum:</p>
+        
+        <pre><code>APGITypography.display
+APGITypography.h1
+APGITypography.h2
+APGITypography.h3
+APGITypography.body
+APGITypography.label
+APGITypography.caption
+APGITypography.micro
+APGITypography.mono</code></pre>
+        
+        <h3>Spacing Extension</h3>
+        <p>All spacing is accessible through the <code>APGISpacing</code> enum:</p>
+        
+        <pre><code>APGISpacing.xs
+APGISpacing.sm
+APGISpacing.md
+APGISpacing.lg
+APGISpacing.xl
+APGISpacing.xxl
+APGISpacing.xxxl
+APGISpacing.giant
+APGISpacing.cardPadding
+APGISpacing.sectionSpacing
+APGISpacing.componentSpacing
+APGISpacing.elementSpacing</code></pre>
+        
+        <h3>Radius Extension</h3>
+        <p>Border radius is accessible through the <code>APGIRadius</code> enum:</p>
+        
+        <pre><code>APGIRadius.standard</code></pre>
+        
+        <hr>
+        
+        <h2>Compliance</h2>
+        
+        <h3>WCAG 2.1 AA</h3>
+        <p>This design guide ensures compliance with WCAG 2.1 AA standards:</p>
+        <ul>
+            <li><strong>Color Contrast:</strong> Minimum 4.5:1 for normal text, 3:1 for large text</li>
+            <li><strong>Text Resize:</strong> Supports 200% zoom without loss of content</li>
+            <li><strong>Keyboard Navigation:</strong> All interactive elements are keyboard accessible</li>
+            <li><strong>Focus Indicators:</strong> Clear focus states for all interactive elements</li>
+        </ul>
+        
+        <h3>Apple Human Interface Guidelines</h3>
+        <p>The design follows Apple's Human Interface Guidelines for macOS:</p>
+        <ul>
+            <li>Native macOS controls and patterns</li>
+            <li>Consistent with system color schemes</li>
+            <li>Proper use of SF Symbols</li>
+            <li>Appropriate spacing and typography</li>
+            <li>Accessibility-first design approach</li>
+        </ul>
+        
+    </div>
+</body>
+</html>

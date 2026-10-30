@@ -1,0 +1,504 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a1f2e;
+    font-family: 'Inter', sans-serif;
+    padding: 24px 16px 40px;
+  }
+
+  .label-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 12px;
+    justify-content: center;
+  }
+
+  .pillar-label {
+    flex: 1;
+    max-width: 340px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .posts-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .post-wrap {
+    flex: 1;
+    max-width: 340px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.06),
+      0 24px 80px rgba(0,0,0,0.6),
+      0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  .post-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
+
+<div class="label-row">
+  <div class="pillar-label">01 — Equation Forward</div>
+  <div class="pillar-label">02 — Parameter Education</div>
+  <div class="pillar-label">03 — Science Credibility</div>
+</div>
+
+<div class="posts-row">
+
+  <!-- ═══════════════════════════════════════════════
+       POST 1 — EQUATION FORWARD
+       "Consciousness isn't mystical. It's mathematical."
+       Dominant: the equation as hero art
+       ═══════════════════════════════════════════════ -->
+  <div class="post-wrap">
+    <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg1a" cx="30%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#0d1829"/>
+          <stop offset="100%" stop-color="#0A0F1A"/>
+        </radialGradient>
+        <radialGradient id="glow-r1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FF3366" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#FF3366" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="glow-a1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFCC00" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#FFCC00" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="glow-b1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00B4FF" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#00B4FF" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="f-blur1">
+          <feGaussianBlur stdDeviation="60"/>
+        </filter>
+      </defs>
+
+      <!-- Deep background -->
+      <rect width="1080" height="1080" fill="url(#bg1a)"/>
+
+      <!-- Fine grid -->
+      <g opacity="0.06">
+        <line x1="0" y1="108" x2="1080" y2="108" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="216" x2="1080" y2="216" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="324" x2="1080" y2="324" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="432" x2="1080" y2="432" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="540" x2="1080" y2="540" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="648" x2="1080" y2="648" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="756" x2="1080" y2="756" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="864" x2="1080" y2="864" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="972" x2="1080" y2="972" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="108" y1="0" x2="108" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="216" y1="0" x2="216" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="324" y1="0" x2="324" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="432" y1="0" x2="432" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="540" y1="0" x2="540" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="648" y1="0" x2="648" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="756" y1="0" x2="756" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="864" y1="0" x2="864" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="972" y1="0" x2="972" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+      </g>
+
+      <!-- Ambient glow pools -->
+      <ellipse cx="300" cy="400" rx="340" ry="280" fill="url(#glow-r1)" filter="url(#f-blur1)"/>
+      <ellipse cx="780" cy="480" rx="280" ry="240" fill="url(#glow-a1)" filter="url(#f-blur1)"/>
+      <ellipse cx="540" cy="680" rx="320" ry="220" fill="url(#glow-b1)" filter="url(#f-blur1)"/>
+
+      <!-- TOP — APGI label -->
+      <text x="80" y="96" font-family="Inter,sans-serif" font-size="22" font-weight="600"
+            letter-spacing="0.18em" fill="rgba(255,255,255,0.28)" text-anchor="start">APGI FRAMEWORK</text>
+
+      <!-- Thin top rule -->
+      <line x1="80" y1="110" x2="1000" y2="110" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- Pre-label -->
+      <text x="540" y="308" font-family="Inter,sans-serif" font-size="20" font-weight="400"
+            letter-spacing="0.2em" fill="rgba(255,255,255,0.3)" text-anchor="middle">THE IGNITION CONDITION</text>
+
+      <!-- ═══ HERO EQUATION ═══ -->
+      <!-- Π -->
+      <text x="165" y="560" font-family="'Crimson Pro',Georgia,serif" font-size="280" font-weight="700"
+            fill="#FF3366" text-anchor="middle" opacity="0.95">Π</text>
+
+      <!-- × -->
+      <text x="335" y="560" font-family="'Crimson Pro',Georgia,serif" font-size="200" font-weight="300"
+            fill="rgba(255,255,255,0.22)" text-anchor="middle">×</text>
+
+      <!-- |ε| -->
+      <text x="540" y="560" font-family="'Crimson Pro',Georgia,serif" font-size="280" font-weight="700"
+            fill="#FFCC00" text-anchor="middle" opacity="0.95">|ε|</text>
+
+      <!-- > -->
+      <text x="730" y="560" font-family="'Crimson Pro',Georgia,serif" font-size="200" font-weight="300"
+            fill="rgba(255,255,255,0.22)" text-anchor="middle">&gt;</text>
+
+      <!-- Bₜ -->
+      <text x="900" y="520" font-family="'Crimson Pro',Georgia,serif" font-size="280" font-weight="700"
+            fill="#00B4FF" text-anchor="middle" opacity="0.95">B</text>
+      <text x="968" y="574" font-family="'Crimson Pro',Georgia,serif" font-size="130" font-weight="600"
+            fill="#00B4FF" text-anchor="start" opacity="0.8">t</text>
+
+      <!-- Thin divider -->
+      <line x1="80" y1="640" x2="1000" y2="640" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+
+      <!-- Parameter legend row -->
+      <!-- Π indicator -->
+      <circle cx="112" cy="706" r="8" fill="#FF3366"/>
+      <text x="132" y="712" font-family="Inter,sans-serif" font-size="22" font-weight="500"
+            fill="rgba(255,255,255,0.5)">Interoceptive Precision</text>
+
+      <!-- |ε| indicator -->
+      <circle cx="112" cy="754" r="8" fill="#FFCC00"/>
+      <text x="132" y="760" font-family="Inter,sans-serif" font-size="22" font-weight="500"
+            fill="rgba(255,255,255,0.5)">Prediction Error</text>
+
+      <!-- Bₜ indicator -->
+      <circle cx="112" cy="802" r="8" fill="#00B4FF"/>
+      <text x="132" y="808" font-family="Inter,sans-serif" font-size="22" font-weight="500"
+            fill="rgba(255,255,255,0.5)">Threshold Gate B</text>
+      <text x="602" y="818" font-family="Inter,sans-serif" font-size="14"
+            fill="rgba(255,255,255,0.4)">t</text>
+
+      <!-- HEADLINE -->
+      <text x="540" y="902" font-family="'Crimson Pro',Georgia,serif" font-size="52" font-weight="700"
+            fill="rgba(255,255,255,0.92)" text-anchor="middle" font-style="italic">Consciousness isn't mystical.</text>
+      <text x="540" y="962" font-family="'Crimson Pro',Georgia,serif" font-size="52" font-weight="700"
+            fill="rgba(255,255,255,0.92)" text-anchor="middle" font-style="italic">It's mathematical.</text>
+
+      <!-- Bottom rule + handle -->
+      <line x1="80" y1="1004" x2="1000" y2="1004" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="80" y="1046" font-family="Inter,sans-serif" font-size="20" font-weight="400"
+            fill="rgba(255,255,255,0.22)">@apgi_framework</text>
+      <text x="1000" y="1046" font-family="Inter,sans-serif" font-size="20" font-weight="400"
+            fill="rgba(255,255,255,0.22)" text-anchor="end">#consciousness #neuroscience</text>
+    </svg>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       POST 2 — PARAMETER EDUCATION
+       Focus: explain Π (Interoceptive Precision)
+       Dashboard / gauge card aesthetic
+       ═══════════════════════════════════════════════ -->
+  <div class="post-wrap">
+    <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg2" cx="60%" cy="25%" r="70%">
+          <stop offset="0%" stop-color="#13101e"/>
+          <stop offset="100%" stop-color="#0A0F1A"/>
+        </radialGradient>
+        <radialGradient id="glow-p2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FF3366" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#FF3366" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="f-blur2">
+          <feGaussianBlur stdDeviation="70"/>
+        </filter>
+        <linearGradient id="bar-pi" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#FF3366" stop-opacity="0.3"/>
+          <stop offset="72%" stop-color="#FF3366" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="bar-eps" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#FFCC00" stop-opacity="0.3"/>
+          <stop offset="55%" stop-color="#FFCC00" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="bar-bt" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#00B4FF" stop-opacity="0.3"/>
+          <stop offset="40%" stop-color="#00B4FF" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background -->
+      <rect width="1080" height="1080" fill="url(#bg2)"/>
+
+      <!-- Glow -->
+      <ellipse cx="640" cy="220" rx="380" ry="300" fill="url(#glow-p2)" filter="url(#f-blur2)"/>
+
+      <!-- Fine grid -->
+      <g opacity="0.05">
+        <line x1="0" y1="108" x2="1080" y2="108" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="216" x2="1080" y2="216" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="324" x2="1080" y2="324" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="432" x2="1080" y2="432" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="540" x2="1080" y2="540" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="648" x2="1080" y2="648" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="756" x2="1080" y2="756" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="864" x2="1080" y2="864" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="972" x2="1080" y2="972" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="108" y1="0" x2="108" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="216" y1="0" x2="216" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="324" y1="0" x2="324" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="432" y1="0" x2="432" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="540" y1="0" x2="540" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="648" y1="0" x2="648" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="756" y1="0" x2="756" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="864" y1="0" x2="864" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="972" y1="0" x2="972" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+      </g>
+
+      <!-- TOP BAR -->
+      <text x="80" y="96" font-family="Inter,sans-serif" font-size="22" font-weight="600"
+            letter-spacing="0.18em" fill="rgba(255,255,255,0.28)">APGI FRAMEWORK</text>
+      <line x1="80" y1="110" x2="1000" y2="110" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- PARAMETER TAG -->
+      <rect x="80" y="148" width="180" height="40" rx="20"
+            fill="rgba(255,51,102,0.15)" stroke="#FF3366" stroke-width="1" stroke-opacity="0.5"/>
+      <circle cx="108" cy="168" r="6" fill="#FF3366"/>
+      <text x="124" y="174" font-family="Inter,sans-serif" font-size="20" font-weight="600"
+            fill="#FF3366">PARAMETER Π</text>
+
+      <!-- BIG SYMBOL -->
+      <text x="80" y="440" font-family="'Crimson Pro',Georgia,serif" font-size="360" font-weight="700"
+            fill="#FF3366" opacity="0.12">Π</text>
+
+      <!-- Parameter title -->
+      <text x="80" y="280" font-family="'Crimson Pro',Georgia,serif" font-size="74" font-weight="700"
+            fill="rgba(255,255,255,0.95)">Interoceptive</text>
+      <text x="80" y="356" font-family="'Crimson Pro',Georgia,serif" font-size="74" font-weight="700"
+            fill="rgba(255,255,255,0.95)">Precision</text>
+
+      <!-- Mechanism line -->
+      <text x="80" y="422" font-family="Inter,sans-serif" font-size="26" font-weight="400"
+            fill="rgba(255,255,255,0.42)">Insula · Anterior Cingulate Cortex · Vagal Afferents</text>
+
+      <!-- DASHBOARD CARD -->
+      <rect x="80" y="460" width="920" height="440" rx="16"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+      <!-- Card header rule -->
+      <line x1="80" y1="516" x2="1000" y2="516" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <text x="108" y="497" font-family="Inter,sans-serif" font-size="18" font-weight="600"
+            letter-spacing="0.1em" fill="rgba(255,255,255,0.3)">SYSTEM CONFIGURATION READINGS</text>
+
+      <!-- GAUGE: Π -->
+      <text x="108" y="572" font-family="Inter,sans-serif" font-size="22" font-weight="600"
+            fill="#FF3366">Π  Interoceptive Precision</text>
+      <text x="972" y="572" font-family="'Crimson Pro',Georgia,serif" font-size="26" font-weight="700"
+            fill="#FF3366" text-anchor="end">72</text>
+      <!-- Track -->
+      <rect x="108" y="584" width="864" height="10" rx="5" fill="rgba(255,255,255,0.08)"/>
+      <!-- Fill 72% -->
+      <rect x="108" y="584" width="622" height="10" rx="5" fill="url(#bar-pi)"/>
+      <!-- Tick at 72% -->
+      <line x1="730" y1="578" x2="730" y2="600" stroke="#FF3366" stroke-width="2"/>
+
+      <!-- GAUGE: |ε| -->
+      <text x="108" y="650" font-family="Inter,sans-serif" font-size="22" font-weight="600"
+            fill="#FFCC00">|ε|  Prediction Error</text>
+      <text x="972" y="650" font-family="'Crimson Pro',Georgia,serif" font-size="26" font-weight="700"
+            fill="#FFCC00" text-anchor="end">55</text>
+      <rect x="108" y="662" width="864" height="10" rx="5" fill="rgba(255,255,255,0.08)"/>
+      <rect x="108" y="662" width="475" height="10" rx="5" fill="url(#bar-eps)"/>
+      <line x1="583" y1="656" x2="583" y2="678" stroke="#FFCC00" stroke-width="2"/>
+
+      <!-- GAUGE: Bₜ -->
+      <text x="108" y="728" font-family="Inter,sans-serif" font-size="22" font-weight="600"
+            fill="#00B4FF">Bₜ  Threshold Gate</text>
+      <text x="972" y="728" font-family="'Crimson Pro',Georgia,serif" font-size="26" font-weight="700"
+            fill="#00B4FF" text-anchor="end">40</text>
+      <rect x="108" y="740" width="864" height="10" rx="5" fill="rgba(255,255,255,0.08)"/>
+      <rect x="108" y="740" width="346" height="10" rx="5" fill="url(#bar-bt)"/>
+      <line x1="454" y1="734" x2="454" y2="756" stroke="#00B4FF" stroke-width="2"/>
+
+      <!-- Divider in card -->
+      <line x1="108" y1="790" x2="972" y2="790" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+
+      <!-- Ignition status -->
+      <text x="108" y="826" font-family="Inter,sans-serif" font-size="18" font-weight="600"
+            letter-spacing="0.08em" fill="rgba(255,255,255,0.3)">IGNITION STATUS</text>
+      <circle cx="108" cy="862" r="10" fill="#9966FF"/>
+      <circle cx="108" cy="862" r="18" fill="none" stroke="#9966FF" stroke-width="1" opacity="0.3"/>
+      <text x="136" y="869" font-family="'Crimson Pro',Georgia,serif" font-size="32" font-weight="700"
+            fill="#9966FF">Global Workspace Ignited</text>
+      <!-- Ignition formula check -->
+      <text x="136" y="890" font-family="Inter,sans-serif" font-size="18"
+            fill="rgba(255,255,255,0.3)">Π × |ε| = 39.6  &gt;  Bₜ = 40  →  ≈ threshold</text>
+
+      <!-- BOTTOM -->
+      <line x1="80" y1="960" x2="1000" y2="960" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="80" y="1002" font-family="Inter,sans-serif" font-size="18"
+            fill="rgba(255,255,255,0.22)">@apgi_framework · Π precision weighting — Barrett &amp; Simmons, 2015</text>
+      <text x="1000" y="1046" font-family="Inter,sans-serif" font-size="20"
+            fill="rgba(255,255,255,0.22)" text-anchor="end">#APGI</text>
+      <text x="80" y="1046" font-family="Inter,sans-serif" font-size="20"
+            fill="rgba(255,255,255,0.22)">@apgi_framework</text>
+    </svg>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       POST 3 — SCIENCE CREDIBILITY
+       "47 peer-reviewed papers. One equation."
+       Editorial / academic authority aesthetic
+       ═══════════════════════════════════════════════ -->
+  <div class="post-wrap">
+    <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bg3" cx="50%" cy="50%" r="70%">
+          <stop offset="0%" stop-color="#0d1320"/>
+          <stop offset="100%" stop-color="#0A0F1A"/>
+        </radialGradient>
+        <radialGradient id="glow-p3" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#9966FF" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#9966FF" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="f-blur3">
+          <feGaussianBlur stdDeviation="80"/>
+        </filter>
+      </defs>
+
+      <!-- Background -->
+      <rect width="1080" height="1080" fill="url(#bg3)"/>
+
+      <!-- Subtle purple glow center -->
+      <ellipse cx="540" cy="480" rx="420" ry="360" fill="url(#glow-p3)" filter="url(#f-blur3)"/>
+
+      <!-- Fine grid -->
+      <g opacity="0.055">
+        <line x1="0" y1="108" x2="1080" y2="108" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="216" x2="1080" y2="216" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="324" x2="1080" y2="324" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="432" x2="1080" y2="432" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="540" x2="1080" y2="540" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="648" x2="1080" y2="648" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="756" x2="1080" y2="756" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="864" x2="1080" y2="864" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="0" y1="972" x2="1080" y2="972" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="108" y1="0" x2="108" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="216" y1="0" x2="216" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="324" y1="0" x2="324" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="432" y1="0" x2="432" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="540" y1="0" x2="540" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="648" y1="0" x2="648" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="756" y1="0" x2="756" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="864" y1="0" x2="864" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+        <line x1="972" y1="0" x2="972" y2="1080" stroke="#ffffff" stroke-width="0.5"/>
+      </g>
+
+      <!-- TOP -->
+      <text x="80" y="96" font-family="Inter,sans-serif" font-size="22" font-weight="600"
+            letter-spacing="0.18em" fill="rgba(255,255,255,0.28)">APGI FRAMEWORK</text>
+      <line x1="80" y1="110" x2="1000" y2="110" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- BIG NUMBER — centered dominance -->
+      <text x="540" y="440" font-family="'Crimson Pro',Georgia,serif" font-size="340" font-weight="700"
+            fill="rgba(255,255,255,0.06)" text-anchor="middle">47</text>
+
+      <!-- Overlaid actual number -->
+      <text x="540" y="410" font-family="'Crimson Pro',Georgia,serif" font-size="260" font-weight="700"
+            fill="rgba(255,255,255,0.9)" text-anchor="middle">47</text>
+
+      <!-- Unit label -->
+      <text x="540" y="480" font-family="Inter,sans-serif" font-size="28" font-weight="400"
+            letter-spacing="0.22em" fill="rgba(255,255,255,0.35)" text-anchor="middle">PEER-REVIEWED PAPERS</text>
+
+      <!-- Thin decorative rule around number -->
+      <line x1="200" y1="500" x2="440" y2="500" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <line x1="640" y1="500" x2="880" y2="500" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <circle cx="540" cy="500" r="6" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+
+      <!-- Intellectual lineage — citation block -->
+      <text x="540" y="562" font-family="Inter,sans-serif" font-size="22" font-weight="400"
+            fill="rgba(255,255,255,0.28)" text-anchor="middle">in the intellectual lineage of</text>
+
+      <!-- Citation cards — 3 rows -->
+      <!-- Row 1 -->
+      <rect x="80" y="586" width="440" height="56" rx="8"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="80" y1="586" x2="80" y2="642" stroke="#FF3366" stroke-width="3"/>
+      <text x="104" y="612" font-family="Inter,sans-serif" font-size="19" font-weight="600"
+            fill="rgba(255,255,255,0.8)">Friston, 2010</text>
+      <text x="104" y="632" font-family="Inter,sans-serif" font-size="16"
+            fill="rgba(255,255,255,0.35)">Active inference · predictive processing</text>
+
+      <rect x="560" y="586" width="440" height="56" rx="8"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="560" y1="586" x2="560" y2="642" stroke="#FFCC00" stroke-width="3"/>
+      <text x="584" y="612" font-family="Inter,sans-serif" font-size="19" font-weight="600"
+            fill="rgba(255,255,255,0.8)">Rao &amp; Ballard, 1999</text>
+      <text x="584" y="632" font-family="Inter,sans-serif" font-size="16"
+            fill="rgba(255,255,255,0.35)">Predictive coding · error signals</text>
+
+      <!-- Row 2 -->
+      <rect x="80" y="658" width="440" height="56" rx="8"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="80" y1="658" x2="80" y2="714" stroke="#00B4FF" stroke-width="3"/>
+      <text x="104" y="684" font-family="Inter,sans-serif" font-size="19" font-weight="600"
+            fill="rgba(255,255,255,0.8)">Dehaene et al., 2011</text>
+      <text x="104" y="704" font-family="Inter,sans-serif" font-size="16"
+            fill="rgba(255,255,255,0.35)">Global workspace theory</text>
+
+      <rect x="560" y="658" width="440" height="56" rx="8"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="560" y1="658" x2="560" y2="714" stroke="#9966FF" stroke-width="3"/>
+      <text x="584" y="684" font-family="Inter,sans-serif" font-size="19" font-weight="600"
+            fill="rgba(255,255,255,0.8)">Baars, 1988</text>
+      <text x="584" y="704" font-family="Inter,sans-serif" font-size="16"
+            fill="rgba(255,255,255,0.35)">Global workspace · broadcast</text>
+
+      <!-- Row 3 -->
+      <rect x="80" y="730" width="440" height="56" rx="8"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="80" y1="730" x2="80" y2="786" stroke="#00CC99" stroke-width="3"/>
+      <text x="104" y="756" font-family="Inter,sans-serif" font-size="19" font-weight="600"
+            fill="rgba(255,255,255,0.8)">Barrett &amp; Simmons, 2015</text>
+      <text x="104" y="776" font-family="Inter,sans-serif" font-size="16"
+            fill="rgba(255,255,255,0.35)">Interoceptive predictive coding</text>
+
+      <rect x="560" y="730" width="440" height="56" rx="8"
+            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <line x1="560" y1="730" x2="560" y2="786" stroke="#FF3366" stroke-width="3"/>
+      <text x="584" y="756" font-family="Inter,sans-serif" font-size="19" font-weight="600"
+            fill="rgba(255,255,255,0.8)">Seth, 2021</text>
+      <text x="584" y="776" font-family="Inter,sans-serif" font-size="16"
+            fill="rgba(255,255,255,0.35)">Being You · predictive self</text>
+
+      <!-- Thick mid rule -->
+      <line x1="80" y1="816" x2="1000" y2="816" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+      <!-- Equation mini + headline -->
+      <text x="80" y="874" font-family="'Crimson Pro',Georgia,serif" font-size="44" font-weight="700"
+            fill="#FF3366">Π</text>
+      <text x="124" y="874" font-family="'Crimson Pro',Georgia,serif" font-size="38" font-weight="300"
+            fill="rgba(255,255,255,0.28)"> × </text>
+      <text x="176" y="874" font-family="'Crimson Pro',Georgia,serif" font-size="44" font-weight="700"
+            fill="#FFCC00">|ε|</text>
+      <text x="240" y="874" font-family="'Crimson Pro',Georgia,serif" font-size="38" font-weight="300"
+            fill="rgba(255,255,255,0.28)"> &gt; </text>
+      <text x="294" y="874" font-family="'Crimson Pro',Georgia,serif" font-size="44" font-weight="700"
+            fill="#00B4FF">Bₜ</text>
+      <text x="380" y="874" font-family="'Crimson Pro',Georgia,serif" font-size="44" font-weight="400"
+            fill="rgba(255,255,255,0.4)" font-style="italic"> — One equation.</text>
+
+      <text x="80" y="940" font-family="'Crimson Pro',Georgia,serif" font-size="44" font-weight="700"
+            fill="rgba(255,255,255,0.9)" font-style="italic">47 papers. One mechanism.</text>
+      <text x="80" y="992" font-family="'Crimson Pro',Georgia,serif" font-size="44" font-weight="400"
+            fill="rgba(255,255,255,0.5)" font-style="italic">Every claim anchored to the lineage.</text>
+
+      <!-- Bottom -->
+      <line x1="80" y1="1020" x2="1000" y2="1020" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <text x="80" y="1056" font-family="Inter,sans-serif" font-size="20"
+            fill="rgba(255,255,255,0.22)">@apgi_framework</text>
+      <text x="1000" y="1056" font-family="Inter,sans-serif" font-size="20"
+            fill="rgba(255,255,255,0.22)" text-anchor="end">#neuroscience #consciousness</text>
+    </svg>
+  </div>
+
+</div>

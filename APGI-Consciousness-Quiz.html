@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APGI Consciousness Signature Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Light Neural Glow palette */
+  --bg:          #F7F9FC;
+  --surface:     #FFFFFF;
+  --surface-2:   #F0F4FA;
+  --border:      #DDE3EE;
+  --border-soft: #EBF0F8;
+
+  --ink:         #0E1729;
+  --ink-2:       #2D3A52;
+  --ink-3:       #5C6B87;
+  --ink-4:       #8A96AC;
+
+  /* Semantic parameter colors — print-stable */
+  --blue:        #005A8E;
+  --blue-mid:    #0077BB;
+  --blue-light:  #E6F3FB;
+  --blue-glow:   rgba(0, 90, 142, 0.12);
+
+  --red:         #A3002E;
+  --red-mid:     #CC0038;
+  --red-light:   #FCEEF2;
+  --red-glow:    rgba(163, 0, 46, 0.10);
+
+  --amber:       #8A6400;
+  --amber-mid:   #B38200;
+  --amber-light: #FEF8E6;
+  --amber-glow:  rgba(138, 100, 0, 0.10);
+
+  --purple:      #4B1FA8;
+  --purple-light:#F0EBFF;
+  --purple-glow: rgba(75, 31, 168, 0.12);
+
+  --green:       #006644;
+  --green-light: #E6F5EF;
+
+  /* Typography */
+  --font-display: 'Crimson Pro', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.shell {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.site-header {
+  padding: 40px 0 0;
+  text-align: center;
+  position: relative;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.logo-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+.logo-dot:nth-child(1) { background: var(--red);   animation-delay: 0s; }
+.logo-dot:nth-child(2) { background: var(--amber);  animation-delay: 0.3s; }
+.logo-dot:nth-child(3) { background: var(--blue);   animation-delay: 0.6s; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50%       { opacity: 1;    transform: scale(1.15); }
+}
+
+.logo-word {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.hero-equation {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.eq-pi    { color: var(--red); }
+.eq-eps   { color: var(--amber); }
+.eq-bt    { color: var(--blue); }
+.eq-op    { color: var(--ink-3); font-weight: 400; }
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-style: italic;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+}
+
+.hero-meta {
+  font-size: 13px;
+  color: var(--ink-4);
+  margin-bottom: 40px;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 -24px 40px;
+}
+
+/* ── Progress ──────────────────────────────────────────────────────────── */
+.progress-wrap {
+  margin-bottom: 36px;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ink-4);
+  margin-bottom: 8px;
+}
+
+.progress-track {
+  height: 3px;
+  background: var(--border-soft);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--blue));
+  transition: width 0.5s var(--ease-out);
+  width: 0%;
+}
+
+.section-indicator {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.sec-pip {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--border-soft);
+  transition: background 0.4s ease;
+}
+.sec-pip.active  { background: var(--amber); }
+.sec-pip.done    { background: var(--green); }
+
+/* ── Section badge ───────────────────────────────────────────────────── */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.badge-blue   { color: var(--blue);  background: var(--blue-light);  border-color: rgba(0,90,142,0.2); }
+.badge-red    { color: var(--red);   background: var(--red-light);   border-color: rgba(163,0,46,0.2); }
+.badge-amber  { color: var(--amber); background: var(--amber-light); border-color: rgba(138,100,0,0.2); }
+
+.badge-pip {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* ── Question card ───────────────────────────────────────────────────── */
+.question-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out), border-color 0.2s;
+}
+
+.question-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.question-block.answered {
+  border-color: var(--border-soft);
+  background: #FAFBFD;
+}
+
+.q-number {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 10px;
+}
+
+.q-text {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+
+/* ── Likert scale ────────────────────────────────────────────────────── */
+.likert {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.likert-option { display: none; }
+
+.likert-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.likert-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 52px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-3);
+  transition: all 0.18s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.likert-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.18s;
+  border-radius: inherit;
+}
+
+.likert-label:hover .likert-btn {
+  border-color: currentColor;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.08));
+}
+
+.likert-text {
+  font-size: 10px;
+  color: var(--ink-4);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 56px;
+}
+
+/* Selected state per section */
+.section-threshold .likert-option:checked + .likert-label .likert-btn {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px var(--blue-glow), 0 2px 6px rgba(0,90,142,0.25);
+}
+
+.section-interoceptive .likert-option:checked + .likert-label .likert-btn {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px var(--red-glow), 0 2px 6px rgba(163,0,46,0.25);
+}
+
+.section-somatic .likert-option:checked + .likert-label .likert-btn {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px var(--amber-glow), 0 2px 6px rgba(138,100,0,0.25);
+}
+
+/* ── CTA Button ──────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  border: none;
+  background: var(--ink);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease-spring), box-shadow 0.18s, background 0.18s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(14,23,41,0.18);
+  background: var(--ink-2);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  background: var(--border);
+  color: var(--ink-4);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--ink-3);
+  background: var(--surface-2);
+}
+
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.answer-count {
+  font-size: 13px;
+  color: var(--ink-4);
+  margin-left: auto;
+}
+
+/* ── Screens ─────────────────────────────────────────────────────────── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── Intro screen ────────────────────────────────────────────────────── */
+.intro-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 36px;
+  margin-bottom: 24px;
+}
+
+.intro-card h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.intro-card p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.param-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--surface-2);
+  border-radius: 10px;
+}
+
+.param-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.param-chip {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.param-label {
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 80px;
+}
+
+.param-desc {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.disclaimer {
+  font-size: 12px;
+  color: var(--ink-4);
+  line-height: 1.6;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-left: 3px solid var(--border);
+  background: var(--surface-2);
+}
+
+/* ── Results screen ──────────────────────────────────────────────────── */
+.results-header {
+  text-align: center;
+  padding: 48px 0 36px;
+}
+
+.results-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 7vw, 48px);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.results-header .subtitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--ink-3);
+  margin-bottom: 32px;
+}
+
+/* Ignition score card */
+.ignition-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 36px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ignition-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--blue));
+}
+
+.ignition-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 16px;
+}
+
+.ignition-equation {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 5vw, 32px);
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.ignition-score {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 12vw, 80px);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+}
+
+.ignition-score.ignited    { color: var(--purple); }
+.ignition-score.near       { color: var(--amber-mid); }
+.ignition-score.subthreshold { color: var(--ink-3); }
+
+.ignition-status {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ignition-status.ignited      { color: var(--purple); }
+.ignition-status.near         { color: var(--amber-mid); }
+.ignition-status.subthreshold { color: var(--ink-3); }
+
+.ignition-desc {
+  font-size: 14px;
+  color: var(--ink-3);
+  max-width: 420px;
+  margin: 12px auto 0;
+  line-height: 1.6;
+}
+
+/* Gauge card */
+.gauge-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+}
+
+.gauge-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 24px;
+}
+
+.param-gauge {
+  margin-bottom: 22px;
+}
+
+.param-gauge:last-child { margin-bottom: 0; }
+
+.gauge-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.gauge-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.gauge-symbol {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-3);
+  margin-left: 6px;
+}
+
+.gauge-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.gauge-track {
+  height: 8px;
+  background: var(--surface-2);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  border: 1px solid var(--border-soft);
+}
+
+.gauge-fill {
+  height: 100%;
+  border-radius: 99px;
+  width: 0%;
+  transition: width 1.2s var(--ease-out);
+}
+
+.gauge-subscript {
+  font-size: 12px;
+  color: var(--ink-4);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Config type card */
+.config-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+}
+
+.config-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--purple);
+  background: var(--purple-light);
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin-bottom: 12px;
+}
+
+.config-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.config-body {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.config-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insight-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.insight-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Mini equation display */
+.mini-eq {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Spider / radar SVG */
+.radar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.radar-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#radarSvg {
+  max-width: 280px;
+  width: 100%;
+}
+
+/* Citation line */
+.citation {
+  font-size: 12px;
+  color: var(--ink-4);
+  text-align: center;
+  margin-top: 32px;
+  line-height: 1.7;
+}
+
+.citation a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ignition-flash {
+  0%   { opacity: 0; transform: scale(0.7); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes score-count {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeUp 0.55s var(--ease-out) both;
+}
+
+/* ── Validation message ──────────────────────────────────────────────── */
+.validation-msg {
+  font-size: 13px;
+  color: var(--red);
+  margin-top: 10px;
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .shell { padding: 0 16px 60px; }
+  .intro-card, .gauge-card, .ignition-card, .config-card, .radar-card { padding: 22px 20px; }
+  .likert-btn { font-size: 13px; }
+  .likert-text { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- SITE HEADER (always visible) -->
+  <header class="site-header">
+    <div class="logo-mark">
+      <span class="logo-dot"></span>
+      <span class="logo-dot"></span>
+      <span class="logo-dot"></span>
+      <span class="logo-word">APGI Framework</span>
+    </div>
+    <div class="hero-equation">
+      <span class="eq-pi">Π</span>
+      <span class="eq-op"> × </span>
+      <span class="eq-eps">|ε|</span>
+      <span class="eq-op"> > </span>
+      <span class="eq-bt">B<sub style="font-size:0.6em">t</sub></span>
+    </div>
+    <p class="hero-subtitle">Consciousness Signature Assessment</p>
+    <p class="hero-meta">3 parameters · 15 questions · ~4 minutes</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════════════ INTRO SCREEN -->
+  <div id="screen-intro" class="screen active">
+
+    <div class="intro-card animate-in">
+      <h2>What is your consciousness configuration?</h2>
+      <p>
+        The APGI framework models awareness as a threshold-crossing event. When precision-weighted
+        prediction errors (<span class="mini-eq"><span class="eq-pi">Π</span><span class="eq-op">×</span><span class="eq-eps">|ε|</span></span>)
+        exceed the dynamic thalamic gate (<span class="eq-bt" style="font-family:var(--font-display);font-weight:600;color:var(--blue)">B<sub style="font-size:0.7em">t</sub></span>),
+        global workspace ignition occurs and conscious access begins.
+      </p>
+      <p>
+        This assessment estimates your three primary parameters from behavioral and experiential
+        patterns. Results are <em>model-based estimates</em>, not clinical measurements.
+      </p>
+
+      <div class="param-legend">
+        <div class="param-row">
+          <div class="param-chip" style="background:var(--blue)"></div>
+          <span class="param-label" style="color:var(--blue)">Threshold</span>
+          <span class="param-desc">How easily your thalamic gate opens (B<sub>t</sub>). Low threshold = heightened sensitivity.</span>
+        </div>
+        <div class="param-row">
+          <div class="param-chip" style="background:var(--red)"></div>
+          <span class="param-label" style="color:var(--red)">Interoceptive</span>
+          <span class="param-desc">How accurately your brain reads body signals (Π). Higher = stronger precision weighting.</span>
+        </div>
+        <div class="param-row">
+          <div class="param-chip" style="background:var(--amber)"></div>
+          <span class="param-label" style="color:var(--amber)">Somatic Bias</span>
+          <span class="param-desc">How much prediction error drives your awareness (|ε|). Higher = more surprise-driven consciousness.</span>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <strong>Model integrity notice:</strong> All outputs are hypothesis-generating estimates derived from
+        self-report behavioral proxies. This is not a diagnostic tool. Interpret as:
+        configuration, not measurement.
+      </div>
+    </div>
+
+    <div class="btn-row" style="justify-content:center; margin-top:0">
+      <button class="btn-primary" onclick="startQuiz()">
+        Begin Assessment
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+  </div><!-- /screen-intro -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ QUIZ SCREEN -->
+  <div id="screen-quiz" class="screen">
+
+    <div class="progress-wrap">
+      <div class="progress-labels">
+        <span id="progressLabel">Question 1 of 15</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="section-indicator">
+        <div class="sec-pip" id="pip0"></div>
+        <div class="sec-pip" id="pip1"></div>
+        <div class="sec-pip" id="pip2"></div>
+      </div>
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div id="validationMsg" class="validation-msg">
+      Please answer all questions in this section before continuing.
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" id="btnBack" onclick="prevSection()" style="display:none">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12L3 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <button class="btn-primary" id="btnNext" onclick="nextSection()">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="answer-count" id="answerCount"></span>
+    </div>
+
+  </div><!-- /screen-quiz -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ RESULTS SCREEN -->
+  <div id="screen-results" class="screen">
+
+    <div class="results-header animate-in">
+      <h1>Your Consciousness<br>Signature</h1>
+      <p class="subtitle">System configuration complete</p>
+    </div>
+
+    <!-- Ignition score -->
+    <div class="ignition-card animate-in" style="animation-delay:0.1s">
+      <div class="ignition-label">APGI Ignition Score</div>
+      <div class="ignition-equation">
+        <span class="eq-pi">Π</span>
+        <span class="eq-op"> × </span>
+        <span class="eq-eps">|ε|</span>
+        <span class="eq-op"> </span>
+        <span id="ignitionOperator" style="color:var(--ink-3)">≈</span>
+        <span class="eq-op"> </span>
+        <span class="eq-bt">B<sub style="font-size:0.6em">t</sub></span>
+      </div>
+      <div class="ignition-score" id="ignitionScore">—</div>
+      <div class="ignition-status" id="ignitionStatus">Calculating…</div>
+      <p class="ignition-desc" id="ignitionDesc"></p>
+    </div>
+
+    <!-- Parameter gauges -->
+    <div class="gauge-card animate-in" style="animation-delay:0.2s">
+      <div class="gauge-card-title">Parameter Readings</div>
+
+      <div class="param-gauge">
+        <div class="gauge-header">
+          <div>
+            <span class="gauge-name" style="color:var(--blue)">Threshold Sensitivity</span>
+            <span class="gauge-symbol">B<sub style="font-size:0.7em">t</sub></span>
+          </div>
+          <span class="gauge-value" style="color:var(--blue)" id="valBt">0</span>
+        </div>
+        <div class="gauge-track">
+          <div class="gauge-fill" id="fillBt" style="background:linear-gradient(90deg,#005A8E,#0099DD)"></div>
+        </div>
+        <div class="gauge-subscript">
+          <span>Low sensitivity</span>
+          <span>High sensitivity</span>
+        </div>
+      </div>
+
+      <div class="param-gauge">
+        <div class="gauge-header">
+          <div>
+            <span class="gauge-name" style="color:var(--red)">Interoceptive Accuracy</span>
+            <span class="gauge-symbol">Π</span>
+          </div>
+          <span class="gauge-value" style="color:var(--red)" id="valPi">0</span>
+        </div>
+        <div class="gauge-track">
+          <div class="gauge-fill" id="fillPi" style="background:linear-gradient(90deg,#A3002E,#E0004A)"></div>
+        </div>
+        <div class="gauge-subscript">
+          <span>Low accuracy</span>
+          <span>High accuracy</span>
+        </div>
+      </div>
+
+      <div class="param-gauge">
+        <div class="gauge-header">
+          <div>
+            <span class="gauge-name" style="color:var(--amber)">Somatic Bias</span>
+            <span class="gauge-symbol">|ε|</span>
+          </div>
+          <span class="gauge-value" style="color:var(--amber)" id="valEps">0</span>
+        </div>
+        <div class="gauge-track">
+          <div class="gauge-fill" id="fillEps" style="background:linear-gradient(90deg,#8A6400,#C99200)"></div>
+        </div>
+        <div class="gauge-subscript">
+          <span>Low error drive</span>
+          <span>High error drive</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Radar -->
+    <div class="radar-card animate-in" style="animation-delay:0.25s">
+      <div class="radar-title">Signature Profile</div>
+      <svg id="radarSvg" viewBox="0 0 280 260" xmlns="http://www.w3.org/2000/svg" aria-label="Radar chart showing your three parameter scores"></svg>
+    </div>
+
+    <!-- Configuration type -->
+    <div class="config-card animate-in" style="animation-delay:0.3s">
+      <div class="config-tag">Configuration Type</div>
+      <div class="config-title" id="configTitle">—</div>
+      <div class="config-body" id="configBody"></div>
+      <div class="config-insights" id="configInsights"></div>
+    </div>
+
+    <div class="btn-row" style="justify-content:center; margin-top:32px">
+      <button class="btn-primary" onclick="restartQuiz()">
+        Retake Assessment
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.7 0 3.2.77 4.24 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 2l.5 2.5L10 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <p class="citation">
+      Based on the APGI Framework — Pesochin, D. (2026).<br>
+      <em>A Mathematical Model of Consciousness as Threshold Crossing.</em><br>
+      Model estimates only. Not a clinical instrument.
+    </p>
+
+  </div><!-- /screen-results -->
+
+</div><!-- /shell -->
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   APGI CONSCIOUSNESS QUIZ — ENGINE
+   ════════════════════════════════════════════════════════════════ */
+
+const SECTIONS = [
+  {
+    id: 'threshold',
+    param: 'bt',
+    label: 'Threshold Sensitivity',
+    symbol: 'Bₜ',
+    color: 'blue',
+    badgeClass: 'badge-blue',
+    sectionClass: 'section-threshold',
+    intro: 'The thalamic gate — how easily signals cross into conscious awareness.',
+    questions: [
+      'Ordinary sounds, lights, or textures feel more intense to you than they seem to for others.',
+      'You notice subtle changes in your environment before other people mention them.',
+      'You feel easily overwhelmed when multiple sensory inputs occur simultaneously.',
+      'Small disruptions to your routine significantly affect your mood or concentration.',
+      'You often experience strong emotional reactions to things others describe as minor.',
+    ],
+  },
+  {
+    id: 'interoceptive',
+    param: 'pi',
+    label: 'Interoceptive Accuracy',
+    symbol: 'Π',
+    color: 'red',
+    badgeClass: 'badge-red',
+    sectionClass: 'section-interoceptive',
+    intro: 'How precisely your brain reads and weights signals from inside your body.',
+    questions: [
+      'Without checking your pulse, you can accurately sense how fast your heart is beating.',
+      'You notice hunger, thirst, or fatigue reliably — before they become urgent.',
+      'When you feel anxious, you can locate the physical sensation precisely in your body.',
+      'Your gut feelings about situations tend to be accurate, and you trust them.',
+      'You are aware of subtle shifts in your physical state that others might not notice.',
+    ],
+  },
+  {
+    id: 'somatic',
+    param: 'eps',
+    label: 'Somatic Bias',
+    symbol: '|ε|',
+    color: 'amber',
+    badgeClass: 'badge-amber',
+    sectionClass: 'section-somatic',
+    intro: 'The prediction error signal — how much surprise and mismatch drive your awareness.',
+    questions: [
+      'Unexpected events capture your attention far more powerfully than expected ones.',
+      'You find it difficult to ignore something that does not match your expectations.',
+      'When plans change suddenly, you experience a strong physical reaction before adapting.',
+      'Novel experiences feel significantly more vivid than familiar, routine ones.',
+      'You often replay surprising or unexpected events long after they occur.',
+    ],
+  },
+];
+
+const SCALE_LABELS = ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'];
+
+let currentSection = 0;
+let answers = { bt: [], pi: [], eps: [] };
+let scores  = { bt: 0, pi: 0, eps: 0 };
+
+/* ── Screens ──────────────────────────────────────────────────────────── */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ── Start ────────────────────────────────────────────────────────────── */
+function startQuiz() {
+  currentSection = 0;
+  answers = { bt: [], pi: [], eps: [] };
+  renderSection();
+  showScreen('screen-quiz');
+}
+
+/* ── Render section ───────────────────────────────────────────────────── */
+function renderSection() {
+  const sec = SECTIONS[currentSection];
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+
+  // Badge
+  const badge = document.createElement('div');
+  badge.className = `section-badge ${sec.badgeClass}`;
+  badge.innerHTML = `<span class="badge-pip"></span> ${sec.symbol} — ${sec.label}`;
+  container.appendChild(badge);
+
+  // Intro line
+  const intro = document.createElement('p');
+  intro.style.cssText = 'font-size:14px;color:var(--ink-3);margin-bottom:20px;line-height:1.6;';
+  intro.textContent = sec.intro;
+  container.appendChild(intro);
+
+  const param = sec.param;
+  const savedAnswers = answers[param];
+
+  sec.questions.forEach((qText, qi) => {
+    const globalIdx = currentSection * 5 + qi + 1;
+    const block = document.createElement('div');
+    block.className = `question-block ${sec.sectionClass}`;
+    block.id = `qblock-${qi}`;
+
+    const savedVal = savedAnswers[qi] !== undefined ? savedAnswers[qi] : null;
+
+    block.innerHTML = `
+      <div class="q-number">Q${globalIdx} / 15</div>
+      <div class="q-text">${qText}</div>
+      <div class="likert" role="radiogroup" aria-label="${qText}">
+        ${SCALE_LABELS.map((label, vi) => {
+          const val = vi + 1;
+          const checked = savedVal === val ? 'checked' : '';
+          return `
+            <input type="radio" class="likert-option"
+                   name="q_${sec.id}_${qi}" id="q_${sec.id}_${qi}_${vi}"
+                   value="${val}" ${checked}
+                   onchange="onAnswer('${param}', ${qi}, ${val})">
+            <label class="likert-label" for="q_${sec.id}_${qi}_${vi}">
+              <div class="likert-btn">${val}</div>
+              <span class="likert-text">${label}</span>
+            </label>`;
+        }).join('')}
+      </div>`;
+
+    if (savedVal !== null) block.classList.add('answered');
+    container.appendChild(block);
+
+    // Staggered reveal
+    setTimeout(() => block.classList.add('visible'), qi * 80 + 60);
+  });
+
+  updateProgress();
+  updateNav();
+  document.getElementById('validationMsg').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Answer handler ───────────────────────────────────────────────────── */
+function onAnswer(param, qi, val) {
+  answers[param][qi] = val;
+  const block = document.getElementById(`qblock-${qi}`);
+  if (block) block.classList.add('answered');
+  updateAnswerCount();
+}
+
+/* ── Navigation ───────────────────────────────────────────────────────── */
+function nextSection() {
+  const sec = SECTIONS[currentSection];
+  const param = sec.param;
+  const answered = (answers[param] || []).filter(v => v !== undefined).length;
+
+  if (answered < 5) {
+    document.getElementById('validationMsg').style.display = 'block';
+    // Highlight unanswered
+    sec.questions.forEach((_, qi) => {
+      if (answers[param][qi] === undefined) {
+        const block = document.getElementById(`qblock-${qi}`);
+        if (block) {
+          block.style.borderColor = 'rgba(163,0,46,0.35)';
+          block.style.background = 'rgba(163,0,46,0.03)';
+          setTimeout(() => {
+            block.style.borderColor = '';
+            block.style.background = '';
+          }, 2000);
+        }
+      }
+    });
+    return;
+  }
+
+  document.getElementById('validationMsg').style.display = 'none';
+
+  if (currentSection < 2) {
+    currentSection++;
+    renderSection();
+  } else {
+    computeResults();
+    showScreen('screen-results');
+    renderResults();
+  }
+}
+
+function prevSection() {
+  if (currentSection > 0) {
+    currentSection--;
+    renderSection();
+  }
+}
+
+/* ── Progress ─────────────────────────────────────────────────────────── */
+function updateProgress() {
+  const answered = Object.values(answers).flat().filter(v => v !== undefined).length;
+  const pct = Math.round((answered / 15) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    `Section ${currentSection + 1} of 3 — ${SECTIONS[currentSection].label}`;
+
+  [0,1,2].forEach(i => {
+    const pip = document.getElementById('pip' + i);
+    if (i < currentSection) pip.className = 'sec-pip done';
+    else if (i === currentSection) pip.className = 'sec-pip active';
+    else pip.className = 'sec-pip';
+  });
+
+  updateAnswerCount();
+}
+
+function updateAnswerCount() {
+  const sec = SECTIONS[currentSection];
+  const count = (answers[sec.param] || []).filter(v => v !== undefined).length;
+  document.getElementById('answerCount').textContent = `${count}/5 answered`;
+}
+
+function updateNav() {
+  document.getElementById('btnBack').style.display = currentSection > 0 ? '' : 'none';
+  const isLast = currentSection === 2;
+  const btnNext = document.getElementById('btnNext');
+  btnNext.innerHTML = isLast
+    ? 'View My Signature <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    : 'Continue <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+/* ── Compute scores ───────────────────────────────────────────────────── */
+function computeResults() {
+  const avg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+  const toPercent = avg => Math.round(((avg - 1) / 4) * 100);
+
+  scores.bt  = toPercent(avg(answers.bt));
+  scores.pi  = toPercent(avg(answers.pi));
+  scores.eps = toPercent(avg(answers.eps));
+
+  // Π × |ε| > Bₜ
+  // Normalize to 0–1, compute product, compare to threshold
+  const piN  = scores.pi  / 100;
+  const epsN = scores.eps / 100;
+  const btN  = scores.bt  / 100;
+
+  // Ignition margin: (pi * eps) / bt — clamped & scaled to 0–100
+  const rawIgnition = btN > 0 ? (piN * epsN) / btN : piN * epsN;
+  scores.ignition   = Math.min(Math.round(rawIgnition * 100), 100);
+  scores.ignited    = (piN * epsN) > btN;
+  scores.margin     = Math.round((piN * epsN - btN) * 100);
+}
+
+/* ── Render results ───────────────────────────────────────────────────── */
+function renderResults() {
+  // Gauges
+  setTimeout(() => {
+    const map = [
+      ['fillBt',  'valBt',  scores.bt],
+      ['fillPi',  'valPi',  scores.pi],
+      ['fillEps', 'valEps', scores.eps],
+    ];
+    map.forEach(([fillId, valId, score], i) => {
+      setTimeout(() => {
+        document.getElementById(fillId).style.width = score + '%';
+        animateNumber(valId, score);
+      }, i * 180);
+    });
+  }, 300);
+
+  // Ignition score
+  setTimeout(() => {
+    const el = document.getElementById('ignitionScore');
+    el.style.animation = 'ignition-flash 0.7s var(--ease-spring) both';
+    animateNumber('ignitionScore', scores.ignition, () => {
+      el.textContent = scores.ignition;
+    });
+
+    const operator = document.getElementById('ignitionOperator');
+    const status   = document.getElementById('ignitionStatus');
+    const desc     = document.getElementById('ignitionDesc');
+
+    if (scores.ignition >= 70) {
+      el.className = 'ignition-score ignited';
+      status.className = 'ignition-status ignited';
+      operator.textContent = '>';
+      operator.style.color = 'var(--purple)';
+      status.textContent = 'Global Workspace Ignited';
+      desc.textContent = 'Your precision-weighted prediction errors exceed your threshold gate. The system is broadcasting — conscious access is active and expansive.';
+    } else if (scores.ignition >= 40) {
+      el.className = 'ignition-score near';
+      status.className = 'ignition-status near';
+      operator.textContent = '≈';
+      operator.style.color = 'var(--amber-mid)';
+      status.textContent = 'Near-Threshold State';
+      desc.textContent = 'Your signal is approaching the gate. Conscious access is intermittent — the system fires selectively under sufficient error or precision.';
+    } else {
+      el.className = 'ignition-score subthreshold';
+      status.className = 'ignition-status subthreshold';
+      operator.textContent = '<';
+      operator.style.color = 'var(--ink-3)';
+      status.textContent = 'Sub-Threshold Configuration';
+      desc.textContent = 'Your threshold gate suppresses most signals before broadcast. The system is stable and selective — conscious access requires strong, unexpected input.';
+    }
+  }, 600);
+
+  // Radar
+  setTimeout(() => drawRadar(), 500);
+
+  // Config type
+  renderConfigType();
+}
+
+/* ── Number animation ─────────────────────────────────────────────────── */
+function animateNumber(elId, target, cb) {
+  const el = document.getElementById(elId);
+  const duration = 900;
+  const start = performance.now();
+  const from = 0;
+  function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(from + (target - from) * ease);
+    if (t < 1) requestAnimationFrame(step);
+    else if (cb) cb();
+  }
+  requestAnimationFrame(step);
+}
+
+/* ── Radar chart ──────────────────────────────────────────────────────── */
+function drawRadar() {
+  const svg = document.getElementById('radarSvg');
+  const cx = 140, cy = 130, R = 100;
+  const labels = ['Threshold\nSensitivity', 'Interoceptive\nAccuracy', 'Somatic\nBias'];
+  const colors  = ['#005A8E', '#A3002E', '#8A6400'];
+  const vals    = [scores.bt / 100, scores.pi / 100, scores.eps / 100];
+
+  // 3 axes at 120° intervals, starting at top
+  const angles = [-90, 30, 150].map(d => d * Math.PI / 180);
+
+  function pt(r, i) {
+    return [cx + r * Math.cos(angles[i]), cy + r * Math.sin(angles[i])];
+  }
+
+  let html = '';
+
+  // Grid rings
+  [0.25, 0.5, 0.75, 1].forEach(frac => {
+    const pts = angles.map((_, i) => pt(R * frac, i));
+    html += `<polygon points="${pts.map(p => p.join(',')).join(' ')}"
+      fill="none" stroke="#DDE3EE" stroke-width="${frac === 1 ? 1.2 : 0.7}" opacity="0.8"/>`;
+  });
+
+  // Axes
+  angles.forEach((_, i) => {
+    const [x, y] = pt(R, i);
+    html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#DDE3EE" stroke-width="0.8"/>`;
+  });
+
+  // Data polygon
+  const dataPts = vals.map((v, i) => pt(R * v, i));
+  html += `<polygon points="${dataPts.map(p => p.join(',')).join(' ')}"
+    fill="rgba(75,31,168,0.08)" stroke="#4B1FA8" stroke-width="1.8" stroke-linejoin="round"/>`;
+
+  // Data points
+  dataPts.forEach(([x, y], i) => {
+    html += `<circle cx="${x}" cy="${y}" r="5" fill="${colors[i]}" stroke="white" stroke-width="1.5"/>`;
+  });
+
+  // Labels
+  labels.forEach((label, i) => {
+    const [x, y] = pt(R + 22, i);
+    const parts = label.split('\n');
+    const anchor = x < cx - 5 ? 'end' : x > cx + 5 ? 'start' : 'middle';
+    const dy0 = parts.length > 1 ? -7 : 0;
+    html += `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="Inter,sans-serif"
+      font-size="10" font-weight="600" fill="${colors[i]}">
+      ${parts.map((p, j) => `<tspan x="${x}" dy="${j === 0 ? dy0 : 13}">${p}</tspan>`).join('')}
+    </text>`;
+  });
+
+  // Score labels at axis tips
+  vals.forEach((v, i) => {
+    const [x, y] = pt(R * v - 14, i);
+    html += `<text x="${x}" y="${y + 4}" text-anchor="middle" font-family="Inter,sans-serif"
+      font-size="9" font-weight="700" fill="${colors[i]}">${Math.round(v * 100)}</text>`;
+  });
+
+  svg.innerHTML = html;
+}
+
+/* ── Configuration type ───────────────────────────────────────────────── */
+const CONFIG_TYPES = [
+  {
+    test: s => s.bt >= 65 && s.pi >= 65 && s.eps >= 65,
+    title: 'Hypersensitive Broadcaster',
+    body: 'All three parameters are elevated. Your thalamic gate is low, your body-reading is precise, and prediction errors drive your awareness strongly. The global workspace fires frequently and broadly.',
+    insights: [
+      ['⚡', 'Highly reactive to both internal and external change — excellent signal detection.'],
+      ['🔁', 'May experience cognitive fatigue; the system broadcasts heavily under routine conditions.'],
+      ['🎯', 'Meditation and body-scan practices could recalibrate threshold sensitivity without suppressing precision.'],
+    ],
+  },
+  {
+    test: s => s.pi >= 65 && s.eps >= 65 && s.bt < 50,
+    title: 'Precision-Driven, Gate-Suppressed',
+    body: 'High interoceptive accuracy and strong prediction-error drive, but the threshold gate moderates broadcast. Your body reads clearly; the signal just needs more force to reach conscious workspace.',
+    insights: [
+      ['🧭', 'Strong gut intelligence — you sense accurately even when you can\'t explain why.'],
+      ['🛡️', 'The threshold gate protects you from overwhelm; ignition is selective and stable.'],
+      ['💡', 'Surprising or novel contexts unlock your full awareness — you thrive on meaningful disruption.'],
+    ],
+  },
+  {
+    test: s => s.bt >= 65 && s.pi < 50 && s.eps >= 50,
+    title: 'Error-Sensitive, Body-Uncertain',
+    body: 'Your threshold is low and prediction errors drive your awareness, but interoceptive precision is reduced. You notice when things don\'t match expectation — but body signals are less reliably weighted.',
+    insights: [
+      ['⚠️', 'May misattribute physical sensations — anxiety can feel like physical illness or vice versa.'],
+      ['🎭', 'External surprise is powerful; internal bodily cues are harder to interpret accurately.'],
+      ['🧘', 'Interoceptive training — heartbeat detection exercises, body-scan protocols — can improve Π weighting.'],
+    ],
+  },
+  {
+    test: s => s.pi >= 65 && s.bt >= 55 && s.eps < 45,
+    title: 'Calibrated Sensor, Surprise-Stable',
+    body: 'High interoceptive accuracy with moderate threshold sensitivity, but prediction errors don\'t heavily drive awareness. Your body model is precise; you simply aren\'t strongly surprised by new input.',
+    insights: [
+      ['🔬', 'Exceptional at monitoring internal states — physiological self-knowledge is strong.'],
+      ['😌', 'Emotionally stable in unpredictable environments; novel input doesn\'t destabilize awareness.'],
+      ['🌊', 'Flow states may be easily accessible — the system runs efficiently without high error drive.'],
+    ],
+  },
+  {
+    test: s => s.bt < 45 && s.pi < 45 && s.eps < 45,
+    title: 'Stable, Low-Reactivity Configuration',
+    body: 'All three parameters are below the midpoint. The thalamic gate is high, interoceptive precision is limited, and prediction errors exert modest influence. The system is conservative and selective.',
+    insights: [
+      ['🏔️', 'Highly stable under pressure; difficult to destabilize with external or internal noise.'],
+      ['🔇', 'May underestimate bodily cues or internal states — useful signals can pass below the threshold.'],
+      ['🔧', 'Increasing somatic awareness practices may improve both Π and |ε|, widening the ignition window.'],
+    ],
+  },
+  {
+    test: s => s.eps >= 70 && s.bt < 50 && s.pi < 55,
+    title: 'Surprise-Dominated Awareness',
+    body: 'Prediction errors are the dominant driver, but the threshold gate is moderately high and interoceptive weighting is limited. Consciousness activates sharply when expectations break.',
+    insights: [
+      ['🌩️', 'Unexpected events feel intensely significant — novelty is the primary ignition trigger.'],
+      ['😵', 'Routine, predictable environments may feel flat or unstimulating without surprise input.'],
+      ['📍', 'High-surprise contexts (travel, creative work, problem-solving) are where awareness peaks.'],
+    ],
+  },
+  {
+    test: () => true, // catch-all
+    title: 'Mixed Signature Configuration',
+    body: 'Your parameters show a distinctive mixed profile — no single axis dominates. The system is context-sensitive, modulating threshold and precision dynamically depending on situational demands.',
+    insights: [
+      ['🔄', 'Adaptive and flexible — the configuration shifts based on what the environment demands.'],
+      ['📊', 'Retaking after significant life changes may show meaningful shifts in your signature.'],
+      ['🧩', 'Explore which specific parameter is rate-limiting for your conscious experience.'],
+    ],
+  },
+];
+
+function renderConfigType() {
+  const cfg = CONFIG_TYPES.find(c => c.test(scores));
+  document.getElementById('configTitle').textContent = cfg.title;
+  document.getElementById('configBody').textContent = cfg.body;
+  const insightsEl = document.getElementById('configInsights');
+  insightsEl.innerHTML = cfg.insights.map(([icon, text]) => `
+    <div class="insight-row">
+      <span class="insight-icon">${icon}</span>
+      <span>${text}</span>
+    </div>`).join('');
+}
+
+/* ── Restart ──────────────────────────────────────────────────────────── */
+function restartQuiz() {
+  currentSection = 0;
+  answers = { bt: [], pi: [], eps: [] };
+  scores  = { bt: 0, pi: 0, eps: 0 };
+  showScreen('screen-intro');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
