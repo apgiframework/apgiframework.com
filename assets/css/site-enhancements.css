@@ -1,0 +1,159 @@
+/* Shared UI enhancements: back-to-top, contact widget, TOC, toasts, FAQ,
+   copy buttons, page fade-in and print rules. Uses its own custom properties
+   with fallbacks so it works on pages with any theme. */
+:root {
+  --se-bg: #1a1f2e;
+  --se-fg: #e2e8f0;
+  --se-accent: #00b4ff;
+  --se-border: rgba(148, 163, 184, 0.35);
+}
+
+@keyframes se-fade-in { from { opacity: 0; } to { opacity: 1; } }
+body { animation: se-fade-in 0.4s ease-out both; }
+
+.se-fab-stack {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 900;
+}
+.se-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--se-border);
+  border-radius: 999px;
+  background: var(--se-bg);
+  color: var(--se-fg);
+  font: 600 0.9rem/1 system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.se-fab:hover { border-color: var(--se-accent); color: #fff; }
+.se-fab:focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
+.se-fab[hidden] { display: none; }
+.se-fab--top.se-hidden { opacity: 0; transform: translateY(8px); pointer-events: none; }
+
+.se-toc {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--se-border);
+  border-radius: 8px;
+}
+.se-toc { color: var(--se-fg); }
+.se-toc a { color: #65d1ff; text-underline-offset: 0.2em; }
+.se-toc a:hover { color: #fff; }
+.se-toc summary { cursor: pointer; font-weight: 600; }
+.se-toc ol { margin: 0.75rem 0 0; padding-left: 1.25rem; }
+.se-toc li { margin: 0.3rem 0; }
+
+.se-toasts {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+  width: min(92vw, 28rem);
+}
+.se-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--se-border);
+  border-left: 4px solid var(--se-accent);
+  border-radius: 8px;
+  background: var(--se-bg);
+  color: var(--se-fg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+.se-toast--error { border-left-color: #ff6b6b; }
+.se-toast--success { border-left-color: #4ade80; }
+.se-toast__msg { flex: 1; }
+.se-toast__close {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  min-width: 28px;
+  min-height: 28px;
+}
+.se-toast__close:focus-visible { outline: 3px solid #ffcc00; }
+
+pre.se-has-copy { position: relative; }
+.se-copy {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--se-border);
+  border-radius: 6px;
+  background: var(--se-bg);
+  color: var(--se-fg);
+  font: 600 0.75rem/1.4 system-ui, sans-serif;
+  cursor: pointer;
+}
+.se-copy:focus-visible { outline: 3px solid #ffcc00; }
+
+.se-faq details {
+  border: 1px solid var(--se-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+.se-faq summary { cursor: pointer; font-weight: 600; }
+.se-faq details[open] summary { margin-bottom: 0.5rem; }
+
+.se-related {
+  max-width: 62rem;
+  margin: 2rem auto;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--se-border);
+}
+.se-related { color: var(--se-fg); font-family: inherit; }
+.se-related h2 { font-size: 1.1rem; margin: 0 0 0.5rem; font-family: inherit; color: inherit; }
+.se-related a { color: #65d1ff; text-underline-offset: 0.2em; }
+.se-related a:hover { color: #fff; }
+.se-related a:focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
+.se-related ul { margin: 0; padding-left: 1.25rem; }
+.se-related li { margin: 0.3rem 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  .se-fab { transition: none; }
+}
+
+@media print {
+  .se-fab-stack, .se-toasts, .se-copy, .skip-link { display: none !important; }
+  body { background: #fff !important; color: #000 !important; animation: none; }
+  a { color: #000 !important; text-decoration: underline; }
+  main a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+  .se-toc, .se-related { break-inside: avoid; }
+  .se-related a { color: #000 !important; }
+  details.se-faq-item, .se-faq details { break-inside: avoid; }
+  pre { white-space: pre-wrap; border: 1px solid #999; }
+  /* Dark-theme pages use light text on dark panels; force readable ink. */
+  body *:not(svg):not(svg *) {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+  body * { animation: none !important; opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  .neural-bg, canvas, [class*="particle"], [id*="particle"] { display: none !important; }
+  nav, header nav { position: static !important; }
+}

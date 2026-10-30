@@ -726,7 +726,10 @@
 
     <!-- Navigation CSS -->
     <link rel="stylesheet" href="assets/css/navigation.css" />
-  </head>
+  <meta name="apgi:last-updated" content="2026-10-18" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
+</head>
   <body>
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -758,7 +761,8 @@
     </style>
 
     <!-- Header / Hero -->
-    <header class="hero" id="main-content">
+    <main id="main" tabindex="-1">
+<header class="hero" id="main-content">
       <div class="container">
         <div class="flex items-center gap-2 mb-4">
           <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
@@ -1218,7 +1222,11 @@
     <!-- 7. Performance Metrics -->
     <section class="fade-in-section">
       <div class="container">
-        <h2 class="subheading-lg section-title">Performance & Validation</h2>
+        <h2 class="subheading-lg section-title">Design Targets and Success Criteria</h2>
+        <p class="text-center mb-8">
+          These are design goals for the simulation software. They are not
+          validation results, and no claim is made that they have been met.
+        </p>
         <div class="grid md:grid-cols-3 gap-6">
           <div class="glass-panel">
             <div class="text-center">
@@ -1244,7 +1252,7 @@
         </div>
         <div class="mt-8 grid md:grid-cols-2 gap-8">
           <div class="glass-panel">
-            <h3 class="text-xl font-bold mb-4">Success Criteria</h3>
+            <h3 class="text-xl font-bold mb-4">Success Criteria (Goals)</h3>
             <div class="space-y-4">
               <div>
                 <div class="font-semibold">Minimal Requirements</div>
@@ -1260,7 +1268,7 @@
                 <ul class="mt-2 space-y-2 text-sm">
                   <li>• Human-comparable task performance</li>
                   <li>• Neural signatures match empirical data</li>
-                  <li>• Pathology models reproduce clinical phenotypes</li>
+                  <li>• Models of altered states are compared with published findings</li>
                   <li>• Scalable to large-scale brain simulations</li>
                 </ul>
               </div>
@@ -1292,6 +1300,7 @@
         </div>
       </div>
     </section>
+</main>
 
     <script src="assets/js/theme-manager.js"></script>
     <script>

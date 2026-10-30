@@ -93,7 +93,7 @@ Several items from the docx's Phase 0A/1 list were checked and found **already r
 - [ ] Rewrite `sitemap.html` to exclude internal/redirect/prototype/blocked pages once §1a lands.
 - [ ] Verify `contact.html`'s form/env wiring end-to-end (no `action=` attribute today, JS-driven submission via `form-handler.js`).
 - [ ] Fix `terms-of-service.html`'s two dead `href="#"` placeholder links (Cookie Policy, Accessibility) — either build the target pages (§6) or remove the links.
-- [ ] Delete `assets/js/enhanced-cdn-fallbacks.js`, `d3-fallback.js`, `performance-optimizer-v2.js`, `lazy-quiz-loader.js`, `quiz.js`, `dropdown-navigation.js`, `image-converter.js`, `data-extraction.js`, `polyfills.js`, `ui-components.js`, `ui-components-examples.js`, `assets/css/buttons.css`, `assets/css/fallbacks.css`, `assets/css/input.css` — confirmed dead with no scaffolding intent (see FILE_MANIFEST.md for the verification behind each).
+- [x] (Done) Delete `assets/js/enhanced-cdn-fallbacks.js`, `d3-fallback.js`, `performance-optimizer-v2.js`, `lazy-quiz-loader.js`, `quiz.js`, `dropdown-navigation.js`, `image-converter.js`, `data-extraction.js`, `polyfills.js`, `ui-components.js`, `ui-components-examples.js`, `assets/css/buttons.css`, `assets/css/fallbacks.css`, `assets/css/input.css` — confirmed dead with no scaffolding intent (see FILE_MANIFEST.md for the verification behind each).
 
 ---
 
@@ -196,3 +196,46 @@ Most of these belong to `apgi-api`/the hosting layer rather than static HTML —
 - [ ] Data-residency decision for EU participants (concrete GCP region choice).
 - [ ] Decide and state in the consent text whether research consent is irrevocable for already-published aggregate results.
 - [ ] Confirm the canonical Neural Glow wellness/spiritual forbidden-language list against the `apgi-design` skill (referenced by the governing doc, not found locally).
+
+## Session log — delivery/hardening batch 2
+- [x] nginx: `expires` replaces location-level `add_header Cache-Control`; verified on nginx 1.24 against an emulated image root (HSTS/XFO/CSP present on every response, held pages 404). Docker daemon was unavailable, so the container itself was not built.
+- [x] Pinned remaining CDNs (Chart.js 3.9.1 + SRI in Dashboard-Acad, React 18.3.1, Tailwind Play 3.4.17, MathJax 3.2.2).
+- [x] Rewrote `sitemap.html` to list public pages only and removed it from `.dockerignore`.
+- [x] Excluded four prototype pages with unresolved links from the image; fixed the Terms `href="#"` link.
+- [ ] Still open: ~30 other dead JS files in `assets/js/` pending the keep/delete cluster decision; contact endpoint `POST /api/contact` must exist in `apgi-api`.
+
+## Session log — claim-discipline batch 3
+- [x] quiz-signature: renamed to Reflection Quiz; removed parameter-signature panel, numeric scores and clinical archetype names.
+- [x] assessment-onepage: removed parameter values, charts, interactions and recommendations; qualitative reflection summary only; removed Anxiety/somatic-anxiety wording.
+- [x] state-assessment: renamed Anxiety/Depression/Dissociation states; removed val-e/p/t/b displays, radar chart, confidence %, mechanism text.
+- [x] apgi-signature: removed OCD/Psychosis/Depression presets; hedged neural correlates.
+- [x] apgi-assessment: removed raw scores, CIs, percentiles, radar chart, style card, recommendations (page + PDF). Open defect: scoring code still substitutes placeholder norm means when a task has no data; results now say "Not enough data" for those.
+- [x] Therapist/healthcare/education funnels, book-outline testimonials, multi-scale/framework/liquid-networks/appendix wording rewritten or hedged.
+- [ ] Open: checkout wording (apgi-api), canonical forbidden-language list reconciliation, a final independent claim audit pass.
+
+## Session log — batch 4 (published-page audit and structure)
+- [x] Rebuilt `funnels/1_individual_self_explorers.html` (published, in sitemap) as a research-only page: removed fabricated testimonial, $149/$49 pricing, Stripe key/checkout script, hardcover/app/dashboard/guarantee claims.
+- [x] Hedged "Peer-Reviewed Evidence" heading, "47 peer-reviewed studies" caption, EP-4 "clinically urgent" wording, software-system "Performance & Validation" (now design targets), experiments "Validated Experiments".
+- [x] Added `<main>` landmarks to 10 published pages; "See also" sections on 11 research pages; fixed `apgi-experiments.html` duplicate `canvas` declaration that stopped its second script (and a missing `#particle-canvas` element).
+- [ ] Open: `app-appendix.html` "Download for macOS" points to github.com/lesoto/apgi-framework releases, which could not be verified from this environment; confirm ownership or remove.
+
+## Session log — batch 5 (accessibility, contrast, print)
+- [x] **Bug:** `assets/css/information-pages.css` had a line-wrapped `@import`, which is invalid CSS and corrupted the following `:root` rule, so about/faq/accessibility/cookie-policy rendered unstyled (white, serif). Fixed by putting the `@import` on one line.
+- [x] contact form inputs inherited light text on a white field (typed text near-invisible); set an explicit colour. Primary buttons/nav: `#3b82f6` -> `#2563eb` for white-text contrast.
+- [x] axe-core (WCAG 2 A/AA + best-practice) over 21 shipped pages: 0 serious violations remain except decorative footer equations (opacity-dimmed, now 0.6). Lightened muted text and purple/pink accents on dark pages; fixed heading order on assessment-v2, experiments, appendix, 404; added unique nav labels; 404 now has `<main>`.
+- [x] Print styles now force readable ink on dark-theme pages and show animation-hidden content (verified by rendering PDFs).
+- [ ] Open (moderate, best-practice only): "content outside landmarks" for theme toggles/CDN indicator on contact, terms, privacy, experiments, software-system, 404; no manual screen-reader or keyboard-flow test performed; no Lighthouse run.
+
+## Session log — batch 6 (shipped-set containment and link/CSP verification)
+- [x] Shipped set audited: 35 HTML pages were reachable in the image, 14 of them unlinked/unsitemapped (ad/Instagram/TikTok templates, a 4.6 MB Plotly export, typo-named duplicates, a quiz with parameter scores, a dashboard on randomly generated sample data, a states visualizer with mechanism claims, the macOS design guide). Added to `.dockerignore`; image now serves 21 HTML pages.
+- [x] Shared nav (`assets/js/navigation.js`) and `sitemap.html` linked to excluded pages (Assessment, Book, Solutions -> 404). Assessment now points at `apgi-assessment-v2.html`; Book/Solutions removed; FAQ added.
+- [x] Crawl through the real `nginx.conf.template` against an emulated image root: 299 internal href/src references, 46 unique URLs, 0 non-200; 0 `href="#"` placeholders; all 19 `sitemap.xml` URLs served.
+- [x] CSP check (production headers, headless Chromium): 0 violations on any shipped page. External hosts actually requested: fonts.googleapis.com, unpkg.com, cdnjs.cloudflare.com.
+- [ ] Open: the quarantined files still exist in the repo (excluded, not deleted) pending your keep/delete decision; none was clinically re-audited.
+
+## Session log — batch 7 (unification with main)
+- State at start: `main` = `ea3eac1` (unchanged since); working branch 14 commits ahead, 0 behind; PR #4 open into `main`, CI green. Previous merges: #1, #2, #3. All four `Deploy to Cloud Run` runs on `main` failed at "Authenticate to Google Cloud" because `GCP_WORKLOAD_IDENTITY_PROVIDER` reaches the action empty (repository secret not set / not visible to the workflow).
+- [x] CI now builds the image, runs the container and runs `scripts/verify_site.py` (security headers on pages/assets/404, held pages 404, every sitemap URL and internal link 200). Passed on the real image in GitHub Actions: 58 URLs, 296 references. Confirmed the script fails against `main`'s old nginx config (all six security headers were missing on every response).
+- [x] `deploy.yml`: preflight step fails early with an actionable message when the GCP secrets are missing; deploys serialised via `concurrency`.
+- [x] Codex review finding on PR #4 (generated TOC `<nav>` inherited the papers' fixed top-bar `nav` styles): reproduced, fixed (role=navigation div), thread resolved.
+- [ ] Needs a human: set repo secrets `GCP_WORKLOAD_IDENTITY_PROVIDER` and `GCP_SERVICE_ACCOUNT` (see top of `deploy.yml`), then merge PR #4 and re-run the deploy; then verify the serving revision, live headers, TLS and DNS.

@@ -673,14 +673,19 @@
         }
       }
     </style>
-  </head>
+  <meta name="apgi:last-updated" content="2026-10-18" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
+</head>
   <body>
     <!-- Neural Background Canvas -->
     <canvas
       id="neural-background"
       style="position: fixed; top: 0; left: 0; width: 100%; height: 100%"
     ></canvas>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
     <script>
+      (function () {
       // Get the canvas element
       var canvas = document.getElementById("neural-background");
       // Set the canvas dimensions
@@ -716,6 +721,7 @@
         }
       }
       drawNeuralNetwork();
+      })();
     </script>
     <nav>
       <div class="container">
@@ -730,7 +736,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <main id="main" tabindex="-1">
+<section class="hero">
       <div class="container">
         <h1>Computational Consciousness Modeling</h1>
         <p class="subtitle">
@@ -880,8 +887,8 @@
     <section id="experiments">
       <div class="container">
         <div class="section-header">
-          <h2>Validated Experiments</h2>
-          <p>Rigorous experimental paradigms with empirical grounding</p>
+          <h2>Implemented Experiment Paradigms</h2>
+          <p>Simulated versions of published experimental designs. They have not been validated against human data.</p>
         </div>
         <div class="experiments-grid">
           <div class="glass-card experiment-card">
@@ -942,7 +949,7 @@
           <div class="glass-card privacy-item">
             <div class="privacy-icon">📘</div>
             <div class="privacy-content">
-              <h4>Quick Start Guide</h4>
+              <h3>Quick Start Guide</h3>
               <p>
                 Get up and running in 5 minutes with installation, validation,
                 and first experiments
@@ -952,7 +959,7 @@
           <div class="glass-card privacy-item">
             <div class="privacy-icon">🎨</div>
             <div class="privacy-content">
-              <h4>GUI Visual Guide</h4>
+              <h3>GUI Visual Guide</h3>
               <p>
                 Complete visual walkthrough of the graphical interface with
                 screenshots
@@ -962,7 +969,7 @@
           <div class="glass-card privacy-item">
             <div class="privacy-icon">📖</div>
             <div class="privacy-content">
-              <h4>User Manual</h4>
+              <h3>User Manual</h3>
               <p>
                 Complete reference covering all features, commands, and use
                 cases
@@ -972,7 +979,7 @@
           <div class="glass-card privacy-item">
             <div class="privacy-icon">⌨️</div>
             <div class="privacy-content">
-              <h4>CLI Reference</h4>
+              <h3>CLI Reference</h3>
               <p>
                 Command-line interface documentation with examples and parameter
                 descriptions
@@ -982,7 +989,7 @@
           <div class="glass-card privacy-item">
             <div class="privacy-icon">📊</div>
             <div class="privacy-content">
-              <h4>Results Interpretation</h4>
+              <h3>Results Interpretation</h3>
               <p>
                 Guide to understanding test results, statistical metrics, and
                 falsification criteria
@@ -992,7 +999,7 @@
           <div class="glass-card privacy-item">
             <div class="privacy-icon">🔧</div>
             <div class="privacy-content">
-              <h4>Troubleshooting</h4>
+              <h3>Troubleshooting</h3>
               <p>
                 Common issues, solutions, and debugging strategies for smooth
                 operation
@@ -1043,6 +1050,7 @@
         </div>
       </div>
     </section>
+</main>
 
     <!-- Footer -->
     <footer>

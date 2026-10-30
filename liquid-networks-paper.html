@@ -32,17 +32,17 @@
       }
       :root {
         --apgi-threshold: #00b4ff;
-        --apgi-precision: #ff3366;
+        --apgi-precision: #ff5c85;
         --apgi-neuromod: #00cc99;
         --apgi-error: #ffcc00;
-        --apgi-workspace: #9966ff;
+        --apgi-workspace: #a98aff;
         --bg-base: #0a0f1a;
         --bg-surface: #1a1f2e;
         --bg-elevated: #242938;
         --text-primary: #ffffff;
         --text-secondary: #e2e8f0;
         --text-muted: #94a3b8;
-        --text-subtle: #64748b;
+        --text-subtle: #8b9bb3;
         --border-subtle: rgba(255, 255, 255, 0.06);
         --border-default: rgba(255, 255, 255, 0.12);
         --glow-threshold:
@@ -602,7 +602,7 @@
       .footer-eq {
         font-family: "Computer Modern", "Georgia", serif;
         font-size: 1.5rem;
-        opacity: 0.3;
+        opacity: 0.6;
       }
 
       @media (max-width: 640px) {
@@ -617,16 +617,20 @@
         }
       }
     </style>
-  </head>
+  <meta name="apgi:last-updated" content="2026-10-18" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
+</head>
   <body>
-    <nav>
+    <nav aria-label="Series navigation">
       <div class="nav-logo"><img src="assets/images/apgi-logo.png" alt="APGI" style="height: 24px; width: auto; vertical-align: middle;"></div>
       <span class="nav-series">Paper 2 of 4</span>
       <a href="papers-index.html" class="nav-back">← All Papers</a>
     </nav>
 
     <!-- HERO -->
-    <div class="hero">
+    <main id="main" tabindex="-1">
+<div class="hero">
       <div class="paper-badge">Paper 2 · Liquid Networks</div>
 
       <div class="hero-equation">
@@ -954,8 +958,10 @@
           <div class="app-icon">🏥</div>
           <h3>Disorders of Consciousness</h3>
           <p>
-            Distinguishing coma from minimally conscious state via reservoir
-            dimensionality and ignition probability signatures.
+            A hypothesised future research direction: whether reservoir
+            dimensionality and ignition-probability measures could help
+            characterise differences between states of consciousness. Untested;
+            not a clinical or diagnostic method.
           </p>
         </div>
         <div class="app-card">
@@ -976,6 +982,7 @@
         </div>
       </div>
     </section>
+</main>
 
     <footer>
       <div class="footer-inner">
@@ -986,7 +993,7 @@
             computation.
           </p>
         </div>
-        <nav class="footer-nav">
+        <nav class="footer-nav" aria-label="Footer">
           <a href="papers-index.html">← All Papers</a>
           <a href="framework-paper.html">Paper 1: Framework →</a>
           <a href="epistemic-architecture-paper.html">Paper 4: Epistemic →</a>

@@ -30,17 +30,17 @@
       }
       :root {
         --apgi-threshold: #00b4ff;
-        --apgi-precision: #ff3366;
+        --apgi-precision: #ff5c85;
         --apgi-neuromod: #00cc99;
         --apgi-error: #ffcc00;
-        --apgi-workspace: #9966ff;
+        --apgi-workspace: #a98aff;
         --bg-base: #0a0f1a;
         --bg-surface: #1a1f2e;
         --bg-elevated: #242938;
         --text-primary: #ffffff;
         --text-secondary: #e2e8f0;
         --text-muted: #94a3b8;
-        --text-subtle: #64748b;
+        --text-subtle: #8b9bb3;
         --border-subtle: rgba(255, 255, 255, 0.06);
         --border-default: rgba(255, 255, 255, 0.12);
         --glow-threshold:
@@ -626,7 +626,7 @@
         color: var(--text-subtle);
         margin-bottom: 0.4rem;
       }
-      .roadmap-step h4 {
+      .roadmap-step h3 {
         font-size: 0.9rem;
         font-weight: 700;
         color: var(--text-secondary);
@@ -707,7 +707,7 @@
         max-width: 280px;
         line-height: 1.6;
       }
-      .footer-nav-group h5 {
+      .footer-nav-group h3 {
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.15em;
@@ -755,11 +755,15 @@
         }
       }
     </style>
-  </head>
+  <meta name="apgi:last-updated" content="2026-10-18" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
+</head>
   <body>
+    <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:0;z-index:10000;background:#fff;color:#000;padding:.5rem 1rem" onfocus="this.style.left='0'" onblur="this.style.left='-9999px'">Skip to content</a>
     <div class="neural-bg"></div>
 
-    <nav>
+    <nav aria-label="Primary">
       <div class="nav-logo"><img src="assets/images/apgi-logo.png" alt="APGI" style="height: 24px; width: auto; vertical-align: middle;"></div>
       <div class="nav-eq">
         <span style="color: var(--apgi-precision)">Π</span
@@ -770,6 +774,7 @@
       </div>
     </nav>
 
+    <main id="main" tabindex="-1">
     <!-- HERO -->
     <div class="hero">
       <div class="hero-label">The APGI Research Series · 4 Papers</div>
@@ -938,7 +943,7 @@
           <div class="roadmap-step">
             <div class="roadmap-dot">1</div>
             <div class="roadmap-step-q">What</div>
-            <h4>The Mechanism</h4>
+            <h3>The Mechanism</h3>
             <p>
               Precision-gated threshold crossing — the computational logic of
               conscious access
@@ -947,7 +952,7 @@
           <div class="roadmap-step">
             <div class="roadmap-dot">2</div>
             <div class="roadmap-step-q">How</div>
-            <h4>The Implementation</h4>
+            <h3>The Implementation</h3>
             <p>
               Liquid network dynamics — the biological ODE substrate in
               recurrent cortex
@@ -956,7 +961,7 @@
           <div class="roadmap-step">
             <div class="roadmap-dot">3</div>
             <div class="roadmap-step-q">When</div>
-            <h4>Temporal Extension</h4>
+            <h3>Temporal Extension</h3>
             <p>
               Five hierarchical levels — from millisecond binding to
               autobiographical time
@@ -965,7 +970,7 @@
           <div class="roadmap-step">
             <div class="roadmap-dot">4</div>
             <div class="roadmap-step-q">By What Standard</div>
-            <h4>Evaluation Framework</h4>
+            <h3>Evaluation Framework</h3>
             <p>
               Three-tier epistemic architecture — bridges, benchmarks, and
               falsification criteria
@@ -995,6 +1000,8 @@
       </p>
     </div>
 
+    </main>
+
     <!-- FOOTER -->
     <footer>
       <div class="footer-inner">
@@ -1006,7 +1013,7 @@
           </p>
         </div>
         <div class="footer-nav-group">
-          <h5>Papers</h5>
+          <h3>Papers</h3>
           <a href="framework-paper.html">Paper 1 — Framework</a>
           <a href="liquid-networks-paper.html">Paper 2 — Liquid Networks</a>
           <a href="epistemic-architecture-paper.html"
@@ -1014,7 +1021,7 @@
           >
         </div>
         <div class="footer-nav-group">
-          <h5>Framework</h5>
+          <h3>Framework</h3>
           <a href="framework-paper.html">Core Equation</a>
           <a href="liquid-networks-paper.html">ODE System</a>
           <a href="epistemic-architecture-paper.html">Scoring Rubric</a>

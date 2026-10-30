@@ -16,10 +16,10 @@
 <style>
   :root {
     --apgi-threshold: #00B4FF;
-    --apgi-precision: #FF3366;
+    --apgi-precision: #ff5c85;
     --apgi-neuromod: #00CC99;
     --apgi-error: #FFCC00;
-    --apgi-workspace: #9966FF;
+    --apgi-workspace: #a98aff;
     --apgi-inactive: #2C3E50;
     --bg-base: #0A0F1A;
     --bg-surface: #1a1f2e;
@@ -27,7 +27,7 @@
     --text-primary: #FFFFFF;
     --text-secondary: #E2E8F0;
     --text-muted: #94A3B8;
-    --text-subtle: #64748B;
+    --text-subtle: #8b9bb3;
     --border-subtle: rgba(255,255,255,0.06);
     --border-default: rgba(255,255,255,0.12);
     --font-display: 'Crimson Pro', Georgia, serif;
@@ -303,11 +303,11 @@
 
   /* ── Color theming per protocol ── */
   .ep0 { --accent: #00CC99; --glow: var(--glow-neuromod); }
-  .ep1 { --accent: #FF3366; --glow: var(--glow-precision); }
+  .ep1 { --accent: #ff5c85; --glow: var(--glow-precision); }
   .ep2 { --accent: #00B4FF; --glow: var(--glow-threshold); }
-  .ep3 { --accent: #9966FF; --glow: var(--glow-workspace); }
+  .ep3 { --accent: #a98aff; --glow: var(--glow-workspace); }
   .ep4 { --accent: #FFCC00; --glow: var(--glow-error); }
-  .ep5 { --accent: #FF3366; --glow: var(--glow-precision); }
+  .ep5 { --accent: #ff5c85; --glow: var(--glow-precision); }
   .ep6 { --accent: #00B4FF; --glow: var(--glow-threshold); }
 
   .protocol-card:hover {
@@ -330,15 +330,20 @@
   }
   .page-footer span { color: var(--apgi-threshold); }
 </style>
+<meta name="apgi:last-updated" content="2026-10-30" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
+<style>a{color:#65d1ff}a:hover{color:#fff}</style>
 </head>
 <body>
 
+<main id="main" tabindex="-1">
 <div class="page-wrap">
 
   <!-- Header -->
   <header class="site-header">
     <div class="eq-display">
-      <span style="color:#FF3366">Π</span>
+      <span style="color:#ff5c85">Π</span>
       <span style="color:#94A3B8"> × </span>
       <span style="color:#FFCC00">|ε|</span>
       <span style="color:#94A3B8"> > </span>
@@ -430,8 +435,8 @@
   <section class="protocol-section anchor-target ep1" id="ep1">
     <div class="protocol-card">
       <div class="protocol-header">
-        <div class="protocol-stripe" style="background:#FF3366"></div>
-        <span class="protocol-badge" style="background:rgba(255,51,102,0.12);color:#FF3366;border:1px solid rgba(255,51,102,0.3)">EP-1</span>
+        <div class="protocol-stripe" style="background:#ff5c85"></div>
+        <span class="protocol-badge" style="background:rgba(255,51,102,0.12);color:#ff5c85;border:1px solid rgba(255,51,102,0.3)">EP-1</span>
         <div class="protocol-title-block">
           <div class="protocol-title">EEG Gating</div>
           <div class="protocol-subtitle">Does interoceptive focus amplify the P3b ignition signal?</div>
@@ -487,7 +492,7 @@
         <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
         <div class="prompt-card">
           <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
-          <div class="prompt-text">Scientific visualization, dark space-black background, EEG cap on human silhouette emitting layered brainwave traces, P3b waveform spike rendered in vibrant red (#FF3366) with neural glow radiating outward, cardiac rhythm trace in emerald green synchronized below, diastolic phase highlighted as a luminous pulse window, two overlapping conditions shown as translucent waveforms (interoceptive = red glow, exteroceptive = blue glow), bifurcation point where one trace rises dramatically above the other, ultra-clean neuroscience illustration, cinematic dark aesthetic, no text</div>
+          <div class="prompt-text">Scientific visualization, dark space-black background, EEG cap on human silhouette emitting layered brainwave traces, P3b waveform spike rendered in vibrant red (#ff5c85) with neural glow radiating outward, cardiac rhythm trace in emerald green synchronized below, diastolic phase highlighted as a luminous pulse window, two overlapping conditions shown as translucent waveforms (interoceptive = red glow, exteroceptive = blue glow), bifurcation point where one trace rises dramatically above the other, ultra-clean neuroscience illustration, cinematic dark aesthetic, no text</div>
         </div>
       </div>
     </div>
@@ -548,7 +553,7 @@
         <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
         <div class="prompt-card">
           <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
-          <div class="prompt-text">Scientific illustration, dark background, translucent human head in profile showing brain anatomy, TMS magnetic coil positioned above the anterior insula glowing electric blue (#00B4FF), magnetic field lines rendered as curved glowing arcs, the insula region lit up bright then shown dimming/disrupted as a flickering red node, separate diagram showing dlPFC target on the same skull in purple (#9966FF), PCI complexity waveform shown on right panel with notch where TMS fires, medical precision aesthetic, Neural Glow dark interface style, no text overlays</div>
+          <div class="prompt-text">Scientific illustration, dark background, translucent human head in profile showing brain anatomy, TMS magnetic coil positioned above the anterior insula glowing electric blue (#00B4FF), magnetic field lines rendered as curved glowing arcs, the insula region lit up bright then shown dimming/disrupted as a flickering red node, separate diagram showing dlPFC target on the same skull in purple (#a98aff), PCI complexity waveform shown on right panel with notch where TMS fires, medical precision aesthetic, Neural Glow dark interface style, no text overlays</div>
         </div>
       </div>
     </div>
@@ -558,8 +563,8 @@
   <section class="protocol-section anchor-target ep3" id="ep3">
     <div class="protocol-card">
       <div class="protocol-header">
-        <div class="protocol-stripe" style="background:#9966FF"></div>
-        <span class="protocol-badge" style="background:rgba(153,102,255,0.12);color:#9966FF;border:1px solid rgba(153,102,255,0.3)">EP-3</span>
+        <div class="protocol-stripe" style="background:#a98aff"></div>
+        <span class="protocol-badge" style="background:rgba(153,102,255,0.12);color:#a98aff;border:1px solid rgba(153,102,255,0.3)">EP-3</span>
         <div class="protocol-title-block">
           <div class="protocol-title">Agent Simulation</div>
           <div class="protocol-subtitle">Does an APGI computational agent outperform simpler models on the Iowa Gambling Task?</div>
@@ -621,7 +626,7 @@
         <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
         <div class="prompt-card">
           <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
-          <div class="prompt-text">Digital art, dark background, abstract computational agent depicted as a glowing neural circuit hovering above a card table with four face-down decks (Iowa Gambling Task), purple (#9966FF) light emanating from the agent's decision node, somatic marker signal shown as a pulsing red wave preceding a threshold ignition flash in electric blue, BIC model comparison chart rendered as a luminous bar graph floating in the background, cinematic science visualization, no text, Neural Glow aesthetic</div>
+          <div class="prompt-text">Digital art, dark background, abstract computational agent depicted as a glowing neural circuit hovering above a card table with four face-down decks (Iowa Gambling Task), purple (#a98aff) light emanating from the agent's decision node, somatic marker signal shown as a pulsing red wave preceding a threshold ignition flash in electric blue, BIC model comparison chart rendered as a luminous bar graph floating in the background, cinematic science visualization, no text, Neural Glow aesthetic</div>
         </div>
       </div>
     </div>
@@ -644,7 +649,7 @@
         <div class="plain-english-text">
           <div class="plain-english-label">Plain English</div>
           <p class="plain-english-body">
-            This is APGI's most clinically urgent protocol. Patients in <strong>vegetative state (VS)</strong>, <strong>minimally conscious state (MCS)</strong>, or emerging from disorders of consciousness are often misclassified — VS patients may be covertly aware. EP-4 tests whether two APGI parameters — <strong>HEP amplitude</strong> (interoceptive precision Πⁱ) and <strong>PCI</strong> (perturbational complexity index, a TMS-EEG measure of ignition capacity) — can predict whether a patient will recover consciousness at 3- and 6-month follow-up, and do so <em>better together</em> than either alone. P4c uses a cold-pressor test (CPT) as an interoceptive perturbation: MCS patients should show a PCI increase in response to the somatic stimulus; VS/UWS patients should not, providing a bedside dissociation test.
+            This is APGI's most clinically motivated protocol, and it is a research protocol only: it is not a diagnostic method and has no clinical use. Patients in <strong>vegetative state (VS)</strong>, <strong>minimally conscious state (MCS)</strong>, or emerging from disorders of consciousness are often misclassified — VS patients may be covertly aware. EP-4 tests whether two APGI parameters — <strong>HEP amplitude</strong> (interoceptive precision Πⁱ) and <strong>PCI</strong> (perturbational complexity index, a TMS-EEG measure of ignition capacity) — can predict whether a patient will recover consciousness at 3- and 6-month follow-up, and do so <em>better together</em> than either alone. P4c uses a cold-pressor test (CPT) as an interoceptive perturbation: MCS patients should show a PCI increase in response to the somatic stimulus; VS/UWS patients should not, providing a bedside dissociation test.
           </p>
         </div>
       </div>
@@ -698,8 +703,8 @@
   <section class="protocol-section anchor-target ep5" id="ep5">
     <div class="protocol-card">
       <div class="protocol-header">
-        <div class="protocol-stripe" style="background:#FF3366"></div>
-        <span class="protocol-badge" style="background:rgba(255,51,102,0.12);color:#FF3366;border:1px solid rgba(255,51,102,0.3)">EP-5</span>
+        <div class="protocol-stripe" style="background:#ff5c85"></div>
+        <span class="protocol-badge" style="background:rgba(255,51,102,0.12);color:#ff5c85;border:1px solid rgba(255,51,102,0.3)">EP-5</span>
         <div class="protocol-title-block">
           <div class="protocol-title">fMRI Anticipation</div>
           <div class="protocol-subtitle">Does vmPFC encode anticipated somatic value — not sensory outcome?</div>
@@ -755,7 +760,7 @@
         <div class="image-prompt-label">🖼 Text-to-Image Prompt</div>
         <div class="prompt-card">
           <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
-          <div class="prompt-text">Scientific brain imaging visualization, dark background, transparent human head showing medial sagittal brain section, vmPFC (ventromedial prefrontal cortex) glowing with a warm red-to-amber gradient (#FF3366 to #FFCC00) during an anticipation phase depicted as a countdown clock floating in foreground, glowing fiber tract connecting vmPFC to posterior insula in the temporal lobe, the insula remaining dim until anticipation activates it, BOLD signal time-series plotted as a glowing curve — peaking during anticipation window, dropping at outcome — Neural Glow dark medical aesthetic, no text</div>
+          <div class="prompt-text">Scientific brain imaging visualization, dark background, transparent human head showing medial sagittal brain section, vmPFC (ventromedial prefrontal cortex) glowing with a warm red-to-amber gradient (#ff5c85 to #FFCC00) during an anticipation phase depicted as a countdown clock floating in foreground, glowing fiber tract connecting vmPFC to posterior insula in the temporal lobe, the insula remaining dim until anticipation activates it, BOLD signal time-series plotted as a glowing curve — peaking during anticipation window, dropping at outcome — Neural Glow dark medical aesthetic, no text</div>
         </div>
       </div>
     </div>
@@ -833,6 +838,7 @@
   </footer>
 
 </div>
+</main>
 
 <script>
   function copyPrompt(btn) {

@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APGI Signature Parameters Assessment</title>
-    <meta name="description" content="Take the short APGI Signature quiz for a quick read on your consciousness parameters — prediction error, precision, and threshold." />
+    <title>APGI Reflection Quiz</title>
+    <meta name="description" content="A short reflective quiz on four themes from the APGI research framework. For self-reflection only; it is not a measurement, diagnosis or clinical tool." />
     <link rel="canonical" href="https://apgiframework.com/quiz-signature.html" />
-    <meta property="og:title" content="APGI Signature Parameters Assessment" />
-    <meta property="og:description" content="Take the short APGI Signature quiz for a quick read on your consciousness parameters — prediction error, precision, and threshold." />
+    <meta property="og:title" content="APGI Reflection Quiz" />
+    <meta property="og:description" content="A short reflective quiz on four themes from the APGI research framework. For self-reflection only; it is not a measurement, diagnosis or clinical tool." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://apgiframework.com/quiz-signature.html" />
     <meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Framework-Diagram.png" />
@@ -121,12 +121,14 @@
       <!-- Header -->
       <div class="bg-slate-900 p-6 md:p-8 text-white">
         <h1 class="text-2xl md:text-3xl font-bold mb-2">
-          APGI Signature Parameters
+          APGI Reflection Quiz
         </h1>
         <p class="text-slate-400 text-sm leading-relaxed">
-          Assess your neuro-cognitive profile across four key dimensions:
-          Activation Threshold, Prediction Error Sensitivity, Precision
-          Weighting, and Somatic Bias.
+          A short reflective quiz on four themes from the APGI research
+          framework: activation threshold, prediction-error sensitivity,
+          precision weighting and somatic bias. It is for self-reflection
+          only. It does not measure any parameter, and it is not a diagnosis
+          or a clinical tool.
         </p>
       </div>
 
@@ -172,7 +174,7 @@
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
               />
             </svg>
-            Your Neurodynamic Profile
+            Your Reflection Summary
           </h2>
           <button
             id="exportResultsBtn"
@@ -197,25 +199,22 @@
           </button>
         </div>
 
-        <div id="resultsGrid" class="grid gap-6 md:grid-cols-2">
-          <!-- Result cards injected here -->
-        </div>
 
         <div class="mt-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
           <h3 class="font-bold text-slate-900 mb-2">
-            Understanding Your Parameters
+            Reflecting on Your Answers
           </h3>
           <p class="text-xs text-slate-500 mb-6">
-            These parameters are not traits or labels; they are the control
-            settings of your cognitive system. Problems usually arise from
-            miscalibration, not magnitude.
+            These themes come from a research framework that has not been
+            validated as a measurement of individuals. Treat the prompts below
+            as questions to reflect on, not as results about you.
           </p>
 
           <div
             class="space-y-8 text-sm text-slate-600"
             id="detailedInterpretations"
           >
-            <!-- High/Low interpretations injected here based on scores -->
+            <!-- Reflection prompts injected here based on your answers -->
           </div>
 
           <div class="mt-8 pt-6 border-t border-slate-200 text-center">
@@ -225,8 +224,8 @@
               Key Takeaway
             </p>
             <p class="text-slate-700 mt-2 italic">
-              No parameter is optimal alone. Awareness allows regulation.
-              Regulation converts liability into advantage.
+              No single setting is best in every situation. Noticing how you
+              respond can help you choose how to respond.
             </p>
           </div>
         </div>
@@ -381,7 +380,7 @@
             high: {
               profile: "Intuitive and emotionally vivid.",
               examples:
-                "Stress shows up as tightness; 'gut feelings' guide decisions; anxiety escalates via bodily feedback.",
+                "Stress shows up as tightness; 'gut feelings' guide decisions; stress can escalate through bodily feedback.",
               tips: [
                 "Separate sensation from interpretation.",
                 "Slow breathing to reduce amplification.",
@@ -416,7 +415,7 @@
             "Too much enters awareness and every mismatch demands resolution.",
           typicalFailures: [
             "Mental fatigue without output",
-            "Anxiety loops",
+            "Repetitive mental loops",
             "Constant task switching",
           ],
           hiddenStrength:
@@ -430,8 +429,8 @@
           whyFirst: "Lowering ε or π fails if overload persists.",
         },
         {
-          id: "hypervigilant_analyst",
-          name: "The Hypervigilant Analyst",
+          id: "anticipatory_analyst",
+          name: "The Anticipatory Analyst",
           signature: {
             theta: "Moderate",
             epsilon: "High",
@@ -441,8 +440,8 @@
           coreIssue:
             "Threat precision and bodily amplification form a self-reinforcing loop.",
           typicalFailures: [
-            "Rumination",
-            "Catastrophic interpretation",
+            "Extended deliberation",
+            "Worst-case framing",
             "Decision paralysis",
           ],
           hiddenStrength:
@@ -450,7 +449,7 @@
           adjustFirst: "1️⃣ Somatic Bias (β)",
           actions: [
             "Slow breathing",
-            "Reinterpret arousal as signal, not danger",
+            "Notice arousal as information about the situation",
             "Delay cognitive analysis until arousal drops",
           ],
           whyFirst: "Cognitive reframing fails while β remains high.",
@@ -516,12 +515,12 @@
           coreIssue:
             "Weak embodiment and salience reduce motivation and emotional signal use.",
           typicalFailures: [
-            "Flat affect",
+            "Muted emotional expression",
             "Poor emotional timing",
             "Burnout through neglect",
           ],
           hiddenStrength:
-            "Clear reasoning, emotional immunity, strategic distance",
+            "Clear reasoning, emotional steadiness, strategic distance",
           adjustFirst: "1️⃣ Somatic Bias (β)",
           actions: [
             "Scheduled physical check-ins",
@@ -531,8 +530,8 @@
           whyFirst: "Without β, priorities lack urgency.",
         },
         {
-          id: "anxious_reactor",
-          name: "The Anxious Reactor",
+          id: "high_sensitivity_responder",
+          name: "The High-Sensitivity Responder",
           signature: {
             theta: "High",
             epsilon: "High",
@@ -541,7 +540,7 @@
           },
           coreIssue: "All amplification knobs turned up.",
           typicalFailures: [
-            "Panic escalation",
+            "Fast stress escalation",
             "Rapid burnout",
             "Poor decisions under stress",
           ],
@@ -579,7 +578,7 @@
 
       const globalPriorityRules = [
         { condition: "If overloaded", action: "adjust θₜ first" },
-        { condition: "If anxious", action: "adjust β before thinking" },
+        { condition: "If stressed", action: "adjust β before thinking" },
         { condition: "If impulsive", action: "adjust π" },
         { condition: "If rigid", action: "adjust ε" },
         { condition: "If burned out", action: "check β, not motivation" },
@@ -744,12 +743,10 @@
 
       function calculateScores() {
         const formData = new FormData(document.getElementById("apgiForm"));
-        const resultsGrid = document.getElementById("resultsGrid");
         const detailedInterpretations = document.getElementById(
           "detailedInterpretations",
         );
 
-        resultsGrid.innerHTML = "";
         detailedInterpretations.innerHTML = "";
 
         let globalCounter = 1;
@@ -769,25 +766,6 @@
           const band = getBand(normalized);
           scores[param.id] = { normalized, band };
 
-          // Card Generation
-          const card = document.createElement("div");
-          card.className =
-            "p-5 border border-slate-200 rounded-xl bg-white shadow-sm";
-          card.innerHTML = `
-                    <div class="flex justify-between items-start mb-3">
-                        <h4 class="font-bold text-slate-800">${param.name}</h4>
-                        <span class="interpretation-badge ${band.color}">${band.label}</span>
-                    </div>
-                    <div class="flex items-end gap-2 mb-2">
-                        <span class="text-3xl font-bold text-slate-900">${normalized}</span>
-                        <span class="text-slate-400 mb-1 text-sm">/ 100</span>
-                    </div>
-                    <div class="progress-bar mb-2">
-                        <div class="progress-fill" style="width: ${normalized}%"></div>
-                    </div>
-                `;
-          resultsGrid.appendChild(card);
-
           // Interpretation Logic
           const isHigh = normalized > 50;
           const inter = isHigh
@@ -798,16 +776,16 @@
           detail.className =
             "bg-white p-6 rounded-xl border border-slate-100 shadow-sm";
           detail.innerHTML = `
-                    <h4 class="font-bold text-slate-900 mb-2 border-b border-slate-50 pb-2">${param.name} — ${isHigh ? "High Expression" : "Low Expression"}</h4>
+                    <h4 class="font-bold text-slate-900 mb-2 border-b border-slate-50 pb-2">${param.name} — ${isHigh ? "Your answers leaned higher" : "Your answers leaned lower"}</h4>
                     <div class="grid md:grid-cols-2 gap-6 mt-4">
                         <div>
-                            <p class="text-xs font-bold text-blue-600 uppercase mb-1">Typical Profile</p>
+                            <p class="text-xs font-bold text-blue-600 uppercase mb-1">Pattern to reflect on</p>
                             <p class="text-slate-800 mb-4">${inter.profile}</p>
-                            <p class="text-xs font-bold text-blue-600 uppercase mb-1">Real-Life Examples</p>
+                            <p class="text-xs font-bold text-blue-600 uppercase mb-1">Everyday examples</p>
                             <p class="text-slate-600 text-xs italic">${inter.examples}</p>
                         </div>
                         <div>
-                            <p class="text-xs font-bold text-green-600 uppercase mb-1">Practical Tips</p>
+                            <p class="text-xs font-bold text-green-600 uppercase mb-1">Things to try</p>
                             <ul class="list-disc list-inside text-slate-700 space-y-1 text-xs">
                                 ${inter.tips.map((t) => `<li>${t}</li>`).join("")}
                             </ul>
@@ -827,33 +805,12 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <h3 class="text-xl font-bold">Your Cognitive Archetype: ${matchedArchetype.name}</h3>
+                    <h3 class="text-xl font-bold">Closest reflection style: ${matchedArchetype.name}</h3>
                 </div>
                 
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="grid gap-6 mb-6">
                     <div>
-                        <p class="text-xs font-bold text-blue-400 uppercase mb-2 tracking-wider">Parameter Signature</p>
-                        <div class="bg-slate-800/50 rounded-lg p-4 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-300 text-sm">Activation Threshold (θₜ)</span>
-                                <span class="font-semibold text-white">${matchedArchetype.signature.theta}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-300 text-sm">Prediction Error (ε)</span>
-                                <span class="font-semibold text-white">${matchedArchetype.signature.epsilon}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-300 text-sm">Precision Weighting (π)</span>
-                                <span class="font-semibold text-white">${matchedArchetype.signature.pi}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-300 text-sm">Somatic Bias (β)</span>
-                                <span class="font-semibold text-white">${matchedArchetype.signature.beta}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold text-blue-400 uppercase mb-2 tracking-wider">Core Issue</p>
+                        <p class="text-xs font-bold text-blue-400 uppercase mb-2 tracking-wider">Central Theme</p>
                         <p class="text-slate-200 text-sm leading-relaxed">${matchedArchetype.coreIssue}</p>
                     </div>
                 </div>
@@ -927,8 +884,7 @@
               const assessmentData = {
                 assessmentType: "signature-parameters",
                 timestamp: new Date().toISOString(),
-                scores: scores,
-                archetype: getMatchingArchetype(scores),
+                archetype: getMatchingArchetype(scores).name,
               };
               window.exportUI.showModal(assessmentData);
             });

@@ -9,10 +9,10 @@
     <script src="assets/js/cdn-fallbacks.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APGI Consciousness Parameter Assessment</title>
+    <title>APGI Reflection Questionnaire</title>
     <link rel="canonical" href="https://apgiframework.com/assessment-onepage.html" />
-    <meta property="og:title" content="APGI Consciousness Parameter Assessment" />
-    <meta property="og:description" content="Complete APGI Consciousness Parameter Assessment in one page. Discover your unique cognitive signature through prediction error, precision, threshold, and somatic bias measurements." />
+    <meta property="og:title" content="APGI Reflection Questionnaire" />
+    <meta property="og:description" content="Complete APGI Reflection Questionnaire in one page. Discover your unique cognitive signature through prediction error, precision, threshold, and somatic bias measurements." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://apgiframework.com/assessment-onepage.html" />
     <meta property="og:image" content="https://apgiframework.com/assets/images/APGI-Framework-Diagram.png" />
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta
       name="description"
-      content="Complete APGI Consciousness Parameter Assessment in one page. Discover your unique cognitive signature through prediction error, precision, threshold, and somatic bias measurements."
+      content="Complete APGI Reflection Questionnaire in one page. Discover your unique cognitive signature through prediction error, precision, threshold, and somatic bias measurements."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,31 +37,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="assets/css/fontawesome-fallback.css" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script>
-      // Verify external libraries loaded properly
-      window.addEventListener("DOMContentLoaded", function () {
-        if (typeof Chart === "undefined") {
-          // Fallback: disable chart generation
-          window.generateProfileChart = function () {
-            document.getElementById("profileChart").innerHTML =
-              '<p class="error">Chart library unavailable. Please refresh the page.</p>';
-          };
-        }
-
-        if (typeof Plotly === "undefined") {
-          // Fallback: disable plotly generation
-          window.generateIgnitionPlot = function () {
-            document.getElementById("ignitionPlot").innerHTML =
-              '<p class="error">Plot library unavailable. Please refresh the page.</p>';
-          };
-        }
-      });
-    </script>
     <style>
       * {
         margin: 0;
@@ -1370,36 +1345,37 @@
 
     <div class="container" id="main-content">
       <header>
-        <h1>APGI Parameter Assessment</h1>
+        <h1>APGI Reflection Questionnaire</h1>
         <p class="subtitle">
-          Empirical Measurement of Consciousness Architecture Parameters
+          Reflective questions based on the APGI research framework
         </p>
 
         <div class="warning-box">
           <strong
-            ><i class="fas fa-exclamation-triangle"></i> Research & Clinical
-            Context:</strong
+            ><i class="fas fa-exclamation-triangle"></i> Research and
+            Educational Context:</strong
           >
           <p>
-            This assessment measures parameters within the APGI (Allostatic
-            Precision-Gated Ignition) theoretical framework. Results should be
-            interpreted within appropriate research or clinical contexts. This
-            is not a diagnostic tool.
+            This questionnaire is based on the APGI (Allostatic Precision-Gated
+            Ignition) research framework, which has not been validated as a
+            measurement of individuals. It does not measure parameters and is
+            not a diagnostic or clinical tool. Nothing here should inform
+            medical decisions.
           </p>
         </div>
 
         <div class="info-box">
           <strong
-            ><i class="fas fa-info-circle"></i> What This Measures:</strong
+            ><i class="fas fa-info-circle"></i> Themes in This Questionnaire:</strong
           >
           <p>
-            <strong>Prediction Error (ε):</strong> Mismatch between expected and
+            <strong>Prediction error (ε):</strong> In the framework, mismatch between expected and
             actual sensory/interoceptive input<br />
-            <strong>Precision Weighting (π):</strong> Confidence/reliability
+            <strong>Precision weighting (π):</strong> In the framework, confidence/reliability
             assigned to prediction errors<br />
-            <strong>Ignition Threshold (θ):</strong> Critical threshold for
+            <strong>Ignition threshold (θ):</strong> In the framework, the critical threshold for
             conscious access via global broadcasting<br />
-            <strong>Somatic Bias (β):</strong> Relative weighting of
+            <strong>Somatic bias (β):</strong> In the framework, relative weighting of
             interoceptive vs. exteroceptive signals
           </p>
         </div>
@@ -1421,7 +1397,7 @@
           <div>
             <div class="section-title">Baseline State Assessment</div>
             <div class="section-subtitle">
-              Resting-state consciousness parameters
+              Everyday experience
             </div>
           </div>
         </div>
@@ -1527,16 +1503,16 @@
         </div>
       </div>
 
-      <!-- SECTION 2: State-Dependent Parameters -->
+      <!-- SECTION 2: Experience in Different States -->
       <div class="section-card">
         <div class="section-header">
           <div class="section-icon">
             <i class="fas fa-sliders-h"></i>
           </div>
           <div>
-            <div class="section-title">State-Dependent Parameters</div>
+            <div class="section-title">Experience in Different States</div>
             <div class="section-subtitle">
-              How parameters shift across mental states
+              How your experience can shift across mental states
             </div>
           </div>
         </div>
@@ -1626,7 +1602,7 @@
           <div>
             <div class="section-title">Behavioral Manifestations</div>
             <div class="section-subtitle">
-              Observable correlates of parameter settings
+              Everyday patterns
             </div>
           </div>
         </div>
@@ -1728,98 +1704,29 @@
       <div class="btn-group">
         <button class="btn" onclick="calculateResults()">
           <i class="fas fa-calculator"></i>
-          Calculate Parameters
+          Show Reflection Summary
         </button>
       </div>
 
       <!-- RESULTS SECTION (Initially Hidden) -->
       <div id="results" style="display: none">
         <div class="results-summary">
-          <h2><i class="fas fa-chart-line"></i> Your APGI Parameter Profile</h2>
+          <h2><i class="fas fa-comment-dots"></i> Your Reflection Summary</h2>
           <p>
-            Empirical estimates of your consciousness architecture based on
-            self-report and behavioral correlates.
+            This summary restates your own answers in words, with questions to
+            reflect on. It is not a measurement of any parameter, a score, a
+            norm comparison or a recommendation.
           </p>
         </div>
 
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-label">Prediction Error (ε)</div>
-            <div class="metric-value" id="result-error">--</div>
-            <div class="metric-description">
-              Current baseline mismatch between predictions and sensory input
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-label">Precision (π)</div>
-            <div class="metric-value" id="result-precision">--</div>
-            <div class="metric-description">
-              Confidence weighting applied to prediction errors
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-label">Threshold (θ)</div>
-            <div class="metric-value" id="result-threshold">--</div>
-            <div class="metric-description">
-              Critical value for conscious ignition via global broadcast
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-label">Somatic Bias (β)</div>
-            <div class="metric-value" id="result-somatic">--</div>
-            <div class="metric-description">
-              Relative weighting of interoceptive signals in consciousness
-            </div>
-          </div>
-        </div>
-
-        <div class="chart-container">
-          <h3>
-            <i class="fas fa-chart-area"></i> Parameter Profile Visualization
-          </h3>
-          <canvas id="profileChart" height="100"></canvas>
-        </div>
-
         <div class="section-card">
-          <h3 style="margin-bottom: 20px; color: var(--primary)">
-            <i class="fas fa-exchange-alt"></i> State-Dependent Parameter Shifts
-          </h3>
-          <div id="state-table"></div>
-        </div>
-
-        <div class="chart-container">
-          <h3><i class="fas fa-project-diagram"></i> Ignition Function</h3>
-          <div id="ignitionPlot" style="height: 400px"></div>
-        </div>
-
-        <div class="section-card">
-          <h3 style="margin-bottom: 20px; color: var(--primary)">
-            <i class="fas fa-brain"></i> APGI Profile Interpretation
-          </h3>
-          <div id="interpretation" style="line-height: 1.8"></div>
-        </div>
-
-        <div class="section-card">
-          <h3 style="margin-bottom: 20px; color: var(--primary)">
-            <i class="fas fa-network-wired"></i> Parameter Interactions
-          </h3>
-          <div id="interactions-analysis"></div>
-        </div>
-
-        <div class="section-card">
-          <h3 style="margin-bottom: 20px; color: var(--primary)">
-            <i class="fas fa-lightbulb"></i> Practical Recommendations
-          </h3>
-          <div id="recommendations-grid"></div>
+          <div id="reflection" style="line-height: 1.8"></div>
         </div>
 
         <div class="btn-group">
           <button class="btn" data-action="export-results">
             <i class="fas fa-download"></i>
-            Export Results (JSON)
+            Export My Answers (JSON)
           </button>
           <button class="btn btn-secondary" data-action="retake-assessment">
             >
@@ -1834,26 +1741,6 @@
       // ==================== STATE MANAGEMENT ====================
 
       let responses = {};
-      let parameters = {
-        predictionError: 0,
-        precision: 0,
-        threshold: 0,
-        somaticBias: 0,
-        stateFlexibility: 0,
-      };
-
-      let stateProfiles = {
-        resting: {},
-        stressed: {},
-        focused: {},
-      };
-
-      let behavioralData = {
-        noveltyResponse: null,
-        somaticDecisionWeight: 0,
-        multitaskingCapacity: 0,
-      };
-
       // ==================== UI HELPERS ====================
 
       function updateSliderValue(id) {
@@ -1929,498 +1816,106 @@
         );
         const originalContent = calculateBtn.innerHTML;
         calculateBtn.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> Calculating...';
+          '<i class="fas fa-spinner fa-spin"></i> Preparing...';
         calculateBtn.disabled = true;
 
         // Validate all questions answered
         if (Object.keys(responses).length < 10) {
           calculateBtn.innerHTML = originalContent;
           calculateBtn.disabled = false;
-          alert("Please answer all questions before calculating results.");
+          alert("Please answer all questions to see your reflection summary.");
           return;
         }
 
-        // Simulate processing delay for better UX
+        // Brief pause so the button state is visible
         setTimeout(() => {
-          // Calculate base parameters from responses
-          parameters.predictionError = responses.q1 || 50;
-          parameters.precision = responses.q2 || 50;
-          parameters.threshold = 100 - (responses.q3 || 50); // Inverse: low awareness = high threshold
-          parameters.somaticBias = responses.q4 || 50;
-          parameters.stateFlexibility = responses.q7 || 50;
-
-          // Calculate state-dependent profiles
-          stateProfiles.resting = {
-            predictionError: parameters.predictionError,
-            precision: parameters.precision,
-            threshold: parameters.threshold,
-            somaticBias: parameters.somaticBias,
-          };
-
-          stateProfiles.stressed = {
-            predictionError: Math.min(
-              100,
-              parameters.predictionError + (responses.q5 || 50) * 0.5,
-            ),
-            precision: Math.min(100, parameters.precision + 20),
-            threshold: Math.max(0, parameters.threshold - 15),
-            somaticBias: Math.min(100, parameters.somaticBias + 15),
-          };
-
-          stateProfiles.focused = {
-            predictionError: Math.max(0, parameters.predictionError - 20),
-            precision: Math.min(100, parameters.precision + 10),
-            threshold: Math.min(
-              100,
-              parameters.threshold + (responses.q6 || 50) * 0.3,
-            ),
-            somaticBias: Math.max(0, parameters.somaticBias - 10),
-          };
-
-          // Store behavioral data
-          behavioralData.noveltyResponse = responses.q8;
-          behavioralData.somaticDecisionWeight = responses.q9 || 50;
-          behavioralData.multitaskingCapacity = responses.q10 || 50;
-
-          // Display results
+          calculateBtn.innerHTML = originalContent;
+          calculateBtn.disabled = false;
           displayResults();
-        }, 800); // End of setTimeout
-      } // End of calculateResults function
+        }, 300);
+      }
+
+      // ==================== REFLECTION SUMMARY ====================
+      // Answers are restated qualitatively. No scores, norms or derived
+      // parameter values are computed or shown.
+
+      const reflectionThemes = [
+        {
+          id: "q1",
+          title: "Variability of inner experience",
+          prompt:
+            "When does your inner experience feel steady, and when does it shift? What tends to precede a change?",
+        },
+        {
+          id: "q2",
+          title: "Trust in body signals",
+          prompt:
+            "Which bodily sensations do you rely on when making decisions, and which do you tend to discount?",
+        },
+        {
+          id: "q3",
+          title: "Breadth of what you notice",
+          prompt:
+            "In which settings do you notice a lot at once, and in which do you narrow in on one thing?",
+        },
+        {
+          id: "q4",
+          title: "Attention to body versus surroundings",
+          prompt:
+            "When do you attend more to what is happening inside you, and when to what is around you?",
+        },
+        {
+          id: "q5",
+          title: "Under pressure",
+          prompt:
+            "How does your experience change when things are uncertain or demanding, and what helps you settle?",
+        },
+        {
+          id: "q6",
+          title: "During focused work",
+          prompt:
+            "What conditions help you stay with one task, and what pulls you away?",
+        },
+        {
+          id: "q7",
+          title: "Shifting between states",
+          prompt:
+            "How easily do you move between relaxed, alert and focused states, and what makes that easier or harder?",
+        },
+      ];
+
+      function describeLean(value) {
+        const v = Number(value);
+        if (isNaN(v)) return "You did not answer this item.";
+        if (v < 34) return "Your answer leaned toward the lower end of the scale.";
+        if (v > 66) return "Your answer leaned toward the higher end of the scale.";
+        return "Your answer sat near the middle of the scale.";
+      }
 
       function displayResults() {
-        // Show results section
         const resultsElement = document.getElementById("results");
         if (resultsElement) {
           resultsElement.style.display = "block";
           resultsElement.classList.add("fade-in");
         }
 
-        // Populate metric cards with error handling
-        const resultElements = {
-          "result-error": parameters.predictionError.toFixed(1),
-          "result-precision": parameters.precision.toFixed(1),
-          "result-threshold": parameters.threshold.toFixed(1),
-          "result-somatic": parameters.somaticBias.toFixed(1),
-        };
+        const container = document.getElementById("reflection");
+        if (container) {
+          container.innerHTML = reflectionThemes
+            .map(
+              (t) => `
+                <div style="background: var(--bg-secondary); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="color: var(--secondary); margin-bottom: 10px;">${t.title}</h4>
+                    <p>${describeLean(responses[t.id])}</p>
+                    <p><em>${t.prompt}</em></p>
+                </div>`,
+            )
+            .join("");
+        }
 
-        Object.entries(resultElements).forEach(([id, value]) => {
-          const element = document.getElementById(id);
-          if (element) {
-            element.textContent = value;
-          }
-        });
-
-        // Generate visualizations
-        generateProfileChart();
-        generateStateTable();
-        generateIgnitionPlot();
-        generateInterpretation();
-        generateInteractionsAnalysis();
-        generateRecommendations();
-
-        // Scroll to results
         if (resultsElement) {
           resultsElement.scrollIntoView({ behavior: "smooth" });
         }
-      }
-
-      // ==================== VISUALIZATIONS ====================
-
-      function generateProfileChart() {
-        const canvas = document.getElementById("profileChart");
-        if (!canvas) {
-          return;
-        }
-
-        if (typeof Chart === "undefined") {
-          canvas.innerHTML =
-            '<p class="error">Chart library unavailable. Please refresh the page.</p>';
-          return;
-        }
-
-        const ctx = canvas.getContext("2d");
-
-        new Chart(ctx, {
-          type: "radar",
-          data: {
-            labels: [
-              "Prediction Error",
-              "Precision",
-              "Threshold",
-              "Somatic Bias",
-              "State Flexibility",
-            ],
-            datasets: [
-              {
-                label: "Your Parameters",
-                data: [
-                  parameters.predictionError,
-                  parameters.precision,
-                  parameters.threshold,
-                  parameters.somaticBias,
-                  parameters.stateFlexibility,
-                ],
-                backgroundColor: "rgba(102, 126, 234, 0.2)",
-                borderColor: "rgba(102, 126, 234, 1)",
-                borderWidth: 2,
-                pointBackgroundColor: "rgba(102, 126, 234, 1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(102, 126, 234, 1)",
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              r: {
-                min: 0,
-                max: 100,
-                ticks: {
-                  stepSize: 20,
-                },
-              },
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-          },
-        });
-
-        // Simulate processing delay for better UX
-        setTimeout(() => {
-          // Reset button state
-          calculateBtn.innerHTML = originalContent;
-          calculateBtn.disabled = false;
-
-          // Scroll to results
-          document
-            .getElementById("results")
-            .scrollIntoView({ behavior: "smooth" });
-        }, 800); // End of setTimeout
-      }
-
-      function generateStateTable() {
-        const container = document.getElementById("state-table");
-
-        const table = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>State</th>
-                            <th>ε (Error)</th>
-                            <th>π (Precision)</th>
-                            <th>θ (Threshold)</th>
-                            <th>β (Somatic)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Resting</strong></td>
-                            <td>${stateProfiles.resting.predictionError.toFixed(1)}</td>
-                            <td>${stateProfiles.resting.precision.toFixed(1)}</td>
-                            <td>${stateProfiles.resting.threshold.toFixed(1)}</td>
-                            <td>${stateProfiles.resting.somaticBias.toFixed(1)}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Stressed</strong></td>
-                            <td>${stateProfiles.stressed.predictionError.toFixed(1)}</td>
-                            <td>${stateProfiles.stressed.precision.toFixed(1)}</td>
-                            <td>${stateProfiles.stressed.threshold.toFixed(1)}</td>
-                            <td>${stateProfiles.stressed.somaticBias.toFixed(1)}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Focused</strong></td>
-                            <td>${stateProfiles.focused.predictionError.toFixed(1)}</td>
-                            <td>${stateProfiles.focused.precision.toFixed(1)}</td>
-                            <td>${stateProfiles.focused.threshold.toFixed(1)}</td>
-                            <td>${stateProfiles.focused.somaticBias.toFixed(1)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-
-        container.innerHTML = table;
-      }
-
-      function generateIgnitionPlot() {
-        const { predictionError, precision, threshold } = parameters;
-
-        // Generate data points for ignition function
-        const errors = [];
-        const probabilities = [];
-
-        for (let e = 0; e <= 100; e += 1) {
-          errors.push(e);
-          const weightedError = (precision / 100) * e;
-          const prob = sigmoid(weightedError - threshold / 100);
-          probabilities.push(prob * 100); // Convert to percentage
-        }
-
-        // Current state point
-        const currentWeightedError = (precision / 100) * predictionError;
-        const currentProb =
-          sigmoid(currentWeightedError - threshold / 100) * 100;
-
-        const trace1 = {
-          x: errors,
-          y: probabilities,
-          type: "scatter",
-          mode: "lines",
-          name: "Ignition Function",
-          line: {
-            color: "rgb(102, 126, 234)",
-            width: 3,
-          },
-        };
-
-        const trace2 = {
-          x: [predictionError],
-          y: [currentProb],
-          type: "scatter",
-          mode: "markers",
-          name: "Your Current State",
-          marker: {
-            color: "rgb(229, 62, 62)",
-            size: 15,
-            symbol: "diamond",
-          },
-        };
-
-        const layout = {
-          xaxis: {
-            title: "Prediction Error (ε)",
-            range: [0, 100],
-          },
-          yaxis: {
-            title: "Ignition Probability (%)",
-            range: [0, 100],
-          },
-          hovermode: "closest",
-          showlegend: true,
-          paper_bgcolor: "rgba(0,0,0,0)",
-          plot_bgcolor: "rgba(0,0,0,0)",
-        };
-
-        Plotly.newPlot("ignitionPlot", [trace1, trace2], layout);
-      }
-
-      function generateInterpretation() {
-        const container = document.getElementById("interpretation");
-
-        container.innerHTML = `
-                <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                    <strong>Your APGI Profile:</strong> Your consciousness architecture shows the following characteristics:
-                </p>
-
-                <div style="background: var(--bg-secondary); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 10px;">Ignition Dynamics:</h4>
-                    <p>With a precision-weighted prediction error of ${((parameters.precision / 100) * parameters.predictionError).toFixed(1)} and threshold of ${parameters.threshold.toFixed(1)}, your ignition probability is approximately ${(sigmoid((parameters.precision / 100) * parameters.predictionError - parameters.threshold / 100) * 100).toFixed(1)}%. This indicates ${parameters.threshold < 40 ? "broad conscious access (low threshold)" : parameters.threshold > 70 ? "narrow conscious access (high threshold)" : "moderate conscious selectivity"}.</p>
-                </div>
-
-                <div style="background: var(--bg-secondary); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 10px;">Embodiment Profile:</h4>
-                    <p>Your somatic bias of ${parameters.somaticBias.toFixed(1)} suggests ${parameters.somaticBias < 30 ? "strongly externally-focused consciousness with limited interoceptive influence" : parameters.somaticBias > 70 ? "deeply embodied consciousness dominated by interoceptive signals" : "balanced integration of interoceptive and exteroceptive information"}.</p>
-                </div>
-
-                <div style="background: var(--bg-secondary); padding: 20px; border-radius: 8px; margin-top: 20px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 10px;">Processing Style:</h4>
-                    <p>${interpretProcessingStyle()}</p>
-                </div>
-            `;
-      }
-
-      function sigmoid(x) {
-        return 1 / (1 + Math.exp(-x * 5)); // Scaled for 0-1 range input
-      }
-
-      function interpretProcessingStyle() {
-        const { predictionError, precision, threshold, somaticBias } =
-          parameters;
-
-        let style = [];
-
-        // Prediction error interpretation
-        if (predictionError < 30) {
-          style.push("highly predictive environment/processing");
-        } else if (predictionError > 70) {
-          style.push("high-surprise, unpredictable processing");
-        } else {
-          style.push("moderate prediction error levels");
-        }
-
-        // Precision interpretation
-        if (precision < 30) {
-          style.push("low confidence in error signals");
-        } else if (precision > 70) {
-          style.push("high confidence/precision weighting");
-        } else {
-          style.push("moderate precision weighting");
-        }
-
-        // Threshold interpretation
-        if (threshold < 30) {
-          style.push("low ignition threshold (broad conscious access)");
-        } else if (threshold > 70) {
-          style.push("high ignition threshold (narrow conscious access)");
-        } else {
-          style.push("moderate ignition threshold");
-        }
-
-        // Somatic bias interpretation
-        if (somaticBias < 30) {
-          style.push("strongly world-centered consciousness");
-        } else if (somaticBias > 70) {
-          style.push("strongly body-centered consciousness");
-        } else {
-          style.push("balanced intero-exteroceptive awareness");
-        }
-
-        return (
-          "Your processing architecture is characterized by: " +
-          style.join(", ") +
-          "."
-        );
-      }
-
-      function generateInteractionsAnalysis() {
-        const container = document.getElementById("interactions-analysis");
-
-        const { predictionError, precision, threshold, somaticBias } =
-          parameters;
-
-        let interactions = [];
-
-        // Key interaction patterns
-        if (precision > 70 && predictionError > 70) {
-          interactions.push({
-            title: "High-Precision High-Error Amplification",
-            description:
-              "Your high precision amplifies prediction errors into strong conscious signals. This creates intense, attention-capturing conscious experience when predictions fail. Risk of anxiety/hypervigilance if errors are threat-related.",
-          });
-        }
-
-        if (threshold < 30 && precision > 70) {
-          interactions.push({
-            title: "Low-Threshold High-Precision Flooding",
-            description:
-              "Low ignition threshold + high precision = many signals cross into awareness. This creates rich but potentially overwhelming conscious experience. Excellent for creativity; challenging for sustained focus.",
-          });
-        }
-
-        if (threshold > 70 && precision < 30) {
-          interactions.push({
-            title: "High-Threshold Low-Precision Gating",
-            description:
-              "High threshold filters out weakly-weighted signals. This creates narrow, focused consciousness but risks missing important information. Good for deep work; may miss bodily/emotional signals.",
-          });
-        }
-
-        if (somaticBias > 70 && precision > 70) {
-          interactions.push({
-            title: "Embodied High-Precision Processing",
-            description:
-              "Strong somatic anchoring + high precision = bodily signals dominate consciousness with high confidence. Excellent embodied intuition; vulnerable to somatic anxiety/amplification.",
-          });
-        }
-
-        if (somaticBias < 30 && threshold > 70) {
-          interactions.push({
-            title: "Disembodied Focused Processing",
-            description:
-              "External focus + high threshold = analytical, disembodied consciousness. Excellent for abstract reasoning; risk of ignoring homeostatic needs and emotional information.",
-          });
-        }
-
-        if (interactions.length === 0) {
-          interactions.push({
-            title: "Balanced Parameter Interactions",
-            description:
-              "Your parameters show balanced interactions without extreme amplification or gating patterns. This creates flexible, adaptive processing across contexts.",
-          });
-        }
-
-        container.innerHTML = interactions
-          .map(
-            (int) => `
-                <div class="recommendation-card" style="margin-bottom: 20px;">
-                    <h4>${int.title}</h4>
-                    <p>${int.description}</p>
-                </div>
-            `,
-          )
-          .join("");
-      }
-
-      function generateRecommendations() {
-        const container = document.getElementById("recommendations-grid");
-
-        const recommendations = [];
-
-        // State-specific optimization strategies
-        recommendations.push({
-          title: "Resting State Optimization",
-          content: `Based on your resting parameters (ε=${stateProfiles.resting.predictionError.toFixed(1)}, π=${stateProfiles.resting.precision.toFixed(1)}, θ=${stateProfiles.resting.threshold.toFixed(1)}), consider: ${getStateRecommendation("resting")}`,
-        });
-
-        recommendations.push({
-          title: "Stress State Management",
-          content: `Your stress profile shows: ${getStateRecommendation("stressed")}. Practice threshold elevation (meditation) and precision modulation (cognitive reappraisal) during high-stress periods.`,
-        });
-
-        recommendations.push({
-          title: "Focus State Enhancement",
-          content: `For optimal focus (θ=${stateProfiles.focused.threshold.toFixed(1)}), ${getStateRecommendation("focused")}. Use environmental controls to reduce external prediction errors.`,
-        });
-
-        recommendations.push({
-          title: "Parameter Flexibility Training",
-          content: `Your state flexibility is ${parameters.stateFlexibility.toFixed(1)}/100. ${parameters.stateFlexibility < 40 ? "Consider attention training (meditation, biofeedback) to increase volitional control over parameters." : "Your good flexibility allows adaptive parameter tuning. Leverage this for context-appropriate processing modes."}`,
-        });
-
-        container.innerHTML = recommendations
-          .map(
-            (rec) => `
-                <div class="recommendation-card">
-                    <h4>${rec.title}</h4>
-                    <p>${rec.content}</p>
-                </div>
-            `,
-          )
-          .join("");
-      }
-
-      function getStateRecommendation(state) {
-        const profile = stateProfiles[state];
-
-        const recommendations = [];
-
-        if (profile.threshold < 40) {
-          recommendations.push(
-            "practice selective attention to raise threshold",
-          );
-        }
-        if (profile.threshold > 70) {
-          recommendations.push("use open monitoring to lower threshold");
-        }
-        if (profile.precision > 70 && profile.predictionError > 70) {
-          recommendations.push(
-            "use precision modulation (questioning confidence) to reduce amplification",
-          );
-        }
-        if (profile.somaticBias > 70) {
-          recommendations.push("balance with external focus exercises");
-        }
-        if (profile.somaticBias < 30) {
-          recommendations.push("integrate body awareness practices");
-        }
-
-        return recommendations.length > 0
-          ? recommendations.join("; ")
-          : "parameters are well-balanced for this state";
       }
 
       // ==================== EXPORT ====================
@@ -2428,19 +1923,8 @@
       function exportResults() {
         const results = {
           timestamp: new Date().toISOString(),
-          parameters: parameters,
-          stateProfiles: stateProfiles,
+          note: "Self-reflection answers only. No scores or parameter estimates.",
           responses: responses,
-          behavioralData: behavioralData,
-          derivedMetrics: {
-            weightedPredictionError:
-              (parameters.precision / 100) * parameters.predictionError,
-            ignitionProbability: sigmoid(
-              (parameters.precision / 100) * parameters.predictionError -
-                parameters.threshold / 100,
-            ),
-            experienceAnchoring: parameters.somaticBias / 100,
-          },
         };
 
         // Use offline quiz manager for enhanced export functionality

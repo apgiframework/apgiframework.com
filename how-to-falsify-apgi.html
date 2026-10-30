@@ -10,10 +10,10 @@
 <style>
   :root {
     --apgi-threshold:  #00B4FF;
-    --apgi-precision:  #FF3366;
+    --apgi-precision:  #ff5c85;
     --apgi-error:      #FFCC00;
     --apgi-neuromod:   #00CC99;
-    --apgi-workspace:  #9966FF;
+    --apgi-workspace:  #a98aff;
     --apgi-inactive:   #2C3E50;
 
     --bg-base:     #0A0F1A;
@@ -23,7 +23,7 @@
     --text-primary:   #FFFFFF;
     --text-secondary: #E2E8F0;
     --text-muted:     #94A3B8;
-    --text-subtle:    #64748B;
+    --text-subtle:    #8b9bb3;
 
     --font-display: 'Crimson Pro', Georgia, serif;
     --font-body:    'Inter', system-ui, sans-serif;
@@ -118,7 +118,7 @@
     font-size: 0.875rem; font-weight: 600; text-decoration: none;
     transition: all 200ms ease; border: 1px solid transparent;
   }
-  .btn--primary { background: var(--apgi-workspace); color: #fff; }
+  .btn--primary { background: #7b4de0; color: #fff; }
   .btn--primary:hover { background: #b08aff; box-shadow: 0 0 20px rgba(153,102,255,0.4); }
   .btn--secondary { border-color: rgba(255,255,255,0.2); color: var(--text-secondary); }
   .btn--secondary:hover { border-color: var(--apgi-threshold); color: var(--apgi-threshold); }
@@ -162,10 +162,10 @@
     border: 1px solid rgba(255,255,255,0.15);
     transition: all 180ms ease;
   }
-  .tier-btn[data-tier="1"] { border-color: rgba(0,204,153,0.35); }
-  .tier-btn[data-tier="2"] { border-color: rgba(255,204,0,0.35); }
-  .tier-btn[data-tier="3"] { border-color: rgba(0,180,255,0.35); }
-  .tier-btn[data-tier="f"] { border-color: rgba(153,102,255,0.35); }
+  .tier-btn[data-tier="1"] { border-color: rgba(0,204,153,0.75); }
+  .tier-btn[data-tier="2"] { border-color: rgba(255,204,0,0.75); }
+  .tier-btn[data-tier="3"] { border-color: rgba(0,180,255,0.75); }
+  .tier-btn[data-tier="f"] { border-color: rgba(176,138,255,0.9); }
   .tier-btn.active, .tier-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
   .tier-btn.active[data-tier="1"] { background: rgba(0,204,153,0.15); color: var(--apgi-neuromod); }
   .tier-btn.active[data-tier="2"] { background: rgba(255,204,0,0.15); color: var(--apgi-error); }
@@ -199,10 +199,10 @@
     font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
     color: rgba(255,255,255,0.18); flex-shrink: 0; width: 2rem;
   }
-  .pred-card[data-tier="1"] .pred-num { color: rgba(0,204,153,0.35); }
-  .pred-card[data-tier="2"] .pred-num { color: rgba(255,204,0,0.35); }
-  .pred-card[data-tier="3"] .pred-num { color: rgba(0,180,255,0.35); }
-  .pred-card[data-tier="f"] .pred-num { color: rgba(153,102,255,0.35); }
+  .pred-card[data-tier="1"] .pred-num { color: rgba(0,204,153,0.75); }
+  .pred-card[data-tier="2"] .pred-num { color: rgba(255,204,0,0.75); }
+  .pred-card[data-tier="3"] .pred-num { color: rgba(0,180,255,0.75); }
+  .pred-card[data-tier="f"] .pred-num { color: rgba(176,138,255,0.9); }
 
   .pred-summary-text { flex: 1; min-width: 0; }
   .pred-summary-text h3 {
@@ -283,6 +283,9 @@
   .author-byline__links { display: flex; gap: 1.25rem; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center; }
   .author-byline__links a { font-size: 0.8rem; text-decoration: none; }
 </style>
+<meta name="apgi:last-updated" content="2026-09-02" />
+<link rel="stylesheet" href="/assets/css/site-enhancements.css" />
+<script src="/assets/js/site-enhancements.js" defer></script>
 </head>
 <body>
 
@@ -296,11 +299,12 @@
   </div>
 </nav>
 
+<main id="main" tabindex="-1">
 <div id="top"></div>
 
 <section class="polaris-hero">
   <div class="polaris-hero__eq">
-    <span style="color:#FF3366">Π</span><span class="eq-op"> × </span><span style="color:#FFCC00">|ε|</span><span class="eq-op"> > </span><span style="color:#00B4FF">Bₜ</span>
+    <span style="color:#ff5c85">Π</span><span class="eq-op"> × </span><span style="color:#FFCC00">|ε|</span><span class="eq-op"> > </span><span style="color:#00B4FF">Bₜ</span>
   </div>
   <h1 class="polaris-hero__title">How to Falsify APGI</h1>
   <p class="polaris-hero__subtitle">
@@ -385,6 +389,7 @@
     <a href="https://doi.org/10.17605/OSF.IO/T5HCQ" target="_blank" rel="noopener">OSF</a>
   </div>
 </div>
+</main>
 
 <script>
 const predictions = [

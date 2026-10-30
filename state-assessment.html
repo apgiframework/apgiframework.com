@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APGI Psychological State Assessment</title>
+    <title>APGI State Reflection</title>
     <link rel="canonical" href="https://apgiframework.com/state-assessment.html" />
     <meta property="og:title" content="APGI Psychological State Assessment" />
     <meta property="og:description" content="Take the APGI Psychological State Assessment to identify your current consciousness state. Measure prediction error, precision, threshold, and somatic bias patterns." />
@@ -283,17 +283,15 @@
           >
             <i class="fas fa-brain text-white text-2xl"></i>
           </div>
-          <h1 class="text-4xl font-bold text-white mb-2">APGI State Mapper</h1>
+          <h1 class="text-4xl font-bold text-white mb-2">APGI State Reflection</h1>
           <p class="text-white/80 font-medium">
             Active Inference Psychological State Assessment
           </p>
         </div>
         <div class="text-sm text-white/60 max-w-2xl mx-auto">
-          Maps experience to
-          <span class="font-semibold">Prediction Error (ε)</span>,
-          <span class="font-semibold">Precision (π)</span>,
-          <span class="font-semibold">Threshold (θ)</span>,
-          <span class="font-semibold">Somatic Bias (β)</span> parameters
+          A reflective exercise that compares your answers with plain-language
+          descriptions of common states. It is not a measurement, diagnosis or
+          clinical tool.
         </div>
       </header>
 
@@ -424,19 +422,7 @@
 
             <!-- Value Display -->
             <div class="text-center">
-              <div
-                class="inline-flex items-center justify-center px-6 py-3 bg-gray-50 rounded-full"
-              >
-                <span
-                  id="param-value-display"
-                  class="text-2xl font-bold text-blue-600"
-                  >0.0</span
-                >
-                <span id="param-unit" class="ml-2 text-gray-500 font-medium"
-                  >σ</span
-                >
-              </div>
-              <p id="param-description" class="text-sm text-gray-500 mt-2"></p>
+              <p id="param-description" class="text-base text-gray-600 mt-2" aria-live="polite"></p>
             </div>
           </div>
 
@@ -457,76 +443,6 @@
             >
               Next <i class="fas fa-arrow-right ml-2"></i>
             </button>
-          </div>
-        </div>
-
-        <!-- Parameter Indicators -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div
-            id="indicator-e"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">ε (PE)</div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-          <div
-            id="indicator-p"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">
-              π (Precision)
-            </div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-          <div
-            id="indicator-t"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">
-              θ (Threshold)
-            </div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-          <div
-            id="indicator-b"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">β (Somatic)</div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-        </div>
-
-        <!-- Extended Parameter Indicators -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div
-            id="indicator-e2"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">ε (Temporal)</div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-          <div
-            id="indicator-p2"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">π (Social)</div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-          <div
-            id="indicator-t2"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">θ (Load)</div>
-            <div class="text-lg font-mono">--</div>
-          </div>
-          <div
-            id="indicator-b2"
-            class="param-box glass-card rounded-xl p-4 text-center opacity-50"
-          >
-            <div class="text-xs text-gray-400 uppercase mb-1">
-              β (Emotional)
-            </div>
-            <div class="text-lg font-mono">--</div>
           </div>
         </div>
       </div>
@@ -588,107 +504,9 @@
             </div>
           </div>
 
-          <!-- Parameter Grid -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div
-              class="param-box bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4"
-            >
-              <div class="flex justify-between items-start mb-2">
-                <div>
-                  <div class="text-xs text-blue-600 uppercase font-semibold">
-                    Pred. Error (ε)
-                  </div>
-                  <div class="text-lg font-mono font-bold" id="val-e">0.0σ</div>
-                </div>
-                <div class="text-blue-400 text-xl">
-                  <i class="fas fa-bolt"></i>
-                </div>
-              </div>
-              <div class="text-xs text-gray-600" id="desc-e">
-                Magnitude of prediction mismatch
-              </div>
-            </div>
-
-            <div
-              class="param-box bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4"
-            >
-              <div class="flex justify-between items-start mb-2">
-                <div>
-                  <div class="text-xs text-purple-600 uppercase font-semibold">
-                    Precision (π)
-                  </div>
-                  <div class="text-lg font-mono font-bold" id="val-p">0.0σ</div>
-                </div>
-                <div class="text-purple-400 text-xl">
-                  <i class="fas fa-weight-hanging"></i>
-                </div>
-              </div>
-              <div class="text-xs text-gray-600" id="desc-p">
-                Channel-specific gain/weighting
-              </div>
-            </div>
-
-            <div
-              class="param-box bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4"
-            >
-              <div class="flex justify-between items-start mb-2">
-                <div>
-                  <div class="text-xs text-red-600 uppercase font-semibold">
-                    Threshold (θ)
-                  </div>
-                  <div class="text-lg font-mono font-bold" id="val-t">0.0%</div>
-                </div>
-                <div class="text-red-400 text-xl">
-                  <i class="fas fa-fire"></i>
-                </div>
-              </div>
-              <div class="text-xs text-gray-600" id="desc-t">
-                Ignition barrier deviation
-              </div>
-            </div>
-
-            <div
-              class="param-box bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4"
-            >
-              <div class="flex justify-between items-start mb-2">
-                <div>
-                  <div class="text-xs text-green-600 uppercase font-semibold">
-                    Somatic Bias (β)
-                  </div>
-                  <div class="text-lg font-mono font-bold" id="val-b">1.0</div>
-                </div>
-                <div class="text-green-400 text-xl">
-                  <i class="fas fa-compress-arrows-alt"></i>
-                </div>
-              </div>
-              <div class="text-xs text-gray-600" id="desc-b">
-                Inward/outward attention ratio
-              </div>
-            </div>
-          </div>
-
           <!-- Confidence & Similar States -->
           <div class="border-t pt-8">
             <div class="flex flex-wrap justify-between items-center mb-6">
-              <div>
-                <div class="text-sm text-gray-500 mb-1">
-                  Detection Confidence
-                </div>
-                <div class="flex items-center">
-                  <div
-                    class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden mr-3"
-                  >
-                    <div
-                      id="confidence-bar"
-                      class="h-full bg-gradient-to-r from-green-400 to-blue-400 transition-all duration-1000"
-                      style="width: 0%"
-                    ></div>
-                  </div>
-                  <span id="confidence-value" class="text-lg font-bold"
-                    >0%</span
-                  >
-                </div>
-              </div>
               <div class="text-right">
                 <div class="text-sm text-gray-500 mb-1">Similar States</div>
                 <div id="similar-states" class="text-sm font-medium"></div>
@@ -735,12 +553,6 @@
           </div>
 
           <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <!-- Parameter Radar -->
-            <div>
-              <h3 class="font-semibold mb-4">Parameter Profile</h3>
-              <canvas id="radar-chart" class="w-full"></canvas>
-            </div>
-
             <!-- Top Matches -->
             <div>
               <h3 class="font-semibold mb-4">Closest States</h3>
@@ -756,10 +568,6 @@
                 <thead>
                   <tr class="border-b">
                     <th class="text-left py-2">State</th>
-                    <th class="text-center py-2">ε</th>
-                    <th class="text-center py-2">π</th>
-                    <th class="text-center py-2">θ</th>
-                    <th class="text-center py-2">β</th>
                     <th class="text-center py-2">Match</th>
                   </tr>
                 </thead>
@@ -771,8 +579,7 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
-    <script>
+        <script>
       // ===== COMPREHENSIVE APGI PARAMETER DATA =====
       const states = [
         // POSITIVE STATES
@@ -785,8 +592,7 @@
           category: "Optimal",
           icon: "fas fa-water",
           color: "from-blue-500 to-cyan-500",
-          sig: "Temporal entrainment, metacognitive suppression",
-          note: "Highly accurate (>95%), task-aligned predictions with <5% variance",
+          note: "Highly accurate, task-aligned predictions",
         },
 
         {
@@ -798,8 +604,7 @@
           category: "Positive",
           icon: "fas fa-smile",
           color: "from-yellow-400 to-orange-400",
-          sig: "Ventral striatal activation, sustained positive RPE",
-          note: "Predictions meet/exceed expectations by >20%",
+          note: "Outcomes meet or exceed expectations",
         },
 
         {
@@ -811,7 +616,6 @@
           category: "Positive",
           icon: "fas fa-heart",
           color: "from-pink-400 to-red-400",
-          sig: "Oxytocin-mediated, requires temporal extension",
           note: "Social predictions resolved favorably",
         },
 
@@ -824,8 +628,7 @@
           category: "Positive",
           icon: "fas fa-sun",
           color: "from-yellow-500 to-amber-500",
-          sig: "Sustained tonic DA maintaining accessibility",
-          note: "Moderate confidence (60-75%), high expected value despite uncertainty",
+          note: "Moderate confidence, high expected value despite uncertainty",
         },
 
         {
@@ -837,8 +640,7 @@
           category: "Positive",
           icon: "fas fa-rainbow",
           color: "from-green-400 to-blue-400",
-          sig: "Stable positive prior distribution, trait-like",
-          note: "Generalized positive priors (>70% positive outcomes)",
+          note: "Generally positive expectations",
         },
 
         {
@@ -850,8 +652,7 @@
           category: "Transcendent",
           icon: "fas fa-star",
           color: "from-purple-500 to-pink-500",
-          sig: "DMN suppression, model inadequacy signal",
-          note: "Massive prediction error (>4σ) from vastness/novelty",
+          note: "Strong surprise from vastness or novelty",
         },
 
         {
@@ -863,7 +664,6 @@
           category: "Creative",
           icon: "fas fa-lightbulb",
           color: "from-yellow-300 to-orange-400",
-          sig: "DMN-FPN coupling, coherence > strength weighting",
           note: "Latent pattern detection, remote associations",
         },
 
@@ -876,8 +676,7 @@
           category: "Positive",
           icon: "fas fa-dove",
           color: "from-blue-300 to-green-300",
-          sig: "Dual-threshold architecture, parasympathetic dominant",
-          note: "High accuracy (>90%), low-surprise environment",
+          note: "Accurate expectations in a low-surprise setting",
         },
 
         {
@@ -889,7 +688,6 @@
           category: "Positive",
           icon: "fas fa-trophy",
           color: "from-yellow-500 to-gold-500",
-          sig: "Strong embodied component, somatic confirmation",
           note: "Self-model prediction confirmed/exceeded",
         },
 
@@ -902,8 +700,7 @@
           category: "Positive",
           icon: "fas fa-laugh",
           color: "from-pink-300 to-purple-300",
-          sig: "Rapid ignition (<200ms), mesolimbic reinforcement",
-          note: "Benign violation (1-2σ surprise in safe context)",
+          note: "Mild surprise in a safe context",
         },
 
         {
@@ -915,7 +712,6 @@
           category: "Social",
           icon: "fas fa-heart",
           color: "from-pink-500 to-red-500",
-          sig: "Extreme metabolic cost, oxytocin/vasopressin mediated",
           note: "Long-term attachment predictions, partner-focus",
         },
 
@@ -929,7 +725,6 @@
           category: "Exploratory",
           icon: "fas fa-question-circle",
           color: "from-yellow-500 to-green-500",
-          sig: "Inverted PE response—uncertainty valued",
           note: "Information gaps actively detected",
         },
 
@@ -942,7 +737,6 @@
           category: "Optimal",
           icon: "fas fa-bullseye",
           color: "from-blue-600 to-indigo-600",
-          sig: "Effortful control maintained, no metacognitive suppression",
           note: "Task-aligned, sustained accuracy",
         },
 
@@ -955,8 +749,7 @@
           category: "Regulatory",
           icon: "fas fa-spa",
           color: "from-green-400 to-teal-500",
-          sig: "Non-judgmental, dual threshold adjustment",
-          note: "Reduced top-down strength (-30-40%), error acceptance",
+          note: "Relaxed expectations, acceptance of surprise",
         },
 
         {
@@ -968,7 +761,6 @@
           category: "Creative",
           icon: "fas fa-palette",
           color: "from-purple-500 to-indigo-500",
-          sig: "Near-critical dynamics, DMN-ECN coupling",
           note: "Loosened constraints, remote associations",
         },
 
@@ -981,7 +773,6 @@
           category: "Optimal",
           icon: "fas fa-crosshairs",
           color: "from-blue-600 to-indigo-600",
-          sig: "Tuned filter, LC-NE signal-to-noise optimization",
           note: "Singular, task-aligned attention",
         },
 
@@ -994,7 +785,6 @@
           category: "Intense",
           icon: "fas fa-hourglass-half",
           color: "from-indigo-600 to-purple-700",
-          sig: "Time distortion, complete absorption, post-crash",
           note: "Locked on single target, automatic",
         },
 
@@ -1008,7 +798,6 @@
           category: "Baseline",
           icon: "fas fa-balance-scale",
           color: "from-gray-400 to-gray-600",
-          sig: "Homeostatic equilibrium, rare phenomenologically",
           note: "Balanced, accurate priors",
         },
 
@@ -1021,8 +810,7 @@
           category: "Low Arousal",
           icon: "fas fa-meh",
           color: "from-gray-400 to-blue-300",
-          sig: "Aversive meta-signal motivates exploration",
-          note: "Over-learned, near-zero PE (<0.5σ)",
+          note: "Well-practised, little surprise",
         },
 
         {
@@ -1034,7 +822,6 @@
           category: "Internal",
           icon: "fas fa-cloud",
           color: "from-purple-300 to-blue-300",
-          sig: "DMN dominance, spontaneous ignition",
           note: "Endogenously generated predictions dominate",
         },
 
@@ -1047,7 +834,6 @@
           category: "Fragmented",
           icon: "fas fa-random",
           color: "from-orange-300 to-red-300",
-          sig: "Reservoir coherence degraded, rapid switching",
           note: "Fragmented, competing accurate predictions",
         },
 
@@ -1060,13 +846,12 @@
           category: "Low Energy",
           icon: "fas fa-battery-quarter",
           color: "from-gray-500 to-gray-700",
-          sig: "Metabolic constraint protection mechanism",
           note: "Slowed PE accumulation, shortened integration window",
         },
 
         // NEGATIVE STATES
         {
-          name: "Anxiety",
+          name: "Heightened Unease",
           e: 4.5,
           p: 4.5,
           t: -32.5,
@@ -1074,7 +859,6 @@
           category: "Negative",
           icon: "fas fa-exclamation-triangle",
           color: "from-orange-500 to-red-500",
-          sig: "False alarm generator, self-reinforcing cycle",
           note: "Threat-biased expectations",
         },
 
@@ -1087,12 +871,11 @@
           category: "Negative",
           icon: "fas fa-bolt",
           color: "from-yellow-600 to-orange-600",
-          sig: "NE-mediated saturation, eventual burnout",
           note: "Persistently violated, non-selective arousal",
         },
 
         {
-          name: "Depression",
+          name: "Low Mood",
           e: -4.0,
           p: -2.5,
           t: 40.0,
@@ -1100,7 +883,6 @@
           category: "Negative",
           icon: "fas fa-cloud-rain",
           color: "from-gray-500 to-gray-700",
-          sig: "Computational trap, asymmetric filtering",
           note: "Pessimistic, rigid negative priors",
         },
 
@@ -1113,7 +895,6 @@
           category: "Negative",
           icon: "fas fa-fire",
           color: "from-red-500 to-red-700",
-          sig: "NE surge, rapid behavioral mobilization",
           note: "Goal obstruction, injustice detection",
         },
 
@@ -1126,7 +907,6 @@
           category: "Negative",
           icon: "fas fa-skull-crossbones",
           color: "from-red-700 to-purple-800",
-          sig: "Amygdala-driven, extreme urgency configuration",
           note: "Imminent threat, immediate reactive mode",
         },
 
@@ -1139,7 +919,6 @@
           category: "Moral",
           icon: "fas fa-gavel",
           color: "from-purple-600 to-indigo-700",
-          sig: "Recurrent ignition, self-correction function",
           note: "Self-model violation, moral error replay",
         },
 
@@ -1152,7 +931,6 @@
           category: "Social",
           icon: "fas fa-user-slash",
           color: "from-red-600 to-purple-700",
-          sig: "Global ignition, self-devaluation, MPF-TPJ network",
           note: "Social self-model violated, imagined observers",
         },
 
@@ -1165,7 +943,6 @@
           category: "Social",
           icon: "fas fa-user-friends",
           color: "from-blue-600 to-gray-600",
-          sig: "Paradoxical rejection sensitivity, self-fulfilling",
           note: "Social predictions unmet, persistent absence",
         },
 
@@ -1178,7 +955,6 @@
           category: "Negative",
           icon: "fas fa-fist-raised",
           color: "from-orange-600 to-red-700",
-          sig: "Unstable threshold, escalation/abandonment negotiation",
           note: "Repeated goal-blocking, maintained effort",
         },
 
@@ -1191,7 +967,6 @@
           category: "Cognitive",
           icon: "fas fa-question",
           color: "from-purple-400 to-gray-500",
-          sig: "Model selection failure, high-entropy state",
           note: "Competing models, ambiguous evidence",
         },
 
@@ -1204,7 +979,6 @@
           category: "Aversive",
           icon: "fas fa-skull",
           color: "from-green-700 to-green-900",
-          sig: "Anterior insula-driven, visceral dominance",
           note: "Contamination/pathogen detection confirmed",
         },
 
@@ -1217,7 +991,6 @@
           category: "Social",
           icon: "fas fa-eye",
           color: "from-green-600 to-yellow-600",
-          sig: "Desire + resentment, self-model threatened",
           note: "Social comparison mismatch, status threat",
         },
 
@@ -1230,7 +1003,6 @@
           category: "Social",
           icon: "fas fa-heart-broken",
           color: "from-red-500 to-pink-600",
-          sig: "Mate-guarding function, hypervigilance for betrayal",
           note: "Attachment security threatened, rival detected",
         },
 
@@ -1243,7 +1015,6 @@
           category: "Cognitive",
           icon: "fas fa-history",
           color: "from-purple-500 to-gray-600",
-          sig: "Learning signal, recurrent 'what if' ignition",
           note: "Counterfactual error (past ≠ optimal)",
         },
 
@@ -1256,8 +1027,7 @@
           category: "Cognitive",
           icon: "fas fa-cloud-showers-heavy",
           color: "from-gray-600 to-gray-800",
-          sig: "Prior distribution bias, anticipatory not current",
-          note: "Negative outcome priors (>60%)",
+          note: "Expecting negative outcomes",
         },
 
         {
@@ -1269,13 +1039,12 @@
           category: "Negative",
           icon: "fas fa-exclamation-circle",
           color: "from-red-600 to-orange-600",
-          sig: "Reservoir saturation, computational collapse",
           note: "Excessive concurrent demands",
         },
 
         // ALTERED/PROTECTIVE STATES
         {
-          name: "Dissociation",
+          name: "Feeling Detached",
           e: 0,
           p: 0,
           t: 55.0,
@@ -1283,7 +1052,6 @@
           category: "Protective",
           icon: "fas fa-ghost",
           color: "from-gray-300 to-gray-500",
-          sig: "Prefrontal-insula uncoupling, protective detachment",
           note: "Prediction-body coupling severed",
         },
 
@@ -1296,8 +1064,7 @@
           category: "Altered",
           icon: "fas fa-moon",
           color: "from-indigo-400 to-purple-500",
-          sig: "Self-sustained ignition, reduced sensory gating",
-          note: "Top-down predictions dominate (>3× posterior)",
+          note: "Expectations dominate what is perceived",
         },
 
         {
@@ -1309,7 +1076,6 @@
           category: "Altered",
           icon: "fas fa-eye",
           color: "from-purple-600 to-red-600",
-          sig: "Reality monitoring failure, source confusion",
           note: "Internal predictions misattributed as sensory",
         },
 
@@ -1322,7 +1088,6 @@
           category: "Temporal",
           icon: "fas fa-clock",
           color: "from-blue-400 to-purple-400",
-          sig: "Temporal-binding error, 2-10s duration",
           note: "Temporal misalignment, false familiarity",
         },
 
@@ -1335,7 +1100,6 @@
           category: "Transitional",
           icon: "fas fa-bed",
           color: "from-purple-300 to-blue-400",
-          sig: "Extended memory window, sleep transition",
           note: "Sensory-decoupled, fragments blend",
         },
 
@@ -1349,7 +1113,6 @@
           category: "Social",
           icon: "fas fa-hands-helping",
           color: "from-teal-500 to-blue-500",
-          sig: "Insula-mediated somatic mapping, shared feeling",
           note: "Other's emotional state simulated in self",
         },
 
@@ -1362,7 +1125,6 @@
           category: "Social",
           icon: "fas fa-hand-holding-heart",
           color: "from-pink-400 to-red-400",
-          sig: "Sustainable care without overwhelm",
           note: "Other's distress recognized, concern generated",
         },
 
@@ -1375,7 +1137,6 @@
           category: "Social",
           icon: "fas fa-users",
           color: "from-green-500 to-blue-500",
-          sig: "Reduced social vigilance, oxytocin-sustained",
           note: "Social inclusion predictions confirmed",
         },
 
@@ -1388,7 +1149,6 @@
           category: "Social",
           icon: "fas fa-user-times",
           color: "from-red-500 to-orange-600",
-          sig: "dACC activation, pain system overlap",
           note: "Social exclusion, large social PE",
         },
 
@@ -1401,7 +1161,6 @@
           category: "Social",
           icon: "fas fa-shield-alt",
           color: "from-green-500 to-blue-500",
-          sig: "Computational commitment, oxytocin-mediated",
           note: "Positive social priors, vulnerability accepted",
         },
 
@@ -1415,7 +1174,6 @@
           category: "Executive",
           icon: "fas fa-brain",
           color: "from-gray-500 to-purple-600",
-          sig: "Glucose depletion, prefrontal exhaustion",
           note: "Model comparison impaired",
         },
 
@@ -1428,7 +1186,6 @@
           category: "Cognitive",
           icon: "fas fa-balance-scale-right",
           color: "from-orange-500 to-red-600",
-          sig: "ACC conflict signal, aversive instability",
           note: "Incompatible high-precision models",
         },
 
@@ -1442,7 +1199,6 @@
           category: "Homeostatic",
           icon: "fas fa-utensils",
           color: "from-orange-500 to-red-500",
-          sig: "Ghrelin-mediated, attentional hijacking",
           note: "Homeostatic deficit (caloric)",
         },
 
@@ -1455,7 +1211,6 @@
           category: "Homeostatic",
           icon: "fas fa-tint",
           color: "from-blue-500 to-cyan-500",
-          sig: "Angiotensin signaling, cognitive impairment",
           note: "Homeostatic deficit (hydration)",
         },
       ];
@@ -1696,7 +1451,6 @@
         t2: 0,
         b2: 1.0,
       };
-      let radarChart = null;
       let detectionResult = null;
 
       // ===== ENHANCED CORE FUNCTIONS =====
@@ -1705,7 +1459,6 @@
         document.getElementById("question-view").classList.remove("hidden");
         document.getElementById("total-q").textContent = questions.length;
         showQuestion();
-        updateParamIndicators();
       }
 
       function showQuestion() {
@@ -1742,94 +1495,11 @@
         const slider = document.getElementById("param-input");
         const value = q.map(Number(slider.value));
 
-        document.getElementById("param-value-display").textContent =
-          value.toFixed(1);
-        document.getElementById("param-unit").textContent = q.unit;
         document.getElementById("param-description").textContent =
           q.description(value);
 
         // Store response
         responses[q.param] = value;
-        updateParamIndicators();
-      }
-
-      function updateParamIndicators() {
-        questions.forEach((q) => {
-          const value = responses[q.param];
-          const indicator = document.getElementById(`indicator-${q.param}`);
-          const display = indicator.querySelector(".text-lg");
-
-          if (value !== undefined && value !== 0) {
-            indicator.classList.remove("opacity-50");
-            display.textContent = `${value > 0 ? "+" : ""}${value.toFixed(1)}${q.unit}`;
-
-            // Color code based on value and parameter type
-            const colorClass = getParamColor(q.param, value);
-            indicator.className = indicator.className
-              .replace(/bg-[\w-]+/g, "")
-              .replace(/from-[\w-]+/g, "")
-              .replace(/to-[\w-]+/g, "");
-            // Ensure multiple classes are added as separate tokens to avoid DOMTokenList errors
-            colorClass.split(" ").forEach((cls) => {
-              if (cls && !/\s/.test(cls)) {
-                indicator.classList.add(cls);
-              }
-            });
-          } else {
-            indicator.classList.add("opacity-50");
-            display.textContent = "--";
-          }
-        });
-      }
-
-      function getParamColor(param, value) {
-        if (param === "e") {
-          if (value < -2) return "bg-gradient-to-br from-blue-50 to-blue-100";
-          if (value > 2) return "bg-gradient-to-br from-red-50 to-red-100";
-          return "bg-gradient-to-br from-gray-50 to-gray-100";
-        }
-        if (param === "p") {
-          if (value < -2) return "bg-gradient-to-br from-gray-50 to-gray-100";
-          if (value > 5)
-            return "bg-gradient-to-br from-purple-50 to-purple-100";
-          return "bg-gradient-to-br from-blue-50 to-blue-100";
-        }
-        if (param === "t") {
-          if (value < -20) return "bg-gradient-to-br from-red-50 to-red-100";
-          if (value > 20) return "bg-gradient-to-br from-blue-50 to-blue-100";
-          return "bg-gradient-to-br from-gray-50 to-gray-100";
-        }
-        if (param === "b") {
-          if (value < 0.9)
-            return "bg-gradient-to-br from-green-50 to-green-100";
-          if (value > 1.1)
-            return "bg-gradient-to-br from-orange-50 to-orange-100";
-          return "bg-gradient-to-br from-gray-50 to-gray-100";
-        }
-        // Extended parameters
-        if (param === "e2") {
-          if (value < -1)
-            return "bg-gradient-to-br from-orange-50 to-orange-100";
-          if (value > 1) return "bg-gradient-to-br from-green-50 to-green-100";
-          return "bg-gradient-to-br from-gray-50 to-gray-100";
-        }
-        if (param === "p2") {
-          if (value < -2) return "bg-gradient-to-br from-gray-50 to-gray-100";
-          if (value > 2) return "bg-gradient-to-br from-pink-50 to-pink-100";
-          return "bg-gradient-to-br from-blue-50 to-blue-100";
-        }
-        if (param === "t2") {
-          if (value < -10) return "bg-gradient-to-br from-red-50 to-red-100";
-          if (value > 15)
-            return "bg-gradient-to-br from-yellow-50 to-yellow-100";
-          return "bg-gradient-to-br from-gray-50 to-gray-100";
-        }
-        if (param === "b2") {
-          if (value < 1.5) return "bg-gradient-to-br from-blue-50 to-blue-100";
-          if (value > 3) return "bg-gradient-to-br from-red-50 to-red-100";
-          return "bg-gradient-to-br from-purple-50 to-purple-100";
-        }
-        return "glass-card";
       }
 
       function nextQuestion() {
@@ -1984,12 +1654,6 @@
         renderResult();
       }
 
-      // Long-form state descriptions (progressively extendable)
-      const stateDetails = {
-        "Flow state":
-          "Prediction accuracy approaches 95%+ for task-relevant inputs; precision Π_task > 5σ above baseline while Π_distractor < 0.5σ; ignition threshold θₜ maintained 10-15% below resting baseline with <5% variance over time. Flow represents an optimal ignition regime where the cortical reservoir achieves maximal task-relevant coherence with minimal metabolic overhead. The precision-threshold architecture enters a transient attractor state characterized by: (1) tight temporal coupling between prediction and sensory input (lag <100ms), (2) sustained dopaminergic tone maintaining stable but accessible threshold, (3) selective noradrenergic enhancement of task-relevant precision weights, and (4) reduced global competition for ignition—creating uninterrupted access for goal-aligned content. This configuration maximizes the information-theoretic efficiency ratio: relevant information accessed per unit metabolic cost. Unlike mere engagement, flow exhibits temporal entrainment (rhythmic precision-threshold oscillations phase-locked to task structure) and metacognitive suppression (reduced self-monitoring precision, enabling automatic execution).",
-      };
-
       function renderResult() {
         const { state, confidence, similar, avgResponses } = detectionResult;
 
@@ -2021,49 +1685,13 @@
         }
 
         // Update interpretation text
-        document.getElementById("interpretation-text").textContent =
-          `Your responses indicate ${getParameterInterpretation(avgResponses)}`;
+        document.getElementById("state-interpretation").textContent =
+          `Your responses are closest to this state description: ${getStateInterpretation(state)}`;
 
         // Update icon
         const iconEl = document.getElementById("state-icon");
         iconEl.className = `state-icon bg-gradient-to-br ${state.color} text-white`;
         iconEl.innerHTML = `<i class="${state.icon}"></i>`;
-
-        // Update parameter values with aggregated responses
-        document.getElementById("val-e").textContent =
-          `${avgResponses.e > 0 ? "+" : ""}${avgResponses.e.toFixed(1)}σ`;
-        document.getElementById("val-p").textContent =
-          `${avgResponses.p > 0 ? "+" : ""}${avgResponses.p.toFixed(1)}σ`;
-        document.getElementById("val-t").textContent =
-          `${avgResponses.t > 0 ? "+" : ""}${avgResponses.t.toFixed(1)}%`;
-        document.getElementById("val-b").textContent =
-          avgResponses.b.toFixed(2);
-
-        // Update parameter descriptions
-        document.getElementById("desc-e").textContent = getParameterDescription(
-          "e",
-          avgResponses.e,
-        );
-        document.getElementById("desc-p").textContent = getParameterDescription(
-          "p",
-          avgResponses.p,
-        );
-        document.getElementById("desc-t").textContent = getParameterDescription(
-          "t",
-          avgResponses.t,
-        );
-        document.getElementById("desc-b").textContent = getParameterDescription(
-          "b",
-          avgResponses.b,
-        );
-
-        // Update confidence
-        document.getElementById("confidence-value").textContent =
-          `${confidence}%`;
-        setTimeout(() => {
-          document.getElementById("confidence-bar").style.width =
-            `${confidence}%`;
-        }, 100);
 
         // Update similar states
         const similarEl = document.getElementById("similar-states");
@@ -2080,114 +1708,35 @@
 
       function getStateInterpretation(state) {
         const interpretations = {
-          "Flow state":
-            "optimal task engagement with suppressed metacognition.",
-          Anxiety: "threat-biased processing with lowered ignition thresholds.",
-          Depression:
-            "negative filtering with elevated thresholds for positive content.",
-          Mindfulness: "balanced awareness with reduced top-down control.",
-          Focus: "signal-to-noise optimization for task-relevant information.",
-          "Joy/Happiness":
-            "positive reward prediction errors with sustained ventral striatal activation.",
-          Stress: "non-selective arousal with unstable thresholds.",
-          Fear: "imminent threat detection with extreme somatic dominance.",
-          "Love (romantic)":
-            "long-term attachment predictions with extreme metabolic investment.",
-          Creativity: "loosened constraints enabling remote associations.",
-          Empathy:
-            "insula-mediated somatic simulation of others' emotional states.",
-          Loneliness:
-            "social prediction errors with paradoxical rejection sensitivity.",
-          Anger:
-            "goal obstruction detection with rapid behavioral mobilization.",
-          Serenity: "high prediction accuracy with parasympathetic dominance.",
-          Curiosity:
-            "inverted prediction error response where uncertainty is valued.",
-          Overwhelm: "reservoir saturation from excessive concurrent demands.",
-          Dissociation:
-            "protective detachment through prefrontal-insula uncoupling.",
-          Hyperfocus:
-            "complete absorption with suppressed metacognition and time distortion.",
+          "Flow state": "feeling fully absorbed in what you are doing.",
+          "Heightened Unease": "feeling on edge or alert to possible problems.",
+          "Low Mood": "feeling flat, heavy or low in energy.",
+          Mindfulness: "calm, open awareness of the present moment.",
+          Focus: "attention held steadily on one task.",
+          "Joy/Happiness": "feeling positive and uplifted.",
+          Stress: "feeling pressured, with attention pulled in several directions.",
+          Fear: "feeling an immediate sense of threat.",
+          "Love (romantic)": "feeling warmly attached to someone.",
+          Creativity: "thinking loosely and making unexpected connections.",
+          Empathy: "tuning in to how someone else feels.",
+          Loneliness: "feeling disconnected from other people.",
+          Anger: "feeling blocked or treated unfairly.",
+          Serenity: "feeling settled and at ease.",
+          Curiosity: "wanting to explore something uncertain.",
+          Overwhelm: "feeling that too many demands are arriving at once.",
+          "Feeling Detached": "feeling distant from yourself or your surroundings.",
+          Hyperfocus: "being so absorbed that time seems to pass unnoticed.",
         };
         return (
           interpretations[state.name] ||
-          "a specific configuration of prediction, precision, threshold, and somatic parameters."
+          "a distinctive mix of feelings and attention."
         );
-      }
-
-      function getParameterInterpretation(responses) {
-        const interpretations = [];
-
-        if (responses.e > 3)
-          interpretations.push(
-            "large prediction errors (reality far from expectations)",
-          );
-        else if (responses.e < -2)
-          interpretations.push(
-            "negative prediction errors (reality exceeding expectations)",
-          );
-        else if (Math.abs(responses.e) < 1)
-          interpretations.push("well-calibrated predictions");
-
-        if (responses.p > 6)
-          interpretations.push("extremely focused attention");
-        else if (responses.p < -1)
-          interpretations.push("diffuse, unfocused attention");
-        else if (responses.p > 2) interpretations.push("enhanced precision");
-
-        if (responses.t < -30) interpretations.push("hyper-reactive state");
-        else if (responses.t > 30)
-          interpretations.push("elevated ignition threshold");
-        else if (responses.t < -15)
-          interpretations.push("lowered threshold for ignition");
-
-        if (responses.b > 2) interpretations.push("strong inward somatic bias");
-        else if (responses.b < 0.7)
-          interpretations.push("outward environmental focus");
-        else if (responses.b > 1.3)
-          interpretations.push("increased body awareness");
-
-        if (interpretations.length === 0)
-          return "balanced parameters across all dimensions.";
-        return interpretations.join(", ") + ".";
-      }
-
-      function getParameterDescription(param, value) {
-        const descriptions = {
-          e: () => {
-            if (value < -2) return "Reality exceeds expectations";
-            if (value < 1) return "Predictions well-calibrated";
-            if (value < 3) return "Reality falls short";
-            return "Large prediction mismatch";
-          },
-          p: () => {
-            if (value < -1) return "Diffuse attention";
-            if (value < 3) return "Moderate focus";
-            if (value < 6) return "High precision";
-            return "Channel dominance";
-          },
-          t: () => {
-            if (value < -30) return "Hyper-sensitive";
-            if (value < -10) return "Low threshold";
-            if (value < 20) return "Normal range";
-            if (value < 40) return "Elevated threshold";
-            return "Blocked ignition";
-          },
-          b: () => {
-            if (value < 0.7) return "Outward focus";
-            if (value < 1.2) return "Balanced attention";
-            if (value < 2) return "Inward bias";
-            return "Somatic dominance";
-          },
-        };
-        return descriptions[param]?.() || "";
       }
 
       function showDetails() {
         document.getElementById("result-view").classList.add("hidden");
         document.getElementById("details-view").classList.remove("hidden");
 
-        renderRadarChart();
         renderTopMatches();
         renderStatesTable();
       }
@@ -2195,127 +1744,6 @@
       function hideDetails() {
         document.getElementById("details-view").classList.add("hidden");
         document.getElementById("result-view").classList.remove("hidden");
-      }
-
-      function renderRadarChart() {
-        const ctx = document.getElementById("radar-chart").getContext("2d");
-
-        if (radarChart) {
-          radarChart.destroy();
-        }
-
-        const avgResponses = detectionResult.avgResponses;
-
-        // Normalize responses for radar chart (using primary 4 parameters)
-        const normalizedResponses = {
-          e: (avgResponses.e + 6) / 12, // Normalize -6 to +6 to 0-1
-          p: (avgResponses.p + 5) / 20, // Normalize -5 to +15 to 0-1
-          t: (avgResponses.t + 60) / 130, // Normalize -60 to +70 to 0-1
-          b: (avgResponses.b - 0.1) / 3.9, // Normalize 0.1 to 4.0 to 0-1
-        };
-
-        const closestState = detectionResult.state;
-        const normalizedState = {
-          e: (closestState.e + 6) / 12,
-          p: (closestState.p + 5) / 20,
-          t: (closestState.t + 60) / 130,
-          b: (closestState.b - 0.1) / 3.9,
-        };
-
-        radarChart = new Chart(ctx, {
-          type: "radar",
-          data: {
-            labels: [
-              "Prediction Error (ε)",
-              "Precision (π)",
-              "Threshold (θ)",
-              "Somatic Bias (β)",
-            ],
-            datasets: [
-              {
-                label: "Your Response",
-                data: [
-                  normalizedResponses.e,
-                  normalizedResponses.p,
-                  normalizedResponses.t,
-                  normalizedResponses.b,
-                ],
-                backgroundColor: "rgba(59, 130, 246, 0.2)",
-                borderColor: "rgb(59, 130, 246)",
-                pointBackgroundColor: "rgb(59, 130, 246)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgb(59, 130, 246)",
-                borderWidth: 2,
-              },
-              {
-                label: closestState.name,
-                data: [
-                  normalizedState.e,
-                  normalizedState.p,
-                  normalizedState.t,
-                  normalizedState.b,
-                ],
-                backgroundColor: "rgba(139, 92, 246, 0.2)",
-                borderColor: "rgb(139, 92, 246)",
-                pointBackgroundColor: "rgb(139, 92, 246)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgb(139, 92, 246)",
-                borderWidth: 2,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              r: {
-                beginAtZero: true,
-                max: 1,
-                ticks: {
-                  display: false,
-                  stepSize: 0.25,
-                },
-                pointLabels: {
-                  font: {
-                    size: 12,
-                    weight: "bold",
-                  },
-                },
-                grid: {
-                  color: "rgba(0, 0, 0, 0.1)",
-                },
-                angleLines: {
-                  color: "rgba(0, 0, 0, 0.1)",
-                },
-              },
-            },
-            plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  font: {
-                    size: 12,
-                  },
-                  padding: 20,
-                },
-              },
-              tooltip: {
-                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                padding: 12,
-                titleFont: {
-                  size: 14,
-                },
-                bodyFont: {
-                  size: 12,
-                },
-              },
-            },
-            responsive: true,
-            maintainAspectRatio: true,
-          },
-        });
       }
 
       function renderTopMatches() {
@@ -2354,10 +1782,6 @@
             return `
                     <tr class="hover:bg-gray-50">
                         <td class="py-2 font-medium">${match.state.name}</td>
-                        <td class="text-center py-2">${match.state.e > 0 ? "+" : ""}${match.state.e.toFixed(1)}σ</td>
-                        <td class="text-center py-2">${match.state.p > 0 ? "+" : ""}${match.state.p.toFixed(1)}σ</td>
-                        <td class="text-center py-2">${match.state.t > 0 ? "+" : ""}${match.state.t.toFixed(1)}%</td>
-                        <td class="text-center py-2">${match.state.b.toFixed(2)}</td>
                         <td class="text-center py-2">
                             <div class="inline-flex items-center">
                                 <div class="w-16 h-2 bg-gray-200 rounded-full overflow-hidden mr-2">
